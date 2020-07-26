@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Observable, from } from 'rxjs';
+import { AngularTokenService } from 'angular-token';
 
 export interface ISignInCredentials {
   email: string;
@@ -22,15 +23,22 @@ export interface IPasswordReset {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  constructor(private afAuth: AngularFireAuth) { }
+  constructor(private afAuth: AngularFireAuth,private tokenService: AngularTokenService) { }
 
-  signIn(credentials: ISignInCredentials): Observable<auth.UserCredential> {
-    return from(this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password));
-  }
+  signIn(credentials: ISignInCredentials): Observable<any> {
+    const body = {
+  registration_number: credentials.email,
+  password: credentials.password
+};
+const userResp = from(this.tokenService.signIn({login:  credentials.email, password:   credentials.password}))
 
-  signOut() {
-    return from(this.afAuth.auth.signOut());
-  }
+return userResp
+}
+
+
+signOut() {
+  return from(this.tokenService.signOut());
+}
 
   register(credentials: ICreateCredentials) {
     return from(

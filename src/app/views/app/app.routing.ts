@@ -10,7 +10,6 @@ const routes: Routes = [
             { path: '', pathMatch: 'full', redirectTo: 'vien' },
             { path: 'vien', loadChildren: () => import('./vien/vien.module').then(m => m.VienModule) },
             { path: 'second-menu', loadChildren: () => import('./second-menu/second-menu.module').then(m => m.SecondMenuModule) },
-            { path: 'blank-page', component: BlankPageComponent },
         ]
     }
 ];

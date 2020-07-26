@@ -4,9 +4,7 @@ import { ViewsComponent } from './views.component';
 import { ErrorComponent } from './error/error.component';
 import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { environment } from './../../environments/environment';
-
-const redirectUnauthorizedToLogin = () =>  redirectUnauthorizedTo(['/user']) ;
-const redirectLoggedInToItems = () => redirectLoggedInTo(['/app']);
+import { AuthGuard } from '../core/auth.guard';
 
 let routes: Routes = [
   {
@@ -14,8 +12,8 @@ let routes: Routes = [
     component: ViewsComponent,
     pathMatch: 'full',
   },
-  { path: 'app', loadChildren: () => import('./app/app.module').then(m => m.AppModule), canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin } },
-  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule), data: { authGuardPipe: redirectLoggedInToItems } },
+  { path: 'app', loadChildren: () => import('./app/app.module').then(m => m.AppModule), canActivate: [AuthGuard] },
+  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
   { path: 'error', component: ErrorComponent },
   { path: '**', redirectTo: '/error' }
 ];

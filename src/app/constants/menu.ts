@@ -33,19 +33,6 @@ const data: IMenuItem[] = [
         to: '/app/second-menu/second'
       }
     ]
-  },
-  {
-    id: 'blankpage',
-    icon: 'iconsminds-bucket',
-    label: 'menu.blank-page',
-    to: '/app/blank-page'
-  },
-  {
-    id: 'docs',
-    icon: 'iconsminds-library',
-    label: 'menu.docs',
-    to: 'https://vien-docs.coloredstrategies.com/',
-    newWindow: true
   }
 ];
 export default data;

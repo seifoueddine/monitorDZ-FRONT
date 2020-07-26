@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 export class TopnavComponent implements OnInit, OnDestroy {
   sidebar: ISidebar;
   subscription: Subscription;
-  displayName = 'Sarah Cortney';
+  displayName = '';
   languages: Language[];
   currentLanguage: string;
   isSingleLang;
@@ -21,11 +21,16 @@ export class TopnavComponent implements OnInit, OnDestroy {
   isDarkModeActive = false;
   searchKey = '';
 
-  constructor(private sidebarService: SidebarService, private authService: AuthService, private router: Router, private langService: LangService) {
+  constructor(private sidebarService: SidebarService, private authService: AuthService, private router: Router, private langService: LangService,) {
     this.languages = this.langService.supportedLanguages;
     this.currentLanguage = this.langService.languageShorthand;
     this.isSingleLang = this.langService.isSingleLang;
     this.isDarkModeActive = this.getColor().indexOf('dark') > -1 ? true : false;
+    const user = localStorage.getItem('user');
+    const userObject =  JSON.parse(user);
+    if (userObject) {
+      this.displayName = userObject.name ;
+    }
   }
 
   onDarkModeChange(event) {
@@ -100,11 +105,6 @@ export class TopnavComponent implements OnInit, OnDestroy {
     this.sidebarService.clickOnMobileMenu(containerClassnames);
   }
 
-  onSignOut() {
-    this.authService.signOut().subscribe(() => {
-      this.router.navigate(['/']);
-    });
-  }
 
   searchKeyUp(event: KeyboardEvent) {
     if (event.key === 'Enter') {
@@ -156,5 +156,29 @@ export class TopnavComponent implements OnInit, OnDestroy {
     const input = document.querySelector('.mobile-view');
     if (input && input.classList) { input.classList.remove('mobile-view'); }
     this.searchKey = '';
+  }
+
+  onSignOut() {
+    this.authService.signOut().subscribe((user) => {
+
+     
+      localStorage.removeItem('isLoggedin');
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user_creds');
+      localStorage.removeItem('client');
+      localStorage.removeItem('accessToken');
+  
+      localStorage.removeItem('expiry');
+      localStorage.removeItem('uid');
+      localStorage.removeItem('tokenType');
+   
+        this.router.navigate(['/']);
+        
+       
+      }, (error) => {
+        console.log(error);
+      });
+  
   }
 }
