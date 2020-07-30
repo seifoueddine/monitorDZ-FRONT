@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LayoutContainersModule } from 'src/app/containers/layout/layout.containers.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { LayoutContainersModule } from 'src/app/containers/layout/layout.contain
     CommonModule,
     AppRoutingModule,
     SharedModule,
-    LayoutContainersModule
+    LayoutContainersModule,
+    TranslateModule,
   ]
 })
 export class AppModule { }

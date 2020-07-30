@@ -5,6 +5,7 @@ import { ViewRoutingModule } from './views.routing';
 import { SharedModule } from '../shared/shared.module';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ViewsComponent],
@@ -13,7 +14,8 @@ import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
     ViewRoutingModule,
     SharedModule,
     AngularFireAuthModule,
-    AngularFireAuthGuardModule
+    AngularFireAuthGuardModule,
+    TranslateModule,
   ]
 })
 export class ViewsModule { }
