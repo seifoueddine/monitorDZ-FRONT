@@ -8,9 +8,10 @@ const routes: Routes = [
         path: '', component: AppComponent,
         children: [
             { path: '', pathMatch: 'full', redirectTo: 'vien' },
-            { path: 'vien', loadChildren: () => import('./vien/vien.module').then(m => m.VienModule) },
+            // { path: 'vien', loadChildren: () => import('./vien/vien.module').then(m => m.VienModule) },
             { path: 'slugs', loadChildren: () => import('./slugs/slugs.module').then(m => m.SlugsModule) },
-            { path: 'second-menu', loadChildren: () => import('./second-menu/second-menu.module').then(m => m.SecondMenuModule) },
+            { path: 'sectors', loadChildren: () => import('./sectors/sectors.module').then(m => m.SectorsModule) },
+            // { path: 'second-menu', loadChildren: () => import('./second-menu/second-menu.module').then(m => m.SecondMenuModule) },
         ]
     }
 ];

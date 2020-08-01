@@ -26,6 +26,12 @@ const data: IMenuItem[] = [
     icon: 'iconsminds-building',
     label: 'menu.slugs',
     to: '/app/slugs'
+  },
+  {
+    id: 'sectors',
+    icon: 'iconsminds-building',
+    label: 'menu.sectors',
+    to: '/app/sectors'
   }
 ];
 export default data;
