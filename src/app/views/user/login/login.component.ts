@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('user', JSON.stringify(user.body.data));
 
         // if(user.body.data.role === 'admin'){
-          this.router.navigate(['/app']);
+          this.router.navigate(['/app/slugs']);
         // }else{
         //   this.router.navigate(['/app/checks']);
         // }
