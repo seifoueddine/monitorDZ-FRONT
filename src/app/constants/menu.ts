@@ -29,7 +29,7 @@ const data: IMenuItem[] = [
   },
   {
     id: 'sectors',
-    icon: 'iconsminds-building',
+    icon: 'iconsminds-gear',
     label: 'menu.sectors',
     to: '/app/sectors'
   }

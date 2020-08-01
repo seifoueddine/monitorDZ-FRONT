@@ -7,7 +7,7 @@ const routes: Routes = [
     {
         path: '', component: AppComponent,
         children: [
-            { path: '', pathMatch: 'full', redirectTo: 'vien' },
+            { path: '', pathMatch: 'full', redirectTo: 'slugs' },
             // { path: 'vien', loadChildren: () => import('./vien/vien.module').then(m => m.VienModule) },
             { path: 'slugs', loadChildren: () => import('./slugs/slugs.module').then(m => m.SlugsModule) },
             { path: 'sectors', loadChildren: () => import('./sectors/sectors.module').then(m => m.SectorsModule) },

@@ -17,6 +17,7 @@ export const environment = {
   API_VERSION: apiVersion,
   ENDPOINTS: {
     SLUGS_PATH: apiVersion + '/slugs',
+    SECTORS_PATH: apiVersion + '/sectors',
   },
 
 
