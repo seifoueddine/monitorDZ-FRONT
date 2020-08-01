@@ -20,8 +20,9 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
 import { SectorsComponent } from './sectors.component';
 import { SectorsRoutingModule } from './sectors.routing';
+import { SectorFormComponent } from './sector-form/sector-form.component';
 @NgModule({
-  declarations: [SectorsComponent],
+  declarations: [SectorsComponent,SectorFormComponent],
   imports: [
     SharedModule,
     LayoutContainersModule,

@@ -4,6 +4,7 @@ import { OurNotificationsService } from 'src/app/shared/our-notifications.servic
 import { ActivatedRoute } from '@angular/router';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { DatatableComponent, ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
+import { SectorFormComponent } from './sector-form/sector-form.component';
 
 @Component({
   selector: 'app-sectors',
@@ -43,7 +44,7 @@ export class SectorsComponent implements OnInit {
 
   totalElements: any;
  
-  // @ViewChild('addNewModalRef', { static: true }) addNewModalRef: SectorFormComponent;
+ @ViewChild('addNewModalRef', { static: true }) addNewModalRef: SectorFormComponent;
   showModal: any;
 
   constructor(private sectorService: SectorsService, private notifications: NotificationsService,
@@ -96,12 +97,12 @@ export class SectorsComponent implements OnInit {
 
   
   showAddNewModal() {
-    //  this.addNewModalRef.show();
+    this.addNewModalRef.show(); 
   }
 
 
   editSector(sector){
-    //  this.addNewModalRef.show(sector);
+    this.addNewModalRef.show(sector);
   }
 
 
