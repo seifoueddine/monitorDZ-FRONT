@@ -18,6 +18,7 @@ export const environment = {
   ENDPOINTS: {
     SLUGS_PATH: apiVersion + '/slugs',
     SECTORS_PATH: apiVersion + '/sectors',
+    MEDIA_PATH: apiVersion + '/media',
   },
 
 

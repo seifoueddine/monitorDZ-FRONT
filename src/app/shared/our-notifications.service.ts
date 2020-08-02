@@ -12,6 +12,9 @@ export class OurNotificationsService {
   private reloadSectors = new Subject<any>();
   reloadSectorsNotifier$ = this.reloadSectors.asObservable();
 
+
+  private reloadMedia = new Subject<any>();
+  reloadMediaNotifier$ = this.reloadMedia.asObservable();
   constructor() { }
 
   notficateReloadSlugs() {
@@ -20,5 +23,9 @@ export class OurNotificationsService {
 
    notficateReloadSectors() {
     this.reloadSectors.next();
+  }
+
+  notficateReloadMedia() {
+    this.reloadMedia.next();
   }
 }
