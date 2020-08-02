@@ -20,8 +20,10 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
 import { MediaComponent } from './media.component';
 import { MediaRoutingModule } from './media.routing';
+import { MediaFormComponent } from './media-form/media-form.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
-  declarations: [MediaComponent],
+  declarations: [MediaComponent, MediaFormComponent],
   imports: [
     SharedModule,
     LayoutContainersModule,
@@ -43,6 +45,7 @@ import { MediaRoutingModule } from './media.routing';
     NgxDatatableModule,
     ComponentsCarouselModule,
     ArchwizardModule,
+    NgSelectModule,
   ]
 })
 export class MediaModule { }

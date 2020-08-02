@@ -1,0 +1,50 @@
+<ng-template #template>
+    <form [formGroup]="mediaForm" #form="ngForm" (ngSubmit)="createMedia($event)" novalidate class="tooltip-label-right">
+
+    <div class="modal-header">
+        <h4 *ngIf="!data" class="modal-title pull-left">Ajouter un nouveau secteur</h4>
+        <h4 *ngIf="data" class="modal-title pull-left">Mettre à jour le media</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+            <div class="form-group">
+                <label>Nom</label>
+                <input type="name" class="form-control" formControlName="name">
+                <div *ngIf="mediaForm.get('name').errors?.required && form.submitted" class="invalid-tooltip">Nom est requis</div>
+                <div *ngIf="mediaForm.get('name').errors?.minlength && form.submitted" class="invalid-tooltip">Le Nom doit contenir au moins 2 caractères!</div>
+            </div>
+
+            <div class="form-group">
+                <label>Type</label>
+                <ng-select appearance="outline" #agreeSelect [searchable]="false" formControlName="type">
+                    <ng-option value="digital">Numérique</ng-option>
+                    <ng-option value="paper">Papier</ng-option>
+                </ng-select>
+                <div *ngIf="mediaForm.get('type').errors?.required && form.submitted" class="invalid-tooltip">Type est requis</div>
+            </div>
+
+            <div class="form-group">
+                <label>Orientation</label>
+                <ng-select appearance="outline" #agreeSelect [searchable]="false" formControlName="orientation">
+                    <ng-option value="generalist">Généraliste</ng-option>
+                    <ng-option value="specialist">Spécialiste</ng-option>
+                </ng-select>
+                <div *ngIf="mediaForm.get('orientation').errors?.required && form.submitted" class="invalid-tooltip">L'orientation est requis</div>
+            </div>
+         
+    </div>
+
+ 
+        
+  
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary"
+            (click)="modalRef.hide()">Annuler</button>
+        <button type="submit" class="btn btn-primary float-right">Soumettre</button>
+    </div>
+</form>
+</ng-template>
+

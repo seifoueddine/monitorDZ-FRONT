@@ -4,6 +4,7 @@ import { MediaService } from 'src/app/shared/services/media.service';
 import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
+import { MediaFormComponent } from './media-form/media-form.component';
 
 @Component({
   selector: 'app-media',
@@ -43,7 +44,7 @@ export class MediaComponent implements OnInit {
 
   totalElements: any;
  
-//  @ViewChild('addNewModalRef', { static: true }) addNewModalRef: MediaFormComponent;
+  @ViewChild('addNewModalRef', { static: true }) addNewModalRef: MediaFormComponent;
   showModal: any;
 
   constructor(private mediaervice: MediaService, private notifications: NotificationsService,
@@ -96,12 +97,12 @@ export class MediaComponent implements OnInit {
 
   
   showAddNewModal() {
-    // this.addNewModalRef.show(); 
+     this.addNewModalRef.show(); 
   }
 
 
   editMedia(sector){
-    // this.addNewModalRef.show(sector);
+   this.addNewModalRef.show(sector);
   }
 
 
