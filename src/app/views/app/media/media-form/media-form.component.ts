@@ -5,6 +5,7 @@ import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Media } from 'src/app/shared/models/media.model';
+import { SectorsService } from 'src/app/shared/services/sectors.service';
 
 @Component({
   selector: 'app-media-form',
@@ -25,13 +26,44 @@ export class MediaFormComponent implements OnInit {
   mediaForm: FormGroup;
   data: any
   types: { id: string; name: string; }[];
-  constructor(private modalService: BsModalService,
+  sectors: any;
+  sectorsIds = [];
+  constructor(private modalService: BsModalService,private sectorService: SectorsService,
               private mediaService: MediaService, private notifications: NotificationsService,
               private ourNotificationService: OurNotificationsService)
                { 
                }
 
   ngOnInit() {
+    this.getSectors();
+  }
+
+
+  getSectors(){
+    this.sectorService.getSectors(1, 'created_at' , 'desc', 9999, '').subscribe(
+      data => {
+        if (data.status) {
+ 
+          const resp = data.body;
+          this.sectors = resp.data
+        }
+      },
+      error => {
+        this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      }
+    );
+  }
+
+   
+  customSearch(term: string, item: any) {
+    term = term.toLocaleLowerCase();
+    return item.attributes.name.toLocaleLowerCase().indexOf(term) > -1
+  }
+  selectSector(event){
+    this.sectorsIds = [];
+    const sectorsArray = event;
+    sectorsArray.map(s=> this.sectorsIds.push(s.id));
+    console.log(this.sectorsIds);
   }
 
   show(data?) { 
@@ -47,6 +79,7 @@ export class MediaFormComponent implements OnInit {
         name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
         type: new FormControl(null, [Validators.required]),
         orientation: new FormControl(null, [Validators.required]),
+        sector_id: new FormControl(null, [Validators.required]),
       });
 
     } else {
@@ -66,7 +99,7 @@ export class MediaFormComponent implements OnInit {
           const object = new Media;
           object.id = this.data.id
           object.name = this.mediaForm.value.name;
-          object.type = this.mediaForm.value.type;
+          object.madia_type = this.mediaForm.value.type;
           object.orientation = this.mediaForm.value.orientation;
           this.mediaService.updateMedia(object).subscribe(resCreate => {
 
@@ -85,8 +118,9 @@ export class MediaFormComponent implements OnInit {
         const media: Media = new Media();
         event.preventDefault();
         media.name = this.mediaForm.value.name;
-        media.type = this.mediaForm.value.type;
+        media.madia_type = this.mediaForm.value.type;
         media.orientation = this.mediaForm.value.orientation;
+        media.sector_id = this.sectorsIds.join(',');
         this.mediaService.addMedia(media).subscribe(resCreate => {
           console.log(resCreate);
           this.notifications.create('Success', 'Média créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
