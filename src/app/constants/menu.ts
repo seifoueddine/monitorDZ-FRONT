@@ -32,6 +32,12 @@ const data: IMenuItem[] = [
     icon: 'iconsminds-gear',
     label: 'menu.sectors',
     to: '/app/sectors'
+  },
+  {
+    id: 'media',
+    icon: 'iconsminds-newspaper',
+    label: 'menu.media',
+    to: '/app/media'
   }
 ];
 export default data;

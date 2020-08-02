@@ -11,6 +11,7 @@ const routes: Routes = [
             // { path: 'vien', loadChildren: () => import('./vien/vien.module').then(m => m.VienModule) },
             { path: 'slugs', loadChildren: () => import('./slugs/slugs.module').then(m => m.SlugsModule) },
             { path: 'sectors', loadChildren: () => import('./sectors/sectors.module').then(m => m.SectorsModule) },
+            { path: 'media', loadChildren: () => import('./media/media.module').then(m => m.MediaModule) },
             // { path: 'second-menu', loadChildren: () => import('./second-menu/second-menu.module').then(m => m.SecondMenuModule) },
         ]
     }
