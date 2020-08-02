@@ -77,7 +77,7 @@ export class MediaFormComponent implements OnInit {
     if (!this.data) {
       this.mediaForm = new FormGroup({
         name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
-        type: new FormControl(null, [Validators.required]),
+        media_type: new FormControl(null, [Validators.required]),
         orientation: new FormControl(null, [Validators.required]),
         sector_id: new FormControl(null, [Validators.required]),
       });
@@ -85,6 +85,9 @@ export class MediaFormComponent implements OnInit {
     } else {
       this.mediaForm = new FormGroup({
         name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
+        media_type: new FormControl(this.data.attributes.media_type, [Validators.required]),
+        orientation: new FormControl(this.data.attributes.orientation, [Validators.required]),
+        sector_id: new FormControl(this.data.sectorNameArray, [Validators.required]),
       });
     }
   }
@@ -99,7 +102,7 @@ export class MediaFormComponent implements OnInit {
           const object = new Media;
           object.id = this.data.id
           object.name = this.mediaForm.value.name;
-          object.madia_type = this.mediaForm.value.type;
+          object.madia_type = this.mediaForm.value.media_type;
           object.orientation = this.mediaForm.value.orientation;
           this.mediaService.updateMedia(object).subscribe(resCreate => {
 
@@ -118,7 +121,7 @@ export class MediaFormComponent implements OnInit {
         const media: Media = new Media();
         event.preventDefault();
         media.name = this.mediaForm.value.name;
-        media.madia_type = this.mediaForm.value.type;
+        media.madia_type = this.mediaForm.value.media_type;
         media.orientation = this.mediaForm.value.orientation;
         media.sector_id = this.sectorsIds.join(',');
         this.mediaService.addMedia(media).subscribe(resCreate => {

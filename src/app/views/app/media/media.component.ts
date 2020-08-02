@@ -46,6 +46,7 @@ export class MediaComponent implements OnInit {
  
   @ViewChild('addNewModalRef', { static: true }) addNewModalRef: MediaFormComponent;
   showModal: any;
+  sectors: any = [];
 
   constructor(private mediaervice: MediaService, private notifications: NotificationsService,
     private ourNotificationService: OurNotificationsService,private route: ActivatedRoute ) { }
@@ -86,6 +87,7 @@ export class MediaComponent implements OnInit {
           this.totalItem = data.totalItem;
           this.totalPage = data.totalPage;
           this.spinner = false;
+          this.sectors = resp.included;
         }
       },
       error => {
@@ -101,8 +103,15 @@ export class MediaComponent implements OnInit {
   }
 
 
-  editMedia(sector){
-   this.addNewModalRef.show(sector);
+  editMedia(media){
+  let sectorIdsArray = [];
+  media.relationships.sectors.data.map(x=> sectorIdsArray.push(x.id));
+  const sectorList =  this.sectors.filter(f => sectorIdsArray.includes(f.id));  
+  let sectorNameArray = [];
+  sectorList.map(x=> sectorNameArray.push(x.id));
+ 
+   media.sectorNameArray = sectorNameArray;
+   this.addNewModalRef.show(media);
   }
 
 
@@ -195,6 +204,20 @@ export class MediaComponent implements OnInit {
    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
    console.log(pageInfo);
    console.log(this.currentPage);
+ }
+
+
+ getSectors(media){ 
+
+
+  let sectorIdsArray = [];
+  media.relationships.sectors.data.map(x=> sectorIdsArray.push(x.id));
+  const sectorList =  this.sectors.filter(f => sectorIdsArray.includes(f.id));  
+  let sectorNameArray = [];
+  sectorList.map(x=> sectorNameArray.push(x.attributes.name));
+  return  sectorNameArray.join(',') 
+
+
  }
 
 
