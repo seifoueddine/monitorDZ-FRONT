@@ -12,6 +12,7 @@ const routes: Routes = [
             { path: 'slugs', loadChildren: () => import('./slugs/slugs.module').then(m => m.SlugsModule) },
             { path: 'sectors', loadChildren: () => import('./sectors/sectors.module').then(m => m.SectorsModule) },
             { path: 'media', loadChildren: () => import('./media/media.module').then(m => m.MediaModule) },
+             { path: 'campaigns', loadChildren: () => import('./campaigns/campaigns.module').then(m => m.CampaignsModule) },
             // { path: 'second-menu', loadChildren: () => import('./second-menu/second-menu.module').then(m => m.SecondMenuModule) },
         ]
     }

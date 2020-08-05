@@ -52,7 +52,7 @@ import { AngularFireModule } from '@angular/fire';
     }),
   ],
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

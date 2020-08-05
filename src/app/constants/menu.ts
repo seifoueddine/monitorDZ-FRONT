@@ -38,6 +38,12 @@ const data: IMenuItem[] = [
     icon: 'iconsminds-newspaper',
     label: 'menu.media',
     to: '/app/media'
+  },
+  {
+    id: 'campaigns',
+    icon: 'simple-icon-flag',
+    label: 'menu.campaigns',
+    to: '/app/campaigns'
   }
 ];
 export default data;
