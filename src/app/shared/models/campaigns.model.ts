@@ -4,5 +4,7 @@ export class Campaigns {
    start_date: Date;
    end_date: Date;
    slug_id: string;
+   sector_id: string;
+   media_id: string;
     
 }

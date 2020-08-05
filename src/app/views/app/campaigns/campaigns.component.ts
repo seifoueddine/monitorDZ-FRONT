@@ -4,6 +4,7 @@ import { NotificationType, NotificationsService } from 'angular2-notifications';
 import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
 import { ActivatedRoute } from '@angular/router';
 import { CampaignsService } from 'src/app/shared/services/campaigns.service';
+import { CampaignFormComponent } from './campaign-form/campaign-form.component';
 
 @Component({
   selector: 'app-campaigns',
@@ -44,10 +45,10 @@ export class CampaignsComponent implements OnInit {
 
   totalElements: any;
  
-  // @ViewChild('addNewModalRef', { static: true }) addNewModalRef: CampaignFormComponent;
+   @ViewChild('addNewModalRef', { static: true }) addNewModalRef: CampaignFormComponent;
   showModal: any;
   sectors: any = [];
-
+  media: any = [];
   constructor(private campaignService: CampaignsService, private notifications: NotificationsService,
     private ourNotificationService: OurNotificationsService,private route: ActivatedRoute ) { }
 
@@ -87,7 +88,8 @@ export class CampaignsComponent implements OnInit {
           this.totalItem = data.totalItem;
           this.totalPage = data.totalPage;
           this.spinner = false;
-          this.sectors = resp.included;
+          this.sectors = resp.included.filter(s=> s.type === 'sector');
+          this.media = resp.included.filter(s=> s.type === 'medium');
         }
       },
       error => {
@@ -99,19 +101,24 @@ export class CampaignsComponent implements OnInit {
 
   
   showAddNewModal() {
-    //  this.addNewModalRef.show(); 
+    this.addNewModalRef.show(); 
   }
 
 
   editCampaign(campaign){
   let sectorIdsArray = [];
+  let mediaIdsArray = [];
   campaign.relationships.sectors.data.map(x=> sectorIdsArray.push(x.id));
+  campaign.relationships.media.data.map(x=> mediaIdsArray.push(x.id));
   const sectorList =  this.sectors.filter(f => sectorIdsArray.includes(f.id));  
+  const mediaList =  this.media.filter(f => mediaIdsArray.includes(f.id));
   let sectorNameArray = [];
+  let mediaNameArray = [];
   sectorList.map(x=> sectorNameArray.push(x.id));
- 
+  mediaList.map(x=> mediaNameArray.push(x.id));
    campaign.sectorNameArray = sectorNameArray;
-  //  this.addNewModalRef.show(campaign);
+   campaign.mediaNameArray = mediaNameArray;
+    this.addNewModalRef.show(campaign);
   }
 
 
@@ -216,6 +223,21 @@ export class CampaignsComponent implements OnInit {
   let sectorNameArray = [];
   sectorList.map(x=> sectorNameArray.push(x.attributes.name));
   return  sectorNameArray.join(',') 
+
+
+ }
+
+
+
+ getMedia(campaign){ 
+
+
+  let mediaIdsArray = [];
+  campaign.relationships.media.data.map(x=> mediaIdsArray.push(x.id));
+  const mediaList =  this.media.filter(f => mediaIdsArray.includes(f.id));  
+  let mediaNameArray = [];
+  mediaList.map(x=> mediaNameArray.push(x.attributes.name));
+  return  mediaNameArray.join(',') 
 
 
  }

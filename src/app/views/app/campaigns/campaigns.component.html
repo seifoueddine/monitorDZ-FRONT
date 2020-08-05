@@ -1,4 +1,4 @@
-<!-- <app-campaign-form #addNewModalRef></app-campaign-form>   -->
+ <app-campaign-form #addNewModalRef></app-campaign-form>   
 
  <app-list-page-header [selectAllState]="selectAllState" (selectAllChange)="selectAllChange($event)"
  [showOrderBy]="false" [showDisplayMode]="false" (searchKeyUp)="updateFilter($event)" (itemsPerPageChange)="onItemsPerPageChange($event)" [itemsPerPage]="itemsPerPage" [itemOptionsPerPage]="itemOptionsPerPage"
@@ -23,7 +23,7 @@
      <ngx-datatable-column name="Média"  [sortable]="false" prop="secteur" [flexGrow]="0.5">
         <ng-template let-row="row"  ngx-datatable-cell-template>
           <a >
-              <!-- {{ getSectors(row) }} -->
+               {{ getMedia(row) }} 
 
           </a> 
         </ng-template>
@@ -32,7 +32,7 @@
       <ngx-datatable-column name="Secteurs"  [sortable]="false" prop="secteur" [flexGrow]="0.5">
         <ng-template let-row="row"  ngx-datatable-cell-template>
           <a >
-              <!-- {{ getSectors(row) }} -->
+             {{ getSectors(row) }} 
 
           </a> 
         </ng-template>

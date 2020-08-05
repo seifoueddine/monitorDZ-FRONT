@@ -1,0 +1,59 @@
+<ng-template #template>
+    <form [formGroup]="campaignForm" #form="ngForm" (ngSubmit)="createCampaign($event)" novalidate class="tooltip-label-right">
+
+    <div class="modal-header">
+        <h4 *ngIf="!data" class="modal-title pull-left">Ajouter une nouvelle campagne</h4>
+        <h4 *ngIf="data" class="modal-title pull-left">Mettre à jour la campagne</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+            <div class="form-group">
+                <label>Nom</label>
+                <input type="name" class="form-control" formControlName="name">
+                <div *ngIf="campaignForm.get('name').errors?.required && form.submitted" class="invalid-tooltip">Nom est requis</div>
+                <div *ngIf="campaignForm.get('name').errors?.minlength && form.submitted" class="invalid-tooltip">Le Nom doit contenir au moins 2 caractères!</div>
+            </div>
+
+            <div class="form-group">
+                <label>Entreprise</label>
+                <ng-select *ngIf="slugs" mul [items]="slugs" bindLabel='attributes.name' bindValue="id" 
+                formControlName="slug_id" [searchFn]="customSearchSlug" [multiple]="false" >
+              </ng-select>
+                <div *ngIf="campaignForm.get('slug_id').errors?.required && form.submitted" class="invalid-tooltip">Entreprise est requise</div>
+            </div>
+
+            <div class="form-group">
+                <label>Média</label>
+                <ng-select *ngIf="media" mul [items]="media" bindLabel='attributes.name' bindValue="id" 
+                formControlName="media_id" [searchFn]="customSearch" [multiple]="true" (change)="selectMedia($event)">
+              </ng-select>
+                <div *ngIf="campaignForm.get('media_id').errors?.required && form.submitted" class="invalid-tooltip">Média est requise</div>
+            </div>
+
+           <div class="form-group">
+                <label>Secteurs</label>
+                <ng-select *ngIf="sectors" mul [items]="sectors" bindLabel='attributes.name' bindValue="id" 
+                formControlName="sector_id" [searchFn]="customSearch" [multiple]="true" (change)="selectSector($event)">
+              </ng-select>
+                <div *ngIf="campaignForm.get('sector_id').errors?.required && form.submitted" class="invalid-tooltip">Secteur est requis</div>
+            </div>
+
+            
+         
+    </div>
+
+ 
+        
+  
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary"
+            (click)="modalRef.hide()">Annuler</button>
+        <button type="submit" class="btn btn-primary float-right">Soumettre</button>
+    </div>
+</form>
+</ng-template>
+
+
