@@ -1,8 +1,8 @@
-export class Media {
+export class Campaigns {
    id: number;
    name: string; 
-   sector_id: string;
-   orientation: string;
-   madia_type: string;
+   start_date: Date;
+   end_date: Date;
+   slug_id: string;
     
 }

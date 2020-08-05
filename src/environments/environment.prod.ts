@@ -19,6 +19,7 @@ export const environment = {
     SLUGS_PATH: apiVersion + '/slugs',
     SECTORS_PATH: apiVersion + '/sectors',
     MEDIA_PATH: apiVersion + '/media',
+    CAMPAIGNS_PATH: apiVersion + '/campaigns',
   },
 
 
