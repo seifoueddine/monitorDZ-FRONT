@@ -734,5 +734,10 @@
     "icons": "Icons",
     "saving": "Saving...",
     "vertical": "Vertical"
+  },
+  "errors": {
+    "E001":"Ce secteur appartient a une ou plusieurs médias",
+    "E002":"Ce secteur appartient a une ou plusieurs campagnes",
+    "E003":"Ce média appartient a une ou plusieurs campagnes"
   }
 }

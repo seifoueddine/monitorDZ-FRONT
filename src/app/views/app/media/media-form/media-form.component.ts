@@ -83,6 +83,7 @@ export class MediaFormComponent implements OnInit {
       });
 
     } else {
+      this.sectorsIds = this.data.sectorNameArray;
       this.mediaForm = new FormGroup({
         name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
         media_type: new FormControl(this.data.attributes.media_type, [Validators.required]),
@@ -104,12 +105,13 @@ export class MediaFormComponent implements OnInit {
           object.name = this.mediaForm.value.name;
           object.madia_type = this.mediaForm.value.media_type;
           object.orientation = this.mediaForm.value.orientation;
+          object.sector_id = this.sectorsIds.join(',');
           this.mediaService.updateMedia(object).subscribe(resCreate => {
 
             this.notifications.create('Success', 'Mettre à jour le média avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
             this.modalRef.hide();
             this.ourNotificationService.notficateReloadMedia();
-      
+            this.sectorsIds = [];
           }, err => {
             
             this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
