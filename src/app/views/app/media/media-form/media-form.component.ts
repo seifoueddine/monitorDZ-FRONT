@@ -28,6 +28,7 @@ export class MediaFormComponent implements OnInit {
   types: { id: string; name: string; }[];
   sectors: any;
   sectorsIds = [];
+  digital = false;
   constructor(private modalService: BsModalService,private sectorService: SectorsService,
               private mediaService: MediaService, private notifications: NotificationsService,
               private ourNotificationService: OurNotificationsService)
@@ -66,6 +67,12 @@ export class MediaFormComponent implements OnInit {
     console.log(this.sectorsIds);
   }
 
+  selectType(event){
+
+   event === 'digital' ? this.digital = true : this.digital = false
+    
+  }
+
   show(data?) { 
     this.data = data
     this.modalRef = this.modalService.show(this.template, this.config);
@@ -80,6 +87,7 @@ export class MediaFormComponent implements OnInit {
         media_type: new FormControl(null, [Validators.required]),
         orientation: new FormControl(null, [Validators.required]),
         sector_id: new FormControl(null, [Validators.required]),
+        url_crawling: new FormControl(null),
       });
 
     } else {
@@ -89,6 +97,7 @@ export class MediaFormComponent implements OnInit {
         media_type: new FormControl(this.data.attributes.media_type, [Validators.required]),
         orientation: new FormControl(this.data.attributes.orientation, [Validators.required]),
         sector_id: new FormControl(this.data.sectorNameArray, [Validators.required]),
+        url_crawling: new FormControl(this.data.attributes.url_crawling)
       });
     }
   }
@@ -103,8 +112,9 @@ export class MediaFormComponent implements OnInit {
           const object = new Media;
           object.id = this.data.id
           object.name = this.mediaForm.value.name;
-          object.madia_type = this.mediaForm.value.media_type;
+          object.media_type = this.mediaForm.value.media_type;
           object.orientation = this.mediaForm.value.orientation;
+          object.url_crawling = this.mediaForm.value.url_crawling;
           object.sector_id = this.sectorsIds.join(',');
           this.mediaService.updateMedia(object).subscribe(resCreate => {
 
@@ -123,9 +133,10 @@ export class MediaFormComponent implements OnInit {
         const media: Media = new Media();
         event.preventDefault();
         media.name = this.mediaForm.value.name;
-        media.madia_type = this.mediaForm.value.media_type;
+        media.media_type = this.mediaForm.value.media_type;
         media.orientation = this.mediaForm.value.orientation;
         media.sector_id = this.sectorsIds.join(',');
+        media.url_crawling = this.mediaForm.value.url_crawling;
         this.mediaService.addMedia(media).subscribe(resCreate => {
           console.log(resCreate);
           this.notifications.create('Success', 'Média créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });

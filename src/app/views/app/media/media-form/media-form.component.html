@@ -18,12 +18,19 @@
 
             <div class="form-group">
                 <label>Type</label>
-                <ng-select appearance="outline" #agreeSelect [searchable]="false" formControlName="media_type">
+                <ng-select appearance="outline" #agreeSelect [searchable]="false" formControlName="media_type" (change)="selectType($event)">
                     <ng-option value="digital">Numérique</ng-option>
                     <ng-option value="paper">Papier</ng-option>
                 </ng-select>
                 <div *ngIf="mediaForm.get('media_type').errors?.required && form.submitted" class="invalid-tooltip">Type est requis</div>
             </div>
+
+
+            <div *ngIf="digital" class="form-group">
+                <label>Url crawling</label>
+                <input type="name" class="form-control" formControlName="url_crawling">
+            </div>
+
 
             <div class="form-group">
                 <label>Orientation</label>

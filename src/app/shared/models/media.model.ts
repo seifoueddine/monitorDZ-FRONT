@@ -3,6 +3,6 @@ export class Media {
    name: string; 
    sector_id: string;
    orientation: string;
-   madia_type: string;
-    
+   media_type: string;
+   url_crawling: string;
 }

@@ -13,6 +13,8 @@ const routes: Routes = [
             { path: 'sectors', loadChildren: () => import('./sectors/sectors.module').then(m => m.SectorsModule) },
             { path: 'media', loadChildren: () => import('./media/media.module').then(m => m.MediaModule) },
              { path: 'campaigns', loadChildren: () => import('./campaigns/campaigns.module').then(m => m.CampaignsModule) },
+             { path: 'articles', loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule) },
+
             // { path: 'second-menu', loadChildren: () => import('./second-menu/second-menu.module').then(m => m.SecondMenuModule) },
         ]
     }

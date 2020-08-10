@@ -44,6 +44,12 @@ const data: IMenuItem[] = [
     icon: 'simple-icon-flag',
     label: 'menu.campaigns',
     to: '/app/campaigns'
+  },
+  {
+    id: 'articles',
+    icon: 'simple-icon-flag',
+    label: 'menu.articles',
+    to: '/app/articles'
   }
 ];
 export default data;
