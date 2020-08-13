@@ -6,6 +6,7 @@ import { ArticlesService } from 'src/app/shared/services/articles.service';
 import { Articles } from 'src/app/shared/models/articles.model';
 import { MediaService } from 'src/app/shared/services/media.service';
 import { Media } from 'src/app/shared/models/media.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-articles',
@@ -52,7 +53,7 @@ export class ArticlesComponent implements OnInit {
   // @ViewChild('addNewModalRef', { static: true }) addNewModalRef: AddNewSurveyModalComponent;
 
   constructor(private renderer: Renderer2, private articleService: ArticlesService, private notifications: NotificationsService,
-    private ourNotificationService: OurNotificationsService, private mediaService: MediaService) { }
+    private ourNotificationService: OurNotificationsService, private mediaService: MediaService, private router: Router) { }
 
   ngOnInit() {
     this.renderer.addClass(document.body, 'right-menu');
@@ -267,6 +268,13 @@ setPage(pageInfo) {
         this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
       }
     );
+  }
+
+  goToDetailsNewPage(article_id) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['app/articles/details'], { queryParams: { id: article_id } })
+    );
+    window.open(url, "_blank");
   }
 
 

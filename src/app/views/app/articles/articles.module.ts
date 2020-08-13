@@ -21,8 +21,9 @@ import { PagesContainersModule } from 'src/app/containers/pages/pages.containers
 import { ArticlesRoutingModule } from './articles.routing';
 import { ArticlesComponent } from './articles.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { DetailsArticleComponent } from './details-article/details-article.component';
 @NgModule({
-  declarations: [ArticlesComponent],
+  declarations: [ArticlesComponent, DetailsArticleComponent],
   imports: [
     SharedModule,
     LayoutContainersModule,

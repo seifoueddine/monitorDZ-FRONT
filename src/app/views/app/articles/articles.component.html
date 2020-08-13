@@ -114,7 +114,7 @@
                     <img class="card-img" [src]="a.attributes.url_image ? a.attributes.url_image : defaultImage" alt="Card image">
                     <div class="card-img-overlay">
                       <p class="list-item-heading mb-5">{{a.attributes.title}}</p>
-                      <p class="card-text c-pointer">Voir l'article </p>
+                      <p class="card-text c-pointer"  (click)="goToDetailsNewPage(a.id)" >Voir l'article </p>
                       <p class="card-text"> {{a.attributes.author}} - {{a.attributes.date_published}}</p>
                     </div>
                   </div>
