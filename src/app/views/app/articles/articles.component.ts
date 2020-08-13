@@ -23,8 +23,8 @@ export class ArticlesComponent implements OnInit {
   spinner: boolean = true;
   ColumnMode = ColumnMode;
   // temp = [...this.rows];
-  itemsPerPage: number = 10;
-  itemOptionsPerPage = [5, 10, 20];
+  itemsPerPage: number = 12;
+  itemOptionsPerPage = [6, 12, 24];
   selected = [];
   SelectionType = SelectionType;
   selectAllState = '';

@@ -45,7 +45,7 @@ import { DetailsArticleComponent } from './details-article/details-article.compo
     NgxDatatableModule,
     ComponentsCarouselModule,
     ArchwizardModule,
-    CKEditorModule
+    LightboxModule,
   ]
 })
 export class ArticlesModule { }

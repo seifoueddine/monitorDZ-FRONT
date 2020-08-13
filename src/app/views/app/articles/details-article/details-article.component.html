@@ -1,1 +1,69 @@
-<p>details-article works!</p>
+<div class="row">
+    <div class="col-12 col-md-12 col-xl-8 col-left">
+        <div class="card mb-4">
+            <img alt="detail" style="height: 300px;"  [src]="article.attributes.url_image ? article.attributes.url_image : defaultImage" (click)="openLightbox(article.attributes.url_image ? article.attributes.url_image : defaultImage)" class="responsive border-0 card-img-top mb-3 c-pointer" />
+            <div class="card-body">
+              <div class="mb-5">
+                <h3 class="card-title">{{article.attributes.title}}</h3>
+                <div [innerHTML]="article.attributes.body"></div>
+            </div>
+          </div>
+          
+    </div>
+</div>
+    <div class="col-12 col-md-12 col-xl-4 col-right">
+ 
+        <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">Inormations</h5>
+          
+            
+              <div class="d-flex flex-row align-items-center mb-3">
+                <a class="d-block position-relative" href="#">
+                  <i class='simple-icon-globe large-icon initial-height'></i>
+                </a>
+                <div class="pl-3 pt-2 pr-2 pb-2">
+                  <a href="javascript:;">
+                    <p class="list-item-heading mb-1">Media</p>
+                  </a>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row align-items-center mb-3">
+                <a class="d-block position-relative" href="#">
+                  <i class='simple-icon-user large-icon initial-height'></i>
+                </a>
+                <div class="pl-3 pt-2 pr-2 pb-2">
+                  <a href="javascript:;">
+                    <p class="list-item-heading mb-1">{{article.attributes.author}}</p>
+                  </a>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row align-items-center mb-3">
+                <a class="d-block position-relative" href="#">
+                  <i class='simple-icon-calendar large-icon initial-height'></i>
+                </a>
+                <div class="pl-3 pt-2 pr-2 pb-2">
+                  <a href="javascript:;">
+                    <p class="list-item-heading mb-1">{{article.attributes.date_published}}</p>
+                  </a>
+                </div>
+              </div>
+
+<div class="d-flex flex-row align-items-center mb-3">
+                <a class="d-block position-relative" href="#">
+                  <i class='simple-icon-tag large-icon initial-height'></i>
+                </a>
+                <div class="pl-3 pt-2 pr-2 pb-2">
+                  <a href="javascript:;">
+                    <p class="list-item-heading mb-1">{{article.attributes.article_tags}}</p>
+                  </a>
+                </div>
+              </div>
+              
+          
+            </div>
+          </div>
+    </div>
+  </div>
