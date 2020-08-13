@@ -18,6 +18,9 @@ export class OurNotificationsService {
 
   private reloadCampaigns = new Subject<any>();
   reloadCampaignsNotifier$ = this.reloadCampaigns.asObservable();
+
+  private reloadArticles = new Subject<any>();
+  reloadArticlesNotifier$ = this.reloadArticles.asObservable();
   
   constructor() { }
 
@@ -35,5 +38,9 @@ export class OurNotificationsService {
 
   notficateReloadCampaigns() {
     this.reloadCampaigns.next();
+  }
+
+  notficateReloadArticles() {
+    this.reloadArticles.next();
   }
 }

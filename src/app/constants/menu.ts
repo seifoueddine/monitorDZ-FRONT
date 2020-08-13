@@ -47,7 +47,7 @@ const data: IMenuItem[] = [
   },
   {
     id: 'articles',
-    icon: 'simple-icon-flag',
+    icon: 'iconsminds-testimonal',
     label: 'menu.articles',
     to: '/app/articles'
   }

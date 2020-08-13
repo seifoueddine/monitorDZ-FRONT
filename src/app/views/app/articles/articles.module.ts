@@ -20,6 +20,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
 import { ArticlesRoutingModule } from './articles.routing';
 import { ArticlesComponent } from './articles.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 @NgModule({
   declarations: [ArticlesComponent],
   imports: [
@@ -43,6 +44,7 @@ import { ArticlesComponent } from './articles.component';
     NgxDatatableModule,
     ComponentsCarouselModule,
     ArchwizardModule,
+    CKEditorModule
   ]
 })
 export class ArticlesModule { }

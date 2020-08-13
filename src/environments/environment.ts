@@ -20,6 +20,8 @@ export const environment = {
     SECTORS_PATH: apiVersion + '/sectors',
     MEDIA_PATH: apiVersion + '/media',
     CAMPAIGNS_PATH: apiVersion + '/campaigns',
+    ARTICLES_PATH: apiVersion + '/articles',
+    CRAWLING_PATH: apiVersion + '/get_articles/crawling',
   },
 
 
