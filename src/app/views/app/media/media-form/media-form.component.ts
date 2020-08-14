@@ -91,6 +91,7 @@ export class MediaFormComponent implements OnInit {
       });
 
     } else {
+      this.data.attributes.media_type === 'digital' ? this.digital = true : this.digital = false
       this.sectorsIds = this.data.sectorNameArray;
       this.mediaForm = new FormGroup({
         name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),

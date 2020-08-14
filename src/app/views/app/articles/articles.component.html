@@ -114,7 +114,9 @@
                     <img class="card-img" [src]="a.attributes.url_image ? a.attributes.url_image : defaultImage" alt="Card image">
                     <div class="card-img-overlay">
                       <p class="list-item-heading mb-5">{{a.attributes.title}}</p>
-                      <p class="card-text c-pointer"  (click)="goToDetailsNewPage(a.id)" >Voir l'article </p>
+                     
+                        <a style="color: white;" target="_blank" [href]="'app/articles/details?id='+a.id"><i  class='simple-icon-share-alt initial-height'> Voir l'article</i></a>
+                        <!-- <p class="card-text"> Voir l'article</p> -->
                       <p class="card-text"> {{a.attributes.author}} - {{a.attributes.date_published}}</p>
                     </div>
                   </div>
@@ -166,15 +168,23 @@
         <div class="p-4 h-100">
             <div class="scroll">
                 <p class="text-muted text-small">Média</p>
-                <ul class="list-unstyled mb-4" *ngFor="let m of media;">
+                <div *ngIf="!spinnerCrawling">
+                <ul   class="list-unstyled mb-4" *ngFor="let m of media;">
                     <li class="nav-item c-pointer">
-                        <a (click)="getNewArticle(m.id)">
-                            <i class="simple-icon-refresh"></i>{{ m.attributes.name}}
+                        <a (click)="getNewArticles(m.id, m.attributes.name)">
+                            <i class="simple-icon-refresh"></i>
+                            {{ m.attributes.name}}
                             <!-- <span class="float-right">24</span> -->
                         </a>
                     </li>
                    
                 </ul>
+            </div>
+                <div *ngIf="spinnerCrawling" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                    </div>
+                    <div class="mt-3">Chercher nouveaux artciles dans {{mediaNameSelected}}</div>
+                  </div>
                 <!-- <p class="text-muted text-small mb-4">
                     {{ 'survey.categories' | translate }}
                 </p>

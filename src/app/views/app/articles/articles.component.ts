@@ -30,7 +30,7 @@ export class ArticlesComponent implements OnInit {
   selectAllState = '';
   idItem: any ='';
   media: any;
-  
+  spinnerCrawling = false;
   totalItem = 0;
   totalPage = 0;
   currentPage: number = 1;
@@ -50,6 +50,7 @@ export class ArticlesComponent implements OnInit {
 
   surveyItems: any[] = [];
   description = ""
+  mediaNameSelected: any;
   // @ViewChild('addNewModalRef', { static: true }) addNewModalRef: AddNewSurveyModalComponent;
 
   constructor(private renderer: Renderer2, private articleService: ArticlesService, private notifications: NotificationsService,
@@ -255,13 +256,15 @@ setPage(pageInfo) {
 
 
 
-  getNewArticle(id){
+  getNewArticles(id, name){
+    this.mediaNameSelected = name;
+    this.spinnerCrawling = true;
     this.articleService.crawling(id).subscribe(
       data => {
         if (data.status) {
         
-          this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
-       
+          this.loadData(12, 1, 'desc', 'created_at', '');
+          this.spinnerCrawling = false;
         }
       },
       error => {

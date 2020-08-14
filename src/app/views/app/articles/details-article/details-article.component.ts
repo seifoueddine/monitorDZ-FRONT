@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesService } from 'src/app/shared/services/articles.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { NotificationsService } from 'angular2-notifications';
@@ -24,7 +24,9 @@ export class DetailsArticleComponent implements OnInit {
   bsValue = new Date();
   bsRangeValue: Date[];
   maxDate = new Date();
-  constructor(private route: ActivatedRoute, private articlesService: ArticlesService,
+  tags: any;
+  mediaName: string;
+  constructor(private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,
     private modal: BsModalService, private notifications: NotificationsService, private lightbox: Lightbox) {
 
 
@@ -37,7 +39,8 @@ export class DetailsArticleComponent implements OnInit {
           .subscribe((res: any) => {
             console.log(res);
             this.article = res.data;
-          
+            this.tags = this.article.attributes.article_tags.split(',');
+            this.mediaName = res.included[0].attributes.name
            
           }, error => {
             // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
@@ -54,6 +57,14 @@ export class DetailsArticleComponent implements OnInit {
 
   openLightbox(src: string): void {
     this.lightbox.open([{ src, thumb: '' }], 0, { centerVertically: true, positionFromTop: 0, disableScrolling: true, wrapAround: true });
+  }
+
+
+  goToLink(link) {
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree([link])
+    );
+    window.open(url, "_blank");
   }
 
 }
