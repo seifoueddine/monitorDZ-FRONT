@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col-12 col-md-12 col-xl-8 col-left">
         <div class="card mb-4">
+          <div class="position-absolute card-top-buttons">
+            <button class="btn btn-outline-white icon-button c-pointer" (click)="openModal(template, article)"><i class="simple-icon-pencil"></i></button>
+        </div>
             <img alt="detail" style="height: 300px;"  [src]="article.attributes.url_image ? article.attributes.url_image : defaultImage" (click)="openLightbox(article.attributes.url_image ? article.attributes.url_image : defaultImage)" class="responsive border-0 card-img-top mb-3 c-pointer" />
             <div class="card-body">
               <div class="mb-5">
@@ -73,3 +76,31 @@
           </div>
     </div>
   </div>
+
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <h6 class="modal-title mb-4">Modification de l'article  </h6>
+
+
+      <div class="row">
+        <div class="col-12">
+      
+          <div class="card mb-4">
+            <div class="card-body">
+           
+              <quill-editor [(ngModel)]="valueBind" [placeholder]="''"></quill-editor>
+            </div>
+          </div>
+      
+          
+      
+        </div>
+      </div>
+      
+
+
+
+      <button type="button" class="btn btn-outline-primary" (click)="submit()">Confirmer</button> {{" "}}
+      <button type="button" class="btn btn-primary" (click)="decline()">Annuler</button>
+    </div>
+  </ng-template>

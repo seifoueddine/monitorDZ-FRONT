@@ -120,11 +120,14 @@
               </div> -->
 
 
-              
+            
                
                   <div class="card bg-dark text-white">
+                   
                     <img class="card-img" [src]="a.attributes.url_image ? a.attributes.url_image : defaultImage" alt="Card image">
+
                     <div class="card-img-overlay">
+                      
                       <p class="list-item-heading mb-5">{{a.attributes.title}}</p>
                      
                         <a style="color: white;" target="_blank" [href]="'app/articles/details?id='+a.id"><i  class='simple-icon-share-alt initial-height'> Voir l'article</i></a>

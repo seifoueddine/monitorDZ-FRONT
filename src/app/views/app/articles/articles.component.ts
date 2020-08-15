@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, TemplateRef } from '@angular/core';
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
@@ -7,6 +7,7 @@ import { Articles } from 'src/app/shared/models/articles.model';
 import { MediaService } from 'src/app/shared/services/media.service';
 import { Media } from 'src/app/shared/models/media.model';
 import { Router } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-articles',
@@ -52,10 +53,19 @@ export class ArticlesComponent implements OnInit {
   surveyItems: any[] = [];
   description = ""
   mediaNameSelected: any;
+  valueBind: string;
   // @ViewChild('addNewModalRef', { static: true }) addNewModalRef: AddNewSurveyModalComponent;
 
   constructor(private renderer: Renderer2, private articleService: ArticlesService, private notifications: NotificationsService,
-    private ourNotificationService: OurNotificationsService, private mediaService: MediaService, private router: Router) { }
+    private ourNotificationService: OurNotificationsService, private mediaService: MediaService, private router: Router,
+    private modalService: BsModalService) { }
+
+
+    
+  openModal(template: TemplateRef<any>, data: any) {
+    this.valueBind = data.attributes.body;
+    this.modalRef = this.modalService.show(template, { class: 'modal-xl' });
+  }
 
   ngOnInit() {
     this.renderer.addClass(document.body, 'right-menu');
@@ -335,5 +345,16 @@ setPage(pageInfo) {
     term = term.toLocaleLowerCase();
     return item.attributes.name.toLocaleLowerCase().indexOf(term) > -1
   }
+
+  decline(): void {
+  
+    this.modalRef.hide();
+  }
+
+  submit(): void {
+  
+    this.modalRef.hide();
+  }
+
 
 }

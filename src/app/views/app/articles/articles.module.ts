@@ -23,6 +23,7 @@ import { ArticlesComponent } from './articles.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { DetailsArticleComponent } from './details-article/details-article.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { QuillModule } from 'ngx-quill';
 @NgModule({
   declarations: [ArticlesComponent, DetailsArticleComponent],
   imports: [
@@ -47,7 +48,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ComponentsCarouselModule,
     ArchwizardModule,
     LightboxModule,
-    NgSelectModule
+    NgSelectModule,
+    QuillModule.forRoot(),
   ]
 })
 export class ArticlesModule { }

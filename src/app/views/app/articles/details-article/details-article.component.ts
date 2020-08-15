@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesService } from 'src/app/shared/services/articles.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { Lightbox } from 'ngx-lightbox';
+import { Articles } from 'src/app/shared/models/articles.model';
 
 @Component({
   selector: 'app-details-article',
@@ -11,6 +12,7 @@ import { Lightbox } from 'ngx-lightbox';
   styleUrls: ['./details-article.component.scss']
 })
 export class DetailsArticleComponent implements OnInit {
+  valueBind: string;
   articleId: any;
   article: any;
   detailImages: any;
@@ -26,7 +28,8 @@ export class DetailsArticleComponent implements OnInit {
   maxDate = new Date();
   tags: any;
   mediaName: string;
-  constructor(private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,
+  modalRef: any;
+  constructor(private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,private modalService: BsModalService,
     private modal: BsModalService, private notifications: NotificationsService, private lightbox: Lightbox) {
 
 
@@ -52,6 +55,11 @@ export class DetailsArticleComponent implements OnInit {
 
      }
 
+     openModal(template: TemplateRef<any>, data: any) {
+      this.valueBind = data.attributes.body;
+      this.modalRef = this.modalService.show(template, { class: 'modal-xl' });
+    }
+
   ngOnInit(): void {
   }
 
@@ -66,5 +74,33 @@ export class DetailsArticleComponent implements OnInit {
     );
     window.open(url, "_blank");
   }
+
+  decline(): void {
+
+  
+    this.modalRef.hide();
+  }
+
+  submit(): void {
+    const object = new Articles;
+    object.id = this.articleId;
+    object.body = this.valueBind;
+  
+    this.articlesService.updateArticle(object).subscribe(resCreate => {
+      this.article.attributes.body = resCreate.body;
+     
+      this.notifications.create('Success', "Mettre à jour l'article avec succès", NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      this.modalRef.hide();
+    
+     
+    }, err => {
+      
+      this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+
+    });
+  
+    this.modalRef.hide();
+  }
+
 
 }

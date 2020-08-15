@@ -5,4 +5,5 @@ export class Articles {
    url_images: string;
    article_tags: string;
    author: string;
+   body: string;
 }
