@@ -22,6 +22,7 @@ import { ArticlesRoutingModule } from './articles.routing';
 import { ArticlesComponent } from './articles.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { DetailsArticleComponent } from './details-article/details-article.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [ArticlesComponent, DetailsArticleComponent],
   imports: [
@@ -46,6 +47,7 @@ import { DetailsArticleComponent } from './details-article/details-article.compo
     ComponentsCarouselModule,
     ArchwizardModule,
     LightboxModule,
+    NgSelectModule
   ]
 })
 export class ArticlesModule { }

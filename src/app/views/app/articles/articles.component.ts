@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./articles.component.scss']
 })
 export class ArticlesComponent implements OnInit {
+  [x: string]: any;
   defaultImage = "https://review.content-science.com/wp-content/uploads/2015/09/CSR_article_hero_Complex-Transformation-of-Moving-from-Print-to-Digital-Content-ECRIs-Story.png"
   rows: any;
 
@@ -42,7 +43,7 @@ export class ArticlesComponent implements OnInit {
   searchReq: any;
 
   totalElements: any;
-
+  mediaIds: any;
  
   itemOrder = 'Title';
   itemOptionsOrders = ['Title', 'Category', 'Status', 'Label'];
@@ -59,7 +60,7 @@ export class ArticlesComponent implements OnInit {
   ngOnInit() {
     this.renderer.addClass(document.body, 'right-menu');
     this.setPage({ offset: 0 });
-     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
+     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
      this.listenToNotifier();
      this.getMedia();
   }
@@ -95,25 +96,30 @@ export class ArticlesComponent implements OnInit {
   listenToNotifier() {
     this.ourNotificationService.reloadArticlesNotifier$.subscribe(res => {
     this.selected = [];
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
     });
   }
 
   pageChanged(event: any): void {
     console.log(event);
     this.currentPage = event.page
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
+  }
+
+  getArticlePerPage(item){
+    this.itemsPerPage = item ;
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
   }
   
 
-  loadData(pageSize, currentPage, direction, orderBy, search) {
+  loadData(pageSize, currentPage, direction, orderBy, search, media_ids) {
     this.itemsPerPage = pageSize;
     this.currentPage = currentPage;
     this.search = search;
     this.orderBy = orderBy;
-    this.direction = direction
-
-    this.articleService.getArticles(currentPage, orderBy , direction, pageSize, search).subscribe(
+    this.direction = direction;
+    this.media_ids = media_ids;
+    this.articleService.getArticles(currentPage, orderBy , direction, pageSize, search, media_ids).subscribe(
       data => {
         if (data.status) {
           this.totalElements = +data.headers.get('X-Total-Count');
@@ -150,7 +156,7 @@ export class ArticlesComponent implements OnInit {
     clearTimeout(this.searchReq);
   }
   this.searchReq =   setTimeout(() => {
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
     this.loading = false;
   }, 1000);
 }
@@ -197,7 +203,7 @@ onItemsPerPageChange(itemCount) {
   console.log(itemCount);
   this.itemsPerPage = itemCount;
   this.currentPage = 1
-  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
+  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
   // this.loading = false;
  
 }
@@ -213,7 +219,7 @@ onSort(event) {
   this.orderBy = sortValue;
   // emulate a server request with a timeout
   setTimeout(() => {
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
     this.loading = false;
   }, 1000);
 }
@@ -226,7 +232,7 @@ onSort(event) {
  */
 setPage(pageInfo) {
   this.currentPage = pageInfo.offset + 1;
-  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
+  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
   console.log(pageInfo);
   console.log(this.currentPage);
 }
@@ -262,8 +268,13 @@ setPage(pageInfo) {
     this.articleService.crawling(id).subscribe(
       data => {
         if (data.status) {
-        
-          this.loadData(12, 1, 'desc', 'created_at', '');
+          this.itemsPerPage = 12;
+          this.currentPage = 1;
+          this.direction = 'desc';
+          this.order_by = 'created_at';
+          this.search = '';
+          this.media_ids= null;
+          this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids);
           this.spinnerCrawling = false;
         }
       },
@@ -280,5 +291,49 @@ setPage(pageInfo) {
     window.open(url, "_blank");
   }
 
+
+  selectMedia(event) {
+    console.log(event);
+    
+
+    let media = event;
+
+
+    this.mediaIds = [];
+    const mediasArray = event;
+    mediasArray.map(s=> this.mediaIds.push(s.id));
+    console.log(this.mediaIds);
+
+
+    if (this.mediaIds.length > 0) {
+      this.mediaIdJoin = this.mediaIds.join(",");
+      this.loadData(
+        this.itemsPerPage,
+        this.currentPage,
+        this.direction,
+        this.orderBy,
+        this.search,
+        // this.startDate,
+        // this.endDate,
+        this.mediaIdJoin
+      );
+    } else {
+      this.mediaId = null;
+      this.loadData(
+        this.itemsPerPage,
+        this.currentPage,
+        this.direction,
+        this.orderBy,
+        this.search,
+        // this.startDate,
+        // this.endDate,
+       this.mediaId
+      );
+    }
+  }
+  customSearch(term: string, item: any) {
+    term = term.toLocaleLowerCase();
+    return item.attributes.name.toLocaleLowerCase().indexOf(term) > -1
+  }
 
 }

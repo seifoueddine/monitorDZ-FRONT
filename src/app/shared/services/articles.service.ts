@@ -25,10 +25,10 @@ export class ArticlesService {
    * @param direction the sort direction
    * @param size the page size
    */
-  getArticles(page, active, direction, size, search): Observable<any> {
+  getArticles(page, active, direction, size, search, media_ids): Observable<any> {
     const searchValue = search === '' ? '' : `&search=${search}`; 
-
-    const req = this.serviceUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue;
+    const media_idsValue = media_ids ? `&media_id=${media_ids}`  : ''; 
+    const req = this.serviceUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue + media_idsValue;
     return this.http.get(req, { observe: 'response' });
   }
   /**

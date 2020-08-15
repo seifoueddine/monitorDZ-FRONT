@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input, TemplateRef } from '@angular/core';
 import { NotificationType, NotificationsService } from 'angular2-notifications';
 import { SectorsService } from 'src/app/shared/services/sectors.service';
 import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
@@ -6,6 +6,7 @@ import { SlugsService } from 'src/app/shared/services/slugs.service';
 import { MediaService } from 'src/app/shared/services/media.service';
 import { CampaignsService } from 'src/app/shared/services/campaigns.service';
 import { TranslateService } from '@ngx-translate/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-list-page-header',
@@ -33,7 +34,9 @@ export class ListPageHeaderComponent implements OnInit {
   @Output() changeOrderBy: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('search') search: any;
+  modalRef: any;
   constructor( 
+    private modalService: BsModalService,
     private sectorsService: SectorsService,
     private slugsService: SlugsService,
     private mediaService: MediaService,
@@ -41,6 +44,11 @@ export class ListPageHeaderComponent implements OnInit {
     private ourNotificationService: OurNotificationsService,
     private notifications: NotificationsService,
     private  translateService: TranslateService) { }
+
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
 
   ngOnInit() {
   }
@@ -89,6 +97,7 @@ export class ListPageHeaderComponent implements OnInit {
       default:
         break;
     }
+    this.modalRef.hide();
   }
 
   deleteSector(id) {
@@ -186,6 +195,12 @@ export class ListPageHeaderComponent implements OnInit {
         );
       }
     );
+  }
+
+
+  decline(): void {
+  
+    this.modalRef.hide();
   }
 
 }

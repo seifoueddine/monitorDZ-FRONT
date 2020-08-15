@@ -19,7 +19,7 @@
         <ul id="dropdown-split" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
           aria-labelledby="button-split">
           <!-- <li role="menuitem"><a class="dropdown-item" href="javascript:;">{{ 'pages.move' | translate }}</a></li> -->
-          <li role="menuitem"><a class="dropdown-item" (click)="deleteItem(currentPage, id)">Supprimer</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="openModal(template)" >Supprimer</a></li>
         </ul>
       </div>
     </div>
@@ -106,3 +106,11 @@
     </div>
   </div>
 </div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <h6 class="modal-title mb-4">Merci de confirmer la suppression  </h6>
+    <button type="button" class="btn btn-outline-primary" (click)="deleteItem(currentPage, id)">Confirmer</button> {{" "}}
+    <button type="button" class="btn btn-primary" (click)="decline()">Annuler</button>
+  </div>
+</ng-template>

@@ -4,7 +4,7 @@
         <div class="top-right-button-container text-zero">
             <button type="button" (click)="showAddNewModal()"
                 class="top-right-button btn btn-primary btn-lg mr-1">{{ 'pages.add-new' | translate}}</button>
-            <div class="btn-group" dropdown>
+            <!-- <div class="btn-group" dropdown>
                 <div class="btn btn-primary btn-lg pl-4 pr-0 check-button">
                     <label class="custom-control custom-checkbox mb-0 d-inline-block">
                         <input type="checkbox" class="custom-control-input" [checked]="selectAllState==='checked'"
@@ -24,7 +24,7 @@
                             href="javascript:;">{{ 'pages.another-action' | translate }}</a>
                     </li>
                 </ul>
-            </div>
+            </div> -->
         </div>
         <app-breadcrumb></app-breadcrumb>
         <div class="display-options-container">
@@ -35,7 +35,7 @@
                 <i class="simple-icon-arrow-down align-middle"></i>
             </a>
             <div id="displayOptions" [collapse]="displayOptionsCollapsed" class="collapse dont-collapse-sm">
-                <div class="d-block d-md-inline-block">
+                <!-- <div class="d-block d-md-inline-block">
                     <div class="float-md-left mr-1 mb-1" dropdown>
                         <button id="button-basic" dropdownToggle type="button"
                             class="btn btn-outline-dark btn-xs dropdown-toggle" aria-controls="dropdown-basic">
@@ -48,15 +48,27 @@
                                     (click)="itemOrder = item">{{item}}</a></li>
                         </ul>
                     </div>
-                </div>
-                <div class="d-inline-block">
+                </div> -->
+
+                <div class="d-block d-md-inline-block">
+                    <div class="float-md-left mr-1 mb-1 ">
+                      <ng-select class="custom" [searchFn]="customSearch" [items]="media" placeholder="Média" bindLabel="attributes.name" bindValue="id" [multiple]="true"
+                        (change)="selectMedia($event)"> 
+                      </ng-select>
+        
+                    </div>
+                  </div>
+
+
+
+                <!-- <div class="d-inline-block">
                     <div class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
                         <input class="form-control" placeholder="Search">
-                        <!-- (keyup)="updateFilter($event)" -->
+                         (keyup)="updateFilter($event)" 
                     </div>
-                </div>
+                </div> -->
                 <div class="float-right" id="pageCountDatatable">
-                    <span class="text-muted text-small">1-10 of 40 </span>
+                    <span class="text-muted text-small">Total {{totalElements}} / par page </span>
                     <span dropdown class="d-inline-block position-relative">
                         <button class="btn btn-outline-dark btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" dropdownToggle>
@@ -65,7 +77,7 @@
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm text-right" *dropdownMenu>
                             <li role="menuitem" *ngFor="let item of itemOptionsPerPage"><a
                                     [ngClass]="item === itemsPerPage ? 'dropdown-item active' : 'dropdown-item'"
-                                    (click)="itemsPerPage = item">{{item}}</a></li>
+                                    (click)="getArticlePerPage(item)">{{item}}</a></li>
                         </div>
                     </span>
                 </div>
