@@ -127,7 +127,8 @@
                     <img class="card-img" [src]="a.attributes.url_image ? a.attributes.url_image : defaultImage" alt="Card image">
 
                     <div class="card-img-overlay">
-                      
+                        <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'"> {{a.attributes.category_article}}</span> 
+
                       <p class="list-item-heading mb-5">{{a.attributes.title}}</p>
                      
                         <a style="color: white;" target="_blank" [href]="'app/articles/details?id='+a.id"><i  class='simple-icon-share-alt initial-height'> Voir l'article</i></a>
@@ -139,9 +140,9 @@
               
             </div>
             <div class="col-12">
-                <pagination  [totalItems]="totalElements" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"
-                  [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center"
-                  [customNextTemplate]="nextTemplate" [customPreviousTemplate]="prevTemplate">
+                <pagination [boundaryLinks]="true"  [totalItems]="totalElements" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"
+                  [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center" [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
+                  [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate">
                 </pagination>
               </div>
           </div>
@@ -198,7 +199,7 @@
                 <div *ngIf="spinnerCrawling" class="text-center">
                     <div class="spinner-border text-primary" role="status">
                     </div>
-                    <div class="mt-3">Chercher nouveaux artciles dans {{mediaNameSelected}}</div>
+                    <div class="mt-3">Chercher nouveaux articles dans {{mediaNameSelected}}</div>
                   </div>
                 <!-- <p class="text-muted text-small mb-4">
                     {{ 'survey.categories' | translate }}
@@ -246,3 +247,4 @@
         </div>
     </perfect-scrollbar>
 </app-application-menu>
+<simple-notifications [options]="options"></simple-notifications>

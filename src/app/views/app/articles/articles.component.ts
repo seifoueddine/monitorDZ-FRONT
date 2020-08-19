@@ -90,6 +90,7 @@ export class ArticlesComponent implements OnInit {
         }
       },
       error => {
+        this.spinner = false;
         this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
       }
     );
@@ -141,7 +142,9 @@ export class ArticlesComponent implements OnInit {
         }
       },
       error => {
+        this.spinner = false;
         this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+        
       }
     );
   }
@@ -289,6 +292,7 @@ setPage(pageInfo) {
         }
       },
       error => {
+        this.spinnerCrawling = false;
         this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
       }
     );
