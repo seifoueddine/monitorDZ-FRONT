@@ -43,7 +43,7 @@ export class DetailsArticleComponent implements OnInit {
           .subscribe((res: any) => {
             console.log(res);
             this.article = res.data;
-            this.tags = this.article.attributes.article_tags.split(',');
+            this.tags = this.article.attributes.media_tags.split(',');
             this.mediaName = res.included[0].attributes.name;
             this.getBodyWithTags();
           }, error => {
