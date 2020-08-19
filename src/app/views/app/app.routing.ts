@@ -14,7 +14,7 @@ const routes: Routes = [
             { path: 'media', loadChildren: () => import('./media/media.module').then(m => m.MediaModule) },
              { path: 'campaigns', loadChildren: () => import('./campaigns/campaigns.module').then(m => m.CampaignsModule) },
              { path: 'articles', loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule) },
-
+             { path: 'tags', loadChildren: () => import('./tags/tags.module').then(m => m.TagsModule) },
             // { path: 'second-menu', loadChildren: () => import('./second-menu/second-menu.module').then(m => m.SecondMenuModule) },
         ]
     }

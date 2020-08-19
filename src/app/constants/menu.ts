@@ -50,6 +50,12 @@ const data: IMenuItem[] = [
     icon: 'iconsminds-testimonal',
     label: 'menu.articles',
     to: '/app/articles'
+  },
+  {
+    id: 'tags',
+    icon: 'simple-icon-tag',
+    label: 'menu.tags',
+    to: '/app/tags'
   }
 ];
 export default data;
