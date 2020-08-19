@@ -21,6 +21,7 @@ export const environment = {
     MEDIA_PATH: apiVersion + '/media',
     CAMPAIGNS_PATH: apiVersion + '/campaigns',
     ARTICLES_PATH: apiVersion + '/articles',
+    TAGS_PATH: apiVersion + '/tags',
     CRAWLING_PATH: apiVersion + '/get_articles/crawling'
   },
 

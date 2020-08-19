@@ -12,7 +12,6 @@ import { ComponentsPagesModule } from 'src/app/components/pages/components.pages
 import { ComponentsCardsModule } from 'src/app/components/cards/components.cards.module';
 import { ComponentsPlayerModule } from 'src/app/components/player/components.player.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ComponentsCarouselModule } from 'src/app/components/carousel/components.carousel.module';
 import { ArchwizardModule } from 'angular-archwizard';
@@ -20,8 +19,9 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
 import { TagsComponent } from './tags.component';
 import { TagsRoutingModule } from './tags.routing';
+import { TagFormComponent } from './tag-form/tag-form.component';
 @NgModule({
-  declarations: [TagsComponent],
+  declarations: [TagsComponent, TagFormComponent],
   imports: [
     SharedModule,
     LayoutContainersModule,
