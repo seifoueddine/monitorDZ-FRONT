@@ -24,8 +24,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { DetailsArticleComponent } from './details-article/details-article.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { QuillModule } from 'ngx-quill';
+import { sanitizeHtmlPipe } from 'src/app/shared/sanitize-html.pipe';
 @NgModule({
-  declarations: [ArticlesComponent, DetailsArticleComponent],
+  declarations: [ArticlesComponent, DetailsArticleComponent, sanitizeHtmlPipe],
   imports: [
     SharedModule,
     LayoutContainersModule,
