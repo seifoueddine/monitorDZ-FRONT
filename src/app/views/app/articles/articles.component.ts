@@ -42,7 +42,7 @@ export class ArticlesComponent implements OnInit {
   loading: boolean;
   page: any;
   searchReq: any;
-
+  buttonState = '';
   totalElements: any;
   mediaIds: any;
  
@@ -358,6 +358,32 @@ setPage(pageInfo) {
   submit(): void {
   
     this.modalRef.hide();
+  }
+
+  goToAutoTag(){
+    this.buttonState = 'show-spinner';
+
+    this.articleService.autoTag().subscribe(
+      data => {
+        if (data.status) {
+          this.itemsPerPage = 12;
+          this.currentPage = 1;
+          this.direction = 'desc';
+          this.order_by = 'created_at';
+          this.search = '';
+          this.media_ids= null;
+          this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids);
+          this.buttonState = '';
+        }
+      },
+      error => {
+        this.buttonState = '';
+        this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      }
+    );
+
+
+
   }
 
 

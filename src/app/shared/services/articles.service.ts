@@ -11,6 +11,7 @@ export class ArticlesService {
 
   private serviceUrl = environment.ENDPOINTS.ARTICLES_PATH;
   private serviceCrawlingUrl = environment.ENDPOINTS.CRAWLING_PATH;
+  private serviceAutoTagUrl = environment.ENDPOINTS.AUTO_TAG_PATH;
   constructor(private http: HttpClient) {}
 
   addArticle(article: any): Observable<any> {
@@ -82,6 +83,12 @@ export class ArticlesService {
  
 
     const req = this.serviceCrawlingUrl + `?media_id=${id}`;
+    return this.http.get(req, { observe: 'response' });
+  }
+
+
+  autoTag(): Observable<any> {
+    const req = this.serviceAutoTagUrl;
     return this.http.get(req, { observe: 'response' });
   }
 

@@ -206,8 +206,15 @@
                 Tags
                 </p>
                 <div class="text-zero">
+
+                    <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState"
+                     (click)="goToAutoTag()">
+                    Lance tag auto
+                  </app-state-button>
+
+<!-- 
                     <button type="button" (click)="showAddNewModal()"
-                        class="top-right-button btn btn-primary btn-lg mr-1">Lance tag auto</button>
+                        class="top-right-button btn btn-primary btn-lg mr-1" >Lance tag auto</button> -->
                 </div>
                 <!-- <ul class="list-unstyled mb-5">
                     <li>

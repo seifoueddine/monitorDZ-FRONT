@@ -22,7 +22,8 @@ export const environment = {
     CAMPAIGNS_PATH: apiVersion + '/campaigns',
     ARTICLES_PATH: apiVersion + '/articles',
     TAGS_PATH: apiVersion + '/tags',
-    CRAWLING_PATH: apiVersion + '/get_articles/crawling'
+    CRAWLING_PATH: apiVersion + '/get_articles/crawling',
+    AUTO_TAG_PATH: apiVersion + '/auto_tags',
   },
 
 
