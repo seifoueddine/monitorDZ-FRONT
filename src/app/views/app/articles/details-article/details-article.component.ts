@@ -106,9 +106,13 @@ export class DetailsArticleComponent implements OnInit {
 
 
   getBodyWithTags(){
+    this.tags = this.tags.filter(function(e){return e}); 
     this.tags.map(t => {
       let tag = t.trim();
-      this.article.attributes.body = this.article.attributes.body.replace(tag,'<span style="padding-right: 2px; padding-left: 2px; border-radius: 5px; border: 1px solid #73b0ff; background-color:#95bff5;";font-weight:bold">' + tag + '</span>')
+      let re = new RegExp(tag, 'g');
+      this.article.attributes.body = this.article.attributes.body.replace(re, '<span style="padding-right: 2px; padding-left: 2px; border-radius: 5px; border: 1px solid #73b0ff; background-color:#95bff5;";font-weight:bold">' + tag + '</span>');
+
+    
     }) 
 
   }
