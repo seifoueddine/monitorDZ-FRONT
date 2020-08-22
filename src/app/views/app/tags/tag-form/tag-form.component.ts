@@ -72,8 +72,13 @@ export class TagFormComponent implements OnInit {
       
           }, err => {
             
-            this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
-
+            if (err.error.code == 'E001'){
+              this.notifications.create('Erreur', 'Tag existe déja', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
+  
+            }else {
+              this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
+  
+            }
           });
         
 
@@ -86,8 +91,14 @@ export class TagFormComponent implements OnInit {
           this.notifications.create('Success', 'Tag créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
           this.modalRef.hide();
           this.ourNotificationService.notficateReloadTags();
-        }, error => {
-          this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
+        }, err => {
+          if (err.error.code == 'E001'){
+            this.notifications.create('Erreur', 'Tag existe déja', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
+
+          }else {
+            this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
+
+          }
 
         });
        

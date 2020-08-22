@@ -5,6 +5,7 @@ import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { DatatableComponent, ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
+import { Tags } from 'src/app/shared/models/tags.model';
 
 @Component({
   selector: 'app-tags',
@@ -30,7 +31,7 @@ export class TagsComponent implements OnInit {
   SelectionType = SelectionType;
   selectAllState = '';
   idItem: any ='';
- 
+  tagStatus = false;
   
   totalItem = 0;
   totalPage = 0;
@@ -197,6 +198,21 @@ export class TagsComponent implements OnInit {
    console.log(this.currentPage);
  }
 
+
+ onStatusChange(tag, id){
+const s = tag.status;
+let newStatus = !s;
+const object = new Tags;
+object.id = id
+object.status = newStatus;
+this.tagService.updateTag(object).subscribe(resCreate => {
+  this.notifications.create('Success', 'Mettre à jour le tag avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+  this.ourNotificationService.notficateReloadTags();
+}, err => {
+  this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+});
+
+ }
 
 
 
