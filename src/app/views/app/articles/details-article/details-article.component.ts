@@ -28,6 +28,7 @@ export class DetailsArticleComponent implements OnInit {
   maxDate = new Date();
   tags: any;
   mediaName: string;
+  authorName: string;
   modalRef: any;
   body: any;
   constructor(private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,private modalService: BsModalService,
@@ -44,7 +45,8 @@ export class DetailsArticleComponent implements OnInit {
             console.log(res);
             this.article = res.data;
             this.tags = this.article.attributes.media_tags ?  this.article.attributes.media_tags.split(',') : [];
-            this.mediaName = res.included[0].attributes.name;
+            this.mediaName = res.included[1].attributes.name;
+            this.authorName = res.included[0].attributes.name;
             this.getBodyWithTags();
           }, error => {
             // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
