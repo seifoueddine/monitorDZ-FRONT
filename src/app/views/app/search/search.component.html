@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-12">
+      <app-heading></app-heading>
+      <app-breadcrumb></app-breadcrumb>
+      <div class="separator mb-5"></div>
+    </div>
+  </div>
+
+  <div *ngIf="result.length > 0" class="row">
+    <div class="col-12">
+      <p class="text-muted">{{totalElements}} résultats ({{time/1000}} secondes)</p> 
+</div>
+</div>
+  <div *ngIf="result.length > 0" class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-body">
+          <div *ngFor="let item of result; let i = index;" [ngClass]="{'mb-3':result.length!==(i+1)}">
+            <p class="list-item-heading mb-1 color-theme-1"><span style="background-color: brown; color: white;"  [class]="'badge badge-pill'"> {{item.category_article}}</span> 
+            </p>
+            <a  target="_blank" [href]="'app/articles/details?id='+item.id" class="w-40 w-sm-100">
+                <p class="list-item-heading mb-1 color-theme-1">{{item.title}}</p>
+            </a>
+            <p class="mb-1 text-muted text-small">{{item.author.name}} | {{item.date_published}}</p>
+            <!-- <p class="mb-4 text-small">{{ item.description }}</p> -->
+            <div [innerHTML]="(item.body | slice:0:150 ) + '...' "></div>
+            <div class="separator mb-5" *ngIf="result.length!==(i+1)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+        <pagination [boundaryLinks]="true"  [totalItems]="totalElements" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"
+          [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center" [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
+          [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate">
+        </pagination>
+      </div>
+
+
+
+        <ng-template #nextTemplate let-disabled="disabled" let-currentPage="currentPage">
+        <i class='simple-icon-arrow-right'></i>
+        </ng-template>
+        
+        <ng-template #prevTemplate let-disabled="disabled" let-currentPage="currentPage">
+        <i class='simple-icon-arrow-left'></i>
+        </ng-template>
+        
+        <ng-template #lastTemplate let-disabled="disabled" let-currentPage="currentPage">
+        <i class='simple-icon-control-end'></i>
+        </ng-template>
+        
+        <ng-template #firstTemplate let-disabled="disabled" let-currentPage="currentPage">
+        <i class='simple-icon-control-start'></i>
+        </ng-template>
+        
+     
+
+
+  </div>
+  
+
+
+    <div *ngIf="result.length == 0" class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="jumbotron">
+              <h1 class="display-4">Oups!!</h1>
+              <p class="lead">Aucun article ne correspond aux termes de recherche spécifiés</p>
+              <p class="lead" > ( <strong>{{ searchKey }} </strong> )  </p>
+              <hr class="my-4">
+              <p>
+                Suggestions :
+              </p>
+              <p >
+               - Vérifiez l’orthographe des termes de recherche.
+              </p>
+               <p >
+               - Essayez d'autres mots.
+              </p>
+              <p >
+               - Utilisez des mots clés plus généraux.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

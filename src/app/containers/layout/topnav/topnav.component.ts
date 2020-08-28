@@ -146,7 +146,7 @@ export class TopnavComponent implements OnInit, OnDestroy {
 
   search() {
     if (this.searchKey && this.searchKey.length > 1) {
-      this.router.navigate(['/app/pages/miscellaneous/search'], { queryParams: { key: this.searchKey.toLowerCase().trim() } });
+      this.router.navigate(['/app/search'], { queryParams: { key: this.searchKey.toLowerCase().trim() } });
       this.searchKey = '';
     }
   }
