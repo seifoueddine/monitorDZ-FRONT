@@ -50,11 +50,27 @@ export class SearchComponent implements OnInit {
     this.searchService.search(this.currentPage, this.orderBy, this.direction, this.itemsPerPage, this.searchKey)
     .subscribe((res: any) => {
       this.totalElements = +res.headers.get('X-Total-Count');
-      this.result = res.body;
+      this.result = res.body.result_articles;
+      this.time = res.body.time;
  
     }, error => {
       // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
     });
+  }
+
+
+  getBodyWithSearch(body){
+    const firstBody = body
+    // this.tags = this.tags.filter(function(e){return e}); 
+    // this.tags.map(t => {
+      // let tag = t.trim();
+      // let re = new RegExp(tag, 'g');
+      let index  = body.toLowerCase().indexOf(this.searchKey);
+      body = body.slice(index - 75 , index + 75);
+      body = body.toLowerCase().replace(this.searchKey, '<b><font  color="#FB6400">' + this.searchKey + '</font></b>');
+     return (index === -1 || body === "" )? (firstBody.slice(0, 150) + ' ...') : ('... ' + body + ' ...')
+    // }) 
+
   }
 
 }
