@@ -66,7 +66,8 @@ export class SearchComponent implements OnInit {
       // let tag = t.trim();
       // let re = new RegExp(tag, 'g');
       let index  = body.toLowerCase().indexOf(this.searchKey);
-      body = body.slice(index - 75 , index + 75);
+     // body = body.slice(index - 75 , index + 75);
+     body = body.slice((index > 75) ?  (index - 75) : 0 , (( firstBody.length - index ) > 75 ) ? (index + 75 ): index );
       body = body.toLowerCase().replace(this.searchKey, '<b><font  color="#FB6400">' + this.searchKey + '</font></b>');
      return (index === -1 || body === "" )? (firstBody.slice(0, 150) + ' ...') : ('... ' + body + ' ...')
     // }) 
