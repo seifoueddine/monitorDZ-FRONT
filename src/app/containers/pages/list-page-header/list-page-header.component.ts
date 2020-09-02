@@ -8,6 +8,7 @@ import { CampaignsService } from 'src/app/shared/services/campaigns.service';
 import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { TagsService } from 'src/app/shared/services/tags.service';
+import { UsersService } from 'src/app/shared/services/users.service';
 
 @Component({
   selector: 'app-list-page-header',
@@ -45,7 +46,8 @@ export class ListPageHeaderComponent implements OnInit {
     private ourNotificationService: OurNotificationsService,
     private notifications: NotificationsService,
     private  translateService: TranslateService,
-    private tagsService: TagsService) { }
+    private tagsService: TagsService,
+    private usersService: UsersService) { }
 
 
   openModal(template: TemplateRef<any>) {
@@ -98,6 +100,9 @@ export class ListPageHeaderComponent implements OnInit {
           break;
           case "tags":
             this.deleteTag(id);
+            break;
+            case "users":
+            this.deleteUsers(id);
             break;
       default:
         break;
@@ -212,6 +217,32 @@ export class ListPageHeaderComponent implements OnInit {
           { theClass: "primary", timeOut: 6000, showProgressBar: false }
         );
         this.ourNotificationService.notficateReloadTags();
+        this.id = "";
+        // this.selectAllState = '';
+      },
+      (err) => {
+        this.notifications.create(
+          "Warn",
+          this.translateService.instant('errors.' +  err.error.code),
+          NotificationType.Warn,
+          { theClass: "primary", timeOut: 6000, showProgressBar: false }
+        );
+      }
+    );
+  }
+
+
+
+  deleteUsers(id) {
+    this.usersService.deleteUser(id).subscribe(
+      (res) => {
+        this.notifications.create(
+          "Succès",
+          "Supprimer utilisateur avec succès",
+          NotificationType.Success,
+          { theClass: "primary", timeOut: 6000, showProgressBar: false }
+        );
+        this.ourNotificationService.notficateReloadUsers();
         this.id = "";
         // this.selectAllState = '';
       },

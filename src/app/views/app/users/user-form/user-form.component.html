@@ -1,0 +1,137 @@
+<ng-template #template>
+    <form [formGroup]="userForm" #form="ngForm" (ngSubmit)="createUser($event)" novalidate class="tooltip-label-right">
+
+        <div class="modal-header">
+            <h4 *ngIf="!data" class="modal-title pull-left">Ajouter un nouvel utilisateur</h4>
+            <h4 *ngIf="data" class="modal-title pull-left">Mise à jour utilisateur</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="hideModel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group"> 
+                <label>Nom et Prénom</label>
+                <input type="name" class="form-control" formControlName="name">
+                <div *ngIf="userForm.get('name').errors?.required && form.submitted" class="invalid-tooltip">Prénom et nom est requis</div>
+                <div *ngIf="userForm.get('name').errors?.minlength && form.submitted" class="invalid-tooltip">Le Prénom et nom doit contenir au moins 2 caractères!</div>
+            </div>
+
+<!-- 
+            <div class="form-group">
+                <label>Numéro d'immatriculation</label>
+                <input  class="form-control" formControlName="registration_number">
+                <div *ngIf="userForm.get('registration_number').errors?.required && form.submitted" class="invalid-tooltip">Le numéro d'immatriculation est requis</div>
+            </div> -->
+
+            <div  class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" formControlName="email">
+                <div *ngIf="userForm.get('email').errors?.required && form.submitted" class="invalid-tooltip">Email est requis</div>
+                <div *ngIf="userForm.get('email').errors?.email && form.submitted" class="invalid-tooltip">Email n'est pas valide!</div>
+            </div>
+
+            <div *ngIf="!data" class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" class="form-control" formControlName="password">
+                <div *ngIf="userForm.get('password').errors?.minlength && form.submitted" class="invalid-tooltip">Le mot de passe doit
+                     contenir au moins 6 caractères!</div>
+            </div>
+
+
+            <div class="form-group">
+                <label>Role</label>
+                <ng-select *ngIf="roles" [items]="roles" bindLabel="viewValue" bindValue="value"
+                    (change)="selectRole($event)" formControlName="role">
+                </ng-select>
+                <div *ngIf="userForm.get('role').errors?.minlength && form.submitted" class="invalid-tooltip">Le rôle est requis!</div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="inputCity"><span>Entreprise</span></label>
+                <ng-select *ngIf="allSlugs"  [items]="allSlugs" bindLabel='attributes.name' bindValue="id"
+                  formControlName="slug_id" [searchFn]="customSearchP">
+                </ng-select>
+                <div *ngIf="userForm.get('slug_id').errors?.minlength && form.submitted" class="invalid-tooltip">L'entreprise est requis!</div>
+            </div>
+
+            
+<!-- 
+            <div class="form-group">
+                <label>Fonction</label> 
+                <input type="name" class="form-control" formControlName="function">
+                <div *ngIf="userForm.get('function').errors?.required && form.submitted" class="invalid-tooltip">Function est requis</div>
+
+            </div> -->
+
+
+            <!-- <div class="form-group">
+
+                      
+                <div class="row">
+                  
+    
+                    <div class="col-12" >
+                        
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="status" formControlName="status" >
+                    <label class="custom-control-label" for="status">Statut</label>
+                  </div>
+                    </div>
+                </div>
+    
+    
+    
+                </div> -->
+
+            <div class="form-group">
+            
+                <input type="file" class="custom-file-input" id='avatar' formControlName="avatar"
+                    (change)="onSelectFile($event)">
+                <label class="custom-file-label"
+                    for="avatar">{{ AvatarToDisplay ? (avatarName.length > 35 ? (avatarName| slice:0:30 ) + '...': avatarName)  : ('input-groups.choose-file' | translate)}}</label>
+
+            </div>
+
+
+
+
+        </div>
+
+      
+
+            <div class="row">
+                <div class="col-2"></div>
+                <div *ngIf="newPic" class="col-8">
+                    <div *ngIf="AvatarToDisplay" class="card">
+                        <div class="position-relative">
+                            <a><img class="card-img-top" [src]="AvatarToDisplay" alt="Card image cap" height="200"></a>
+                            <span (click)="removeSelectedFile()"
+                                class="badge badge-pill badge-theme-1 position-absolute badge-top-right">X</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="data && !newPic && !removeCurrentAvatarStatus" class="col-8">
+                    <div *ngIf="data.attributes.avatar.url" class="card">
+                        <div class="position-relative">
+                            <a><img class="card-img-top" [src]="urlForImage + data.attributes.avatar?.url" alt="Card image cap" height="200"></a>
+                            <span (click)="removeCurrentAvatar()"
+                                class="badge badge-pill badge-theme-1 position-absolute badge-top-right">X</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-2"></div>
+            </div>
+       
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary"
+                (click)="hideModel()">{{'pages.cancel' | translate }}</button>
+            <button type="submit" class="btn btn-primary float-right">{{ 'pages.submit' | translate}}</button>
+        </div>
+    </form>
+</ng-template>
+<simple-notifications [options]="options"></simple-notifications>

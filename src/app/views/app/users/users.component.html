@@ -1,0 +1,138 @@
+
+ <app-list-page-header [selectAllState]="selectAllState" (selectAllChange)="selectAllChange($event)"
+ [showOrderBy]="true" [showDisplayMode]="false" [itemOrder]="itemOrder"  
+(searchKeyUp)="updateFilter($event)" (itemsPerPageChange)="onItemsPerPageChange($event)" (changeDirection)="changeDirection($event)" (changeOrderBy)="changeOrderBy($event)"
+ currentPage="users" [id]='idItem' (addNewItem)="showAddNewModal()" [itemOptionsPerPage]="[6,12,24]" [itemsPerPage]="itemsPerPage" [itemOptionsOrders]="optionsOrders">
+</app-list-page-header>
+
+<app-user-form #addNewModalRef></app-user-form>  
+
+<div class="row">
+ 
+    <div class="col-12 list" >
+      <div class="row">
+      
+        <div class="col-12 col-sm-12 col-lg-6 col-xl-4" style="padding-bottom: 10px; padding-top: 10px;" *ngFor="let u of data; let i=index">
+            <div [ngClass]="{'card': true, 'active':isSelected(u)}">
+            <div class=" d-flex flex-row mb-4">
+              <a class="d-flex" href="javascript:;">
+                <img alt="Profile" [src]="u.attributes.avatar?.url ? (urlForImage + u.attributes.avatar.url) : (staticPic)" [alt]="u.attributes.name"
+                  class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center">
+                   <!-- <span style="background-color: green; color: white;" *ngIf="u.attributes.Status" [class]="'position-absolute badge-top-left badge badge-pill'"> ACTIF</span> 
+                   <span style="background-color: brown; color: white;" *ngIf="!u.attributes.Status" [class]="'position-absolute badge-top-left badge badge-pill'"> INACTIF</span>  -->
+
+             
+              </a>
+              <div class=" d-flex flex-grow-1 min-width-zero">
+                <div
+                  class="card-body pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
+                  <div class="min-width-zero">
+                    <a href="javascript:;">
+                      <p class="list-item-heading mb-1 truncate">{{u.attributes.name}}</p> 
+                    </a>
+                    <p class="mb-2 text-muted text-small">{{u.attributes.role}} / {{u.attributes.slug_id ? getSlug(u.attributes.slug_id) : ''}}</p> 
+                    <!-- <p class="mb-2  text-small">{{u.attributes.RegistrationNumber}}</p> -->
+                    <button type="button" (click)="openChangePasswordModal(template, u)" class="btn btn-xs btn-outline-primary">Changer le mot de passe</button>
+                  </div>
+                </div>
+
+              
+                    <div class="custom-control custom-checkbox pl-1">
+                      <label class="custom-control custom-checkbox  mb-0">
+                        <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(u)"
+                          (change)="onSelect(u)">
+                        <label class="custom-control-label" [for]="'customCheck'+i"></label>
+                      </label>
+                      <i class="simple-icon-pencil c-pointer" (click)="editUser(u)"></i>
+                    </div>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+     
+    </div>
+    </div>
+  
+    <div class="col-12">
+      <div class="w-100 d-flex justify-content-center">
+      <pagination [boundaryLinks]="true" [totalItems]="totalElements" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"
+        [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"  [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
+        [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate" ></pagination>
+
+     
+  </div>
+
+  <ng-template #nextTemplate let-disabled="disabled" let-currentPage="currentPage">
+    <i class='simple-icon-arrow-right'></i>
+  </ng-template>
+  
+  <ng-template #prevTemplate let-disabled="disabled" let-currentPage="currentPage">
+    <i class='simple-icon-arrow-left'></i>
+  </ng-template>
+  
+  <ng-template #lastTemplate let-disabled="disabled" let-currentPage="currentPage">
+    <i class='simple-icon-control-end'></i>
+  </ng-template>
+  
+  <ng-template #firstTemplate let-disabled="disabled" let-currentPage="currentPage">
+    <i class='simple-icon-control-start'></i>
+  </ng-template>
+  
+    </div>
+  </div>
+
+
+ <!-- modal to change password  -->
+
+ <ng-template #template>
+  <form [formGroup]="changePasswordForm" #form="ngForm" (ngSubmit)="changePassword($event)" novalidate class="tooltip-label-right">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Changer le mot de passe de {{'"' + UserToChangePassword.attributes.name +'"'}}</h4>
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalChangePasswordRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+
+    <alert *ngIf="changePasswordForm.errors?.notSame && form.submitted" type="primary rounded">
+      les mots de passe ne correspondent pas, veuillez réessayer</alert>
+    
+
+              <div class="form-group">
+                  <label>Mot de passe </label>
+                  <input type="password" class="form-control" formControlName="password">
+                  <div *ngIf="changePasswordForm.get('password').errors?.required && form.submitted" class="invalid-tooltip">Mot de passe requis</div>
+                  <div *ngIf="changePasswordForm.get('password').errors?.minlength && form.submitted" class="invalid-tooltip">Le mot de passe doit contenir au moins 6 caractères!</div>
+              </div>
+  
+              <div class="form-group">
+                  <label>Confirmation de mot de passe</label>
+                  <input type="password" class="form-control" formControlName="password_confirmation">
+                  <div *ngIf="changePasswordForm.get('password_confirmation').errors?.required && form.submitted" class="invalid-tooltip">Mot de passe requis</div>
+                  <div *ngIf="changePasswordForm.get('password_confirmation').errors?.minlength && form.submitted" class="invalid-tooltip">Le mot de passe doit contenir au moins 6 caractères!</div>
+              </div>
+
+
+
+
+
+
+
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary"
+        (click)="modalChangePasswordRef.hide()">Annuler</button>
+    <button type="submit" class="btn btn-primary float-right">Soumettre</button>
+</div>
+</form>
+
+</ng-template>
+
+<!-- modal to change password  -->
+
+  <simple-notifications [options]="options"></simple-notifications>

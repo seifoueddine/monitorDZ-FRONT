@@ -56,6 +56,12 @@ const data: IMenuItem[] = [
     icon: 'simple-icon-tag',
     label: 'menu.tags',
     to: '/app/tags'
+  },
+  {
+    id: 'users',
+    icon: 'simple-icon-people',
+    label: 'menu.users',
+    to: '/app/users'
   }
 ];
 export default data;

@@ -25,6 +25,8 @@ export const environment = {
     CRAWLING_PATH: apiVersion + '/get_articles/crawling',
     AUTO_TAG_PATH: apiVersion + '/auto_tags',
     SEARCH_ARTICLES_PATH: apiVersion + '/search_article',
+    USERS_PATH: apiVersion + '/users',
+    CHANGE_PASSWORD_PATH: apiVersion + '/users/change_password/',
   },
 
 
