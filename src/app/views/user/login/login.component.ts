@@ -37,9 +37,21 @@ export class LoginComponent implements OnInit {
 
         localStorage.setItem('isLoggedin', 'true');
         localStorage.setItem('user', JSON.stringify(user.body.data));
+        const role = user.body.data.role
+        switch (role) {
+          case 'GodLike':
+            this.router.navigate(['/app/slugs']); 
+            break;
+            case 'SuperOP':
+              this.router.navigate(['/app/articles']); 
+              break;
+          default:
+            break;
+        }
+
 
         // if(user.body.data.role === 'admin'){
-          this.router.navigate(['/app/slugs']);
+        //  this.router.navigate(['/app/slugs']);
         // }else{
         //   this.router.navigate(['/app/checks']);
         // }

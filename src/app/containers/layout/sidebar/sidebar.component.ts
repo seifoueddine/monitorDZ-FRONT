@@ -58,7 +58,146 @@ export class SidebarComponent implements OnInit, OnDestroy {
       this.sidebarService.setContainerClassnames(0, containerClassnames, this.sidebar.selectedMenuHasSubItems);
       window.scrollTo(0, 0);
     });
+
+    const user = localStorage.getItem('user');
+    const userObject =  JSON.parse(user);
+    if (userObject) {
+      const  role = userObject.role;
+
+      switch (role) {
+        case 'GodLike':
+          this.menuItems = [
+            {
+              id: 'slugs',
+              icon: 'iconsminds-building',
+              label: 'menu.slugs',
+              to: '/app/slugs'
+            },
+            {
+              id: 'sectors',
+              icon: 'iconsminds-gear',
+              label: 'menu.sectors',
+              to: '/app/sectors'
+            },
+            {
+              id: 'media',
+              icon: 'iconsminds-newspaper',
+              label: 'menu.media',
+              to: '/app/media'
+            },
+            {
+              id: 'campaigns',
+              icon: 'simple-icon-flag',
+              label: 'menu.campaigns',
+              to: '/app/campaigns'
+            },
+            {
+              id: 'articles',
+              icon: 'iconsminds-testimonal',
+              label: 'menu.articles',
+              to: '/app/articles'
+            },
+            {
+              id: 'tags',
+              icon: 'simple-icon-tag',
+              label: 'menu.tags',
+              to: '/app/tags'
+            },
+            {
+              id: 'users',
+              icon: 'simple-icon-people',
+              label: 'menu.users',
+              to: '/app/users'
+            }
+        ];
+          break;
+        case 'SuperOP':
+          this.menuItems = [
+          
+            {
+              id: 'articles',
+              icon: 'iconsminds-testimonal',
+              label: 'menu.articles',
+              to: '/app/articles'
+            }
+           
+        ];
+       // default:
+          break;
+          
+      }
+
+
+  //   if(role === 'GodLike'){
+  //     this.menuItems = [
+  //       {
+  //         id: 'slugs',
+  //         icon: 'iconsminds-building',
+  //         label: 'menu.slugs',
+  //         to: '/app/slugs'
+  //       },
+  //       {
+  //         id: 'sectors',
+  //         icon: 'iconsminds-gear',
+  //         label: 'menu.sectors',
+  //         to: '/app/sectors'
+  //       },
+  //       {
+  //         id: 'media',
+  //         icon: 'iconsminds-newspaper',
+  //         label: 'menu.media',
+  //         to: '/app/media'
+  //       },
+  //       {
+  //         id: 'campaigns',
+  //         icon: 'simple-icon-flag',
+  //         label: 'menu.campaigns',
+  //         to: '/app/campaigns'
+  //       },
+  //       {
+  //         id: 'articles',
+  //         icon: 'iconsminds-testimonal',
+  //         label: 'menu.articles',
+  //         to: '/app/articles'
+  //       },
+  //       {
+  //         id: 'tags',
+  //         icon: 'simple-icon-tag',
+  //         label: 'menu.tags',
+  //         to: '/app/tags'
+  //       },
+  //       {
+  //         id: 'users',
+  //         icon: 'simple-icon-people',
+  //         label: 'menu.users',
+  //         to: '/app/users'
+  //       }
+  //   ];
+    
+  // }else {
+  //   this.menuItems = [
+  //     {
+  //       id: 'check',
+  //       icon: 'iconsminds-check',
+  //       label: 'menu.check',
+  //       to: '/app/checks'
+  //     }
+    
+  //   ];
+  // }
   }
+
+
+  }
+
+
+ 
+
+
+
+
+
+
 
   ngOnInit(): void {
     setTimeout(() => {

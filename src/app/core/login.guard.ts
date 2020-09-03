@@ -54,18 +54,22 @@ export class LoginGuard implements CanActivate {
 
   }
 
+
+
   checkRoles(roles: string): boolean {
+    const user = localStorage.getItem('user');
+    const userObject =  JSON.parse(user);
+    const  role = userObject.role;
     if (roles ) {
       let hasAccess = false;
 
-     const user = localStorage.getItem('user');
-    const userObject =  JSON.parse(user);
+    // const userType = localStorage.getItem('userType');
   
-        if (roles === userObject.role) {
+        if ( roles.includes(role) ) {
   
           hasAccess = true;
         }else {
-          this.router.navigate(['/app/cheks']);
+          this.router.navigate(['/error']);
         }
      
       return hasAccess;
