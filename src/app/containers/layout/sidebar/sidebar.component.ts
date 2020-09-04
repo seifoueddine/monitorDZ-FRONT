@@ -119,6 +119,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
               icon: 'iconsminds-check',
               label: 'menu.articles',
               to: '/app/articles-for-sort'
+            },
+            {
+              id: 'tags',
+              icon: 'simple-icon-tag',
+              label: 'menu.tags',
+              to: '/app/tags'
             }
            
         ];

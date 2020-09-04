@@ -10,8 +10,10 @@ import { Articles } from '../models/articles.model';
 export class ArticlesService {
 
   private serviceUrl = environment.ENDPOINTS.ARTICLES_PATH;
+   private serviceForSortingUrl = environment.ENDPOINTS.ARTICLES_FOR_SORTING_PATH;
   private serviceCrawlingUrl = environment.ENDPOINTS.CRAWLING_PATH;
   private serviceAutoTagUrl = environment.ENDPOINTS.AUTO_TAG_PATH;
+  private serviceChangeStatusUrl = environment.ENDPOINTS.CHANGE_STATUS_PATH;
   constructor(private http: HttpClient) {}
 
   addArticle(article: any): Observable<any> {
@@ -32,6 +34,21 @@ export class ArticlesService {
     const req = this.serviceUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue + media_idsValue;
     return this.http.get(req, { observe: 'response' });
   }
+
+/**
+   * this method call the server to get all parks
+   * @param page number of the page
+   * @param active the field to sort
+   * @param direction the sort direction
+   * @param size the page size
+   */
+  getArticlesForSorting(page, active, direction, size, search, media_ids): Observable<any> {
+    const searchValue = search === '' ? '' : `&search=${search}`; 
+    const media_idsValue = media_ids ? `&media_id=${media_ids}`  : ''; 
+    const req = this.serviceForSortingUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue + media_idsValue;
+    return this.http.get(req, { observe: 'response' });
+  }
+  
   /**
     * this method call the server to get the article by ID
     * @param articleId
@@ -46,7 +63,7 @@ export class ArticlesService {
    * update the article informations
    * @param article
    */
-  updateArticle(article: Articles): Observable<Articles> {
+  updateArticle(article: Articles): Observable<any> {
     const req = this.serviceUrl + `/${article.id}`;
     console.log(req);
     return this.http.put<Articles>(req, article);
@@ -90,6 +107,14 @@ export class ArticlesService {
   autoTag(): Observable<any> {
     const req = this.serviceAutoTagUrl;
     return this.http.get(req, { observe: 'response' });
+  }
+
+
+  changeStatus(status: any,ids: string): Observable<any> {
+    const object: any = {}
+    object.ids = ids;
+    object.status = status;
+    return this.http.post<any>(this.serviceChangeStatusUrl, object);
   }
 
 

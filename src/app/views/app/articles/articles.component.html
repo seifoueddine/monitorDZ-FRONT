@@ -4,27 +4,6 @@
         <div class="top-right-button-container text-zero">
             <button type="button" (click)="showAddNewModal()"
                 class="top-right-button btn btn-primary btn-lg mr-1">{{ 'pages.add-new' | translate}}</button>
-            <!-- <div class="btn-group" dropdown>
-                <div class="btn btn-primary btn-lg pl-4 pr-0 check-button">
-                    <label class="custom-control custom-checkbox mb-0 d-inline-block">
-                        <input type="checkbox" class="custom-control-input" [checked]="selectAllState==='checked'"
-                            [indeterminate]="selectAllState === 'indeterminate'" (change)="selectAll($event)">
-                        <span class="custom-control-label">&nbsp;</span>
-                    </label>
-                </div>
-                <button id="button-split" type="button" dropdownToggle
-                    class="btn btn-primary dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
-                    <span class="caret"></span>
-                </button>
-                <ul id="dropdown-split" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
-                    aria-labelledby="button-split">
-                    <li role="menuitem"><a class="dropdown-item"
-                            href="javascript:;">{{ 'pages.action' | translate }}</a></li>
-                    <li role="menuitem"><a class="dropdown-item"
-                            href="javascript:;">{{ 'pages.another-action' | translate }}</a>
-                    </li>
-                </ul>
-            </div> -->
         </div>
         <app-breadcrumb></app-breadcrumb>
         <div class="display-options-container">
@@ -35,21 +14,6 @@
                 <i class="simple-icon-arrow-down align-middle"></i>
             </a>
             <div id="displayOptions" [collapse]="displayOptionsCollapsed" class="collapse dont-collapse-sm">
-                <!-- <div class="d-block d-md-inline-block">
-                    <div class="float-md-left mr-1 mb-1" dropdown>
-                        <button id="button-basic" dropdownToggle type="button"
-                            class="btn btn-outline-dark btn-xs dropdown-toggle" aria-controls="dropdown-basic">
-                            Order By : {{itemOrder}} <span class="caret"></span>
-                        </button>
-                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
-                            aria-labelledby="button-basic">
-                            <li role="menuitem" *ngFor="let item of itemOptionsOrders"><a
-                                    [ngClass]="item === itemOrder ? 'dropdown-item active' : 'dropdown-item'"
-                                    (click)="itemOrder = item">{{item}}</a></li>
-                        </ul>
-                    </div>
-                </div> -->
-
                 <div class="d-block d-md-inline-block">
                     <div class="float-md-left mr-1 mb-1 ">
                       <ng-select class="custom" [searchFn]="customSearch" [items]="media" placeholder="Média" bindLabel="attributes.name" bindValue="id" [multiple]="true"
@@ -58,15 +22,6 @@
         
                     </div>
                   </div>
-
-
-
-                <!-- <div class="d-inline-block">
-                    <div class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
-                        <input class="form-control" placeholder="Search">
-                         (keyup)="updateFilter($event)" 
-                    </div>
-                </div> -->
                 <div class="float-right" id="pageCountDatatable">
                     <span class="text-muted text-small">Total {{totalElements}} / par page </span>
                     <span dropdown class="d-inline-block position-relative">
@@ -89,39 +44,8 @@
       
 
         <div class="row">
-            <div class="col-xl-4 col-lg-4 col-12 col-sm-6 mb-4" *ngFor="let a of rows; let i=index"
-            >
-              <!-- <div [ngClass]="{'card': true, 'active':isSelected(p)}">
-                <div class="position-relative">
-                  <a href="javascript:;"><img class="card-img-top" [src]="p.img" [alt]="p.title"></a>
-                  <span [class]="'badge badge-pill position-absolute badge-top-left badge-'+ p.statusColor">{{p.status}}</span>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                    <div class="col-2">
-                      <div class="custom-control custom-checkbox pl-1">
-                        <label class="custom-control custom-checkbox  mb-0">
-                          <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(p)"
-                            (change)="onSelect(p)">
-                          <label class="custom-control-label" [for]="'customCheck'+i"></label>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-10">
-                      <a href="javascript:;">
-                        <p class="list-item-heading mb-4 pt-1">{{p.title}}</p>
-                      </a>
-                      <footer>
-                        <p class="text-muted text-small mb-0 font-weight-light">{{p.date}}</p>
-                      </footer>
-                    </div>
-                 </div>
-                </div>
-              </div> -->
-
-
-            
-               
+            <div class="col-xl-4 col-lg-4 col-12 col-sm-6 mb-4" *ngFor="let a of rows; let i=index" >
+    
                   <div class="card bg-dark text-white">
                    
                     <img class="card-img" [src]="a.attributes.url_image ? a.attributes.url_image : defaultImage" alt="Card image">
@@ -179,7 +103,7 @@
 
 
 </div>
-<!-- <app-add-new-survey-modal #addNewModalRef></app-add-new-survey-modal> -->
+
 <app-application-menu>
     <perfect-scrollbar class="scroll" [config]="{suppressScrollX: true, wheelPropagation: false}">
         <div class="p-4 h-100">
@@ -212,49 +136,9 @@
                     Lance tag auto
                   </app-state-button>
 
-<!-- 
-                    <button type="button" (click)="showAddNewModal()"
-                        class="top-right-button btn btn-primary btn-lg mr-1" >Lance tag auto</button> -->
                 </div>
-                <!-- <ul class="list-unstyled mb-5">
-                    <li>
-                        <div class="custom-control custom-checkbox mb-2">
-                            <input type="checkbox" class="custom-control-input" id="category1">
-                            <label class="custom-control-label" for="category1">Development</label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="custom-control custom-checkbox mb-2">
-                            <input type="checkbox" class="custom-control-input" id="category2">
-                            <label class="custom-control-label" for="category2">Workplace</label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="custom-control custom-checkbox ">
-                            <input type="checkbox" class="custom-control-input" id="category3">
-                            <label class="custom-control-label" for="category3">Hardware</label>
-                        </div>
-                    </li>
-                </ul> -->
-                <!-- <p class="text-muted text-small">{{ 'survey.labels' | translate }}</p>
-                <div>
-                    <p class="d-sm-inline-block mb-1">
-                        <a href="javascript:;">
-                            <span class="badge badge-pill badge-outline-primary mb-1 mr-1">NEW FRAMEWORK</span>
-                        </a>
-                    </p>
-
-                    <p class="d-sm-inline-block mb-1">
-                        <a href="javascript:;">
-                            <span class="badge badge-pill badge-outline-theme-3 mb-1 mr-1">EDUCATION</span>
-                        </a>
-                    </p>
-                    <p class="d-sm-inline-block  mb-1">
-                        <a href="javascript:;">
-                            <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">PERSONAL</span>
-                        </a>
-                    </p>
-                </div> -->
+        
+        
             </div>
         </div>
     </perfect-scrollbar>

@@ -21,12 +21,14 @@ export const environment = {
     MEDIA_PATH: apiVersion + '/media',
     CAMPAIGNS_PATH: apiVersion + '/campaigns',
     ARTICLES_PATH: apiVersion + '/articles',
+    ARTICLES_FOR_SORTING_PATH: apiVersion + '/articles_for_sorting',
     TAGS_PATH: apiVersion + '/tags',
     CRAWLING_PATH: apiVersion + '/get_articles/crawling',
     AUTO_TAG_PATH: apiVersion + '/auto_tags',
     SEARCH_ARTICLES_PATH: apiVersion + '/search_article',
     USERS_PATH: apiVersion + '/users',
     CHANGE_PASSWORD_PATH: apiVersion + '/users/change_password/',
+    CHANGE_STATUS_PATH: apiVersion + '/articles/change_status'
   },
 
 

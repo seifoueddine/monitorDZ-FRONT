@@ -32,7 +32,7 @@ const routes: Routes = [
              } },
              { path: 'tags', loadChildren: () => import('./tags/tags.module').then(m => m.TagsModule), canActivate: [LoginGuard],
              data: {
-               roles: ['GodLike']
+               roles: ['GodLike','SuperOP']
              } },
               { path: 'search', loadChildren: () => import('./search/search.module').then(m => m.SearchModule), canActivate: [LoginGuard],
               data: {

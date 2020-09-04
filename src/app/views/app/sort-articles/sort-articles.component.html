@@ -1,1 +1,216 @@
-<p>sort-articles works!</p>
+
+
+
+<div class="row app-row">
+    <div class="col-12" >
+      
+    <app-list-page-header [displayMode]="displayMode" [itemOptionsOrders]="itemOptionsOrders" [itemOrder]="itemOrder" [itemOptionsPerPage]="[5,10,20]" [itemsPerPage]="itemsPerPage"
+    [selectAllState]="selectAllState" (changeDisplayMode)="changeDisplayMode($event)" (addNewItem)="showAddNewModal()"
+    (selectAllChange)="selectAllChange($event)" (itemsPerPageChange)="itemsPerPageChange($event)" currentPage="sort-articles"
+    (changeOrderBy)="changeOrderBy($event)" >
+    </app-list-page-header>
+
+</div>
+  
+    <div class="col-12 list" *ngIf="displayMode==='thumb'">
+      <div [ngClass]="{'card d-flex flex-row mb-3': true, 'active':isSelected(a)}" *ngFor="let a of rows; let i=index"
+        >
+        <a class="d-flex" href="javascript:;">
+          <img src="#" [alt]="a.attributes.medium.name" class="list-thumbnail responsive border-0 card-img-left" />
+        </a>
+        <div class="pl-2 d-flex flex-grow-1 min-width-zero">
+          <div
+            class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+            <a href="javascript:;" class="w-40 w-sm-100">
+              <p class="list-item-heading mb-0 truncate">{{a.attributes.title}}</p>
+            </a>
+            <p class="mb-0 text-muted text-small w-15 w-sm-100">{{a.attributes.author.name}}</p>
+            <p class="mb-0 text-muted text-small w-15 w-sm-100">{{a.attributes.date_published}}</p>
+            <div class="w-15 w-sm-100">
+                <span style="background-color: green; color: white;" *ngIf="a.attributes.status === 'checked'" [class]="'badge badge-pill'">{{a.attributes.status}}</span>
+                <span style="background-color: rgb(240, 108, 0); color: white;" *ngIf="a.attributes.status === 'archived'" [class]="'badge badge-pill'">Archivé</span>
+                <span style="background-color: rgb(184, 7, 7); color: white;" *ngIf="a.attributes.status === 'pending'" [class]="'badge badge-pill'">En attente</span>
+            </div>
+          </div>
+          <label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
+            <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(a)"
+              (change)="onSelect(a)">
+            <label class="custom-control-label" [for]="'customCheck'+i"></label>
+          </label>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-12 list" *ngIf="displayMode==='image'">
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-12 col-sm-6 mb-4" *ngFor="let a of rows; let i=index" >
+          <div [ngClass]="{'card': true, 'active':isSelected(a)}">
+            <div class="position-relative">
+              <a href="javascript:;">
+                <div class="position-absolute card-top-buttons">
+                    <button class="btn btn-outline-white icon-button c-pointer" (click)="openModal(template, a)"><i class="simple-icon-pencil"></i></button>
+                </div>
+                <img style="height: 180px;" class="card-img-top" [src]="a.attributes.url_image ? a.attributes.url_image : (defaultImage)" alt="Article image"></a>
+              <span style="background-color: green; color: white;" *ngIf="a.attributes.status === 'checked'" [class]="'badge badge-pill position-absolute badge-top-left'">{{a.attributes.status}}</span>
+              <span style="background-color: rgb(240, 108, 0); color: white;" *ngIf="a.attributes.status === 'archived'" [class]="'badge badge-pill position-absolute badge-top-left'">Archivé</span>
+              <span style="background-color: rgb(184, 7, 7); color: white;" *ngIf="a.attributes.status === 'pending'" [class]="'badge badge-pill position-absolute badge-top-left'">En attente</span>
+              <span class="badge badge-pill badge-secondary position-absolute badge-top-left-2">{{a.attributes.medium.name}}</span>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-2">
+                  <div class="custom-control custom-checkbox pl-1">
+                    <label class="custom-control custom-checkbox  mb-0">
+                      <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(a)"
+                        (change)="onSelect(a)">
+                      <label class="custom-control-label" [for]="'customCheck'+i"></label>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-10">
+                  <a href="javascript:;">
+                    <p class="list-item-heading mb-4 pt-1 truncate">{{a.attributes.title}}</p>
+                  </a>
+                  <footer>
+                    <p class="text-muted text-small mb-0 font-weight-light"> {{a.attributes.author.name}}</p>
+                    <p class="text-muted text-small mb-0 font-weight-light">{{a.attributes.date_published}}</p>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-12">
+        <pagination [boundaryLinks]="true"  [totalItems]="totalElements" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"
+          [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center" [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
+          [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate">
+        </pagination>
+      </div>
+  </div>
+  
+  <div class="col-12">
+
+
+    <ng-template #nextTemplate let-disabled="disabled" let-currentPage="currentPage">
+    <i class='simple-icon-arrow-right'></i>
+    </ng-template>
+    
+    <ng-template #prevTemplate let-disabled="disabled" let-currentPage="currentPage">
+    <i class='simple-icon-arrow-left'></i>
+    </ng-template>
+    
+    <ng-template #lastTemplate let-disabled="disabled" let-currentPage="currentPage">
+    <i class='simple-icon-control-end'></i>
+    </ng-template>
+    
+    <ng-template #firstTemplate let-disabled="disabled" let-currentPage="currentPage">
+    <i class='simple-icon-control-start'></i>
+    </ng-template>
+    
+    </div>
+
+
+<app-application-menu>
+    <perfect-scrollbar class="scroll" [config]="{suppressScrollX: true, wheelPropagation: false}">
+        <div class="p-4 h-100">
+            <div class="scroll">
+                <p class="text-muted text-small">Média</p>
+                <div *ngIf="!spinnerCrawling">
+                <ul   class="list-unstyled mb-4" *ngFor="let m of media;">
+                    <li class="nav-item c-pointer">
+                        <a (click)="getNewArticles(m.id, m.attributes.name)">
+                            <i class="simple-icon-refresh"></i>
+                            {{ m.attributes.name}}
+                            <!-- <span class="float-right">24</span> -->
+                        </a>
+                    </li>
+                   
+                </ul>
+            </div>
+                <div *ngIf="spinnerCrawling" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                    </div>
+                    <div class="mt-3">Chercher nouveaux articles dans {{mediaNameSelected}}</div>
+                </div>
+                <p class="text-muted text-small mb-4">
+                Tags
+                </p>
+                <div class="text-zero">
+                <div class="row">
+                    <div class="col-12 text-center">
+                   
+                    <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState"
+                     (click)="goToAutoTag()">
+                    Lance tag auto
+                  </app-state-button>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                  
+                        <div style="padding-top: 15px;" class="btn-group" dropdown>
+                          
+                            <div class="btn btn-primary btn-lg pl-4 pr-0 check-button">
+                                Actions
+                              <label style="padding-left: 25px;" class="custom-control custom-checkbox mb-0 d-inline-block">
+                               
+                                <input type="checkbox" class="custom-control-input" [checked]="selectAllState==='checked'"
+                                  [indeterminate]="selectAllState === 'indeterminate'" (change)="selectAllChange($event)">
+                                <span class="custom-control-label">&nbsp;</span>
+                              </label>
+                            </div>
+                            <button id="button-split2" type="button" dropdownToggle
+                              class="btn btn-primary dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
+                              <span class="caret"></span>
+                            </button>
+                            <ul id="dropdown-split2" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                              aria-labelledby="button-split">
+                              <!-- <li role="menuitem"><a class="dropdown-item" href="javascript:;">{{ 'pages.move' | translate }}</a></li>  -->
+                              <li role="menuitem"> <a class="c-pointer" style="padding: 0.5rem 1.25rem;" (click)="changeStatus('archived')"> Archiver </a></li>
+                              <li role="menuitem"> <a class="c-pointer" style="padding: 0.5rem 1.25rem;" (click)="changeStatus('checked')"> Confirmer </a></li>
+                            </ul>
+                        </div>
+                  
+                    </div>
+                </div>
+               
+          
+        </div>
+        
+            </div>
+        </div>
+    </perfect-scrollbar>
+</app-application-menu>
+<simple-notifications [options]="options"></simple-notifications>
+
+
+<ng-template #template>
+    <div class="modal-body text-center">
+      <h6 class="modal-title mb-4">Modification de l'article  </h6>
+
+
+      <div class="row">
+        <div class="col-12">
+      
+          <div class="card mb-4">
+            <div class="card-body">
+           
+              <quill-editor [(ngModel)]="valueBind" [placeholder]="''"></quill-editor>
+            </div>
+          </div>
+      
+          
+      
+        </div>
+      </div>
+      
+
+
+
+      <button type="button" class="btn btn-outline-primary" (click)="submit()">Confirmer</button> {{" "}}
+      <button type="button" class="btn btn-primary" (click)="decline()">Annuler</button>
+    </div>
+  </ng-template>
