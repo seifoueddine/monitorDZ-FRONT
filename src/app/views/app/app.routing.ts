@@ -28,7 +28,7 @@ const routes: Routes = [
              } },
              { path: 'articles', loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule), canActivate: [LoginGuard],
              data: {
-               roles: ['GodLike', 'SuperOP']
+               roles: ['GodLike']
              } },
              { path: 'tags', loadChildren: () => import('./tags/tags.module').then(m => m.TagsModule), canActivate: [LoginGuard],
              data: {
@@ -41,6 +41,10 @@ const routes: Routes = [
               { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule), canActivate: [LoginGuard],
               data: {
                 roles: ['GodLike']
+              } },
+              { path: 'articles-for-sort', loadChildren: () => import('./sort-articles/sort-articles.module').then(m => m.SortArticlesModule), canActivate: [LoginGuard],
+              data: {
+                roles: ['SuperOP']
               } },
             // { path: 'second-menu', loadChildren: () => import('./second-menu/second-menu.module').then(m => m.SecondMenuModule) },
         ]

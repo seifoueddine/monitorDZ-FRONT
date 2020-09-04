@@ -115,10 +115,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
           this.menuItems = [
           
             {
-              id: 'articles',
-              icon: 'iconsminds-testimonal',
+              id: 'sort-articles',
+              icon: 'iconsminds-check',
               label: 'menu.articles',
-              to: '/app/articles'
+              to: '/app/articles-for-sort'
             }
            
         ];

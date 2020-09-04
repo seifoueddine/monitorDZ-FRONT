@@ -17,20 +17,19 @@ import { ComponentsCarouselModule } from 'src/app/components/carousel/components
 import { ArchwizardModule } from 'angular-archwizard';
 import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
-import { ArticlesRoutingModule } from './articles.routing';
-import { ArticlesComponent } from './articles.component';
-import { DetailsArticleComponent } from './details-article/details-article.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { QuillModule } from 'ngx-quill';
 import { sanitizeHtmlPipe } from 'src/app/shared/sanitize-html.pipe';
 import { ComponentsStateButtonModule } from 'src/app/components/state-button/components.state-button.module';
+import { SortArticlesComponent } from './sort-articles.component';
+import { SortArticlesRoutingModule } from './sort-articles.routing';
 @NgModule({
-  declarations: [ArticlesComponent, DetailsArticleComponent, sanitizeHtmlPipe],
+  declarations: [SortArticlesComponent],
   imports: [
     SharedModule,
     LayoutContainersModule,
     PagesContainersModule,
-    ArticlesRoutingModule,
+    SortArticlesRoutingModule,
     SimpleNotificationsModule.forRoot(),
     ModalModule.forRoot(),
     FormsModule,
@@ -46,10 +45,9 @@ import { ComponentsStateButtonModule } from 'src/app/components/state-button/com
     PaginationModule.forRoot(),
     NgxDatatableModule,
     ComponentsCarouselModule,
-    ArchwizardModule,
     NgSelectModule,
     QuillModule.forRoot(),
     ComponentsStateButtonModule 
   ]
 })
-export class ArticlesModule { }
+export class SortArticlesModule { }

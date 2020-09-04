@@ -31,7 +31,7 @@
                       <p class="list-item-heading mb-1 truncate">{{u.attributes.name}}</p> 
                     </a>
                     <p class="mb-2 text-muted text-small">{{u.attributes.role}} / {{u.attributes.slug_id ? getSlug(u.attributes.slug_id) : ''}}</p> 
-                    <!-- <p class="mb-2  text-small">{{u.attributes.RegistrationNumber}}</p> -->
+                    <p class="mb-2  text-small">{{u.attributes.email}}</p> 
                     <button type="button" (click)="openChangePasswordModal(template, u)" class="btn btn-xs btn-outline-primary">Changer le mot de passe</button>
                   </div>
                 </div>

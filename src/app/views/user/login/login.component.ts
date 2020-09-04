@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/app/slugs']); 
             break;
             case 'SuperOP':
-              this.router.navigate(['/app/articles']); 
+              this.router.navigate(['/app/articles-for-sort']); 
               break;
           default:
             break;
