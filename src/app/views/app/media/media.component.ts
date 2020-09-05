@@ -5,6 +5,7 @@ import { OurNotificationsService } from 'src/app/shared/our-notifications.servic
 import { ActivatedRoute } from '@angular/router';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { MediaFormComponent } from './media-form/media-form.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-media',
@@ -17,7 +18,8 @@ export class MediaComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
   rows = [];
-
+  urlForImage = environment.URL_PATH; 
+  defaultIcon = "assets/img/logo.jpg"
   public options = {
     position: ["bottom", "center"],
 }

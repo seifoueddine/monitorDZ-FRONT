@@ -12,8 +12,8 @@ export class MediaService {
   private serviceUrl = environment.ENDPOINTS.MEDIA_PATH;
   constructor(private http: HttpClient) {}
 
-  addMedia(sector: any): Observable<any> {
-    return this.http.post<any>(this.serviceUrl, sector);
+  addMedia(media: any): Observable<any> {
+    return this.http.post<any>(this.serviceUrl, media);
   }
 
 
@@ -31,7 +31,7 @@ export class MediaService {
     return this.http.get(req, { observe: 'response' });
   }
   /**
-    * this method call the server to get the sector by ID
+    * this method call the server to get the media by ID
     * @param sectorId
     */
   getMediaById(sectorId: number): Observable<Media> {
@@ -41,13 +41,13 @@ export class MediaService {
   }
 
   /**
-   * update the sector informations
-   * @param sector
+   * update the media informations
+   * @param media
    */
-  updateMedia(sector: Media): Observable<Media> {
-    const req = this.serviceUrl + `/${sector.id}`;
+  updateMedia(media: FormData, mediaId: any): Observable<Media> {
+    const req = this.serviceUrl + `/${mediaId}`;
     console.log(req);
-    return this.http.put<Media>(req, sector);
+    return this.http.put<Media>(req, media);
   }
 
 
