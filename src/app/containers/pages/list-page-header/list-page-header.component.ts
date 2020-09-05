@@ -12,7 +12,8 @@ import { UsersService } from 'src/app/shared/services/users.service';
 
 @Component({
   selector: 'app-list-page-header',
-  templateUrl: './list-page-header.component.html'
+  templateUrl: './list-page-header.component.html',
+  styleUrls: ['./list-page-header.component.scss']
 })
 export class ListPageHeaderComponent implements OnInit {
   displayOptionsCollapsed = false;
@@ -27,14 +28,14 @@ export class ListPageHeaderComponent implements OnInit {
   @Input() itemOptionsPerPage = [5, 10, 20];
   @Input() itemOrder = { label: 'Product Name', value: 'title' };
   @Input()  itemOptionsOrders = [{ label: 'Product Name', value: 'title' }, { label: 'Category', value: 'category' }, { label: 'Status', value: 'status' }];
-
+  @Input() media
   @Output() changeDisplayMode: EventEmitter<string> = new EventEmitter<string>();
   @Output() addNewItem: EventEmitter<any> = new EventEmitter();
   @Output() selectAllChange: EventEmitter<any> = new EventEmitter();
   @Output() searchKeyUp: EventEmitter<any> = new EventEmitter();
   @Output() itemsPerPageChange: EventEmitter<any> = new EventEmitter();
   @Output() changeOrderBy: EventEmitter<any> = new EventEmitter();
-
+  @Output() selectMedium: EventEmitter<any> = new EventEmitter();
   @ViewChild('search') search: any;
   modalRef: any;
   constructor( 
@@ -78,8 +79,18 @@ export class ListPageHeaderComponent implements OnInit {
     this.changeOrderBy.emit(item);
   }
 
+  selectMedia(item) {
+   // this.itemOrder = item;
+    this.selectMedium.emit(item);
+  }
+
   onSearchKeyUp($event){
     this.searchKeyUp.emit($event);
+  }
+
+  customSearch(term: string, item: any) {
+    term = term.toLocaleLowerCase();
+    return item.attributes.name.toLocaleLowerCase().indexOf(term) > -1
   }
 
   deleteItem(currentPage, id) {

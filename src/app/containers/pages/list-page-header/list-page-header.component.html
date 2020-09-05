@@ -86,6 +86,16 @@
           <div *ngIf="currentPage != 'sort-articles'" class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
             <input class="form-control" placeholder="Search" (keyup)="onSearchKeyUp($event)">
           </div>
+
+          <div *ngIf="currentPage === 'sort-articles'" class="d-block d-md-inline-block">
+            <div class="float-md-left mr-1 mb-1 ">
+              <ng-select class="custom" [searchFn]="customSearch" [items]="media" placeholder="Filtrer par média " bindLabel="attributes.name" bindValue="id" [multiple]="true"
+                (change)="selectMedia($event)"> 
+              </ng-select>
+
+            </div>
+          </div>
+
         </div>
         <div class="float-right" *ngIf="showItemsPerPage">
           <span class="text-muted text-small">Per Page </span>

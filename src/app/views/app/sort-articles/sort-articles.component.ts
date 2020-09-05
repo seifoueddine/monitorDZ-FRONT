@@ -7,6 +7,7 @@ import { OurNotificationsService } from 'src/app/shared/our-notifications.servic
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { Articles } from 'src/app/shared/models/articles.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sort-articles',
@@ -14,9 +15,11 @@ import { Articles } from 'src/app/shared/models/articles.model';
   styleUrls: ['./sort-articles.component.scss']
 })
 export class SortArticlesComponent implements OnInit {
+  urlForImage = environment.URL_PATH; 
   displayMode = 'image';
   [x: string]: any;
   defaultImage = "assets/img/no-image-article.png"
+  defaultIcon = "assets/img/logo.jpg"
   rows: any;
 
   public options = {
@@ -46,7 +49,7 @@ export class SortArticlesComponent implements OnInit {
   totalElements: any;
   mediaIds: any;
  
-  itemOrder = { label: 'Status', value: 'status' };
+  itemOrder = { label: 'Titre', value: 'title' };
   itemOptionsOrders = [{ label: 'Titre', value: 'title' }, { label: 'Status', value: 'status' }, { label: 'Auteur', value: 'author_id' }];
   displayOptionsCollapsed = false;
 
@@ -54,6 +57,7 @@ export class SortArticlesComponent implements OnInit {
   description = ""
   mediaNameSelected: any;
   valueBind: string;
+  articleDetails: any;
   // @ViewChild('addNewModalRef', { static: true }) addNewModalRef: AddNewSurveyModalComponent;
 
   constructor(private renderer: Renderer2, private articleService: ArticlesService, private notifications: NotificationsService,
@@ -67,6 +71,26 @@ export class SortArticlesComponent implements OnInit {
     this.articleId = data.id;
     this.modalRef = this.modalService.show(template, { class: 'modal-xl' });
   }
+
+  openDetailsModal(template: TemplateRef<any>, data: any) {
+    this.articleDetails = data;
+    this.getBodyWithTags();
+  //  this.articleId = data.id;
+    this.modalRef = this.modalService.show(template, { class: 'modal-xl' });
+  }
+
+  
+  getBodyWithTags(){
+   // this.tags = this.tags.filter(function(e){return e}); 
+    this.articleDetails.attributes.tags.map(t => {
+      let tag = t.name.trim();
+      let re = new RegExp(tag, 'g');
+      this.articleDetails.attributes.body = this.articleDetails.attributes.body.replace(re, '<span style="padding-right: 2px; padding-left: 2px; border-radius: 5px; border: 1px solid #73b0ff; background-color:#95bff5;";font-weight:bold">' + tag + '</span>');
+    }) 
+
+  }
+
+  
 
   ngOnInit() {
     this.renderer.addClass(document.body, 'right-menu');
@@ -154,6 +178,8 @@ export class SortArticlesComponent implements OnInit {
     this.orderBy = item.value;
     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);;
   }
+
+  
 
 
   showAddNewModal() {

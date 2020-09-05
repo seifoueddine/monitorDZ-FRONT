@@ -4,10 +4,10 @@
 <div class="row app-row">
     <div class="col-12" >
       
-    <app-list-page-header [displayMode]="displayMode" [itemOptionsOrders]="itemOptionsOrders" [itemOrder]="itemOrder" [itemOptionsPerPage]="[5,10,20]" [itemsPerPage]="itemsPerPage"
+    <app-list-page-header [displayMode]="displayMode" [media]="media" [itemOptionsOrders]="itemOptionsOrders" [itemOrder]="itemOrder" [itemOptionsPerPage]="[5,10,20]" [itemsPerPage]="itemsPerPage"
     [selectAllState]="selectAllState" (changeDisplayMode)="changeDisplayMode($event)" (addNewItem)="showAddNewModal()"
     (selectAllChange)="selectAllChange($event)" (itemsPerPageChange)="itemsPerPageChange($event)" currentPage="sort-articles"
-    (changeOrderBy)="changeOrderBy($event)" >
+    (changeOrderBy)="changeOrderBy($event)" (selectMedium)="selectMedia($event)" >
     </app-list-page-header>
 
 </div>
@@ -16,7 +16,7 @@
       <div [ngClass]="{'card d-flex flex-row mb-3': true, 'active':isSelected(a)}" *ngFor="let a of rows; let i=index"
         >
         <a class="d-flex" href="javascript:;">
-          <img src="#" [alt]="a.attributes.medium.name" class="list-thumbnail responsive border-0 card-img-left" />
+          <img [src]="a.attributes.medium.avatar.url ? urlForImage + a.attributes.medium.avatar.url : defaultIcon" [alt]="a.attributes.medium.name" class="list-thumbnail responsive border-0 card-img-left" />
         </a>
         <div class="pl-2 d-flex flex-grow-1 min-width-zero">
           <div
@@ -30,6 +30,8 @@
                 <span style="background-color: green; color: white;" *ngIf="a.attributes.status === 'checked'" [class]="'badge badge-pill'">{{a.attributes.status}}</span>
                 <span style="background-color: rgb(240, 108, 0); color: white;" *ngIf="a.attributes.status === 'archived'" [class]="'badge badge-pill'">Archivé</span>
                 <span style="background-color: rgb(184, 7, 7); color: white;" *ngIf="a.attributes.status === 'pending'" [class]="'badge badge-pill'">En attente</span>
+                <span style="background-color: green; color: white;" *ngIf="a.attributes.is_tagged" [class]="'position-absolute badge-top-right badge badge-pill'"> Tag auto</span> 
+
             </div>
           </div>
           <label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
@@ -55,6 +57,8 @@
               <span style="background-color: rgb(240, 108, 0); color: white;" *ngIf="a.attributes.status === 'archived'" [class]="'badge badge-pill position-absolute badge-top-left'">Archivé</span>
               <span style="background-color: rgb(184, 7, 7); color: white;" *ngIf="a.attributes.status === 'pending'" [class]="'badge badge-pill position-absolute badge-top-left'">En attente</span>
               <span class="badge badge-pill badge-secondary position-absolute badge-top-left-2">{{a.attributes.medium.name}}</span>
+              <span style="background-color: green; color: white;" *ngIf="a.attributes.is_tagged" [class]="'position-absolute badge-top-right badge badge-pill'"> Tag auto</span> 
+
             </div>
             <div class="card-body">
               <div class="row">
@@ -68,7 +72,7 @@
                   </div>
                 </div>
                 <div class="col-10">
-                  <a href="javascript:;">
+                  <a href="javascript:;" (click)="openDetailsModal(templateDetails, a)">
                     <p class="list-item-heading mb-4 pt-1 truncate">{{a.attributes.title}}</p>
                   </a>
                   <footer>
@@ -151,7 +155,7 @@
                 <div class="row">
                     <div class="col-12 text-center">
                   
-                        <div style="padding-top: 15px;" class="btn-group" dropdown>
+                        <div style="padding-top: 15px;" class="btn-group" dropdown [isDisabled]="idItem === ''">
                           
                             <div class="btn btn-primary btn-lg pl-4 pr-0 check-button">
                                 Actions
@@ -212,5 +216,109 @@
 
       <button type="button" class="btn btn-outline-primary" (click)="submit()">Confirmer</button> {{" "}}
       <button type="button" class="btn btn-primary" (click)="decline()">Annuler</button>
+    </div>
+  </ng-template>
+
+
+
+
+  <ng-template #templateDetails>
+    <div class="modal-body text-center">
+      <h6 class="modal-title mb-4">Détails de l'article  </h6>
+
+
+
+      <div class="row">
+        <div class="col-12 col-md-12 col-xl-8 col-left">
+            <div class="card mb-4">
+             
+                <img alt="detail" style="height: 300px;"  [src]="articleDetails?.attributes.url_image ? articleDetails?.attributes.url_image : defaultImage"  class="responsive border-0 card-img-top mb-3 c-pointer" />
+                <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'"> {{articleDetails?.attributes.category_article}}</span> 
+    
+                <div class="card-body">
+                  <div class="mb-5">
+                    <h3 class="card-title">{{articleDetails?.attributes.title}} <a target="_blank" [href]="articleDetails?.attributes.url_article"><i  class='simple-icon-link initial-height'></i></a></h3>
+                    <div [innerHTML]="articleDetails?.attributes.body | sanitizeHtml"></div> 
+                </div>
+              </div>
+              
+        </div>
+    </div>
+        <div class="col-12 col-md-12 col-xl-4 col-right">
+     
+            <div class="card mb-4">
+                <div class="card-body">
+                  <h5 class="card-title">Inormations</h5>
+    
+          
+                
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <a class="d-block position-relative" href="#">
+                      <i class='simple-icon-globe large-icon initial-height'></i>
+                    </a>
+                    <div class="pl-3 pt-2 pr-2 pb-2">
+                      <a href="javascript:;">
+                        <p class="list-item-heading mb-1">{{articleDetails?.attributes.medium.name}}  </p> 
+                      </a>
+                    </div>
+                  </div>
+    
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <a class="d-block position-relative" href="#">
+                      <i class='simple-icon-user large-icon initial-height'></i>
+                    </a>
+                    <div class="pl-3 pt-2 pr-2 pb-2">
+                      <a href="javascript:;">
+                        <p class="list-item-heading mb-1">{{articleDetails?.attributes.author.name}}</p>
+                      </a>
+                    </div>
+                  </div>
+    
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <a class="d-block position-relative" href="#">
+                      <i class='simple-icon-calendar large-icon initial-height'></i>
+                    </a>
+                    <div class="pl-3 pt-2 pr-2 pb-2">
+                      <a href="javascript:;">
+                        <p class="list-item-heading mb-1">{{articleDetails?.attributes.date_published}}</p> 
+                      </a>
+                    </div>
+                  </div>
+    
+                <div class="d-flex flex-row align-items-center mb-3">
+                    <a class="d-block position-relative" href="#">
+                      <i class='simple-icon-tag large-icon initial-height'></i>
+                    </a>
+                    <div class="pl-3 pt-2 pr-2 pb-2">
+    
+                        <p class="d-sm-inline-block mb-1" *ngFor="let item of articleDetails?.attributes.tags">
+                            <a href="javascript:;">
+                              <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">{{item.name}}</span>
+                            </a>
+                        </p>
+    
+                   
+                    </div>
+                  </div>
+                  
+              
+                </div>
+              </div>
+        </div>
+      </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+   
     </div>
   </ng-template>

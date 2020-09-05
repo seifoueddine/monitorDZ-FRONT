@@ -16,7 +16,7 @@
       <div class="card mb-4">
         <div class="card-body">
           <div *ngFor="let item of result; let i = index;" [ngClass]="{'mb-3':result.length!==(i+1)}">
-            <p class="list-item-heading mb-1 color-theme-1"><span style="background-color: brown; color: white;"  [class]="'badge badge-pill'"> {{item.category_article}}</span> 
+            <p class="list-item-heading mb-1 color-theme-1"> <span   [class]="'badge badge-pill badge-secondary'"> {{item.medium?.name}}</span>  / <span style="background-color: brown; color: white;"  [class]="'badge badge-pill'"> {{item.category_article}}</span> 
             </p>
             <a  target="_blank" [href]="'app/articles/details?id='+item.id" class="w-40 w-sm-100">
                 <p class="list-item-heading mb-1 color-theme-1">{{item.title}}</p>

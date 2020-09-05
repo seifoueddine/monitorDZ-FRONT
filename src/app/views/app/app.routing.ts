@@ -8,7 +8,7 @@ const routes: Routes = [
     {
         path: '', component: AppComponent,
         children: [
-            { path: '', pathMatch: 'full', redirectTo: 'articles' },
+            { path: '', pathMatch: 'full', redirectTo: 'articles-for-sort' },
             // { path: 'vien', loadChildren: () => import('./vien/vien.module').then(m => m.VienModule) },
             { path: 'slugs', loadChildren: () => import('./slugs/slugs.module').then(m => m.SlugsModule) , canActivate: [LoginGuard],
             data: {
@@ -28,7 +28,7 @@ const routes: Routes = [
              } },
              { path: 'articles', loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule), canActivate: [LoginGuard],
              data: {
-               roles: ['GodLike']
+               roles: ['GodLike','SuperOP']
              } },
              { path: 'tags', loadChildren: () => import('./tags/tags.module').then(m => m.TagsModule), canActivate: [LoginGuard],
              data: {
@@ -36,7 +36,7 @@ const routes: Routes = [
              } },
               { path: 'search', loadChildren: () => import('./search/search.module').then(m => m.SearchModule), canActivate: [LoginGuard],
               data: {
-                roles: ['GodLike']
+                roles: ['GodLike','SuperOP']
               } },
               { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule), canActivate: [LoginGuard],
               data: {
@@ -44,7 +44,7 @@ const routes: Routes = [
               } },
               { path: 'articles-for-sort', loadChildren: () => import('./sort-articles/sort-articles.module').then(m => m.SortArticlesModule), canActivate: [LoginGuard],
               data: {
-                roles: ['SuperOP']
+                roles: ['GodLike','SuperOP']
               } },
             // { path: 'second-menu', loadChildren: () => import('./second-menu/second-menu.module').then(m => m.SecondMenuModule) },
         ]

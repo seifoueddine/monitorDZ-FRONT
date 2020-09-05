@@ -25,7 +25,7 @@ import { QuillModule } from 'ngx-quill';
 import { sanitizeHtmlPipe } from 'src/app/shared/sanitize-html.pipe';
 import { ComponentsStateButtonModule } from 'src/app/components/state-button/components.state-button.module';
 @NgModule({
-  declarations: [ArticlesComponent, DetailsArticleComponent, sanitizeHtmlPipe],
+  declarations: [ArticlesComponent, DetailsArticleComponent],
   imports: [
     SharedModule,
     LayoutContainersModule,

@@ -4,8 +4,9 @@ import { ErrorComponent } from '../views/error/error.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { sanitizeHtmlPipe } from './sanitize-html.pipe';
 @NgModule({
-  declarations: [ErrorComponent],
+  declarations: [ErrorComponent, sanitizeHtmlPipe], 
   imports: [
     RouterModule,
     CommonModule,
@@ -17,7 +18,8 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     RouterModule,
     ErrorComponent,
     TranslateModule,
-    CommonModule
+    CommonModule,
+    sanitizeHtmlPipe
   ]
 })
 export class SharedModule { }

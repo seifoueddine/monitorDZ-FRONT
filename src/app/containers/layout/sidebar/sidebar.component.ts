@@ -98,6 +98,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
               to: '/app/articles'
             },
             {
+              id: 'sort-articles',
+              icon: 'iconsminds-check',
+              label: 'menu.articles-sort',
+              to: '/app/articles-for-sort'
+            },
+            {
               id: 'tags',
               icon: 'simple-icon-tag',
               label: 'menu.tags',
