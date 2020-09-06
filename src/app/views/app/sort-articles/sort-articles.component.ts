@@ -48,7 +48,7 @@ export class SortArticlesComponent implements OnInit {
   buttonState = '';
   totalElements: any;
   mediaIds: any;
- 
+  articlesPending: any
   itemOrder = { label: 'Titre', value: 'title' };
   itemOptionsOrders = [{ label: 'Titre', value: 'title' }, { label: 'Status', value: 'status' }, { label: 'Auteur', value: 'author_id' }];
   displayOptionsCollapsed = false;
@@ -160,7 +160,9 @@ export class SortArticlesComponent implements OnInit {
         if (data.status) {
           this.totalElements = +data.headers.get('X-Total-Count');
           const resp = data.body;
-          this.rows = resp.data
+          this.rows = resp.articles.data;
+        //  this.articlesArchived = resp.data.stats.archived;
+          this.articlesPending = resp.pending;
           this.totalItem = data.totalItem;
           this.totalPage = data.totalPage;
           this.spinner = false;
