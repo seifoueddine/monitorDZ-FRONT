@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
       this.searchService.search(this.currentPage, this.orderBy, this.direction, this.itemsPerPage, this.searchKey)
         .subscribe((res: any) => {
           this.totalElements = +res.headers.get('X-Total-Count');
-          this.result = res.body.result_articles;
+          this.result = res.body.result_articles.data;
           this.time = res.body.time;
         }, error => {
           // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });

@@ -114,12 +114,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
               icon: 'simple-icon-people',
               label: 'menu.users',
               to: '/app/users'
-            },
-            {
-              id: 'client-articles',
-              icon: 'iconsminds-key-lock',
-              label: 'menu.articles',
-              to: '/app/client-articles'
             }
         ];
           break;
@@ -137,6 +131,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
               icon: 'simple-icon-tag',
               label: 'menu.tags',
               to: '/app/tags'
+            }
+           
+        ];
+        case 'ClientAdmin':
+          this.menuItems = [
+          
+            {
+              id: 'client-articles',
+              icon: 'iconsminds-key-lock',
+              label: 'menu.articles',
+              to: '/app/client-articles'
             }
            
         ];

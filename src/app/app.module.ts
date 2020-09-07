@@ -6,10 +6,11 @@ import { ViewsModule } from './views/views.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularTokenModule } from 'angular-token';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { LayoutContainersModule } from './containers/layout/layout.containers.module';
 import { AngularFireModule } from '@angular/fire';
+import { XhrInterceptor } from './http.interceptor';
 
 
 
@@ -58,7 +59,9 @@ import { AngularFireModule } from '@angular/fire';
   declarations: [
     AppComponent,
   ],
-  providers: [],
+  providers: [ AngularTokenModule,
+    {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

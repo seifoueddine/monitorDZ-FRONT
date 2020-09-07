@@ -14,6 +14,7 @@ export class ArticlesService {
   private serviceCrawlingUrl = environment.ENDPOINTS.CRAWLING_PATH;
   private serviceAutoTagUrl = environment.ENDPOINTS.AUTO_TAG_PATH;
   private serviceChangeStatusUrl = environment.ENDPOINTS.CHANGE_STATUS_PATH;
+  private serviceClientArticlesUrl = environment.ENDPOINTS.CLIENT_ARTICLES_PATH;
   constructor(private http: HttpClient) {}
 
   addArticle(article: any): Observable<any> {
@@ -48,6 +49,23 @@ export class ArticlesService {
     const req = this.serviceForSortingUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue + media_idsValue;
     return this.http.get(req, { observe: 'response' });
   }
+  
+
+
+/**
+   * this method call the server to get all parks
+   * @param page number of the page
+   * @param active the field to sort
+   * @param direction the sort direction
+   * @param size the page size
+   */
+  getClientArticles(page, active, direction, size, search, media_ids): Observable<any> {
+    const searchValue = search === '' ? '' : `&search=${search}`; 
+    const media_idsValue = media_ids ? `&media_id=${media_ids}`  : ''; 
+    const req = this.serviceClientArticlesUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue + media_idsValue;
+    return this.http.get(req, { observe: 'response' });
+  }
+
   
   /**
     * this method call the server to get the article by ID

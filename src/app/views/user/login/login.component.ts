@@ -45,6 +45,9 @@ export class LoginComponent implements OnInit {
             case 'SuperOP':
               this.router.navigate(['/app/articles-for-sort']); 
               break;
+               case 'ClientAdmin':
+              this.router.navigate(['/app/client-articles']); 
+              break;
           default:
             break;
         }

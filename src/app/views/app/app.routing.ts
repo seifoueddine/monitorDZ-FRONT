@@ -48,7 +48,7 @@ const routes: Routes = [
               } },
               { path: 'client-articles', loadChildren: () => import('./client-articles/client-articles.module').then(m => m.ClientArticlesModule), canActivate: [LoginGuard],
               data: {
-                roles: ['GodLike','SuperOP']
+                roles: ['ClientAdmin']
               } }
             // { path: 'second-menu', loadChildren: () => import('./second-menu/second-menu.module').then(m => m.SecondMenuModule) },
         ]

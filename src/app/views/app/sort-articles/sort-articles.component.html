@@ -27,7 +27,7 @@
             <p class="mb-0 text-muted text-small w-15 w-sm-100">{{a.attributes.author.name}}</p>
             <p class="mb-0 text-muted text-small w-15 w-sm-100">{{a.attributes.date_published}}</p>
             <div class="w-15 w-sm-100">
-                <span style="background-color: green; color: white;" *ngIf="a.attributes.status === 'checked'" [class]="'badge badge-pill'">{{a.attributes.status}}</span>
+                <span style="background-color: green; color: white;" *ngIf="a.attributes.status === 'confirmed'" [class]="'badge badge-pill'">{{a.attributes.status}}</span>
                 <span style="background-color: rgb(240, 108, 0); color: white;" *ngIf="a.attributes.status === 'archived'" [class]="'badge badge-pill'">Archivé</span>
                 <span style="background-color: rgb(184, 7, 7); color: white;" *ngIf="a.attributes.status === 'pending'" [class]="'badge badge-pill'">En attente</span>
                 <span style="background-color: green; color: white;" *ngIf="a.attributes.is_tagged" [class]="'position-absolute badge-top-right badge badge-pill'"> Tag auto</span> 
@@ -55,7 +55,7 @@
               </a>
                 <a href="javascript:;" (click)="openDetailsModal(templateDetails, a)">
                 <img  style="height: 180px;" class="card-img-top" [src]="a.attributes.url_image ? a.attributes.url_image : (defaultImage)" alt="Article image"></a>
-              <span style="background-color: green; color: white;" *ngIf="a.attributes.status === 'checked'" [class]="'badge badge-pill position-absolute badge-top-left'"> Confirmé</span>
+              <span style="background-color: green; color: white;" *ngIf="a.attributes.status === 'confirmed'" [class]="'badge badge-pill position-absolute badge-top-left'"> Confirmé</span>
               <span style="background-color: rgb(240, 108, 0); color: white;" *ngIf="a.attributes.status === 'archived'" [class]="'badge badge-pill position-absolute badge-top-left'">Archivé</span>
               <span style="background-color: rgb(184, 7, 7); color: white;" *ngIf="a.attributes.status === 'pending'" [class]="'badge badge-pill position-absolute badge-top-left'">En attente</span>
               <span class="badge badge-pill badge-secondary position-absolute badge-top-left-2">{{a.attributes.medium.name}}</span>
@@ -176,7 +176,7 @@
                               aria-labelledby="button-split">
                               <!-- <li role="menuitem"><a class="dropdown-item" href="javascript:;">{{ 'pages.move' | translate }}</a></li>  -->
                               <li role="menuitem"> <a class="c-pointer" style="padding: 0.5rem 1.25rem;" (click)="changeStatus('archived')"> Archiver </a></li>
-                              <li role="menuitem"> <a class="c-pointer" style="padding: 0.5rem 1.25rem;" (click)="changeStatus('checked')"> Confirmer </a></li>
+                              <li role="menuitem"> <a class="c-pointer" style="padding: 0.5rem 1.25rem;" (click)="changeStatus('confirmed')"> Confirmer </a></li>
                             </ul>
                         </div>
                         <div class="separator mb-4"></div>
