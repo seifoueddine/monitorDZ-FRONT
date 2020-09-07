@@ -21,7 +21,7 @@
         <div class="pl-2 d-flex flex-grow-1 min-width-zero">
           <div
             class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-            <a href="javascript:;" class="w-40 w-sm-100">
+            <a href="javascript:;" class="w-40 w-sm-100" (click)="openDetailsModal(templateDetails, a)">
               <p class="list-item-heading mb-0 truncate">{{a.attributes.title}}</p>
             </a>
             <p class="mb-0 text-muted text-small w-15 w-sm-100">{{a.attributes.author.name}}</p>
@@ -52,7 +52,9 @@
                 <div class="position-absolute card-top-buttons">
                     <button class="btn btn-outline-white icon-button c-pointer" (click)="openModal(template, a)"><i class="simple-icon-pencil"></i></button>
                 </div>
-                <img style="height: 180px;" class="card-img-top" [src]="a.attributes.url_image ? a.attributes.url_image : (defaultImage)" alt="Article image"></a>
+              </a>
+                <a href="javascript:;" (click)="openDetailsModal(templateDetails, a)">
+                <img  style="height: 180px;" class="card-img-top" [src]="a.attributes.url_image ? a.attributes.url_image : (defaultImage)" alt="Article image"></a>
               <span style="background-color: green; color: white;" *ngIf="a.attributes.status === 'checked'" [class]="'badge badge-pill position-absolute badge-top-left'"> Confirmé</span>
               <span style="background-color: rgb(240, 108, 0); color: white;" *ngIf="a.attributes.status === 'archived'" [class]="'badge badge-pill position-absolute badge-top-left'">Archivé</span>
               <span style="background-color: rgb(184, 7, 7); color: white;" *ngIf="a.attributes.status === 'pending'" [class]="'badge badge-pill position-absolute badge-top-left'">En attente</span>
