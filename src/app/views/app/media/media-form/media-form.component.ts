@@ -35,6 +35,16 @@ export class MediaFormComponent implements OnInit {
   sectors: any;
   sectorsIds = [];
   digital = false;
+  zones = [
+    {value: 'national', viewValue: 'National'},
+    {value: 'international', viewValue: 'International'},
+
+  ];
+  languages = [
+    {value: 'fr', viewValue: 'Fr'},
+    {value: 'ar', viewValue: 'Ar'},
+    {value: 'en', viewValue: 'En'},
+  ];
   constructor(private modalService: BsModalService,private sectorService: SectorsService,
               private mediaService: MediaService, private notifications: NotificationsService,
               private ourNotificationService: OurNotificationsService)
@@ -95,6 +105,8 @@ export class MediaFormComponent implements OnInit {
         sector_id: new FormControl(null, [Validators.required]),
         url_crawling: new FormControl(null),
         avatar: new FormControl(null),
+        zone: new FormControl(null),
+        language: new FormControl(null) 
       });
 
     } else {
@@ -107,6 +119,8 @@ export class MediaFormComponent implements OnInit {
         sector_id: new FormControl(this.data.sectorNameArray, [Validators.required]),
         url_crawling: new FormControl(this.data.attributes.url_crawling),
         avatar: new FormControl(null),
+        zone: new FormControl(this.data.attributes.zone),
+        language: new FormControl(this.data.attributes.language) 
       });
     }
   }
@@ -139,7 +153,8 @@ export class MediaFormComponent implements OnInit {
         formData.append('orientation', this.mediaForm.value.orientation);
         formData.append('url_crawling', this.mediaForm.value.url_crawling);
         formData.append('sector_id', this.sectorsIds.join(','));
-
+        formData.append('zone', this.mediaForm.value.zone);
+        formData.append('language', this.mediaForm.value.language);
           this.mediaService.updateMedia(formData, mediaId).subscribe(resCreate => {
 
             this.notifications.create('Success', 'Mettre à jour le média avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
@@ -169,6 +184,8 @@ export class MediaFormComponent implements OnInit {
         formData.append('orientation', this.mediaForm.value.orientation);
         formData.append('url_crawling', this.mediaForm.value.url_crawling);
         formData.append('sector_id', this.sectorsIds.join(','));
+        formData.append('zone', this.mediaForm.value.zone);
+        formData.append('language', this.mediaForm.value.language);
         this.mediaService.addMedia(formData).subscribe(resCreate => {
           console.log(resCreate);
           this.notifications.create('Success', 'Média créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
@@ -239,6 +256,14 @@ export class MediaFormComponent implements OnInit {
     this.avatarToSend = null ;
     this.AvatarToDisplay = null;
     this.removeCurrentAvatarStatus = false;
+  }
+
+  selectZone(zone) {
+    this.mediaForm.value.zone = zone.value;
+  }
+
+  selectLang(lan) {
+    this.mediaForm.value.language = lan.value;
   }
 
 }

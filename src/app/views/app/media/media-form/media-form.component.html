@@ -17,6 +17,22 @@
             </div>
 
             <div class="form-group">
+                <label>Zone</label>
+                <ng-select *ngIf="zones" [items]="zones" bindLabel="viewValue" bindValue="value"
+                    (change)="selectZone($event)" formControlName="zone">
+                </ng-select>
+                <div *ngIf="mediaForm.get('zone').errors?.required && form.submitted" class="invalid-tooltip">Zone est requis!</div>
+            </div>
+
+            <div class="form-group">
+                <label>Langue</label>
+                <ng-select *ngIf="languages" [items]="languages" bindLabel="viewValue" bindValue="value"
+                    (change)="selectLang($event)" formControlName="language">
+                </ng-select>
+                <div *ngIf="mediaForm.get('language').errors?.required && form.submitted" class="invalid-tooltip">Langue est requis!</div>
+            </div>
+
+            <div class="form-group">
                 <label>Type</label>
                 <ng-select appearance="outline" #agreeSelect [searchable]="false" formControlName="media_type" (change)="selectType($event)">
                     <ng-option value="digital">Numérique</ng-option>

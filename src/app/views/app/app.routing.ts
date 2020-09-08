@@ -28,7 +28,7 @@ const routes: Routes = [
              } },
              { path: 'articles', loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule), canActivate: [LoginGuard],
              data: {
-               roles: ['GodLike','SuperOP']
+               roles: ['GodLike','SuperOP','ClientAdmin']
              } },
              { path: 'tags', loadChildren: () => import('./tags/tags.module').then(m => m.TagsModule), canActivate: [LoginGuard],
              data: {
@@ -36,7 +36,7 @@ const routes: Routes = [
              } },
               { path: 'search', loadChildren: () => import('./search/search.module').then(m => m.SearchModule), canActivate: [LoginGuard],
               data: {
-                roles: ['GodLike','SuperOP']
+                roles: ['GodLike','SuperOP','ClientAdmin']
               } },
               { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule), canActivate: [LoginGuard],
               data: {

@@ -43,7 +43,7 @@
                 <ng-select *ngIf="roles" [items]="roles" bindLabel="viewValue" bindValue="value"
                     (change)="selectRole($event)" formControlName="role">
                 </ng-select>
-                <div *ngIf="userForm.get('role').errors?.minlength && form.submitted" class="invalid-tooltip">Le rôle est requis!</div>
+                <div *ngIf="userForm.get('role').errors?.required && form.submitted" class="invalid-tooltip">Le rôle est requis!</div>
             </div>
 
 
@@ -53,7 +53,7 @@
                 <ng-select *ngIf="allSlugs"  [items]="allSlugs" bindLabel='attributes.name' bindValue="id"
                   formControlName="slug_id" [searchFn]="customSearchP">
                 </ng-select>
-                <div *ngIf="userForm.get('slug_id').errors?.minlength && form.submitted" class="invalid-tooltip">L'entreprise est requis!</div>
+                <div *ngIf="userForm.get('slug_id').errors?.required && form.submitted" class="invalid-tooltip">L'entreprise est requis!</div>
             </div>
 
             
