@@ -124,6 +124,8 @@
         <div class="p-4 h-100">
             <div class="scroll">
                 <p class="text-muted text-small">Média</p>
+                <div style="height: 150px;overflow-y: scroll;
+              ">
                 <div *ngIf="!spinnerCrawling">
                 <ul   class="list-unstyled mb-4" *ngFor="let m of media;">
                     <li class="nav-item c-pointer">
@@ -140,6 +142,8 @@
                     <div class="spinner-border text-primary" role="status">
                     </div>
                     <div class="mt-3">Chercher nouveaux articles dans {{mediaNameSelected}}</div>
+                </div>
+
                 </div>
                 <p class="text-muted text-small mb-4">
                 Tags

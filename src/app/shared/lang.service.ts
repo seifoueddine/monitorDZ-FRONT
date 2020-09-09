@@ -15,9 +15,8 @@ export class LangService {
   renderer: Renderer2;
   defaultLanguage = localStorage.getItem(languageKey) || 'en-US';
   supportedLanguages: Language[] = [
-    { code: 'en-US', direction: 'ltr', label: 'English', shorthand: 'en' },
-    { code: 'es-ES', direction: 'ltr', label: 'Español', shorthand: 'es' },
-    { code: 'en-EN', direction: 'rtl', label: 'English - RTL', shorthand: 'enrtl' }
+    { code: 'en-US', direction: 'ltr', label: 'Français', shorthand: 'fr' },
+    { code: 'en-EN', direction: 'rtl', label: 'العربية', shorthand: 'ar' }
   ];
 
   constructor(private translate: TranslateService, private rendererFactory: RendererFactory2, private router: Router) {
