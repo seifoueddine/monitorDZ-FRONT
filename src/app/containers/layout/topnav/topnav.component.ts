@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { LangService, Language } from 'src/app/shared/lang.service';
 import { AuthService } from 'src/app/shared/auth.service';
 import { environment } from 'src/environments/environment';
+import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
 
 @Component({
   selector: 'app-topnav',
@@ -20,16 +21,21 @@ export class TopnavComponent implements OnInit, OnDestroy {
   isFullScreen = false;
   isDarkModeActive = false;
   searchKey = '';
-
-  constructor(private sidebarService: SidebarService, private authService: AuthService, private router: Router, private langService: LangService,) {
+  avatarUrl: any;
+  urlForAvatar = environment.URL_PATH;
+  staticPic = "/assets/img/avatar.png";
+  constructor(private sidebarService: SidebarService, private authService: AuthService, private router: Router, private langService: LangService,
+              private ourNotificationService: OurNotificationsService) {
     this.languages = this.langService.supportedLanguages;
     this.currentLanguage = this.langService.languageShorthand;
     this.isSingleLang = this.langService.isSingleLang;
     this.isDarkModeActive = this.getColor().indexOf('dark') > -1 ? true : false;
     const user = localStorage.getItem('user');
+    this.avatarUrl = localStorage.getItem('avatar');
     const userObject =  JSON.parse(user);
     if (userObject) {
       this.displayName = userObject.name ;
+      this.avatarUrl = userObject.avatar.url;
     }
   }
 
@@ -78,6 +84,15 @@ export class TopnavComponent implements OnInit, OnDestroy {
         console.error(`An error occurred: ${err.message}`);
       }
     );
+
+   
+      // this.ourNotificationService.reloadUsersNotifier$.subscribe(res => {
+      //   this.avatarUrl = localStorage.getItem('avatar');
+        
+
+      // })
+    
+
   }
 
   ngOnDestroy(): void {

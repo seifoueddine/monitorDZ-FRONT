@@ -169,7 +169,8 @@
       <button class="btn btn-empty p-0" type="button" dropdownToggle>
         <span class="name">{{displayName}}</span>
         <span>
-          <img alt="Profile Picture" src="/assets/img/profile-pic-l.jpg" />
+          <img [src]="avatarUrl ? (urlForAvatar + avatarUrl) : staticPic" alt="user Image"
+          class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle" />
         </span>
       </button>
 
