@@ -40,6 +40,13 @@
                 <div *ngIf="campaignForm.get('sector_id').errors?.required && form.submitted" class="invalid-tooltip">Secteur est requis</div>
             </div>
 
+            <div class="form-group">
+                <label>Tags</label>
+                <ng-select *ngIf="tags" mul [items]="tags" bindLabel='attributes.name' bindValue="id" 
+                formControlName="tag_id" [searchFn]="customSearchTag" [multiple]="true" (change)="selectTag($event)">
+              </ng-select>
+                <div *ngIf="campaignForm.get('tag_id').errors?.required && form.submitted" class="invalid-tooltip">Tag est requis</div>
+            </div>
             
          
     </div>

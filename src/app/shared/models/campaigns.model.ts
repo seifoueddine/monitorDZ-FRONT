@@ -6,5 +6,5 @@ export class Campaigns {
    slug_id: string;
    sector_id: string;
    media_id: string;
-    
+   tag_id: string; 
 }

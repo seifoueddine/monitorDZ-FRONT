@@ -49,6 +49,7 @@ export class CampaignsComponent implements OnInit {
   showModal: any;
   sectors: any = [];
   media: any = [];
+  tags: any = [];
   constructor(private campaignService: CampaignsService, private notifications: NotificationsService,
     private ourNotificationService: OurNotificationsService,private route: ActivatedRoute ) { }
 
@@ -108,16 +109,21 @@ export class CampaignsComponent implements OnInit {
   editCampaign(campaign){
   let sectorIdsArray = [];
   let mediaIdsArray = [];
+  let tagIdsArray = [];
   campaign.relationships.sectors.data.map(x=> sectorIdsArray.push(x.id));
   campaign.relationships.media.data.map(x=> mediaIdsArray.push(x.id));
   const sectorList =  this.sectors.filter(f => sectorIdsArray.includes(f.id));  
   const mediaList =  this.media.filter(f => mediaIdsArray.includes(f.id));
+  const tagList =  campaign.attributes.tags;
   let sectorNameArray = [];
   let mediaNameArray = [];
+  let tagNameArray = [];
   sectorList.map(x=> sectorNameArray.push(x.id));
   mediaList.map(x=> mediaNameArray.push(x.id));
+  tagList.map(x=> tagNameArray.push(String(x.id)));
    campaign.sectorNameArray = sectorNameArray;
    campaign.mediaNameArray = mediaNameArray;
+   campaign.tagNameArray = tagNameArray;
     this.addNewModalRef.show(campaign);
   }
 
@@ -214,15 +220,12 @@ export class CampaignsComponent implements OnInit {
  }
 
 
- getSectors(campaign){ 
+ getTags(tags){ 
 
 
-  let sectorIdsArray = [];
-  campaign.relationships.sectors.data.map(x=> sectorIdsArray.push(x.id));
-  const sectorList =  this.sectors.filter(f => sectorIdsArray.includes(f.id));  
-  let sectorNameArray = [];
-  sectorList.map(x=> sectorNameArray.push(x.attributes.name));
-  return  sectorNameArray.join(',') 
+  let tagNameArray = [];
+  tags.map(x=> tagNameArray.push(x.attributes.name));
+  return  tagNameArray.join(',') 
 
 
  }
