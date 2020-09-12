@@ -21,7 +21,7 @@
             <a  target="_blank" [href]="'app/articles/details?id='+item.id" class="w-40 w-sm-100">
                 <p class="list-item-heading mb-1 color-theme-1">{{item.attributes.title}}</p>
             </a>
-            <p class="mb-1 text-muted text-small">{{item.attributes.author.name}} | {{item.attributes.date_published}}</p>
+            <p class="mb-1 text-muted text-small">{{item.attributes.author.name}} | {{item.attributes.date_published | date:'dd/MM/yyyy'}}</p>
             <!-- <p class="mb-4 text-small">{{ item.description }}</p> -->
             <!-- <div [innerHTML]="(item.body | slice:0:150 ) + '...' "></div> -->
             <div [innerHTML]="getBodyWithSearch(item.attributes.body) "></div>

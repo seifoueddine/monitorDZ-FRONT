@@ -52,7 +52,7 @@
                             [ngClass]="{'heading-icon':true, 'simple-icon-refresh' : item.attributes.status === 'COMPLETED', 'simple-icon-check' : item.attributes.status !== 'COMPLETED' }"></i> -->
                         <span class="align-middle d-inline-block">{{ item.attributes.title }}</span></a>
                     <p class="mb-1 text-muted text-small w-15 w-xs-100">{{ item.attributes.author.name }}</p>
-                    <p class="mb-1 text-muted text-small w-15 w-xs-100">{{ item.attributes.date_published }}</p>
+                    <p class="mb-1 text-muted text-small w-15 w-xs-100">{{ item.attributes.date_published | date:'dd/MM/yyyy'}}</p>
                     <div class="w-15 w-xs-100"><span
                             [class]="'badge badge-pill badge-info'">{{ item.attributes.medium.name }}</span></div>
                 </div>
@@ -307,7 +307,7 @@
                     </a>
                     <div class="pl-3 pt-2 pr-2 pb-2">
                       <a href="javascript:;">
-                        <p class="list-item-heading mb-1">{{articleDetails?.attributes.date_published}}</p> 
+                        <p class="list-item-heading mb-1">{{articleDetails?.attributes.date_published | date:'dd/MM/yyyy'}}</p> 
                       </a>
                     </div>
                   </div>

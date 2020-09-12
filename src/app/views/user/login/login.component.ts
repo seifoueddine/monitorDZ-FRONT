@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
 
         localStorage.setItem('isLoggedin', 'true');
         localStorage.setItem('user', JSON.stringify(user.body.data));
+        localStorage.setItem('avatar', JSON.stringify(user.body.data.avatar.url));
         const role = user.body.data.role
         switch (role) {
           case 'GodLike':

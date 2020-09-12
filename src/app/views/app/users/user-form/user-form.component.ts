@@ -128,6 +128,8 @@ allSlugs: any = [];
           this.notifications.create('Succès', 'Mettre à jour un utilisateur avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: true });
           this.modalRef.hide();
          this.clearAll();
+       
+          localStorage.setItem('avatar', JSON.stringify(res.avatar.url));
           this.ourNotificationService.notficateReloadUsers();
           } ,
           error => { console.log(error)
@@ -155,7 +157,8 @@ allSlugs: any = [];
           this.notifications.create('Succès', 'Créer un utilisateur avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: true });
           this.modalRef.hide();
            this.clearAll();
-          this.ourNotificationService.notficateReloadUsers();
+           localStorage.setItem('avatar', JSON.stringify(res.body.data.avatar.url));
+           this.ourNotificationService.notficateReloadUsers();
           } ,
           error => { console.log(error)
             this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: true });
