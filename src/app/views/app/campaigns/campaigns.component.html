@@ -32,7 +32,7 @@
       <ngx-datatable-column name="Tags"  [sortable]="false" prop="secteur" [flexGrow]="0.5">
         <ng-template let-row="row"  ngx-datatable-cell-template>
           <a >
-             {{ getTags(row) }} 
+             {{ getTags(row.attributes.tags) }} 
 
           </a> 
         </ng-template>

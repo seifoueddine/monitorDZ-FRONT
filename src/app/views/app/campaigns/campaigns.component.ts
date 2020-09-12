@@ -224,7 +224,7 @@ export class CampaignsComponent implements OnInit {
 
 
   let tagNameArray = [];
-  tags.map(x=> tagNameArray.push(x.attributes.name));
+  tags.map(x=> tagNameArray.push(x.name));
   return  tagNameArray.join(',') 
 
 
