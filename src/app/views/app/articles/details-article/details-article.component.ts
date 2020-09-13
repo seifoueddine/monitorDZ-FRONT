@@ -91,7 +91,7 @@ export class DetailsArticleComponent implements OnInit {
     object.body = this.valueBind;
   
     this.articlesService.updateArticle(object).subscribe(resCreate => {
-      this.article.attributes.body = resCreate.body;
+      this.article.attributes.body = resCreate.data.attributes.body;
      
       this.notifications.create('Success', "Mettre à jour l'article avec succès", NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
       this.modalRef.hide();
