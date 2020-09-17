@@ -156,22 +156,28 @@
         <div class="p-4 h-100">
             <div class="scroll">
                 <p class="text-muted text-small">Date</p>
-                <!-- <ul class="list-unstyled mb-5">
+          
+                
+            
+               
+
+             
+                <ul class="list-unstyled mb-5">
                     <li class="active">
-                        <a href="javascript:;">
-                            <i class="simple-icon-refresh"></i>
-                            Pending Tasks
-                            <span class="float-right">12</span>
+                        <a (click)="removeDates()">
+                          <i class="simple-icon-trash"></i>
                         </a>
+                        <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date"  bsDaterangepicker [container]="'html'"  (ngModelChange)="changeDate($event)"
+                        [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD/MM/YYYY' }"> 
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="javascript:;">
                             <i class="simple-icon-check"></i>
                             Completed Tasks
                             <span class="float-right">24</span>
                         </a>
-                    </li>
-                </ul> -->
+                    </li> -->
+                </ul>
                 <p class="text-muted text-small">Auteurs</p>
                 <!-- <ul class="list-unstyled mb-5">
                     <li>

@@ -8,14 +8,17 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { Articles } from 'src/app/shared/models/articles.model';
 import { environment } from 'src/environments/environment';
-
+import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-client-articles',
   templateUrl: './client-articles.component.html',
   styleUrls: ['./client-articles.component.scss']
 })
 export class ClientArticlesComponent implements OnInit {
-
+  start_date: any;
+  end_date: any;
+  duration: any;
   urlForImage = environment.URL_PATH; 
   displayMode = 'image';
   [x: string]: any;
@@ -49,11 +52,13 @@ export class ClientArticlesComponent implements OnInit {
   buttonState = '';
   totalElements: any;
   mediaIds: any;
-  articlesPending: any
+  articlesPending: any;
   itemOrder = { label: 'Titre', value: 'title' };
   itemOptionsOrders = [{ label: 'Titre', value: 'title' }, { label: 'Status', value: 'status' }, { label: 'Auteur', value: 'author_id' }];
   displayOptionsCollapsed = false;
-
+  maxDate = new Date();
+ // rage_date: any = [new Date(), new Date(this.maxDate.setMonth(this.maxDate.getMonth() + 1))];
+  rage_date: any = [];
   surveyItems: any[] = [];
   description = ""
   mediaNameSelected: any;
@@ -63,7 +68,10 @@ export class ClientArticlesComponent implements OnInit {
 
   constructor(private renderer: Renderer2, private articleService: ArticlesService, private notifications: NotificationsService,
     private ourNotificationService: OurNotificationsService, private mediaService: MediaService, private router: Router,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService, private datePipe: DatePipe) {
+     // this.end_date = new Date(this.maxDate.setMonth(this.maxDate.getMonth() + 1));
+     
+     }
 
 
     
@@ -96,7 +104,7 @@ export class ClientArticlesComponent implements OnInit {
   ngOnInit() {
     this.renderer.addClass(document.body, 'right-menu');
     this.setPage({ offset: 0 });
-     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
+     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
      this.listenToNotifier();
     // this.getMedia();
   }
@@ -133,30 +141,30 @@ export class ClientArticlesComponent implements OnInit {
   listenToNotifier() {
     this.ourNotificationService.reloadArticlesNotifier$.subscribe(res => {
     this.selected = [];
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
     });
   }
 
   pageChanged(event: any): void {
     console.log(event);
     this.currentPage = event.page
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
   }
 
   itemsPerPageChange(item){
     this.itemsPerPage = item ;
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
   }
   
 
-  loadData(pageSize, currentPage, direction, orderBy, search, media_ids) {
+  loadData(pageSize, currentPage, direction, orderBy, search, media_ids, start_date, end_date) {
     this.itemsPerPage = pageSize;
     this.currentPage = currentPage;
     this.search = search;
     this.orderBy = orderBy;
     this.direction = direction;
     this.media_ids = media_ids;
-    this.articleService.getClientArticles(currentPage, orderBy , direction, pageSize, search, media_ids).subscribe(
+    this.articleService.getClientArticles(currentPage, orderBy , direction, pageSize, search, media_ids, start_date, end_date).subscribe(
       data => {
         if (data.status) {
           this.totalElements = +data.headers.get('X-Total-Count');
@@ -180,7 +188,7 @@ export class ClientArticlesComponent implements OnInit {
 
   changeOrderBy(item: any) {
     this.orderBy = item.value;
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);;
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
   }
 
   
@@ -205,7 +213,7 @@ export class ClientArticlesComponent implements OnInit {
     clearTimeout(this.searchReq);
   }
   this.searchReq =   setTimeout(() => {
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
     this.loading = false;
   }, 1000);
 }
@@ -263,7 +271,7 @@ onItemsPerPageChange(itemCount) {
   console.log(itemCount);
   this.itemsPerPage = itemCount;
   this.currentPage = 1
-  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
+  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
   // this.loading = false;
  
 }
@@ -279,7 +287,7 @@ onSort(event) {
   this.orderBy = sortValue;
   // emulate a server request with a timeout
   setTimeout(() => {
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
     this.loading = false;
   }, 1000);
 }
@@ -292,7 +300,7 @@ onSort(event) {
  */
 setPage(pageInfo) {
   this.currentPage = pageInfo.offset + 1;
-  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
+  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
   console.log(pageInfo);
   console.log(this.currentPage);
 }
@@ -334,7 +342,7 @@ setPage(pageInfo) {
           this.order_by = 'created_at';
           this.search = '';
           this.media_ids= null;
-          this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids);
+          this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date);
           this.spinnerCrawling = false;
         }
       },
@@ -376,7 +384,8 @@ setPage(pageInfo) {
         this.search,
         // this.startDate,
         // this.endDate,
-        this.mediaIdJoin
+        this.mediaIdJoin,
+       this.start_date, this.end_date
       );
     } else {
       this.mediaId = null;
@@ -388,7 +397,8 @@ setPage(pageInfo) {
         this.search,
         // this.startDate,
         // this.endDate,
-       this.mediaId
+       this.mediaId,
+        this.start_date, this.end_date
       );
     }
   }
@@ -407,49 +417,10 @@ setPage(pageInfo) {
   //   this.modalRef.hide();
   // }
 
-  goToAutoTag(){
-    this.buttonState = 'show-spinner';
 
-    this.articleService.autoTag().subscribe(
-      data => {
-        if (data.status) {
-          this.itemsPerPage = 12;
-          this.currentPage = 1;
-          this.direction = 'desc';
-          this.order_by = 'created_at';
-          this.search = '';
-          this.media_ids= null;
-          this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids);
-          this.buttonState = '';
-        }
-      },
-      error => {
-        this.buttonState = '';
-        this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
-      }
-    );
-
-
-
-  }
 
   changeDisplayMode(mode) {
     this.displayMode = mode;
-  }
-
-
-  changeStatus(status){
-    this.articleService.changeStatus(status,this.idItem).subscribe(resCreate => {
-      console.log(resCreate);
-      this.notifications.create('Success', 'Changement de statut avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
-      this.selected = [];
-      this.idItem = '';
-      this.selectAllState = '';
-      this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids);
-    }, error => {
-      this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
-
-    });
   }
 
 
@@ -491,6 +462,34 @@ if (index !== -1) {
       body = body.slice(0 , 150);
       return  body + '...'
 
+
+  }
+
+  removeDates(){
+    
+    this.start_date = null;
+    this.end_date = null;
+    this.rage_date = [];
+    this.loadData(this.itemsPerPage, 1, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date);
+  }
+
+  changeDate(rangeDate: any) {
+
+    this.start_date = this.datePipe.transform(new Date(rangeDate[0]), 'dd/MM/yyyy');
+    this.end_date = this.datePipe.transform(new Date(rangeDate[1]), 'dd/MM/yyyy');
+
+    let d2 = Date.parse(rangeDate[0]);
+    let d1 = Date.parse(rangeDate[1]);
+    this.loadData(this.itemsPerPage, 1, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date);
+
+    let m = moment(d1);
+    let years = m.diff(d2, 'years');
+    m.add(-years, 'years');
+    let months = m.diff(d2, 'months');
+    m.add(-months, 'months');
+    let days = m.diff(d2, 'days');
+
+    this.duration = (+years > 0) ? (years + ' Years '+ months + ' Months ' + days + ' Days ') : (+months > 0) ? ( months + ' Months ' + ((+days > 0) ?( days + ' Days ') : '')) : (days + ' Days ')
 
   }
 

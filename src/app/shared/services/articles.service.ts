@@ -59,10 +59,14 @@ export class ArticlesService {
    * @param direction the sort direction
    * @param size the page size
    */
-  getClientArticles(page, active, direction, size, search, media_ids): Observable<any> {
+  getClientArticles(page, active, direction, size, search, media_ids, start_date, end_date): Observable<any> {
     const searchValue = search === '' ? '' : `&search=${search}`; 
     const media_idsValue = media_ids ? `&media_id=${media_ids}`  : ''; 
-    const req = this.serviceClientArticlesUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue + media_idsValue;
+
+    const startDateValue = start_date ? `&start_date=${start_date}`  : '' ; 
+    const endDateValue = end_date ? `&end_date=${end_date}`  : ''; 
+
+    const req = this.serviceClientArticlesUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue + media_idsValue + startDateValue + endDateValue;
     return this.http.get(req, { observe: 'response' });
   }
 

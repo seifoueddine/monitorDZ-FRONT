@@ -102,7 +102,7 @@ export class MediaFormComponent implements OnInit {
         name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
         media_type: new FormControl(null, [Validators.required]),
         orientation: new FormControl(null, [Validators.required]),
-        sector_id: new FormControl(null, [Validators.required]),
+      //  sector_id: new FormControl(null, [Validators.required]),
         url_crawling: new FormControl(null),
         avatar: new FormControl(null),
         zone: new FormControl(null),
@@ -116,7 +116,7 @@ export class MediaFormComponent implements OnInit {
         name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
         media_type: new FormControl(this.data.attributes.media_type, [Validators.required]),
         orientation: new FormControl(this.data.attributes.orientation, [Validators.required]),
-        sector_id: new FormControl(this.data.sectorNameArray, [Validators.required]),
+     //   sector_id: new FormControl(this.data.sectorNameArray, [Validators.required]),
         url_crawling: new FormControl(this.data.attributes.url_crawling),
         avatar: new FormControl(null),
         zone: new FormControl(this.data.attributes.zone),
@@ -152,7 +152,7 @@ export class MediaFormComponent implements OnInit {
         formData.append('media_type', this.mediaForm.value.media_type);
         formData.append('orientation', this.mediaForm.value.orientation);
         formData.append('url_crawling', this.mediaForm.value.url_crawling);
-        formData.append('sector_id', this.sectorsIds.join(','));
+      //  formData.append('sector_id', this.sectorsIds.join(','));
         formData.append('zone', this.mediaForm.value.zone);
         formData.append('language', this.mediaForm.value.language);
           this.mediaService.updateMedia(formData, mediaId).subscribe(resCreate => {
@@ -183,7 +183,7 @@ export class MediaFormComponent implements OnInit {
         formData.append('media_type', this.mediaForm.value.media_type);
         formData.append('orientation', this.mediaForm.value.orientation);
         formData.append('url_crawling', this.mediaForm.value.url_crawling);
-        formData.append('sector_id', this.sectorsIds.join(','));
+       // formData.append('sector_id', this.sectorsIds.join(','));
         formData.append('zone', this.mediaForm.value.zone);
         formData.append('language', this.mediaForm.value.language);
         this.mediaService.addMedia(formData).subscribe(resCreate => {
