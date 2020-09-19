@@ -167,7 +167,7 @@
                         <a (click)="removeDates()">
                           <i class="simple-icon-trash"></i>
                         </a>
-                        <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date"  bsDaterangepicker [container]="'html'"  (ngModelChange)="changeDate($event)"
+                        <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date"  bsDaterangepicker placeholder="Date de publication" [container]="'html'"  (ngModelChange)="changeDate($event)"
                         [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD/MM/YYYY' }"> 
                     </li>
                     <!-- <li>
@@ -179,6 +179,10 @@
                     </li> -->
                 </ul>
                 <p class="text-muted text-small">Auteurs</p>
+
+                <ng-select class="custom" [searchFn]="customSearch" [hideSelected]="true" [items]="authors" placeholder="Auteur" bindLabel="attributes.name" bindValue="id" [multiple]="true"
+                (change)="selectAuthor($event)"> 
+              </ng-select>
                 <!-- <ul class="list-unstyled mb-5">
                     <li>
                         <div class="custom-control custom-checkbox mb-2">

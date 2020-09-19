@@ -10,6 +10,7 @@ import { Articles } from 'src/app/shared/models/articles.model';
 import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
+import { AuthorsService } from 'src/app/shared/services/authors.service';
 @Component({
   selector: 'app-client-articles',
   templateUrl: './client-articles.component.html',
@@ -52,11 +53,13 @@ export class ClientArticlesComponent implements OnInit {
   buttonState = '';
   totalElements: any;
   mediaIds: any;
+  authorIds: any;
   articlesPending: any;
   itemOrder = { label: 'Titre', value: 'title' };
   itemOptionsOrders = [{ label: 'Titre', value: 'title' }, { label: 'Status', value: 'status' }, { label: 'Auteur', value: 'author_id' }];
   displayOptionsCollapsed = false;
   maxDate = new Date();
+  authors: any;
  // rage_date: any = [new Date(), new Date(this.maxDate.setMonth(this.maxDate.getMonth() + 1))];
   rage_date: any = [];
   surveyItems: any[] = [];
@@ -67,7 +70,7 @@ export class ClientArticlesComponent implements OnInit {
   // @ViewChild('addNewModalRef', { static: true }) addNewModalRef: AddNewSurveyModalComponent;
 
   constructor(private renderer: Renderer2, private articleService: ArticlesService, private notifications: NotificationsService,
-    private ourNotificationService: OurNotificationsService, private mediaService: MediaService, private router: Router,
+    private ourNotificationService: OurNotificationsService, private authorsService: AuthorsService, private router: Router,
     private modalService: BsModalService, private datePipe: DatePipe) {
      // this.end_date = new Date(this.maxDate.setMonth(this.maxDate.getMonth() + 1));
      
@@ -104,20 +107,20 @@ export class ClientArticlesComponent implements OnInit {
   ngOnInit() {
     this.renderer.addClass(document.body, 'right-menu');
     this.setPage({ offset: 0 });
-     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
-     this.listenToNotifier();
-    // this.getMedia();
+     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+     this.listenToNotifier(); 
+     this.getAuthors();
   }
 
 
-   getMedia(){
+   getAuthors(){
 
-    this.mediaService.getMedia(1, 'created_at' , 'desc', 9999, '').subscribe(
+    this.authorsService.getAuthors().subscribe(
       data => {
         if (data.status) {
         
           const resp = data.body;
-          this.media = resp.data
+          this.authors = resp.data
        
         
           
@@ -141,30 +144,30 @@ export class ClientArticlesComponent implements OnInit {
   listenToNotifier() {
     this.ourNotificationService.reloadArticlesNotifier$.subscribe(res => {
     this.selected = [];
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
     });
   }
 
   pageChanged(event: any): void {
     console.log(event);
     this.currentPage = event.page
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
   }
 
   itemsPerPageChange(item){
     this.itemsPerPage = item ;
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
   }
   
 
-  loadData(pageSize, currentPage, direction, orderBy, search, media_ids, start_date, end_date) {
+  loadData(pageSize, currentPage, direction, orderBy, search, media_ids, start_date, end_date, authorId) {
     this.itemsPerPage = pageSize;
     this.currentPage = currentPage;
     this.search = search;
     this.orderBy = orderBy;
     this.direction = direction;
     this.media_ids = media_ids;
-    this.articleService.getClientArticles(currentPage, orderBy , direction, pageSize, search, media_ids, start_date, end_date).subscribe(
+    this.articleService.getClientArticles(currentPage, orderBy , direction, pageSize, search, media_ids, start_date, end_date, authorId).subscribe(
       data => {
         if (data.status) {
           this.totalElements = +data.headers.get('X-Total-Count');
@@ -188,7 +191,7 @@ export class ClientArticlesComponent implements OnInit {
 
   changeOrderBy(item: any) {
     this.orderBy = item.value;
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
   }
 
   
@@ -213,7 +216,7 @@ export class ClientArticlesComponent implements OnInit {
     clearTimeout(this.searchReq);
   }
   this.searchReq =   setTimeout(() => {
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
     this.loading = false;
   }, 1000);
 }
@@ -271,7 +274,7 @@ onItemsPerPageChange(itemCount) {
   console.log(itemCount);
   this.itemsPerPage = itemCount;
   this.currentPage = 1
-  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
+  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
   // this.loading = false;
  
 }
@@ -287,7 +290,7 @@ onSort(event) {
   this.orderBy = sortValue;
   // emulate a server request with a timeout
   setTimeout(() => {
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
     this.loading = false;
   }, 1000);
 }
@@ -300,7 +303,7 @@ onSort(event) {
  */
 setPage(pageInfo) {
   this.currentPage = pageInfo.offset + 1;
-  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date);
+  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
   console.log(pageInfo);
   console.log(this.currentPage);
 }
@@ -342,7 +345,7 @@ setPage(pageInfo) {
           this.order_by = 'created_at';
           this.search = '';
           this.media_ids= null;
-          this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date);
+          this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
           this.spinnerCrawling = false;
         }
       },
@@ -385,7 +388,7 @@ setPage(pageInfo) {
         // this.startDate,
         // this.endDate,
         this.mediaIdJoin,
-       this.start_date, this.end_date
+       this.start_date, this.end_date, this.authorsIdJoin
       );
     } else {
       this.mediaId = null;
@@ -398,10 +401,54 @@ setPage(pageInfo) {
         // this.startDate,
         // this.endDate,
        this.mediaId,
-        this.start_date, this.end_date
+        this.start_date, this.end_date, this.authorsIdJoin
       );
     }
   }
+
+  selectAuthor(event) {
+
+  
+    
+
+
+    this.authorIds = [];
+    const authorsArray = event;
+    authorsArray.map(s=> this.authorIds.push(s.id));
+
+    if (this.authorIds.length > 0) {
+      this.authorsIdJoin = this.authorIds.join(",");
+      this.loadData(
+        this.itemsPerPage,
+        this.currentPage,
+        this.direction,
+        this.orderBy,
+        this.search,
+        // this.startDate,
+        // this.endDate,
+        this.mediaIdJoin,
+       this.start_date, this.end_date,
+       this.authorsIdJoin
+      );
+    } else {
+      this.mediaId = null;
+      this.loadData(
+        this.itemsPerPage,
+        this.currentPage,
+        this.direction,
+        this.orderBy,
+        this.search,
+        // this.startDate,
+        // this.endDate,
+       this.mediaId,
+        this.start_date, this.end_date,
+        this.authorsIdJoin
+      );
+    }
+  }
+
+
+
   customSearch(term: string, item: any) {
     term = term.toLocaleLowerCase();
     return item.attributes.name.toLocaleLowerCase().indexOf(term) > -1
@@ -470,7 +517,7 @@ if (index !== -1) {
     this.start_date = null;
     this.end_date = null;
     this.rage_date = [];
-    this.loadData(this.itemsPerPage, 1, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date);
+    this.loadData(this.itemsPerPage, 1, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date,this.authorsIdJoin);
   }
 
   changeDate(rangeDate: any) {
@@ -480,7 +527,7 @@ if (index !== -1) {
 
     let d2 = Date.parse(rangeDate[0]);
     let d1 = Date.parse(rangeDate[1]);
-    this.loadData(this.itemsPerPage, 1, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date);
+    this.loadData(this.itemsPerPage, 1, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
 
     let m = moment(d1);
     let years = m.diff(d2, 'years');

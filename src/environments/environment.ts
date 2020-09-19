@@ -1,7 +1,7 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-export const url = 'https://monitordz-api.herokuapp.com'; 
+export const url = 'http://localhost:3000'; 
 export const version = '/api/v1';
 const apiVersion = url + version;
 export const environment = {
@@ -30,6 +30,7 @@ export const environment = {
     CHANGE_PASSWORD_PATH: apiVersion + '/users/change_password/',
     CHANGE_STATUS_PATH: apiVersion + '/articles/change_status',
     CLIENT_ARTICLES_PATH: apiVersion + '/articles_client',
+    AUTHORS_PATH: apiVersion + '/authors_client',
   },
 
 
