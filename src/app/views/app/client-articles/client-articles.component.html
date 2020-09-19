@@ -183,6 +183,15 @@
                 <ng-select class="custom" [searchFn]="customSearch" [hideSelected]="true" [items]="authors" placeholder="Auteur" bindLabel="attributes.name" bindValue="id" [multiple]="true"
                 (change)="selectAuthor($event)"> 
               </ng-select>
+
+
+              <br>
+
+              <p class="text-muted text-small">Langue</p>
+              <ng-select *ngIf="languages" [hideSelected]="true" [items]="languages" placeholder="Langue" bindLabel="viewValue" bindValue="value"
+              (change)="selectLang($event)" [multiple]="true" >
+          </ng-select>
+          
                 <!-- <ul class="list-unstyled mb-5">
                     <li>
                         <div class="custom-control custom-checkbox mb-2">
@@ -203,6 +212,7 @@
                         </div>
                     </li>
                 </ul> -->
+                <br>
                 <p class="text-muted text-small">Tags</p>
                 <!-- <div>
                     <p class="d-sm-inline-block mb-1">

@@ -26,7 +26,7 @@ export class ClientArticlesComponent implements OnInit {
   defaultImage = "assets/img/no-image-article.png"
   defaultIcon = "assets/img/logo.jpg"
   rows: any;
-
+  lanIds: any;
   public options = {
     position: ["bottom", "center"],
 }
@@ -67,6 +67,12 @@ export class ClientArticlesComponent implements OnInit {
   mediaNameSelected: any;
   valueBind: string;
   articleDetails: any;
+  languages = [
+    {value: 'fr', viewValue: 'Fr'},
+    {value: 'ar', viewValue: 'Ar'},
+    {value: 'en', viewValue: 'En'},
+  ];
+  langIdJoin: any;
   // @ViewChild('addNewModalRef', { static: true }) addNewModalRef: AddNewSurveyModalComponent;
 
   constructor(private renderer: Renderer2, private articleService: ArticlesService, private notifications: NotificationsService,
@@ -107,7 +113,7 @@ export class ClientArticlesComponent implements OnInit {
   ngOnInit() {
     this.renderer.addClass(document.body, 'right-menu');
     this.setPage({ offset: 0 });
-     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
      this.listenToNotifier(); 
      this.getAuthors();
   }
@@ -118,12 +124,8 @@ export class ClientArticlesComponent implements OnInit {
     this.authorsService.getAuthors().subscribe(
       data => {
         if (data.status) {
-        
           const resp = data.body;
           this.authors = resp.data
-       
-        
-          
         }
       },
       error => {
@@ -144,30 +146,30 @@ export class ClientArticlesComponent implements OnInit {
   listenToNotifier() {
     this.ourNotificationService.reloadArticlesNotifier$.subscribe(res => {
     this.selected = [];
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
     });
   }
 
   pageChanged(event: any): void {
     console.log(event);
     this.currentPage = event.page
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
   }
 
   itemsPerPageChange(item){
     this.itemsPerPage = item ;
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
   }
   
 
-  loadData(pageSize, currentPage, direction, orderBy, search, media_ids, start_date, end_date, authorId) {
+  loadData(pageSize, currentPage, direction, orderBy, search, media_ids, start_date, end_date, authorId, langValues) {
     this.itemsPerPage = pageSize;
     this.currentPage = currentPage;
     this.search = search;
     this.orderBy = orderBy;
     this.direction = direction;
     this.media_ids = media_ids;
-    this.articleService.getClientArticles(currentPage, orderBy , direction, pageSize, search, media_ids, start_date, end_date, authorId).subscribe(
+    this.articleService.getClientArticles(currentPage, orderBy , direction, pageSize, search, media_ids, start_date, end_date, authorId, langValues).subscribe(
       data => {
         if (data.status) {
           this.totalElements = +data.headers.get('X-Total-Count');
@@ -191,7 +193,7 @@ export class ClientArticlesComponent implements OnInit {
 
   changeOrderBy(item: any) {
     this.orderBy = item.value;
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
   }
 
   
@@ -216,7 +218,7 @@ export class ClientArticlesComponent implements OnInit {
     clearTimeout(this.searchReq);
   }
   this.searchReq =   setTimeout(() => {
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
     this.loading = false;
   }, 1000);
 }
@@ -274,7 +276,7 @@ onItemsPerPageChange(itemCount) {
   console.log(itemCount);
   this.itemsPerPage = itemCount;
   this.currentPage = 1
-  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
   // this.loading = false;
  
 }
@@ -290,7 +292,7 @@ onSort(event) {
   this.orderBy = sortValue;
   // emulate a server request with a timeout
   setTimeout(() => {
-    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
     this.loading = false;
   }, 1000);
 }
@@ -303,7 +305,7 @@ onSort(event) {
  */
 setPage(pageInfo) {
   this.currentPage = pageInfo.offset + 1;
-  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
   console.log(pageInfo);
   console.log(this.currentPage);
 }
@@ -345,7 +347,7 @@ setPage(pageInfo) {
           this.order_by = 'created_at';
           this.search = '';
           this.media_ids= null;
-          this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+          this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
           this.spinnerCrawling = false;
         }
       },
@@ -388,7 +390,8 @@ setPage(pageInfo) {
         // this.startDate,
         // this.endDate,
         this.mediaIdJoin,
-       this.start_date, this.end_date, this.authorsIdJoin
+       this.start_date, this.end_date, this.authorsIdJoin,
+       this.langJoin
       );
     } else {
       this.mediaId = null;
@@ -401,7 +404,8 @@ setPage(pageInfo) {
         // this.startDate,
         // this.endDate,
        this.mediaId,
-        this.start_date, this.end_date, this.authorsIdJoin
+        this.start_date, this.end_date, this.authorsIdJoin,
+        this.langJoin
       );
     }
   }
@@ -424,25 +428,21 @@ setPage(pageInfo) {
         this.direction,
         this.orderBy,
         this.search,
-        // this.startDate,
-        // this.endDate,
         this.mediaIdJoin,
        this.start_date, this.end_date,
-       this.authorsIdJoin
+       this.authorsIdJoin,  this.langJoin
       );
     } else {
-      this.authorIds = null;
+    this.authorsIdJoin = null;
       this.loadData(
         this.itemsPerPage,
         this.currentPage,
         this.direction,
         this.orderBy,
         this.search,
-        // this.startDate,
-        // this.endDate,
        this.mediaId,
         this.start_date, this.end_date,
-        this.authorIds
+        this.authorsIdJoin,  this.langJoin
       );
     }
   }
@@ -517,7 +517,7 @@ if (index !== -1) {
     this.start_date = null;
     this.end_date = null;
     this.rage_date = [];
-    this.loadData(this.itemsPerPage, 1, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date,this.authorsIdJoin);
+    this.loadData(this.itemsPerPage, 1, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date,this.authorsIdJoin,  this.langJoin);
   }
 
   changeDate(rangeDate: any) {
@@ -527,7 +527,7 @@ if (index !== -1) {
 
     let d2 = Date.parse(rangeDate[0]);
     let d1 = Date.parse(rangeDate[1]);
-    this.loadData(this.itemsPerPage, 1, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin);
+    this.loadData(this.itemsPerPage, 1, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
 
     let m = moment(d1);
     let years = m.diff(d2, 'years');
@@ -538,6 +538,42 @@ if (index !== -1) {
 
     this.duration = (+years > 0) ? (years + ' Years '+ months + ' Months ' + days + ' Days ') : (+months > 0) ? ( months + ' Months ' + ((+days > 0) ?( days + ' Days ') : '')) : (days + ' Days ')
 
+  }
+
+
+  selectLang(lan) {
+    this.lanIds = [];
+    const langArray = lan;
+    langArray.map(s=> this.lanIds.push(s.value));
+
+    if (this.lanIds.length > 0) {
+      this.langJoin = this.lanIds.join(",");
+      this.loadData(
+        this.itemsPerPage,
+        this.currentPage,
+        this.direction,
+        this.orderBy,
+        this.search,
+        this.mediaIdJoin,
+       this.start_date, this.end_date,
+       this.authorsIdJoin,
+       this.langJoin
+      );
+    } else {
+      this.langIdJoin = null;
+      this.loadData(
+        this.itemsPerPage,
+        this.currentPage,
+        this.direction,
+        this.orderBy,
+        this.search,
+       this.mediaId,
+        this.start_date, this.end_date,
+        this.authorIds,
+        this.langJoin
+      );
+    }
+   
   }
 
 
