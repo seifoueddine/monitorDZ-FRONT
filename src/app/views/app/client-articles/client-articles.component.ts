@@ -560,7 +560,7 @@ if (index !== -1) {
        this.langJoin
       );
     } else {
-      this.langIdJoin = null;
+      this.langJoin = null;
       this.loadData(
         this.itemsPerPage,
         this.currentPage,
