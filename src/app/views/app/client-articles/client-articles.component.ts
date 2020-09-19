@@ -431,7 +431,7 @@ setPage(pageInfo) {
        this.authorsIdJoin
       );
     } else {
-      this.mediaId = null;
+      this.authorIds = null;
       this.loadData(
         this.itemsPerPage,
         this.currentPage,
@@ -442,7 +442,7 @@ setPage(pageInfo) {
         // this.endDate,
        this.mediaId,
         this.start_date, this.end_date,
-        this.authorsIdJoin
+        this.authorIds
       );
     }
   }
