@@ -23,6 +23,7 @@ import { sanitizeHtmlPipe } from 'src/app/shared/sanitize-html.pipe';
 import { ComponentsStateButtonModule } from 'src/app/components/state-button/components.state-button.module';
 import { SortArticlesComponent } from './sort-articles.component';
 import { SortArticlesRoutingModule } from './sort-articles.routing';
+import { ContextMenuModule } from 'ngx-contextmenu';
 @NgModule({
   declarations: [SortArticlesComponent],
   imports: [
@@ -47,7 +48,10 @@ import { SortArticlesRoutingModule } from './sort-articles.routing';
     ComponentsCarouselModule,
     NgSelectModule,
     QuillModule.forRoot(),
-    ComponentsStateButtonModule 
+    ComponentsStateButtonModule,
+    ContextMenuModule.forRoot({
+      useBootstrap4: true,
+    })
   ]
 })
 export class SortArticlesModule { }

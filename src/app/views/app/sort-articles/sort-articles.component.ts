@@ -21,7 +21,7 @@ export class SortArticlesComponent implements OnInit {
   defaultImage = "assets/img/no-image-article.png"
   defaultIcon = "assets/img/logo.jpg"
   rows: any;
-
+  article: any;
   public options = {
     position: ["bottom", "center"],
 }
@@ -52,7 +52,7 @@ export class SortArticlesComponent implements OnInit {
   itemOrder = { label: 'Titre', value: 'title' };
   itemOptionsOrders = [{ label: 'Titre', value: 'title' }, { label: 'Status', value: 'status' }, { label: 'Auteur', value: 'author_id' }];
   displayOptionsCollapsed = false;
-
+  modalRefDel: any;
   surveyItems: any[] = [];
   description = ""
   mediaNameSelected: any;
@@ -481,6 +481,41 @@ if (index !== -1) {
     });
    
     this.modalRef.hide();
+  }
+
+  onContextMenuClick(action: string, item: any, templateDelete: TemplateRef<any>) {
+    this.article = item;
+    this.modalRefDel = this.modalService.show(templateDelete, { class: 'modal-sm' });
+  }
+
+  declineDelete(): void {
+
+  
+    this.modalRefDel.hide();;
+  }
+
+  
+  deleteArticle() {
+    this.articleService.deleteArticle(this.article.id).subscribe(
+      (res) => {
+        this.notifications.create(
+          "Succès",
+          "Supprimer l'article avec succès",
+          NotificationType.Success,
+          { theClass: "primary", timeOut: 6000, showProgressBar: false }
+        );
+        this.modalRefDel.hide();
+        this.ourNotificationService.notficateReloadArticles();
+      },
+      (err) => {
+        this.notifications.create(
+          "Warn", this.translateService.instant('errors.' +  err.error.code)
+         ,
+          NotificationType.Warn,
+          { theClass: "primary", timeOut: 6000, showProgressBar: false }
+        );
+      }
+    );
   }
 
 
