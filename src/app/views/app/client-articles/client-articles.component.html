@@ -167,8 +167,8 @@
                         <a (click)="removeDates()">
                           <i class="simple-icon-trash"></i>
                         </a>
-                        <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date"  bsDaterangepicker placeholder="Date de publication" [container]="'html'"  (ngModelChange)="changeDate($event)"
-                        [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD/MM/YYYY' }"> 
+                        <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date" placement='left' bsDaterangepicker placeholder="Date de publication" [container]="'html'"  (ngModelChange)="changeDate($event)"
+                        [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD/MM/YYYY'   }"> 
                     </li>
                     <!-- <li>
                         <a href="javascript:;">
