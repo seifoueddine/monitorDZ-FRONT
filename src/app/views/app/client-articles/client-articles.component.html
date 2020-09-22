@@ -38,7 +38,7 @@
           </label>
         </div>
       </div> -->
-
+<div class="col-12" *ngIf="!spinner">
       <div class="col-12" *ngFor="let item of rows; let i=index">
         <div [ngClass]="{'card d-flex mb-3 card': true, 'active':isSelected(item)}">
             <div class="d-flex flex-grow-1 min-width-zero">
@@ -69,8 +69,41 @@
             </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="!spinner" class="col-12">
+  <pagination *ngIf="rows.length > 0" [boundaryLinks]="true"  [totalItems]="totalElements" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"
+    [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center" [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
+    [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate">
+  </pagination>
+</div>
 
 
+
+<div *ngIf="!spinner" class="row">
+  <div *ngIf="rows?.length == 0" class="col-12">
+    <div class=" mb-4">
+
+        <div class="jumbotron">
+          <h1 class="display-4">Oups!!</h1>
+          <p class="lead">Aucun article ne correspond aux conditions de recherche spécifiées</p>
+  
+          <hr class="my-4">
+       
+        </div>
+     
+    </div>
+  </div>
+</div>
+
+
+    
+      <div *ngIf="spinner" class="text-center col-12">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+        <div class="mt-3">{{ 'spinner.loading' | translate }}</div>
+      </div>
+  
 
 
 
@@ -121,13 +154,6 @@
         </div>
       </div>
     </div> -->
-  
-    <div class="col-12">
-        <pagination [boundaryLinks]="true"  [totalItems]="totalElements" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"
-          [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center" [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
-          [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate">
-        </pagination>
-      </div>
   </div>
   
   <div class="col-12">
@@ -157,17 +183,15 @@
             <div class="scroll">
                 <p class="text-muted text-small">Date</p>
           
-                
-            
-               
+    
 
-             
+
                 <ul class="list-unstyled mb-5">
                     <li class="active">
                         <a (click)="removeDates()">
-                          <i class="simple-icon-trash"></i>
+                          <i class="simple-icon-trash"></i>   <span *ngIf="duration" class="badge badge-pill badge-outline-danger mb-1 mr-1">{{duration}}</span>
                         </a>
-                        <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date" placement='left' bsDaterangepicker placeholder="Date de publication" [container]="'html'"  (ngModelChange)="changeDate($event)"
+                        <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date" placement='left' bsDaterangepicker placeholder="Date de publication" [maxDate]="today"  [container]="'html'"  (ngModelChange)="changeDate($event)"
                         [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD/MM/YYYY'   }"> 
                     </li>
                     <!-- <li>
@@ -181,7 +205,7 @@
                 <p class="text-muted text-small">Auteurs</p>
 
                 <ng-select class="custom" [searchFn]="customSearch" [hideSelected]="true" [items]="authors" placeholder="Auteur" bindLabel="attributes.name" bindValue="id" [multiple]="true"
-                (change)="selectAuthor($event)"> 
+                (change)="selectAuthor($event)">  
               </ng-select>
 
 
@@ -213,6 +237,11 @@
                     </li>
                 </ul> -->
                 <br>
+                <p class="d-sm-inline-block mb-1">
+                  <a href="javascript:;">
+                      <span class="badge badge-pill badge-outline-danger mb-1 mr-1">Comming soon</span>
+                  </a>
+              </p>
                 <p class="text-muted text-small">Tags</p>
                 <!-- <div>
                     <p class="d-sm-inline-block mb-1">
@@ -231,7 +260,53 @@
                             <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">PERSONAL</span>
                         </a>
                     </p>
-                </div> -->
+                </div>  -->
+                <ng-select *ngIf="tags" [hideSelected]="true" [items]="tags" placeholder="Tags" bindLabel="name" bindValue="id"
+                (change)="selectTag($event)" [multiple]="true" >
+              </ng-select>
+<br>
+
+
+<div class="row">
+<div class="col-6">
+  <ul class="list-unstyled mb-5">
+    <li>
+        <div class="custom-control custom-checkbox mb-2">
+            <input type="checkbox" class="custom-control-input" id="type1">
+            <label class="custom-control-label" for="type1">Numérique</label>
+        </div>
+    </li>
+    <li>
+        <div class="custom-control custom-checkbox mb-2">
+            <input type="checkbox" class="custom-control-input" id="type2">
+            <label class="custom-control-label" for="type2">papier</label>
+        </div>
+    </li>
+
+</ul>
+</div>
+<div class="col-6">
+  <ul class="list-unstyled mb-5">
+    <li>
+        <div class="custom-control custom-checkbox mb-2">
+            <input type="checkbox" class="custom-control-input" id="zone1">
+            <label class="custom-control-label" for="zone1">National</label>
+        </div>
+    </li>
+    <li>
+        <div class="custom-control custom-checkbox mb-2">
+            <input type="checkbox" class="custom-control-input" id="zone2">
+            <label class="custom-control-label" for="zone2">International</label>
+        </div>
+    </li>
+
+</ul>
+</div>
+</div>
+
+
+
+
             </div>
         </div>
     </app-application-menu>

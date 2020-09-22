@@ -23,6 +23,7 @@ export class ClientArticlesComponent implements OnInit {
   urlForImage = environment.URL_PATH; 
   displayMode = 'image';
   [x: string]: any;
+  today: Date = new Date();
   defaultImage = "assets/img/no-image-article.png"
   defaultIcon = "assets/img/logo.jpg"
   rows: any;
@@ -73,6 +74,7 @@ export class ClientArticlesComponent implements OnInit {
     {value: 'en', viewValue: 'En'},
   ];
   langIdJoin: any;
+  tags: any;
   // @ViewChild('addNewModalRef', { static: true }) addNewModalRef: AddNewSurveyModalComponent;
 
   constructor(private renderer: Renderer2, private articleService: ArticlesService, private notifications: NotificationsService,
@@ -129,7 +131,6 @@ export class ClientArticlesComponent implements OnInit {
         }
       },
       error => {
-        this.spinner = false;
         this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
       }
     );
@@ -178,6 +179,7 @@ export class ClientArticlesComponent implements OnInit {
         //  this.articlesArchived = resp.data.stats.archived;
         //  this.articlesPending = resp.pending;
         this.media = resp.media.data;
+        this.tags = resp.tags;
           this.totalItem = data.totalItem;
           this.totalPage = data.totalPage;
           this.spinner = false;
@@ -335,28 +337,28 @@ setPage(pageInfo) {
 
 
 
-  getNewArticles(id, name){
-    this.mediaNameSelected = name;
-    this.spinnerCrawling = true;
-    this.articleService.crawling(id).subscribe(
-      data => {
-        if (data.status) {
-          this.itemsPerPage = 12;
-          this.currentPage = 1;
-          this.direction = 'desc';
-          this.order_by = 'created_at';
-          this.search = '';
-          this.media_ids= null;
-          this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
-          this.spinnerCrawling = false;
-        }
-      },
-      error => {
-        this.spinnerCrawling = false;
-        this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
-      }
-    );
-  }
+  // getNewArticles(id, name){
+  //   this.mediaNameSelected = name;
+  //   this.spinnerCrawling = true;
+  //   this.articleService.crawling(id).subscribe(
+  //     data => {
+  //       if (data.status) {
+  //         this.itemsPerPage = 12;
+  //         this.currentPage = 1;
+  //         this.direction = 'desc';
+  //         this.order_by = 'created_at';
+  //         this.search = '';
+  //         this.media_ids= null;
+  //         this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date, this.authorsIdJoin,  this.langJoin);
+  //         this.spinnerCrawling = false;
+  //       }
+  //     },
+  //     error => {
+  //       this.spinnerCrawling = false;
+  //       this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+  //     }
+  //   );
+  // }
 
   goToDetailsNewPage(article_id) {
     const url = this.router.serializeUrl(
@@ -369,7 +371,7 @@ setPage(pageInfo) {
   selectMedia(event) {
     console.log(event);
     
-
+    this.spinner = true;
     let media = event;
 
 
@@ -411,7 +413,7 @@ setPage(pageInfo) {
   }
 
   selectAuthor(event) {
-
+   this.spinner = true;
   
     
 
@@ -453,17 +455,6 @@ setPage(pageInfo) {
     term = term.toLocaleLowerCase();
     return item.attributes.name.toLocaleLowerCase().indexOf(term) > -1
   }
-
-  // decline(): void {
-  
-  //   this.modalRef.hide();
-  // }
-
-  // submit(): void {
-  
-  //   this.modalRef.hide();
-  // }
-
 
 
   changeDisplayMode(mode) {
@@ -513,15 +504,16 @@ if (index !== -1) {
   }
 
   removeDates(){
-    
+    this.spinner = true;
     this.start_date = null;
     this.end_date = null;
+    this.duration = null;
     this.rage_date = [];
     this.loadData(this.itemsPerPage, 1, this.direction, this.order_by, this.search,this.media_ids, this.start_date, this.end_date,this.authorsIdJoin,  this.langJoin);
   }
 
   changeDate(rangeDate: any) {
-
+    this.spinner = true;
     this.start_date = this.datePipe.transform(new Date(rangeDate[0]), 'dd/MM/yyyy');
     this.end_date = this.datePipe.transform(new Date(rangeDate[1]), 'dd/MM/yyyy');
 
@@ -536,12 +528,13 @@ if (index !== -1) {
     m.add(-months, 'months');
     let days = m.diff(d2, 'days');
 
-    this.duration = (+years > 0) ? (years + ' Years '+ months + ' Months ' + days + ' Days ') : (+months > 0) ? ( months + ' Months ' + ((+days > 0) ?( days + ' Days ') : '')) : (days + ' Days ')
+    this.duration = (+years > 0) ? (years + ' Years '+ months + ' Mois ' + days + ' Jours ') : (+months > 0) ? ( months + ' Mois ' + ((+days > 0) ?( days + ' jours ') : '')) : (days > 0) ? (days + ' Jours ') : "Aujourd'hui"
 
   }
 
 
   selectLang(lan) {
+    this.spinner = true;
     this.lanIds = [];
     const langArray = lan;
     langArray.map(s=> this.lanIds.push(s.value));
@@ -574,6 +567,11 @@ if (index !== -1) {
       );
     }
    
+  }
+
+  selectTag(tag){
+ console.log(tag);
+ 
   }
 
 
