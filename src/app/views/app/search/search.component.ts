@@ -12,7 +12,7 @@ export class SearchComponent implements OnInit {
   searchKey: string;
   orderBy: string = 'created_at';
   direction: string = 'desc';
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 12;
   currentPage: number = 1;
   totalElements: any;
   time: any;

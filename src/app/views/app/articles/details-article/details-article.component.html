@@ -4,7 +4,7 @@
           <div class="position-absolute card-top-buttons">
             <button class="btn btn-outline-white icon-button c-pointer" (click)="openModal(template, article)"><i class="simple-icon-pencil"></i></button>
         </div>
-            <img alt="detail" style="height: 300px;"  [src]="article?.attributes.url_image ? article?.attributes.url_image : defaultImage" (click)="openLightbox(article?.attributes.url_image ? article?.attributes.url_image : defaultImage)" class="responsive border-0 card-img-top mb-3 c-pointer" />
+            <img alt="detail" style="height: 300px;"  [src]="article.attributes.image.url ? urlForImage + article.attributes.image.url : defaultImage" (click)="openLightbox(article.attributes.image.url ? urlForImage + article.attributes.image.url : defaultImage)" class="responsive border-0 card-img-top mb-3 c-pointer" />
             <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'"> {{article?.attributes.category_article}}</span> 
 
             <div class="card-body">

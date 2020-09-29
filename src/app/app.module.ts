@@ -28,7 +28,7 @@ import { XhrInterceptor } from './http.interceptor';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularTokenModule.forRoot({
-      apiBase:                   'https://monitordz-api.herokuapp.com/',
+      apiBase:                   'http://161.97.114.39:81',
       apiPath:                    'api/v1',
       
       signInPath:                 'auth/sign_in',

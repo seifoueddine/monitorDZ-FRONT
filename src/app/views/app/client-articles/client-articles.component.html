@@ -1,7 +1,7 @@
 <div class="row app-row">
     <div class="col-12" >
       
-    <app-list-page-header [showDisplayMode]="false" [media]="media" [itemOptionsOrders]="itemOptionsOrders" [itemOrder]="itemOrder" [itemOptionsPerPage]="[5,10,20]" [itemsPerPage]="itemsPerPage"
+    <app-list-page-header [showDisplayMode]="false" [totalElements]="totalElements" [media]="media" [itemOptionsOrders]="itemOptionsOrders" [itemOrder]="itemOrder" [itemOptionsPerPage]="[6,12,18]" [itemsPerPage]="itemsPerPage"
     [selectAllState]="selectAllState" (changeDisplayMode)="changeDisplayMode($event)" (addNewItem)="showAddNewModal()"
     (selectAllChange)="selectAllChange($event)" (itemsPerPageChange)="itemsPerPageChange($event)" currentPage="sort-articles"
     (changeOrderBy)="changeOrderBy($event)" (selectMedium)="selectMedia($event)" >
@@ -354,7 +354,7 @@
         <div class="col-12 col-md-12 col-xl-8 col-left">
             <div class="card mb-4">
              
-                <img alt="detail" style="height: 300px;"  [src]="articleDetails?.attributes.url_image ? articleDetails?.attributes.url_image : defaultImage"  class="responsive border-0 card-img-top mb-3 c-pointer" />
+                <img alt="detail" style="height: 300px;"  [src]="articleDetails.attributes.image.url ? urlForImage + articleDetails.attributes.image.url : defaultImage"  class="responsive border-0 card-img-top mb-3 c-pointer" />
                 <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'"> {{articleDetails?.attributes.category_article}}</span> 
     
                 <div class="card-body">

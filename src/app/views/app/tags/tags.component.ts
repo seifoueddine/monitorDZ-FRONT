@@ -25,8 +25,7 @@ export class TagsComponent implements OnInit {
   spinner: boolean = true;
   ColumnMode = ColumnMode;
   temp = [...this.rows];
-  itemsPerPage: number = 10;
-  itemOptionsPerPage = [5, 10, 20];
+  itemsPerPage: number = 12;
   selected = [];
   SelectionType = SelectionType;
   selectAllState = '';

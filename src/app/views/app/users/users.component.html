@@ -1,5 +1,5 @@
 
- <app-list-page-header [selectAllState]="selectAllState" (selectAllChange)="selectAllChange($event)"
+ <app-list-page-header [selectAllState]="selectAllState" [totalElements]="totalElements" (selectAllChange)="selectAllChange($event)"
  [showOrderBy]="true" [showDisplayMode]="false" [itemOrder]="itemOrder"  
 (searchKeyUp)="updateFilter($event)" (itemsPerPageChange)="onItemsPerPageChange($event)" (changeDirection)="changeDirection($event)" (changeOrderBy)="changeOrderBy($event)"
  currentPage="users" [id]='idItem' (addNewItem)="showAddNewModal()" [itemOptionsPerPage]="[6,12,24]" [itemsPerPage]="itemsPerPage" [itemOptionsOrders]="optionsOrders">

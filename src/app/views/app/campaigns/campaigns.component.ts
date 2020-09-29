@@ -25,7 +25,7 @@ export class CampaignsComponent implements OnInit {
   spinner: boolean = true;
   ColumnMode = ColumnMode;
   temp = [...this.rows];
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 12;
   itemOptionsPerPage = [5, 10, 20];
   selected = [];
   SelectionType = SelectionType;

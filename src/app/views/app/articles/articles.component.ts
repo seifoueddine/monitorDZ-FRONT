@@ -8,6 +8,7 @@ import { MediaService } from 'src/app/shared/services/media.service';
 import { Media } from 'src/app/shared/models/media.model';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-articles',
@@ -45,7 +46,7 @@ export class ArticlesComponent implements OnInit {
   buttonState = '';
   totalElements: any;
   mediaIds: any;
- 
+  urlForImage = environment.URL_PATH;
   itemOrder = 'Title';
   itemOptionsOrders = ['Title', 'Category', 'Status', 'Label'];
   displayOptionsCollapsed = false;

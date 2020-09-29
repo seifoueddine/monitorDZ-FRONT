@@ -1,7 +1,7 @@
 <app-sector-form #addNewModalRef></app-sector-form>  
 
- <app-list-page-header [selectAllState]="selectAllState" (selectAllChange)="selectAllChange($event)"
- [showOrderBy]="false" [showDisplayMode]="false" (searchKeyUp)="updateFilter($event)" (itemsPerPageChange)="onItemsPerPageChange($event)" [itemsPerPage]="itemsPerPage" [itemOptionsPerPage]="itemOptionsPerPage"
+ <app-list-page-header [selectAllState]="selectAllState" [totalElements]="totalElements" (selectAllChange)="selectAllChange($event)"
+ [showOrderBy]="false" [showDisplayMode]="false" (searchKeyUp)="updateFilter($event)" (itemsPerPageChange)="onItemsPerPageChange($event)" [itemsPerPage]="itemsPerPage" [itemOptionsPerPage]="[6,12,18]"
  currentPage="sectors" [id]='idItem' (addNewItem)="showAddNewModal()">
 </app-list-page-header>
 

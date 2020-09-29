@@ -4,7 +4,7 @@
 <div class="row app-row">
     <div class="col-12" >
       
-    <app-list-page-header [displayMode]="displayMode" [media]="media" [itemOptionsOrders]="itemOptionsOrders" [itemOrder]="itemOrder" [itemOptionsPerPage]="[5,10,20]" [itemsPerPage]="itemsPerPage"
+    <app-list-page-header [displayMode]="displayMode" [totalElements]="totalElements" [media]="media" [itemOptionsOrders]="itemOptionsOrders" [itemOrder]="itemOrder" [itemOptionsPerPage]="[6,12,18]" [itemsPerPage]="itemsPerPage"
     [selectAllState]="selectAllState" (changeDisplayMode)="changeDisplayMode($event)" (addNewItem)="showAddNewModal()"
     (selectAllChange)="selectAllChange($event)" (itemsPerPageChange)="itemsPerPageChange($event)" currentPage="sort-articles"
     (changeOrderBy)="changeOrderBy($event)" (selectMedium)="selectMedia($event)" >
@@ -70,7 +70,7 @@
                 </div>
               </a>
                 <a href="javascript:;" (click)="openDetailsModal(templateDetails, a)">
-                <img  style="height: 180px;" class="card-img-top" [src]="a.attributes.url_image ? a.attributes.url_image : (defaultImage)" alt="Article image"></a>
+                <img  style="height: 180px;" class="card-img-top" [src]="a.attributes.image.url ? urlForImage + a.attributes.image.url : defaultImage" alt="Article image"></a>
               <span style="background-color: green; color: white;" *ngIf="a.attributes.status === 'confirmed'" [class]="'badge badge-pill position-absolute badge-top-left'"> Confirmé</span>
               <span style="background-color: rgb(240, 108, 0); color: white;" *ngIf="a.attributes.status === 'archived'" [class]="'badge badge-pill position-absolute badge-top-left'">Archivé</span>
               <span style="background-color: rgb(184, 7, 7); color: white;" *ngIf="a.attributes.status === 'pending'" [class]="'badge badge-pill position-absolute badge-top-left'">En attente</span>
@@ -255,7 +255,7 @@
         <div class="col-12 col-md-12 col-xl-8 col-left">
             <div class="card mb-4">
              
-                <img alt="detail" style="height: 300px;"  [src]="articleDetails?.attributes.url_image ? articleDetails?.attributes.url_image : defaultImage"  class="responsive border-0 card-img-top mb-3 c-pointer" />
+                <img alt="detail" style="height: 300px;"  [src]="articleDetails.attributes.image.url ? urlForImage + articleDetails.attributes.image.url : defaultImage"  class="responsive border-0 card-img-top mb-3 c-pointer" />
                 <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'"> {{articleDetails?.attributes.category_article}}</span> 
     
                 <div class="card-body">

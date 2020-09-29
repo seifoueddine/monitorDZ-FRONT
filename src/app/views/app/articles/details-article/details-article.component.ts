@@ -5,6 +5,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { Lightbox } from 'ngx-lightbox';
 import { Articles } from 'src/app/shared/models/articles.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-details-article',
@@ -18,7 +19,7 @@ export class DetailsArticleComponent implements OnInit {
   detailImages: any;
   owner: any;
   defaultImage = "https://review.content-science.com/wp-content/uploads/2015/09/CSR_article_hero_Complex-Transformation-of-Moving-from-Print-to-Digital-Content-ECRIs-Story.png"
-
+  urlForImage = environment.URL_PATH;
   configTimeModal = {
     ignoreBackdropClick: true
   };

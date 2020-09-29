@@ -1,7 +1,7 @@
 <app-slug-form #addNewModalRef></app-slug-form>  
 
- <app-list-page-header [selectAllState]="selectAllState" (selectAllChange)="selectAllChange($event)"
- [showOrderBy]="false" [showDisplayMode]="false" (searchKeyUp)="updateFilter($event)" (itemsPerPageChange)="onItemsPerPageChange($event)" [itemsPerPage]="itemsPerPage" [itemOptionsPerPage]="itemOptionsPerPage"
+ <app-list-page-header [selectAllState]="selectAllState" [totalElements]="totalElements" (selectAllChange)="selectAllChange($event)"
+ [showOrderBy]="false" [showDisplayMode]="false" (searchKeyUp)="updateFilter($event)" (itemsPerPageChange)="onItemsPerPageChange($event)" [itemsPerPage]="itemsPerPage" [itemOptionsPerPage]="[6,12,18]"
  currentPage="slugs" [id]='idItem' (addNewItem)="showAddNewModal()">
 </app-list-page-header>
 
