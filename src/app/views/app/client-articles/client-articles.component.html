@@ -191,8 +191,8 @@
                         <a (click)="removeDates()">
                           <i class="simple-icon-trash"></i>   <span *ngIf="duration" class="badge badge-pill badge-outline-danger mb-1 mr-1">{{duration}}</span>
                         </a>
-                        <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date" placement='left' bsDaterangepicker placeholder="Date de publication" [maxDate]="today"  [container]="'html'"  (ngModelChange)="changeDate($event)"
-                        [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD/MM/YYYY'   }"> 
+                        <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date"  placement='left'  bsDaterangepicker placeholder="Date de publication" [maxDate]="today"  [container]="'html'"  (ngModelChange)="changeDate($event)"
+                        [bsConfig]="{ adaptivePosition: true, rangeInputFormat: 'DD/MM/YYYY' }"> 
                     </li>
                     <!-- <li>
                         <a href="javascript:;">

@@ -528,7 +528,7 @@ if (index !== -1) {
     m.add(-months, 'months');
     let days = m.diff(d2, 'days');
 
-    this.duration = (+years > 0) ? (years + ' Years '+ months + ' Mois ' + days + ' Jours ') : (+months > 0) ? ( months + ' Mois ' + ((+days > 0) ?( days + ' jours ') : '')) : (days > 0) ? (days + ' Jours ') : "Aujourd'hui"
+    this.duration = (+years > 0) ? (years + ' Years '+ months + ' Mois ' + days + ' Jours ') : (+months > 0) ? ( months + ' Mois ' + ((+days > 0) ?( days + ' jours ') : '')) : (days > 0) ? (days + ' Jours ') : "Même Jour"
 
   }
 

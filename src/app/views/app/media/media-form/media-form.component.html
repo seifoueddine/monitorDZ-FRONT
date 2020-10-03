@@ -65,6 +65,26 @@
                 <div *ngIf="mediaForm.get('sector_id').errors?.required && form.submitted" class="invalid-tooltip">Secteur est requis</div>
             </div> -->
 
+            
+            <div class="form-group">
+
+                      
+                <div class="row">
+                  
+    
+                    <div class="col-12" >
+                        
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="status" formControlName="tag_status" >
+                    <label class="custom-control-label" for="status">Obtenir les tags</label>
+                  </div>
+                    </div>
+                </div>
+    
+    
+    
+             </div>
+
             <div class="form-group">
             
                 <input type="file" class="custom-file-input" id='avatar' formControlName="avatar"
@@ -109,7 +129,7 @@
     
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary"
-            (click)="modalRef.hide()">Annuler</button>
+            (click)="hideModal()">Annuler</button>
         <button type="submit" class="btn btn-primary float-right">Soumettre</button>
     </div>
 </form>

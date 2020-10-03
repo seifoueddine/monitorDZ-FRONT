@@ -106,7 +106,8 @@ export class MediaFormComponent implements OnInit {
         url_crawling: new FormControl(null),
         avatar: new FormControl(null),
         zone: new FormControl(null),
-        language: new FormControl(null) 
+        language: new FormControl(null),
+        tag_status: new FormControl(true)
       });
 
     } else {
@@ -120,7 +121,8 @@ export class MediaFormComponent implements OnInit {
         url_crawling: new FormControl(this.data.attributes.url_crawling),
         avatar: new FormControl(null),
         zone: new FormControl(this.data.attributes.zone),
-        language: new FormControl(this.data.attributes.language) 
+        language: new FormControl(this.data.attributes.language),
+        tag_status: new FormControl(this.data.attributes.tag_status)
       });
     }
   }
@@ -155,10 +157,11 @@ export class MediaFormComponent implements OnInit {
       //  formData.append('sector_id', this.sectorsIds.join(','));
         formData.append('zone', this.mediaForm.value.zone);
         formData.append('language', this.mediaForm.value.language);
+        formData.append('tag_status', this.mediaForm.value.tag_status);
           this.mediaService.updateMedia(formData, mediaId).subscribe(resCreate => {
 
             this.notifications.create('Success', 'Mettre à jour le média avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
-            this.modalRef.hide();
+            this.hideModal();
             this.ourNotificationService.notficateReloadMedia();
             this.sectorsIds = [];
           }, err => {
@@ -186,10 +189,11 @@ export class MediaFormComponent implements OnInit {
        // formData.append('sector_id', this.sectorsIds.join(','));
         formData.append('zone', this.mediaForm.value.zone);
         formData.append('language', this.mediaForm.value.language);
+        formData.append('tag_status', this.mediaForm.value.tag_status);
         this.mediaService.addMedia(formData).subscribe(resCreate => {
           console.log(resCreate);
           this.notifications.create('Success', 'Média créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
-          this.modalRef.hide();
+          this.hideModal();
           this.ourNotificationService.notficateReloadMedia();
         }, error => {
           this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
@@ -231,7 +235,7 @@ export class MediaFormComponent implements OnInit {
   }
 
 
-  hideModel(){
+  hideModal(){
     this.modalRef.hide();
     this.newPic = false;
     this.avatarName = null;

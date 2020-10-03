@@ -74,4 +74,16 @@ export class SearchComponent implements OnInit {
 
   }
 
+  getAuthorWithSearch(author){
+    const firstBody = author
+   
+      let index  = author.toLowerCase().indexOf(this.searchKey);
+     
+     
+     // author = author.toLowerCase().replace(this.searchKey, '<b><font  color="#FB6400">' + this.searchKey + '</font></b>');
+     return index == -1 ? false : true
+    // }) 
+
+  }
+
 }
