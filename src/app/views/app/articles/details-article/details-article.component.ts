@@ -18,7 +18,8 @@ export class DetailsArticleComponent implements OnInit {
   article: any;
   detailImages: any;
   owner: any;
-  defaultImage = "https://review.content-science.com/wp-content/uploads/2015/09/CSR_article_hero_Complex-Transformation-of-Moving-from-Print-to-Digital-Content-ECRIs-Story.png"
+  defaultImage = "assets/img/no-image-article.png"
+  //defaultImage = "https://review.content-science.com/wp-content/uploads/2015/09/CSR_article_hero_Complex-Transformation-of-Moving-from-Print-to-Digital-Content-ECRIs-Story.png"
   urlForImage = environment.URL_PATH;
   configTimeModal = {
     ignoreBackdropClick: true
@@ -32,6 +33,7 @@ export class DetailsArticleComponent implements OnInit {
   authorName: string;
   modalRef: any;
   body: any;
+  similar: any;
   constructor(private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,private modalService: BsModalService,
     private modal: BsModalService, private notifications: NotificationsService, private lightbox: Lightbox) {
 
@@ -44,10 +46,12 @@ export class DetailsArticleComponent implements OnInit {
         this.articlesService.getArticleById(this.articleId)
           .subscribe((res: any) => {
             console.log(res);
-            this.article = res.data;
+            this.article = res.article.data;
             this.tags = this.article.attributes.media_tags ?  this.article.attributes.media_tags.split(',') : [];
-            this.mediaName = res.included[1].attributes.name;
-            this.authorName = res.included[0].attributes.name;
+            this.mediaName = res.article.included[1].attributes.name;
+            this.authorName = res.article.included[0].attributes.name;
+            this.similar = res.similar.data;
+            this.similar = this.similar.filter(a=>a.id !== this.article.id);
             this.getBodyWithTags();
           }, error => {
             // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
@@ -115,6 +119,15 @@ export class DetailsArticleComponent implements OnInit {
       let re = new RegExp(tag, 'g');
       this.article.attributes.body = this.article.attributes.body.replace(re, '<span style="padding-right: 2px; padding-left: 2px; border-radius: 5px; border: 1px solid #73b0ff; background-color:#95bff5;";font-weight:bold">' + tag + '</span>');
     }) 
+
+  }
+
+
+  getBodyWithSearch(body){
+    const firstBody = body
+  
+     return ((firstBody.slice(0, 150) + ' ...'))
+  
 
   }
 
