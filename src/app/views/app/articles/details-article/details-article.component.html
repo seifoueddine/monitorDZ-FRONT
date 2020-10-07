@@ -90,11 +90,11 @@
                     <perfect-scrollbar class="scroll" [config]="{suppressScrollX: true, wheelPropagation: false}">
                         <div class="d-flex flex-row mb-3" *ngFor="let article of similar">
                             <a  class="d-block position-relative">
-                                <img [src]="article.attributes.image.url ? urlForImage + article.attributes.image.url : defaultImage" class="list-thumbnail border-0" />
-                                <span style="background-color: brown; color: white;" [class]="'position-absolute badge-top-right badge badge-pill '">{{article?.attributes.category_article}}</span>
+                                <img style="width: 100px;" [src]="article.attributes.image.url ? urlForImage + article.attributes.image.url : defaultImage" class="list-thumbnail border-0" />
+                                <span style="background-color: brown; color: white;" [class]="'position-absolute badge-top-right badge badge-pill '">{{article.attributes.medium.name}}</span>
                             </a>
                             <div class="pl-3 pt-2 pr-2 pb-2">
-                                <a routerLink="/app/pages/product/details">
+                                <a target="_blank" [href]="'app/articles/details?id='+article.id">
                                     <p class="list-item-heading">{{ article.attributes.title }}</p>
                                     <div class="pr-4">
                                         <!-- <p class="text-muted mb-1 text-small"> -->

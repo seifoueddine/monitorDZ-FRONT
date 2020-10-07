@@ -126,7 +126,7 @@ export class DetailsArticleComponent implements OnInit {
   getBodyWithSearch(body){
     const firstBody = body
   
-     return ((firstBody.slice(0, 150) + ' ...'))
+     return ((firstBody.slice(0, 100) + ' ...'))
   
 
   }
