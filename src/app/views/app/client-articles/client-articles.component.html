@@ -47,7 +47,8 @@
                     <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'">{{item?.attributes.category_article}}</span>
 
                     <a class="list-item-heading mb-0 truncate w-40 w-xs-100  mb-1 mt-1" id="toggler1"
-                        href="javascript:;" (click)="openDetailsModal(templateDetails, item)">
+                    target="_blank" [href]="'app/articles/details?id='+item.id">
+                        
                         <!-- <i
                             [ngClass]="{'heading-icon':true, 'simple-icon-refresh' : item.attributes.status === 'COMPLETED', 'simple-icon-check' : item.attributes.status !== 'COMPLETED' }"></i> -->
                         <span class="align-middle d-inline-block">{{ item.attributes.title }}</span></a>

@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-12 col-md-12 col-xl-8 col-left">
         <div class="card mb-4">
-          <div class="position-absolute card-top-buttons">
+          <div *ngIf="role != 'ClientAdmin'" class="position-absolute card-top-buttons">
             <button class="btn btn-outline-white icon-button c-pointer" (click)="openModal(template, article)"><i class="simple-icon-pencil"></i></button>
         </div>
-            <img alt="detail" style="height: 300px;"  [src]="article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage" (click)="openLightbox(article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage)" class="responsive border-0 card-img-top mb-3 c-pointer" />
+            <img alt="detail" style="height: 300px; padding: 15px; border-top-left-radius: 25px; border-top-right-radius: 25px; "  [src]="article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage" (click)="openLightbox(article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage)" class="responsive border-0 card-img-top mb-3 c-pointer" />
             <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'"> {{article?.attributes.category_article}}</span> 
 
             <div class="card-body">
@@ -26,46 +26,46 @@
             
               <div class="d-flex flex-row align-items-center mb-3">
                 <a class="d-block position-relative" href="#">
-                  <i class='simple-icon-globe large-icon initial-height'></i>
+                  <i class='simple-icon-globe initial-height'></i>
                 </a>
                 <div class="pl-3 pt-2 pr-2 pb-2">
                   <a href="javascript:;">
-                    <p class="list-item-heading mb-1">{{mediaName}}  </p>
+                    <p class="mb-0">{{mediaName}}  </p>
                   </a>
                 </div>
               </div>
 
               <div class="d-flex flex-row align-items-center mb-3">
                 <a class="d-block position-relative" href="#">
-                  <i class='simple-icon-user large-icon initial-height'></i>
+                  <i class='simple-icon-user initial-height'></i>
                 </a>
                 <div class="pl-3 pt-2 pr-2 pb-2">
                   <a href="javascript:;">
-                    <p class="list-item-heading mb-1">{{ this.authorName}}</p>
+                    <p class="mb-0">{{ this.authorName}}</p>
                   </a>
                 </div>
               </div>
 
               <div class="d-flex flex-row align-items-center mb-3">
                 <a class="d-block position-relative" href="#">
-                  <i class='simple-icon-calendar large-icon initial-height'></i>
+                  <i class='simple-icon-calendar initial-height'></i>
                 </a>
                 <div class="pl-3 pt-2 pr-2 pb-2">
                   <a href="javascript:;">
-                    <p class="list-item-heading mb-1">{{article?.attributes.date_published | date:'dd/MM/yyyy'}}</p>
+                    <p class="mb-0">{{article?.attributes.date_published | date:'dd/MM/yyyy'}}</p>
                   </a>
                 </div>
               </div>
 
             <div class="d-flex flex-row align-items-center mb-3">
                 <a class="d-block position-relative" href="#">
-                  <i class='simple-icon-tag large-icon initial-height'></i>
+                  <i class='simple-icon-tag initial-height'></i>
                 </a>
                 <div class="pl-3 pt-2 pr-2 pb-2">
 
                     <p class="d-sm-inline-block mb-1" *ngFor="let item of tags">
                         <a href="javascript:;">
-                          <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">{{item}}</span>
+                          <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">{{item.name}}</span>
                         </a>
                     </p>
 
@@ -98,7 +98,7 @@
                                     <p class="list-item-heading">{{ article.attributes.title }}</p>
                                     <div class="pr-4">
                                         <!-- <p class="text-muted mb-1 text-small"> -->
-                                          <div class="text-muted mb-1 text-small" [innerHTML]="getBodyWithSearch(article.attributes.body)"></div>
+                                          <div [innerHTML]="getBodyWithSearch(article.attributes.body)"></div>
                                         <!-- </p> -->
                                     </div>
                                     <div class="text-primary text-small font-weight-medium d-none d-sm-block">

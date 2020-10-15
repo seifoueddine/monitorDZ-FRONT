@@ -34,6 +34,7 @@ export class DetailsArticleComponent implements OnInit {
   modalRef: any;
   body: any;
   similar: any;
+  role: any
   constructor(private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,private modalService: BsModalService,
     private modal: BsModalService, private notifications: NotificationsService, private lightbox: Lightbox) {
 
@@ -47,7 +48,7 @@ export class DetailsArticleComponent implements OnInit {
           .subscribe((res: any) => {
             console.log(res);
             this.article = res.article.data;
-            this.tags = this.article.attributes.media_tags ?  this.article.attributes.media_tags.split(',') : [];
+            this.tags = this.article.attributes.tags
             this.mediaName = res.article.included[1].attributes.name;
             this.authorName = res.article.included[0].attributes.name;
             this.similar = res.similar.data;
@@ -59,6 +60,14 @@ export class DetailsArticleComponent implements OnInit {
       }, error => {
         // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
       });
+
+
+      const user = localStorage.getItem('user');
+      const userObject =  JSON.parse(user);
+      if (userObject) {
+        this.role = userObject.role;
+      }
+
 
 
      }
@@ -126,7 +135,7 @@ export class DetailsArticleComponent implements OnInit {
   getBodyWithSearch(body){
     const firstBody = body
   
-     return ((firstBody.slice(0, 100) + ' ...'))
+     return ( '<p style ="color: red !important; font-style:italic !important;">' +  (firstBody.slice(0, 100) + '</p>'  + ' ...'))
   
 
   }
