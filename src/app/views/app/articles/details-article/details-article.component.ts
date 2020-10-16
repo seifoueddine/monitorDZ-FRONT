@@ -48,7 +48,7 @@ export class DetailsArticleComponent implements OnInit {
           .subscribe((res: any) => {
             console.log(res);
             this.article = res.article.data;
-            this.tags = this.article.attributes.tags
+            this.tags = this.article.attributes.tags.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
             this.mediaName = res.article.included[1].attributes.name;
             this.authorName = res.article.included[0].attributes.name;
             this.similar = res.similar.data;
@@ -122,9 +122,9 @@ export class DetailsArticleComponent implements OnInit {
 
 
   getBodyWithTags(){
-    this.tags = this.tags.filter(function(e){return e}); 
+   
     this.tags.map(t => {
-      let tag = t.trim();
+      let tag = t.name.trim();
       let re = new RegExp(tag, 'g');
       this.article.attributes.body = this.article.attributes.body.replace(re, '<span style="padding-right: 2px; padding-left: 2px; border-radius: 5px; border: 1px solid #73b0ff; background-color:#95bff5;";font-weight:bold">' + tag + '</span>');
     }) 

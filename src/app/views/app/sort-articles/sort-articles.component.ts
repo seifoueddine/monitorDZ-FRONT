@@ -74,6 +74,7 @@ export class SortArticlesComponent implements OnInit {
 
   openDetailsModal(template: TemplateRef<any>, data: any) {
     this.articleDetails = data;
+    this.articleDetails.attributes.tags = this.articleDetails.attributes.tags.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
     this.getBodyWithTags();
   //  this.articleId = data.id;
     this.modalRef = this.modalService.show(template, { class: 'modal-xl' });
@@ -82,7 +83,8 @@ export class SortArticlesComponent implements OnInit {
   
   getBodyWithTags(){
    // this.tags = this.tags.filter(function(e){return e}); 
-    this.articleDetails.attributes.tags.map(t => {
+   const tags = this.articleDetails.attributes.tags.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
+    tags.map(t => {
       let tag = t.name.trim();
       let re = new RegExp(tag, 'g');
       this.articleDetails.attributes.body = this.articleDetails.attributes.body.replace(re, '<span style="padding-right: 2px; padding-left: 2px; border-radius: 5px; border: 1px solid #73b0ff; background-color:#95bff5;";font-weight:bold">' + tag + '</span>');
