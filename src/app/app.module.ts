@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { LayoutContainersModule } from './containers/layout/layout.containers.module';
 import { AngularFireModule } from '@angular/fire';
 import { XhrInterceptor } from './http.interceptor';
+import { ListsComponent } from './views/app/lists/lists.component';
 
 
 
@@ -57,7 +58,7 @@ import { XhrInterceptor } from './http.interceptor';
     }),
   ],
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   providers: [ AngularTokenModule,
     {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},

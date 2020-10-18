@@ -142,6 +142,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
               icon: 'iconsminds-key-lock',
               label: 'menu.articles',
               to: '/app/client-articles'
+            },
+            {
+              id: 'lists',
+              icon: 'simple-icon-list',
+              label: 'menu.lists',
+              to: '/app/lists'
             }
            
         ];
