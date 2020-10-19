@@ -1,1 +1,51 @@
-<p>lists works!</p>
+<app-list-form #addNewModalRef></app-list-form> 
+
+ <app-list-page-header [selectAllState]="selectAllState" [totalElements]="totalElements" (selectAllChange)="selectAllChange($event)"
+ [showOrderBy]="false" [showDisplayMode]="false" (searchKeyUp)="updateFilter($event)" (itemsPerPageChange)="onItemsPerPageChange($event)" [itemsPerPage]="itemsPerPage" [itemOptionsPerPage]="[6,12,18]"
+ currentPage="lists" [id]='idItem' (addNewItem)="showAddNewModal()" >
+</app-list-page-header>
+
+
+
+
+  <div class="row" *ngFor="let item of rows; let i=index">
+    <div class="card" style="margin-bottom: 15px;" > 
+    <div class="col-md-12 mb-4 pl-0 pr-0">
+        <label style="margin: 5px;" class="custom-control custom-checkbox mb-1 align-self-center pr-4">
+           
+            <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(item)"
+              (change)="onSelect(item)"> 
+            <label class="custom-control-label" [for]="'customCheck'+i"></label> 
+            <h1>{{item.attributes.name}}</h1>
+          </label>
+        
+    
+      <app-glide [settings]="{
+        gap: 0,
+        type: 'carousel',
+        perView: 3,
+        breakpoints: { '600': { perView: 1 }, '1000': { perView: 2 } }
+      }">
+        <div *ngFor="let item of carouselItems" class="glide__slide">
+          <div class="card flex-row">
+            <div class="w-50 position-relative">
+              <img class="card-img-left" [src]="item.img" alt="Card image cap">
+              <span *ngFor="let badge of item.badges"
+                class="badge badge-pill badge-theme-1 position-absolute badge-top-left">{{badge}}</span>
+            </div>
+            <div class="w-50">
+              <div class="card-body">
+                <h6 class="mb-4">{{item.title}}</h6>
+                <footer>
+                  <p class="text-muted text-small mb-0 font-weight-light">{{item.detail}}</p>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </app-glide>
+
+
+    </div>
+</div>
+</div> 

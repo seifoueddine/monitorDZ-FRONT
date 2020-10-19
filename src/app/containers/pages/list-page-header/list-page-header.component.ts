@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { TagsService } from 'src/app/shared/services/tags.service';
 import { UsersService } from 'src/app/shared/services/users.service';
+import { ListsService } from 'src/app/shared/services/lists.service';
 
 @Component({
   selector: 'app-list-page-header',
@@ -49,7 +50,8 @@ export class ListPageHeaderComponent implements OnInit {
     private notifications: NotificationsService,
     private  translateService: TranslateService,
     private tagsService: TagsService,
-    private usersService: UsersService) { }
+    private usersService: UsersService,
+    private listsService: ListsService) { }
 
 
   openModal(template: TemplateRef<any>) {
@@ -116,6 +118,9 @@ export class ListPageHeaderComponent implements OnInit {
             case "users":
             this.deleteUsers(id);
             break;
+            case "lists":
+              this.deleteLists(id);
+              break;
       default:
         break;
     }
@@ -255,6 +260,32 @@ export class ListPageHeaderComponent implements OnInit {
           { theClass: "primary", timeOut: 6000, showProgressBar: false }
         );
         this.ourNotificationService.notficateReloadUsers();
+        this.id = "";
+        // this.selectAllState = '';
+      },
+      (err) => {
+        this.notifications.create(
+          "Warn",
+          this.translateService.instant('errors.' +  err.error.code),
+          NotificationType.Warn,
+          { theClass: "primary", timeOut: 6000, showProgressBar: false }
+        );
+      }
+    );
+  }
+
+
+  
+  deleteLists(id) {
+    this.listsService.deleteList(id).subscribe(
+      (res) => {
+        this.notifications.create(
+          "Succès",
+          "Supprimer list avec succès",
+          NotificationType.Success,
+          { theClass: "primary", timeOut: 6000, showProgressBar: false }
+        );
+        this.ourNotificationService.notficateReloadLists();
         this.id = "";
         // this.selectAllState = '';
       },

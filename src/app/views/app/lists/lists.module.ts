@@ -20,8 +20,9 @@ import { ComponentsCarouselModule } from 'src/app/components/carousel/components
 import { ArchwizardModule } from 'angular-archwizard';
 import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
+import { ListFormComponent } from './list-form/list-form.component';
 @NgModule({
-  declarations: [ListsComponent],
+  declarations: [ListsComponent, ListFormComponent],
   imports: [
     SharedModule,
     LayoutContainersModule,
