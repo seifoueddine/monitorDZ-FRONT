@@ -83,7 +83,7 @@
 
 
       <div *ngIf="item.attributes.articles.length > 0 && item.attributes.articles.length > 5" class="text-center">
-        <button  type="button"
+        <button  type="button" (click)="goToDetailsNewPage(item.id)"
         class="top-right-button btn btn-primary btn-lg mr-1">Consulter tout les articles</button>
       </div>
 

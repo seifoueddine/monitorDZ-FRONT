@@ -21,8 +21,9 @@ import { ArchwizardModule } from 'angular-archwizard';
 import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
 import { ListFormComponent } from './list-form/list-form.component';
+import { ListDetailsComponent } from './list-details/list-details.component';
 @NgModule({
-  declarations: [ListsComponent, ListFormComponent],
+  declarations: [ListsComponent, ListFormComponent, ListDetailsComponent],
   imports: [
     SharedModule,
     LayoutContainersModule,

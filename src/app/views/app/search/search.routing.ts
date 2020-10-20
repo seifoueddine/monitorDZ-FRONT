@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ListDetailsComponent } from '../lists/list-details/list-details.component';
 import { SearchComponent } from './search.component';
 
 

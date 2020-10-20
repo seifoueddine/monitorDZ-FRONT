@@ -1,0 +1,45 @@
+
+  <div class="row">
+  <div class="col-12 list" >
+    <div class="row">
+      <div class="col-xl-3 col-lg-4 col-12 col-sm-6 mb-4" *ngFor="let article of list?.attributes.articles let i=index"
+     >
+        <div [ngClass]="{'card': true}" >
+            
+           
+          <div class="position-relative">
+            <a href="javascript:;"><img style="height: 220px;" class="card-img-top" [src]="article?.image.url ? urlForImage + article?.image.url : defaultImage" [alt]="article.title"></a> 
+            <span style="background-color: brown; color: white;"  [class]="'badge badge-pill position-absolute badge-top-left'">{{article.category_article}}</span>
+          </div>
+          <div class="card-body">
+            <div  class="position-absolute card-top-buttons">
+                <button class="btn btn-outline-dark icon-button c-pointer" (click)="deleteArticle(article.id)" >X</button>
+            </div>
+
+              <div class="row">
+              <!-- <div class="col-2">
+                <div class="custom-control custom-checkbox pl-1">
+                  <label class="custom-control custom-checkbox  mb-0">
+                    <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(p)"
+                      (change)="onSelect(p)">
+                    <label class="custom-control-label" [for]="'customCheck'+i"></label>
+                  </label>
+                </div>
+              </div> -->
+              <div class="col-12">
+                <a  target="_blank" [href]="'app/articles/details?id='+article.id">
+                  <p class="list-item-heading mb-4 pt-1">{{article.title}}</p>
+                </a>
+                <footer>
+                  <p class="text-muted text-small mb-0 font-weight-light">{{ article.author.name }} | {{article.date_published | date:'dd/MM/yyyy'}}</p>
+                </footer>
+              </div>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<simple-notifications [options]="options"></simple-notifications>

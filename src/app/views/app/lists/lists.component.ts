@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatatableComponent, ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 
 import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 
 import { environment } from 'src/environments/environment';
@@ -73,7 +73,7 @@ setting3 = {
   defaultImage = "assets/img/no-image-article.png"
 
   constructor(private listsService: ListsService, private notifications: NotificationsService,
-    private ourNotificationService: OurNotificationsService,private route: ActivatedRoute ) { }
+    private ourNotificationService: OurNotificationsService,private route: ActivatedRoute, private router: Router ) { }
 
   ngOnInit(): void {
     this.setPage({ offset: 0 });
@@ -268,6 +268,14 @@ deleteArticle(article_id, list_id){
 
 
 
+}
+
+
+goToDetailsNewPage(list_id) {
+  const url = this.router.serializeUrl(
+    this.router.createUrlTree(['app/lists/all-articles'], { queryParams: { id: list_id } })
+  );
+  window.open(url, "_blank");
 }
 
 
