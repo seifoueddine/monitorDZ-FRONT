@@ -10,42 +10,84 @@
 
   <div class="row" *ngFor="let item of rows; let i=index">
     <div class="card" style="margin-bottom: 15px;" > 
+
     <div class="col-md-12 mb-4 pl-0 pr-0">
+      
+     
+
         <label style="margin: 5px;" class="custom-control custom-checkbox mb-1 align-self-center pr-4">
            
             <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(item)"
               (change)="onSelect(item)"> 
+            
             <label class="custom-control-label" [for]="'customCheck'+i"></label> 
-            <h1>{{item.attributes.name}}</h1>
-          </label>
+           
+            <h1>{{item.attributes.name}} 
+              <h1 *ngIf="item.attributes.articles.length > 0" >
+              
+              ({{item.attributes.articles.length == 1 ? item.attributes.articles.length + ' Article' : item.attributes.articles.length + ' Articles'   }} )
+            </h1>
+            </h1>
+
         
+
+
+          </label>
+          <div  class="position-absolute card-top-buttons">
+            <i class="simple-icon-pencil c-pointer" (click)="editList(item)"></i>
     
-      <app-glide [settings]="{
-        gap: 0,
-        type: 'carousel',
-        perView: 3,
-        breakpoints: { '600': { perView: 1 }, '1000': { perView: 2 } }
-      }">
-        <div *ngFor="let item of carouselItems" class="glide__slide">
-          <div class="card flex-row">
+        </div>
+    
+      <app-glide *ngIf="item.attributes.articles.length > 0" [settings]="item.attributes.articles.length == 1 ? setting1 : item.attributes.articles.length == 2 ? setting2 : setting3">
+        <div *ngFor="let article of item.attributes.articles.slice(0, 5)" class="glide__slide">
+          <div *ngIf="article"  class="card flex-row">
             <div class="w-50 position-relative">
-              <img class="card-img-left" [src]="item.img" alt="Card image cap">
-              <span *ngFor="let badge of item.badges"
-                class="badge badge-pill badge-theme-1 position-absolute badge-top-left">{{badge}}</span>
+              <img style="height: 175px;" class="card-img-left" [src]="article.image.url ? urlForImage + article.image.url : defaultImage" alt="Card image cap">
+              <span 
+                class="badge badge-pill badge-theme-1 position-absolute badge-top-left">{{article.category_article}}</span>
             </div>
             <div class="w-50">
               <div class="card-body">
-                <h6 class="mb-4">{{item.title}}</h6>
+                <a  target="_blank" [href]="'app/articles/details?id='+article.id">
+                <h6 class="mb-4">{{article.title}}</h6>
+                </a>
                 <footer>
-                  <p class="text-muted text-small mb-0 font-weight-light">{{item.detail}}</p>
+                  <p class="text-muted text-small mb-0 font-weight-light">{{ article.author.name }} | {{article.date_published | date:'dd/MM/yyyy'}}</p>
                 </footer>
+
+                <!-- <label style="margin: 5px;" class="custom-control custom-checkbox mb-1 align-self-end pr-4">
+           
+                  <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(article)"
+                    (change)="onSelect(article)"> 
+                  <label class="custom-control-label" [for]="'customCheck'+i"></label> 
+          
+                </label> -->
+
+                <div  class="position-absolute card-top-buttons">
+                  <button class="btn btn-outline-dark icon-button c-pointer" (click)="deleteArticle(article.id,item.id )" >X</button>
+              </div>
+
               </div>
             </div>
           </div>
         </div>
-      </app-glide>
+      </app-glide> 
 
+
+      <div *ngIf="item.attributes.articles.length == 0" class="jumbotron" >
+       <!-- <h1 class="display-4"> 0 Articles </h1> -->
+         <p class="lead">Vous n'avez aucun article pour l'instant, vous pouvez ajouter des articles pour la liste <b> "{{item.attributes.name}}"</b> a partir de la page de recherche  </p>
+        <!-- <hr class="my-4"> 
+        <p> 0 Articles </p> -->
+      </div>
+
+
+      <div *ngIf="item.attributes.articles.length > 0 && item.attributes.articles.length > 5" class="text-center">
+        <button  type="button"
+        class="top-right-button btn btn-primary btn-lg mr-1">Consulter tout les articles</button>
+      </div>
 
     </div>
 </div>
 </div> 
+<simple-notifications [options]="options"></simple-notifications>

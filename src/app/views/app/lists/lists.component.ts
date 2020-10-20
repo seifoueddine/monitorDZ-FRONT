@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { ListsService } from 'src/app/shared/services/lists.service';
 import { carouselData, ICarouselItem } from 'src/app/data/carousels';
 import { ListFormComponent } from './list-form/list-form.component';
+import { Lists } from 'src/app/shared/models/lists.model';
 
 @Component({
   selector: 'app-lists',
@@ -49,12 +50,29 @@ export class ListsComponent implements OnInit {
 
   totalElements: any;
   carouselItems: ICarouselItem[] = carouselData;
-
+  setting1 = {
+    gap: 0,
+    type: 'carousel',
+    perView: 1,
+    breakpoints: { '600': { perView: 1 }, '1000': { perView: 2 } }
+  };
+  setting2 = {
+    gap: 0,
+    type: 'carousel',
+    perView: 2,
+    breakpoints: { '600': { perView: 1 }, '1000': { perView: 2 } }
+  };
+setting3 = {
+  gap: 0,
+  type: 'carousel',
+  perView: 3,
+  breakpoints: { '600': { perView: 1 }, '1000': { perView: 2 } }
+}
   @ViewChild('addNewModalRef', { static: true }) addNewModalRef: ListFormComponent; 
   showModal: any;
-  
+  defaultImage = "assets/img/no-image-article.png"
 
-  constructor(private listervice: ListsService, private notifications: NotificationsService,
+  constructor(private listsService: ListsService, private notifications: NotificationsService,
     private ourNotificationService: OurNotificationsService,private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
@@ -84,7 +102,7 @@ export class ListsComponent implements OnInit {
     this.orderBy = orderBy;
     this.direction = direction
 
-    this.listervice.getLists(currentPage, orderBy , direction, pageSize, search).subscribe(
+    this.listsService.getLists(currentPage, orderBy , direction, pageSize, search).subscribe(
       data => {
         if (data.status) {
           this.totalElements = +data.headers.get('X-Total-Count');
@@ -109,8 +127,7 @@ export class ListsComponent implements OnInit {
 
 
   editList(list){
-  let sectorIdsArray = [];
-  list.relationships.sectors.data.map(x=> sectorIdsArray.push(x.id));
+
   this.addNewModalRef.show(list);
   }
 
@@ -224,5 +241,34 @@ onSelect(item: any) {
   console.log(this.idItem);
   this.setSelectAllState();
 }
+
+deleteArticle(article_id, list_id){
+  console.log(article_id);
+  console.log(list_id);
+
+  if (article_id) {
+    const object = new Lists;
+    object.id = list_id
+    object.delete_article_id = article_id;
+    this.listsService.updateList(object).subscribe(resCreate => {
+
+      this.notifications.create('Success', "Supprimer l'articles avec succès", NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      // this.modalRef.hide();
+      // this.idItem = '';
+      this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
+      // this.selected = []
+    //  this.ourNotificationService.notficateReloadTags();
+
+    }, err => {
+
+        this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
+
+    });
+  }
+
+
+
+}
+
 
 }

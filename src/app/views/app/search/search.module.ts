@@ -20,6 +20,7 @@ import { ArchwizardModule } from 'angular-archwizard';
 import { PaginationModule } from 'ngx-bootstrap/pagination'
 
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [SearchComponent],
   imports: [
@@ -43,6 +44,7 @@ import { PagesContainersModule } from 'src/app/containers/pages/pages.containers
     NgxDatatableModule,
     ComponentsCarouselModule,
     ArchwizardModule,
+    NgSelectModule,
   ]
 })
 export class SearchModule { }

@@ -3,6 +3,16 @@
       <app-heading></app-heading>
       <app-breadcrumb></app-breadcrumb>
       <div class="separator mb-5"></div>
+
+ 
+      <div class="top-right-button-container text-zero">
+        <button  type="button"  (click)="openModal(template)"
+          class="top-right-button btn btn-primary btn-lg mr-1">Ajouter a ma list</button>
+       
+      </div>
+
+
+
     </div>
   </div>
 
@@ -16,16 +26,33 @@
       <div class="card mb-4">
         <div class="card-body">
           <div *ngFor="let item of result; let i = index;" [ngClass]="{'mb-3':result.length!==(i+1)}">
-            <p class="list-item-heading mb-1 color-theme-1"> <span   [class]="'badge badge-pill badge-secondary'"> {{item.attributes.medium.name}}</span>  / <span style="background-color: brown; color: white;"  [class]="'badge badge-pill'"> {{item.attributes.category_article}}</span> 
-            </p>
-            <a  target="_blank" [href]="'app/articles/details?id='+item.id" class="w-40 w-sm-100">
-                <p class="list-item-heading mb-1 color-theme-1">{{item.attributes.title}}</p>
-            </a>
-            <p class="mb-1 text-muted text-small"> <b><a *ngIf="getAuthorWithSearch(item.attributes.author.name)" style="color: #FB6400;">{{ item.attributes.author.name }}</a></b> <a *ngIf="!getAuthorWithSearch(item.attributes.author.name)" >{{ item.attributes.author.name }}</a> | {{item.attributes.date_published | date:'dd/MM/yyyy'}}</p>
-            <!-- <p class="mb-4 text-small">{{ item.description }}</p> -->
-            <!-- <div [innerHTML]="(item.body | slice:0:150 ) + '...' "></div> -->
-            <div [innerHTML]="getBodyWithSearch(item.attributes.body)"></div>
-            <div class="separator mb-5" *ngIf="result.length!==(i+1)"></div>
+
+        
+
+              <div class="row">
+                <div class="col-11">
+                  <p class="list-item-heading mb-1 color-theme-1"> <span   [class]="'badge badge-pill badge-secondary'"> {{item.attributes.medium.name}}</span>  / <span style="background-color: brown; color: white;"  [class]="'badge badge-pill'"> {{item.attributes.category_article}}</span> 
+                  </p>
+                  <a  target="_blank" [href]="'app/articles/details?id='+item.id" class="w-40 w-sm-100">
+                      <p class="list-item-heading mb-1 color-theme-1">{{item.attributes.title}}</p>
+                  </a>
+                  <p class="mb-1 text-muted text-small"> <b><a *ngIf="getAuthorWithSearch(item.attributes.author.name)" style="color: #FB6400;">{{ item.attributes.author.name }}</a></b> <a *ngIf="!getAuthorWithSearch(item.attributes.author.name)" >{{ item.attributes.author.name }}</a> | {{item.attributes.date_published | date:'dd/MM/yyyy'}}</p>
+                  <!-- <p class="mb-4 text-small">{{ item.description }}</p> -->
+                  <!-- <div [innerHTML]="(item.body | slice:0:150 ) + '...' "></div> -->
+                  <div [innerHTML]="getBodyWithSearch(item.attributes.body)"></div>
+                
+                </div>
+                <div class="col-1">
+                  <label style="margin: 5px;" class="custom-control custom-checkbox mb-1 align-self-center pr-4">
+           
+                    <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(item)"
+                      (change)="onSelect(item)"> 
+                    <label class="custom-control-label" [for]="'customCheck'+i"></label> 
+                  </label>
+                </div>
+              </div>
+              <div class="separator mb-5" *ngIf="result.length!==(i+1)"></div>
+        
           </div>
         </div>
       </div>
@@ -88,3 +115,20 @@
         </div>
       </div>
     </div>
+
+
+    <ng-template #template>
+      <div class="modal-body text-center">
+        <h6 class="modal-title mb-4">Merci de choisir la list </h6>
+        <div class="form-group">
+          <label>Listes</label>
+          <ng-select *ngIf="lists" mul [items]="lists" bindLabel='attributes.name' bindValue="id" 
+          [searchFn]="customSearch" [multiple]="false" (change)="selectList($event)">
+        </ng-select>
+       
+      </div>
+        <button type="button" class="btn btn-outline-primary" (click)="AddArticles()">Confirmer</button> {{" "}}
+        <button type="button" class="btn btn-primary" (click)="decline()">Annuler</button>
+      </div>
+    </ng-template>
+    <simple-notifications [options]="options"></simple-notifications>

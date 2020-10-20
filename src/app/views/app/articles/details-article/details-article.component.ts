@@ -49,8 +49,8 @@ export class DetailsArticleComponent implements OnInit {
             console.log(res);
             this.article = res.article.data;
             this.tags = this.article.attributes.tags.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
-            this.mediaName = res.article.included[1].attributes.name;
-            this.authorName = res.article.included[0].attributes.name;
+            this.mediaName = res.article.included[0].attributes.name;
+            this.authorName = res.article.included[1].attributes.name;
             this.similar = res.similar.data;
             this.similar = this.similar.filter(a=>a.id !== this.article.id);
             this.getBodyWithTags();
