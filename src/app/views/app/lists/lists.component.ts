@@ -279,4 +279,10 @@ goToDetailsNewPage(list_id) {
 }
 
 
+pageChanged(event: any): void {
+  console.log(event);
+  this.currentPage = event.page
+  this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
+}
+
 }
