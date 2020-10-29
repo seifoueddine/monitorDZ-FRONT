@@ -22,6 +22,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
 import { ListFormComponent } from './list-form/list-form.component';
 import { ListDetailsComponent } from './list-details/list-details.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [ListsComponent, ListFormComponent, ListDetailsComponent],
   imports: [
@@ -45,6 +46,7 @@ import { ListDetailsComponent } from './list-details/list-details.component';
     NgxDatatableModule,
     ComponentsCarouselModule,
     ArchwizardModule,
+    NgSelectModule
   ]
 })
 export class ListsModule { }

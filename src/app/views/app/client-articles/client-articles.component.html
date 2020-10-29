@@ -67,6 +67,16 @@
             </div>
             <div class="card-body pt-1">
                 <div [innerHTML]="getBodyWithSearch(item.attributes.body) "></div> 
+                <div class="pl-3 pt-2 pr-2 pb-2">
+
+                  <p class="d-sm-inline-block mb-1" *ngFor="let item of item.attributes.tags">
+                      <a href="javascript:;">
+                        <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">{{item.name}}</span>
+                      </a>
+                  </p>
+
+             
+              </div>
             </div>
         </div>
     </div>
@@ -216,6 +226,12 @@
               <ng-select *ngIf="languages" [hideSelected]="true" [items]="languages" placeholder="Langue" bindLabel="viewValue" bindValue="value"
               (change)="selectLang($event)" [multiple]="true" >
           </ng-select>
+          <br>
+          <p class="text-muted text-small">Tags</p>
+            
+          <ng-select *ngIf="tags" [hideSelected]="true" [items]="tags" placeholder="Tags" bindLabel="name" bindValue="id"
+          (change)="selectTag($event)" [multiple]="true" >
+        </ng-select>
           
                 <!-- <ul class="list-unstyled mb-5">
                     <li>
@@ -237,49 +253,27 @@
                         </div>
                     </li>
                 </ul> -->
-                <br>
+                <!-- <br>
                 <p class="d-sm-inline-block mb-1">
                   <a href="javascript:;">
                       <span class="badge badge-pill badge-outline-danger mb-1 mr-1">Comming soon</span>
                   </a>
               </p>
-                <p class="text-muted text-small">Tags</p>
-                <!-- <div>
-                    <p class="d-sm-inline-block mb-1">
-                        <a href="javascript:;">
-                            <span class="badge badge-pill badge-outline-primary mb-1 mr-1">NEW FRAMEWORK</span>
-                        </a>
-                    </p>
-    
-                    <p class="d-sm-inline-block mb-1">
-                        <a href="javascript:;">
-                            <span class="badge badge-pill badge-outline-theme-3 mb-1 mr-1">EDUCATION</span>
-                        </a>
-                    </p>
-                    <p class="d-sm-inline-block  mb-1">
-                        <a href="javascript:;">
-                            <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">PERSONAL</span>
-                        </a>
-                    </p>
-                </div>  -->
-                <ng-select *ngIf="tags" [hideSelected]="true" [items]="tags" placeholder="Tags" bindLabel="name" bindValue="id"
-                (change)="selectTag($event)" [multiple]="true" >
-              </ng-select>
+            -->
+
 <br>
-
-
 <div class="row">
 <div class="col-6">
   <ul class="list-unstyled mb-5">
     <li>
         <div class="custom-control custom-checkbox mb-2">
-            <input type="checkbox" class="custom-control-input" id="type1">
+            <input type="checkbox" class="custom-control-input" id="type1" (change)="changeStatusNum($event)">
             <label class="custom-control-label" for="type1">Numérique</label>
         </div>
     </li>
     <li>
         <div class="custom-control custom-checkbox mb-2">
-            <input type="checkbox" class="custom-control-input" id="type2">
+            <input type="checkbox" class="custom-control-input" id="type2" (change)="changeStatusPaper($event)">
             <label class="custom-control-label" for="type2">papier</label>
         </div>
     </li>
@@ -290,13 +284,13 @@
   <ul class="list-unstyled mb-5">
     <li>
         <div class="custom-control custom-checkbox mb-2">
-            <input type="checkbox" class="custom-control-input" id="zone1">
+            <input type="checkbox" class="custom-control-input" id="zone1" (change)="changeStatusNatio($event)">
             <label class="custom-control-label" for="zone1">National</label>
         </div>
     </li>
     <li>
         <div class="custom-control custom-checkbox mb-2">
-            <input type="checkbox" class="custom-control-input" id="zone2">
+            <input type="checkbox" class="custom-control-input" id="zone2" (change)="changeStatusInernatio($event)">
             <label class="custom-control-label" for="zone2">International</label>
         </div>
     </li>
@@ -363,6 +357,7 @@
                     <h3 class="card-title">{{articleDetails?.attributes.title}} <a target="_blank" [href]="articleDetails?.attributes.url_article"><i  class='simple-icon-link initial-height'></i></a></h3>
                     <div [innerHTML]="articleDetails?.attributes.body | sanitizeHtml"></div> 
                 </div>
+               
               </div>
               
         </div>

@@ -11,7 +11,7 @@
        
       </div>
 
-
+     <h5 *ngIf="suggestions?.length > 0">Essayez avec cette orthographe : <a class="c-pointer" *ngFor="let item of suggestions; let i = index" (click)="makeSearch(item)" style="color: #00365a; text-decoration:none;"> <b>{{item}}</b> <b *ngIf="i +1 < suggestions?.length">{{" , "}} </b> </a> </h5> 
 
     </div>
   </div>

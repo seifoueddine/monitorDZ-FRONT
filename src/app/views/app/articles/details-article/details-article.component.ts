@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesService } from 'src/app/shared/services/articles.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -6,6 +6,18 @@ import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { Lightbox } from 'ngx-lightbox';
 import { Articles } from 'src/app/shared/models/articles.model';
 import { environment } from 'src/environments/environment';
+import { jsPDF } from 'jspdf';
+import saveAs from 'file-saver';
+
+
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import htmlToPdfmake from 'html-to-pdfmake';
+import { DatePipe } from '@angular/common';
+
+
+
 
 @Component({
   selector: 'app-details-article',
@@ -13,6 +25,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./details-article.component.scss']
 })
 export class DetailsArticleComponent implements OnInit {
+  @ViewChild('content', {static: false}) content: ElementRef;
+  @ViewChild('pdfTable') pdfTable: ElementRef;
+  name = 'Angular';
   valueBind: string;
   articleId: any;
   article: any;
@@ -26,18 +41,21 @@ export class DetailsArticleComponent implements OnInit {
   };
   article_status: boolean = false;
   bsValue = new Date();
-  bsRangeValue: Date[];
-  maxDate = new Date();
   tags: any;
   mediaName: string;
   authorName: string;
   modalRef: any;
+  modalRefEmail: any;
   body: any;
   similar: any;
-  role: any
+  role: any;
+  email = "";
+  public options = {
+    position: ["bottom", "center"],
+};
   constructor(private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,private modalService: BsModalService,
-    private modal: BsModalService, private notifications: NotificationsService, private lightbox: Lightbox) {
-
+    private modal: BsModalService, private notifications: NotificationsService, private lightbox: Lightbox, private datePipe: DatePipe) {
+     
 
       this.route
       .queryParams
@@ -50,7 +68,7 @@ export class DetailsArticleComponent implements OnInit {
             this.article = res.article.data;
             this.tags = this.article.attributes.tags.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
             this.mediaName = res.article.included[0].attributes.name;
-            this.authorName = res.article.included[2].attributes.name;
+            this.authorName = res.article.data.attributes.author.name;
             this.similar = res.similar.data;
             this.similar = this.similar.filter(a=>a.id !== this.article.id);
             this.getBodyWithTags();
@@ -71,6 +89,13 @@ export class DetailsArticleComponent implements OnInit {
 
 
      }
+
+
+     openModalEmail(templateEmail: TemplateRef<any>) {
+      this.modalRefEmail = this.modalService.show(templateEmail, { class: 'modal-sm' });
+    }
+
+
 
      openModal(template: TemplateRef<any>, data: any) {
       this.valueBind = data.attributes.body;
@@ -98,6 +123,14 @@ export class DetailsArticleComponent implements OnInit {
   
     this.modalRef.hide();
   }
+
+  declineEmail(): void {
+
+  
+    this.modalRefEmail.hide();
+  }
+
+  
 
   submit(): void {
     const object = new Articles;
@@ -139,5 +172,36 @@ export class DetailsArticleComponent implements OnInit {
   
 
   }
+
+
+  
+  
+
+
+  exportPDF() { 
+    this.articlesService.exportPDF(this.articleId).subscribe(res => {
+      const blob = new Blob([res.body]);
+      saveAs.saveAs(blob);
+    }, err => {
+      this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+    });
+  }
+
+
+  SendMail() { 
+    if (this.email != '') {
+      this.articlesService.sendEmail(this.articleId, this.email).subscribe(res => {
+        this.modalRefEmail.hide();
+        this.notifications.create('Success', 'Envoie email avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+
+      }, err => {
+        this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      });
+    } else {
+      this.notifications.create('', 'Merci de Mettre email du destinataire', NotificationType.Warn, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+    }
+   
+  }
+
 
 }

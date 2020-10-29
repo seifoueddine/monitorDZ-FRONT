@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionType } from '@swimlane/ngx-datatable';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -28,10 +28,11 @@ export class SearchComponent implements OnInit {
   idItem: any ='';
   list: any;
   lists: any;
+  suggestions: any[];
   public options = {
     position: ["bottom", "center"],
 };
-  constructor(private modalService: BsModalService,private route: ActivatedRoute, private searchService: SearchService, private listsService: ListsService, private notifications: NotificationsService) {
+  constructor(private modalService: BsModalService,private route: ActivatedRoute, private searchService: SearchService, private listsService: ListsService, private notifications: NotificationsService, private router: Router) {
 
 
     
@@ -44,6 +45,7 @@ export class SearchComponent implements OnInit {
         .subscribe((res: any) => {
           this.totalElements = +res.headers.get('X-Total-Count');
           this.result = res.body.result_articles.data;
+          this.suggestions = res.body.suggestions;
           this.time = res.body.time;
         }, error => {
           // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
@@ -187,6 +189,12 @@ export class SearchComponent implements OnInit {
       });
     }
 
+  }
+
+
+  makeSearch(key){
+    this.router.navigate(['/app/search'], { queryParams: { key: key.toLowerCase().trim() } });
+    this.searchKey = '';
   }
 
 }

@@ -3,5 +3,6 @@ export class Lists {
     name: string;
     article_id: string;
     delete_article_id: string;
+    image: string;
     
 }

@@ -15,8 +15,36 @@
                 <div *ngIf="listForm.get('name').errors?.required && form.submitted" class="invalid-tooltip">Nom est requis</div>
                 <div *ngIf="listForm.get('name').errors?.minlength && form.submitted" class="invalid-tooltip">Le Nom doit contenir au moins 2 caractères!</div>
             </div>
+
+            <div class="form-group">
+                <label>Image</label>
+        
+        
+
+                <ng-select appearance="outline" [searchable]="false" [clearable]="true" labelForId="name" formControlName="image" placeholder="Choisissez image pour votre liste...">
+                    <ng-option *ngFor="let item of images" [value]="item.image">
+                        <img [src]="item.image" width="25px" height="25px"/>
+                        {{item.name}}
+                    </ng-option>
+                 
+                </ng-select>
+
+
+
+
+
+
+
+
+
+            </div>
         
     </div>
+
+    
+   
+
+
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary"
             (click)="modalRef.hide()">Annuler</button>

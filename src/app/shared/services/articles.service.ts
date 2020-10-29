@@ -15,6 +15,8 @@ export class ArticlesService {
   private serviceAutoTagUrl = environment.ENDPOINTS.AUTO_TAG_PATH;
   private serviceChangeStatusUrl = environment.ENDPOINTS.CHANGE_STATUS_PATH;
   private serviceClientArticlesUrl = environment.ENDPOINTS.CLIENT_ARTICLES_PATH;
+  private serviceExport = environment.ENDPOINTS.EXPORT_PDF_PATH;
+  private serviceSendEmailUrl = environment.ENDPOINTS.SEND_EMAIL_PATH;
   constructor(private http: HttpClient) {}
 
   addArticle(article: any): Observable<any> {
@@ -59,7 +61,7 @@ export class ArticlesService {
    * @param direction the sort direction
    * @param size the page size
    */
-  getClientArticles(page, active, direction, size, search, media_ids, start_date, end_date, authorIds, langValues): Observable<any> {
+  getClientArticles(page, active, direction, size, search, media_ids, start_date, end_date, authorIds, langValues, tagsName, mediaTypes, zoneJoin): Observable<any> {
     const searchValue = search === '' ? '' : `&search=${search}`; 
     const media_idsValue = media_ids ? `&media_id=${media_ids}`  : ''; 
     
@@ -71,7 +73,12 @@ export class ArticlesService {
     const startDateValue = start_date ? `&start_date=${start_date}`  : '' ; 
     const endDateValue = end_date ? `&end_date=${end_date}`  : ''; 
 
-    const req = this.serviceClientArticlesUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue + media_idsValue + startDateValue + endDateValue + author_idsValue + languageValue;
+    const tagsNameValue = tagsName ? `&tag_name=${tagsName}`  : ''; 
+    const mediaTypesValue = mediaTypes ? `&medium_type=${mediaTypes}`  : ''; 
+
+    const zoneJoinValue = zoneJoin ? `&media_area=${zoneJoin}`  : ''; 
+
+    const req = this.serviceClientArticlesUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue + media_idsValue + startDateValue + endDateValue + author_idsValue + languageValue + tagsNameValue + mediaTypesValue + zoneJoinValue;
     return this.http.get(req, { observe: 'response' });
   }
 
@@ -145,5 +152,17 @@ export class ArticlesService {
   }
 
 
+
+  exportPDF(id: any): Observable<any> {
+    const req = this.serviceExport + `?id=${id}`;
+    return this.http.get(req, { observe: 'response', responseType: 'blob' });
+  }
+
+  sendEmail(article_id: any, email: string): Observable<any> {
+    const object: any = {}
+    object.article_id = article_id;
+    object.email = email;
+    return this.http.post<any>(this.serviceSendEmailUrl, object);
+  }
 
 }

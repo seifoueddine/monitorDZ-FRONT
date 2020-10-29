@@ -5,6 +5,7 @@ import { OurNotificationsService } from 'src/app/shared/our-notifications.servic
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ListsService } from 'src/app/shared/services/lists.service';
 import { Lists } from 'src/app/shared/models/lists.model';
+import { images } from 'src/app/shared/images';
 
 @Component({
   selector: 'app-list-form',
@@ -20,7 +21,7 @@ export class ListFormComponent implements OnInit {
     class: 'modal-right'
   };
 
-
+  images = images.IMAGES
   @ViewChild('template', { static: true }) template: TemplateRef<any>;
   listForm: FormGroup;
   data: any
@@ -28,7 +29,7 @@ export class ListFormComponent implements OnInit {
   constructor(private modalService: BsModalService,
               private listService: ListsService, private notifications: NotificationsService,
               private ourNotificationService: OurNotificationsService)
-               { 
+               {   
                }
 
   ngOnInit() {
@@ -45,11 +46,13 @@ export class ListFormComponent implements OnInit {
     if (!this.data) {
       this.listForm = new FormGroup({
         name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+        image: new FormControl(null),
       });
 
     } else {
       this.listForm = new FormGroup({
         name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
+        image: new FormControl(this.data.attributes.image),
       });
     }
   }
@@ -64,6 +67,7 @@ export class ListFormComponent implements OnInit {
           const object = new Lists;
           object.id = this.data.id
           object.name = this.listForm.value.name;
+          object.image = this.listForm.value.image;
           this.listService.updateList(object).subscribe(resCreate => {
 
             this.notifications.create('Success', 'Mettre à jour le list avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
@@ -86,6 +90,7 @@ export class ListFormComponent implements OnInit {
         const list: Lists = new Lists();
         event.preventDefault();
         list.name = this.listForm.value.name;
+        list.image = this.listForm.value.image;
         this.listService.addList(list).subscribe(resCreate => {
           console.log(resCreate);
           this.notifications.create('Success', 'List créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });

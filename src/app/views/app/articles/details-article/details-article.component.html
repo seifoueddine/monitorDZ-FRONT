@@ -12,8 +12,12 @@
                 <h3 class="card-title">{{article?.attributes.title}} <a target="_blank" [href]="article?.attributes.url_article"><i  class='simple-icon-link initial-height'></i></a></h3>
                 <div [innerHTML]="article?.attributes.body | sanitizeHtml"></div>
             </div>
+
+            <!-- <button class="top-right-button btn btn-primary " (click)="downloadAsPDF()">Export en PDF FRONT</button> -->
+           
           </div>
-          
+         
+
     </div>
 </div>
     <div class="col-12 col-md-12 col-xl-4 col-right">
@@ -77,6 +81,19 @@
             </div>
           </div>
 
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">Actions</h5>
+            <!-- <button class="top-right-button btn btn-primary " (click)="exportPDF()">Export en PDF</button>  -->
+
+             <div style="width: 100%;" class="btn-group btn-group  mr-2  mb-1" role="group">
+              <button type="button" class="btn  btn-primary" (click)="exportPDF()">  <i class="simple-icon-cloud-download mb-4"></i> Export en PDF</button>
+              <button type="button" class="btn  btn-primary" (click)="openModalEmail(templateEmail)">  <i class="iconsminds-mail-send mb-4"></i> Envoie par e-mail</button>
+            </div> 
+          </div> 
+
+          </div>
+      
 
           <div class="card">
             <div class="position-absolute card-top-buttons">
@@ -143,3 +160,19 @@
       <button type="button" class="btn btn-primary" (click)="decline()">Annuler</button>
     </div>
   </ng-template>
+
+  
+
+  <ng-template #templateEmail>
+    <div class="modal-body text-center">
+      <h6 class="modal-title mb-4">Merci de Mettre email du destinataire  </h6>
+      <div class="form-group">
+        <label>Listes</label>
+        <input type="text" class="form-control" [(ngModel)]="email" placeholder="E-mail">
+     
+    </div>
+      <button type="button" class="btn btn-outline-primary" (click)="SendMail()">Confirmer</button> {{" "}}
+      <button type="button" class="btn btn-primary" (click)="declineEmail()">Annuler</button>
+    </div>
+  </ng-template>
+  <simple-notifications [options]="options"></simple-notifications>

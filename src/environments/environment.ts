@@ -32,7 +32,9 @@ export const environment = {
     CHANGE_STATUS_PATH: apiVersion + '/articles/change_status',
     CLIENT_ARTICLES_PATH: apiVersion + '/articles_client',
     AUTHORS_PATH: apiVersion + '/authors_client',
-    LISTS_PATH: apiVersion + '/list_users'
+    LISTS_PATH: apiVersion + '/list_users',
+    EXPORT_PDF_PATH: apiVersion + '/pdf_export',
+    SEND_EMAIL_PATH: apiVersion + '/send_email'
   },
 
 

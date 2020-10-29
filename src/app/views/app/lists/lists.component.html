@@ -84,9 +84,9 @@
 <div class="col-12 list">
   <div [ngClass]="{'card d-flex flex-row mb-3': true, 'active':isSelected(a)}" *ngFor="let a of rows; let i=index"
     >
-    <!-- <a class="d-flex" href="javascript:;">
-      <img [src]="a.attributes.medium.avatar.url ? urlForImage + a.attributes.medium.avatar.url : defaultIcon" [alt]="a.attributes.medium.name" class="list-thumbnail responsive border-0 card-img-left" />
-    </a> -->
+     <a class="d-flex" href="javascript:;">
+      <img [src]="a.attributes.image ?  a.attributes.image : defaultIcon" [alt]="a.attributes.image" class="list-thumbnail responsive border-0 card-img-left" />
+    </a> 
     <div class="pl-2 d-flex flex-grow-1 min-width-zero" >
       <div
         class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">

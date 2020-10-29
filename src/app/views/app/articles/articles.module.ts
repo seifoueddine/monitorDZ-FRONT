@@ -4,7 +4,7 @@ import { LayoutContainersModule } from 'src/app/containers/layout/layout.contain
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { LightboxModule } from 'ngx-lightbox';
@@ -50,6 +50,7 @@ import { ComponentsStateButtonModule } from 'src/app/components/state-button/com
     NgSelectModule,
     QuillModule.forRoot(),
     ComponentsStateButtonModule 
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class ArticlesModule { }
