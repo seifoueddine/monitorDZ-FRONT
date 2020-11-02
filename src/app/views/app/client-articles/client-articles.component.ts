@@ -11,14 +11,17 @@ import { environment } from "src/environments/environment";
 import * as moment from "moment";
 import { DatePipe } from "@angular/common";
 import { AuthorsService } from "src/app/shared/services/authors.service";
+import { ListsService } from 'src/app/shared/services/lists.service';
+import { Lists } from 'src/app/shared/models/lists.model';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: "app-client-articles",
   templateUrl: "./client-articles.component.html",
   styleUrls: ["./client-articles.component.scss"],
 })
 export class ClientArticlesComponent implements OnInit {
-  start_date: any;
-  end_date: any;
+  start_date: any = new Date();
+  end_date: any = new Date();
   duration: any;
   urlForImage = environment.URL_PATH;
   displayMode = "image";
@@ -56,6 +59,7 @@ export class ClientArticlesComponent implements OnInit {
   mediaIds: any;
   authorIds: any;
   articlesPending: any;
+  lists: any;
   itemOrder = { label: "Titre", value: "title" };
   itemOptionsOrders = [
     { label: "Titre", value: "title" },
@@ -65,8 +69,8 @@ export class ClientArticlesComponent implements OnInit {
   displayOptionsCollapsed = false;
   maxDate = new Date();
   authors: any;
-  // rage_date: any = [new Date(), new Date(this.maxDate.setMonth(this.maxDate.getMonth() + 1))];
-  rage_date: any = [];
+  rage_date: any = [new Date(), new Date()];
+ // rage_date: any = [];
   surveyItems: any[] = [];
   description = "";
   mediaNameSelected: any;
@@ -91,7 +95,9 @@ export class ClientArticlesComponent implements OnInit {
     private authorsService: AuthorsService,
     private router: Router,
     private modalService: BsModalService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private listsService: ListsService,
+    private sanitizer: DomSanitizer
   ) {
     // this.end_date = new Date(this.maxDate.setMonth(this.maxDate.getMonth() + 1));
   }
@@ -146,6 +152,23 @@ export class ClientArticlesComponent implements OnInit {
     );
     this.listenToNotifier();
     this.getAuthors();
+    this.getLists();
+  }
+
+  
+  getLists(){
+    this.listsService.getLists(1, 'created_at' , 'desc', 9999, '').subscribe(
+      data => {
+        if (data.status) {
+ 
+          const resp = data.body;
+          this.lists = resp.data;
+        }
+      },
+      error => {
+        this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      }
+    );
   }
 
   getAuthors() {
@@ -681,16 +704,41 @@ export class ClientArticlesComponent implements OnInit {
 
   getBodyWithSearch(body) {
     const firstBody = body;
+   
+    body = body.replace('<strong>', "<p>"); 
+    body = body.replace('</strong>', "</p>"); 
+
+    body = body.replace('<h1', "<p"); 
+    body = body.replace('</h1>', "</p>"); 
+
+    body = body.replace('</h2>', "</p>"); 
+    body = body.replace('<h2', "<p"); 
+
+    body = body.replace('<h3', "<p"); 
+    body = body.replace('</h3>', "</p>"); 
+
+
+    body = body.replace('<h4', "<p"); 
+    body = body.replace('</h4>', "</p>"); 
+
+    body = body.replace('<h5', "<p"); 
+    body = body.replace('</h5>', "</p>"); 
+
+
+    body = body.replace('<h6', "<p"); 
+    body = body.replace('</h6>', "</p>"); 
+
+
     body = body.slice(0, 150);
-    return body + "...";
+    return this.sanitizer.bypassSecurityTrustHtml('<div style="font-size: 15px !important;">'+ body +'</div>'); 
   }
 
   removeDates() {
     this.spinner = true;
-    this.start_date = null;
-    this.end_date = null;
+    this.start_date = new Date();
+    this.end_date = new Date();
     this.duration = null;
-    this.rage_date = [];
+    this.rage_date = [new Date(),new Date()];
     this.loadData(
       this.itemsPerPage,
       1,
@@ -1045,4 +1093,41 @@ export class ClientArticlesComponent implements OnInit {
     }
 
   }
+  openModalLists(templateLists: TemplateRef<any>) {
+    this.modalRefLists = this.modalService.show(templateLists, { class: 'modal-sm' });
+  }
+  selectList(event){
+    this.list = event.id;
+   }
+
+   declineList(): void {
+  
+    this.modalRefLists.hide();
+  }
+
+  AddArticles(){
+
+
+    if (this.idItem) {
+      const object = new Lists;
+      object.id = this.list
+      object.article_id = this.idItem;
+      this.listsService.updateList(object).subscribe(resCreate => {
+
+        this.notifications.create('Success', 'Ajouter les articles avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+        this.modalRefLists.hide();
+        this.idItem = '';
+        
+        this.selected = []
+      //  this.ourNotificationService.notficateReloadTags();
+  
+      }, err => {
+ 
+          this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
+
+      });
+    }
+
+  }
+
 }

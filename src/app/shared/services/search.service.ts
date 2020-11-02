@@ -18,10 +18,24 @@ export class SearchService {
    * @param direction the sort direction
    * @param size the page size
    */
-  search(page, active, direction, size, key): Observable<any> {
+  search(page, active, direction, size, key, authorIds, start_date, end_date, langValues, tagsName,mediaTypes, zoneJoin , media_ids): Observable<any> { 
     const searchValue = key === '' ? '' : `&search=${key}`; 
+    const media_idsValue = media_ids ? `&media_id=${media_ids}`  : ''; 
+    
+   
+    const author_idsValue = authorIds ? `&authors_ids=${authorIds}`  : ''; 
+   const languageValue = langValues ? `&language=${langValues}`  : ''; 
+    
 
-    const req = this.serviceUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue ;
+     const startDateValue = start_date ? `&start_date=${start_date}`  : '' ; 
+     const endDateValue = end_date ? `&end_date=${end_date}`  : ''; 
+
+     const tagsNameValue = tagsName ? `&tag_name=${tagsName}`  : ''; 
+     const mediaTypesValue = mediaTypes ? `&medium_type=${mediaTypes}`  : ''; 
+
+     const zoneJoinValue = zoneJoin ? `&media_area=${zoneJoin}`  : ''; 
+
+    const req = this.serviceUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}` + searchValue + author_idsValue + startDateValue + endDateValue + languageValue + tagsNameValue + mediaTypesValue + zoneJoinValue + media_idsValue;
     return this.http.get(req, { observe: 'response' });
   }
 }

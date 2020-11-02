@@ -87,8 +87,12 @@
             <!-- <button class="top-right-button btn btn-primary " (click)="exportPDF()">Export en PDF</button>  -->
 
              <div style="width: 100%;" class="btn-group btn-group  mr-2  mb-1" role="group">
-              <button type="button" class="btn  btn-primary" (click)="exportPDF()">  <i class="simple-icon-cloud-download mb-4"></i> Export en PDF</button>
-              <button type="button" class="btn  btn-primary" (click)="openModalEmail(templateEmail)">  <i class="iconsminds-mail-send mb-4"></i> Envoie par e-mail</button>
+              <!-- <button type="button" class="btn  btn-primary" (click)="exportPDF()" style="background-color: brown; border-color: brown; ">  <i class="simple-icon-cloud-download mb-4"></i> Export en PDF</button> -->
+              <app-state-button class="btn  btn-primary"  [currentState]="buttonState" (click)="exportPDF()" style="background-color: brown; border-color: brown; padding: 0px; color: white ">
+              <i class="simple-icon-cloud-download mb-4"></i> Export en PDF
+           </app-state-button>
+              <button type="button" style=" padding-top: 0px;padding-bottom: 0px; " class="btn  btn-primary" (click)="openModalEmail(templateEmail)">  <i class="iconsminds-mail-send mb-4"></i> Envoie par e-mail</button>
+              
             </div> 
           </div> 
 
@@ -112,7 +116,7 @@
                             </a>
                             <div class="pl-3 pt-2 pr-2 pb-2">
                                 <a target="_blank" [href]="'app/articles/details?id='+article.id">
-                                    <p class="list-item-heading">{{ article.attributes.title }}</p>
+                                    <p class="list-item-heading"><b>{{ article.attributes.title }}</b></p>
                                     <div class="pr-4">
                                         <!-- <p class="text-muted mb-1 text-small"> -->
                                           <div [innerHTML]="getBodyWithSearch(article.attributes.body)"></div>
@@ -167,7 +171,7 @@
     <div class="modal-body text-center">
       <h6 class="modal-title mb-4">Merci de Mettre email du destinataire  </h6>
       <div class="form-group">
-        <label>Listes</label>
+        <label>E-mail</label>
         <input type="text" class="form-control" [(ngModel)]="email" placeholder="E-mail">
      
     </div>

@@ -1,4 +1,4 @@
-
+<!-- 
   <div class="row">
   <div class="col-12 list" >
     <div class="row">
@@ -17,15 +17,7 @@
             </div>
 
               <div class="row">
-              <!-- <div class="col-2">
-                <div class="custom-control custom-checkbox pl-1">
-                  <label class="custom-control custom-checkbox  mb-0">
-                    <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(p)"
-                      (change)="onSelect(p)">
-                    <label class="custom-control-label" [for]="'customCheck'+i"></label>
-                  </label>
-                </div>
-              </div> -->
+       
               <div class="col-12">
                 <a  target="_blank" [href]="'app/articles/details?id='+article.id">
                   <p class="list-item-heading mb-4 pt-1">{{article.title}}</p>
@@ -41,5 +33,57 @@
     </div>
   </div>
 
+</div> -->
+<h1>{{list?.attributes.name}}</h1>
+<div class="row">
+  <div class="col-12">
+<div class="card mb-4">
+
+
+ 
+
+<div class="card-body">
+
+  <div class="col-12" *ngFor="let item of articles; let i=index">
+    <div [ngClass]="{'card d-flex mb-3 card': true}">
+      <div  class="position-absolute card-top-buttons">
+        <button class="btn btn-outline-dark icon-button c-pointer" (click)="deleteArticle(item.id)" >X</button>
+    </div>
+        <div class="d-flex flex-grow-1 min-width-zero">
+            <div
+                class="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center card-body">
+                <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'">{{item?.attributes.category_article}}</span>
+
+                <a class="list-item-heading mb-0 truncate w-40 w-xs-100  mb-1 mt-1" id="toggler1"
+                target="_blank" [href]="'app/articles/details?id='+item.id">
+                    
+             
+                    <span class="align-middle d-inline-block">{{ item.attributes.title }}</span></a>
+                <!-- <p class="mb-1 text-muted text-small w-15 w-xs-100">{{ item.attributes.author.name }}</p> -->
+                <p class="mb-1 text-muted text-small w-15 w-xs-100">{{ item.attributes.author.name }} | {{ item.attributes.date_published | date:'dd/MM/yyyy'}}</p>
+                <div class="w-15 w-xs-100">
+                  
+                  <img  class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center " [src]="item.attributes.medium?.avatar.url ? urlForImage + item.attributes.medium?.avatar.url : defaultIcon" [alt]="item.attributes.medium.name">
+
+     
+                
+              </div>
+            </div>
+          
+        </div>
+        <div class="card-body pt-1">
+            <div [innerHTML]="getBodyWithSearch(item.attributes.body) "></div> 
+            <div class="pl-3 pt-2 pr-2 pb-2">
+
+
+         
+          </div>
+        </div>
+    </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+
 <simple-notifications [options]="options"></simple-notifications>

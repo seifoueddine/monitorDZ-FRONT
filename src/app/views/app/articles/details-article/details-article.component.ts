@@ -15,6 +15,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import htmlToPdfmake from 'html-to-pdfmake';
 import { DatePipe } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 
@@ -27,6 +28,7 @@ import { DatePipe } from '@angular/common';
 export class DetailsArticleComponent implements OnInit {
   @ViewChild('content', {static: false}) content: ElementRef;
   @ViewChild('pdfTable') pdfTable: ElementRef;
+  buttonState = '';
   name = 'Angular';
   valueBind: string;
   articleId: any;
@@ -54,7 +56,7 @@ export class DetailsArticleComponent implements OnInit {
     position: ["bottom", "center"],
 };
   constructor(private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,private modalService: BsModalService,
-    private modal: BsModalService, private notifications: NotificationsService, private lightbox: Lightbox, private datePipe: DatePipe) {
+    private modal: BsModalService, private notifications: NotificationsService, private lightbox: Lightbox, private datePipe: DatePipe, private sanitizer: DomSanitizer) {
      
 
       this.route
@@ -166,9 +168,32 @@ export class DetailsArticleComponent implements OnInit {
 
 
   getBodyWithSearch(body){
-    const firstBody = body
-  
-     return ( '<p style ="color: red !important; font-style:italic !important;">' +  (firstBody.slice(0, 100) + '</p>'  + ' ...'))
+   
+
+    body = body.replace('<strong>', "<p>"); 
+    body = body.replace('</strong>', "</p>"); 
+
+    body = body.replace('<h1', "<p"); 
+    body = body.replace('</h1>', "</p>"); 
+
+    body = body.replace('</h2>', "</p>"); 
+    body = body.replace('<h2', "<p"); 
+
+    body = body.replace('<h3', "<p"); 
+    body = body.replace('</h3>', "</p>"); 
+
+
+    body = body.replace('<h4', "<p"); 
+    body = body.replace('</h4>', "</p>"); 
+
+    body = body.replace('<h5', "<p"); 
+    body = body.replace('</h5>', "</p>"); 
+
+
+    body = body.replace('<h6', "<p"); 
+    body = body.replace('</h6>', "</p>"); 
+    body = body.slice(0, 100);
+    return this.sanitizer.bypassSecurityTrustHtml('<div style="font-size: 15px !important;">'+ body +'</div>'); 
   
 
   }
@@ -179,11 +204,14 @@ export class DetailsArticleComponent implements OnInit {
 
 
   exportPDF() { 
+    this.buttonState = 'show-spinner';
     this.articlesService.exportPDF(this.articleId).subscribe(res => {
       const blob = new Blob([res.body]);
       saveAs.saveAs(blob);
+      this.buttonState = '';
     }, err => {
-      this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      this.buttonState = '';
+      // this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
     });
   }
 

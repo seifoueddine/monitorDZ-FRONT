@@ -18,7 +18,9 @@ export class ListDetailsComponent implements OnInit {
   detailImages: any;
   owner: any;
   defaultImage = "assets/img/no-image-article.png";
+  defaultIcon = "assets/img/logo.jpg";
   urlForImage = environment.URL_PATH;
+  articles: any;
   public options = {
     position: ["bottom", "center"],
 }
@@ -34,7 +36,8 @@ export class ListDetailsComponent implements OnInit {
         this.listsService.getListById(this.listId)
           .subscribe((res: any) => {
             console.log(res);
-            this.list = res.data;
+            this.list = res.lists.data;
+            this.articles = res.articles.data;
    
           }, error => {
             // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
@@ -63,8 +66,8 @@ deleteArticle(article_id){
       this.listsService.getListById(this.listId)
           .subscribe((res: any) => {
             console.log(res);
-            this.list = res.data;
-   
+            this.list = res.lists.data;
+            this.articles = res.articles.data;
           }, error => {
             // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
           });
@@ -78,6 +81,12 @@ deleteArticle(article_id){
 
 
 
+}
+
+getBodyWithSearch(body) {
+  const firstBody = body;
+  body = body.slice(0, 150);
+  return body + "...";
 }
   
 

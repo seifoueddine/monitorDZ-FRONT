@@ -69,7 +69,7 @@ export class LoginGuard implements CanActivate {
   
           hasAccess = true;
         }else {
-          this.router.navigate(['/error']);
+          this.router.navigate(['app/client-articles']);
         }
      
       return hasAccess;
