@@ -14,12 +14,14 @@ import { AuthorsService } from "src/app/shared/services/authors.service";
 import { ListsService } from 'src/app/shared/services/lists.service';
 import { Lists } from 'src/app/shared/models/lists.model';
 import { DomSanitizer } from '@angular/platform-browser';
+import saveAs from 'file-saver';
 @Component({
   selector: "app-client-articles",
   templateUrl: "./client-articles.component.html",
   styleUrls: ["./client-articles.component.scss"],
 })
 export class ClientArticlesComponent implements OnInit {
+  modalRefEmail: any;
   start_date: any = new Date();
   end_date: any = new Date();
   duration: any;
@@ -60,6 +62,7 @@ export class ClientArticlesComponent implements OnInit {
   authorIds: any;
   articlesPending: any;
   lists: any;
+  email = "";
   itemOrder = { label: "Titre", value: "title" };
   itemOptionsOrders = [
     { label: "Titre", value: "title" },
@@ -85,6 +88,7 @@ export class ClientArticlesComponent implements OnInit {
   ];
   langIdJoin: any;
   tags: any;
+
   // @ViewChild('addNewModalRef', { static: true }) addNewModalRef: AddNewSurveyModalComponent;
 
   constructor(
@@ -97,7 +101,7 @@ export class ClientArticlesComponent implements OnInit {
     private modalService: BsModalService,
     private datePipe: DatePipe,
     private listsService: ListsService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
   ) {
     // this.end_date = new Date(this.maxDate.setMonth(this.maxDate.getMonth() + 1));
   }
@@ -728,6 +732,9 @@ export class ClientArticlesComponent implements OnInit {
     body = body.replace('<h6', "<p"); 
     body = body.replace('</h6>', "</p>"); 
 
+    body = body.replace('<b>', ""); 
+    body = body.replace('</b>', ""); 
+
 
     body = body.slice(0, 150);
     return this.sanitizer.bypassSecurityTrustHtml('<div style="font-size: 15px !important;">'+ body +'</div>'); 
@@ -1129,5 +1136,47 @@ export class ClientArticlesComponent implements OnInit {
     }
 
   }
+
+
+  openModalEmail(templateEmail: TemplateRef<any>, articleId: any) {
+    this.articleId = articleId;
+    this.modalRefEmail = this.modalService.show(templateEmail, { class: 'modal-sm' });
+  }
+  
+
+  exportPDF(articleId) { 
+    this.buttonState = 'show-spinner';
+    this.articleService.exportPDF(articleId).subscribe(res => {
+      const blob = new Blob([res.body], { type: 'application/pdf' });
+      saveAs.saveAs(blob);
+   
+    }, err => {
+    
+      // this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+    });
+  }
+
+
+  SendMail() { 
+    if (this.email != '') {
+      this.articleService.sendEmail(this.articleId, this.email).subscribe(res => {
+        this.modalRefEmail.hide();
+        this.notifications.create('Success', 'Envoie email avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+
+      }, err => {
+        this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      });
+    } else {
+      this.notifications.create('', 'Merci de Mettre email du destinataire', NotificationType.Warn, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+    }
+   
+  }
+
+  declineEmail(): void {
+
+  
+    this.modalRefEmail.hide();
+  }
+
 
 }

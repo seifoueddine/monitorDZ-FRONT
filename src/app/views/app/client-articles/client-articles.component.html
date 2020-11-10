@@ -51,16 +51,29 @@
                         
                         <!-- <i
                             [ngClass]="{'heading-icon':true, 'simple-icon-refresh' : item.attributes.status === 'COMPLETED', 'simple-icon-check' : item.attributes.status !== 'COMPLETED' }"></i> -->
-                        <span class="align-middle d-inline-block"><b>{{ item.attributes.title }}</b></span></a>
+                        <span class="mb-1 align-middle d-inline-block color-theme-1"><b>{{ item.attributes.title }}</b></span></a>
                     <!-- <p class="mb-1 text-muted text-small w-15 w-xs-100"></p> -->
                     <p class="mb-1 text-muted text-small w-15 w-xs-100">{{ item.attributes.author.name }} </p>
                     <p class="mb-1 text-muted text-small w-15 w-xs-100"> {{ item.attributes.date_published | date:'dd/MM/yyyy'}}</p>
-                    <div class="w-15 w-xs-100">
+                    <div class="w-10 w-xs-100">
                       <img  class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center small " [src]="item.attributes.medium?.avatar.url ? urlForImage + item.attributes.medium?.avatar.url : defaultImage" [alt]="item.attributes.medium.name">
 
                     </div>
+                    <div class="mb-1 btn-group float-right float-none-xs mt-2" dropdown style="padding-bottom: 6px;">
+                      <button id="button-basic" dropdownToggle type="button"
+                          class="btn btn-outline-primary btn-xs dropdown-toggle" aria-controls="dropdown-basic">
+                          Actions <span class="caret"></span>
+                      </button>
+                      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                          <li role="menuitem"><a class="dropdown-item c-pointer" (click)="exportPDF(+item.id)" >  <i class="simple-icon-cloud-download mb-4"></i> Export PDF</a>
+                          </li>
+                          <li role="menuitem"><a class="dropdown-item c-pointer" (click)="openModalEmail(templateEmail, +item.id)">  <i class="iconsminds-mail-send mb-4"></i>  Envoie par email</a>
+                          </li>
+                      </ul>
+                  </div>
                 </div>
-                <div class="custom-control custom-checkbox pl-1 align-self-center mr-4">
+              
+                <div class="mb-1 custom-control custom-checkbox pl-1 align-self-center mr-4">
                     <div class="itemCheck mb-0 custom-checkbox custom-control">
                         <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i"
                             [checked]="isSelected(item)" (change)="onSelect(item)">
@@ -68,10 +81,12 @@
                     </div>
                 </div> 
             </div>
+        
             <div class="card-body pt-1">
                 <div [innerHTML]="getBodyWithSearch(item.attributes.body) "></div> 
+                <div *ngIf="item.attributes.tags.length > 0 " class="separator mb-4" style="margin-bottom: 0px;" ></div>
                 <div class="pl-3 pt-2 pr-2 pb-2">
-
+              
                   <p class="d-sm-inline-block mb-1" *ngFor="let item of item.attributes.tags">
                       <a href="javascript:;">
                         <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">{{item.name}}</span>
@@ -346,7 +361,7 @@
     
                 <div class="card-body">
                   <div class="mb-5">
-                    <h3 class="card-title">{{articleDetails?.attributes.title}} <a target="_blank" [href]="articleDetails?.attributes.url_article"><i  class='simple-icon-link initial-height'></i></a></h3>
+                    <h3 class="card-title color-theme-1"><b>{{articleDetails?.attributes.title}} <a target="_blank" [href]="articleDetails?.attributes.url_article"><i  class='simple-icon-link initial-height'></i></a></b></h3>
                     <div [innerHTML]="articleDetails?.attributes.body | sanitizeHtml"></div> 
                 </div>
                
@@ -445,5 +460,18 @@
     </div>
       <button type="button" class="btn btn-outline-primary" (click)="AddArticles()">Confirmer</button> {{" "}}
       <button type="button" class="btn btn-primary" (click)="declineList()">Annuler</button>
+    </div>
+  </ng-template>
+
+  <ng-template #templateEmail>
+    <div class="modal-body text-center">
+      <h6 class="modal-title mb-4">Merci de Mettre email du destinataire  </h6>
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="text" class="form-control" [(ngModel)]="email" placeholder="E-mail">
+     
+    </div>
+      <button type="button" class="btn btn-outline-primary" (click)="SendMail()">Confirmer</button> {{" "}}
+      <button type="button" class="btn btn-primary" (click)="declineEmail()">Annuler</button>
     </div>
   </ng-template>

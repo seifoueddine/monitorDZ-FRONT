@@ -6,6 +6,7 @@ import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { Lightbox } from 'ngx-lightbox';
 import { Lists } from 'src/app/shared/models/lists.model';
 import { environment } from 'src/environments/environment';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-list-details',
@@ -25,7 +26,7 @@ export class ListDetailsComponent implements OnInit {
     position: ["bottom", "center"],
 }
   constructor(private route: ActivatedRoute, private listsService: ListsService,  private router: Router,private modalService: BsModalService,
-    private modal: BsModalService, private notifications: NotificationsService, private lightbox: Lightbox) {
+    private modal: BsModalService, private notifications: NotificationsService, private lightbox: Lightbox, private sanitizer: DomSanitizer) {
 
 
       this.route
@@ -84,9 +85,33 @@ deleteArticle(article_id){
 }
 
 getBodyWithSearch(body) {
-  const firstBody = body;
-  body = body.slice(0, 150);
-  return body + "...";
+  body = body.replace('<strong>', "<p>"); 
+  body = body.replace('</strong>', "</p>"); 
+
+  body = body.replace('<h1', "<p"); 
+  body = body.replace('</h1>', "</p>"); 
+
+  body = body.replace('</h2>', "</p>"); 
+  body = body.replace('<h2', "<p"); 
+
+  body = body.replace('<h3', "<p"); 
+  body = body.replace('</h3>', "</p>"); 
+
+
+  body = body.replace('<h4', "<p"); 
+  body = body.replace('</h4>', "</p>"); 
+
+  body = body.replace('<h5', "<p"); 
+  body = body.replace('</h5>', "</p>"); 
+
+
+  body = body.replace('<h6', "<p"); 
+  body = body.replace('</h6>', "</p>"); 
+
+  body = body.replace('<b>', ""); 
+  body = body.replace('</b>', ""); 
+  body = body.slice(0, 100);
+  return this.sanitizer.bypassSecurityTrustHtml('<div style="font-size: 15px !important;">'+ body +'</div>'); 
 }
   
 

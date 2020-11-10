@@ -173,6 +173,9 @@ defaultIcon = "assets/img/logo.jpg";
     body = body.replace('<h6', "<p"); 
     body = body.replace('</h6>', "</p>"); 
 
+    body = body.replace('<b>', ""); 
+    body = body.replace('</b>', ""); 
+
 
 
     firstBody = firstBody.replace('<strong>', "<p>"); 
@@ -197,6 +200,11 @@ defaultIcon = "assets/img/logo.jpg";
 
     firstBody = firstBody.replace('<h6', "<p"); 
     firstBody = firstBody.replace('</h6>', "</p>");
+
+
+    
+    firstBody = firstBody.replace('<b>', ""); 
+    firstBody = firstBody.replace('</b>', ""); 
 
     // this.tags = this.tags.filter(function(e){return e}); 
     // this.tags.map(t => {

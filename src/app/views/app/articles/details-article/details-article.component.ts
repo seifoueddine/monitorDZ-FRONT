@@ -192,6 +192,9 @@ export class DetailsArticleComponent implements OnInit {
 
     body = body.replace('<h6', "<p"); 
     body = body.replace('</h6>', "</p>"); 
+
+    body = body.replace('<b>', ""); 
+    body = body.replace('</b>', ""); 
     body = body.slice(0, 100);
     return this.sanitizer.bypassSecurityTrustHtml('<div style="font-size: 15px !important;">'+ body +'</div>'); 
   
@@ -206,7 +209,7 @@ export class DetailsArticleComponent implements OnInit {
   exportPDF() { 
     this.buttonState = 'show-spinner';
     this.articlesService.exportPDF(this.articleId).subscribe(res => {
-      const blob = new Blob([res.body]);
+      const blob = new Blob([res.body], { type: 'application/pdf' });
       saveAs.saveAs(blob);
       this.buttonState = '';
     }, err => {

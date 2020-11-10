@@ -55,7 +55,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       }
       this.selectMenu();
       this.toggle();
-      this.sidebarService.setContainerClassnames(0, containerClassnames, this.sidebar.selectedMenuHasSubItems);
+      this.sidebarService.setContainerClassnames(0, 'menu-sub-hidden', this.sidebar.selectedMenuHasSubItems);
       window.scrollTo(0, 0);
     });
 
