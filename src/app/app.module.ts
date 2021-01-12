@@ -30,7 +30,7 @@ import { XhrInterceptor } from './http.interceptor';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularTokenModule.forRoot({
-      apiBase:                   'http://161.97.114.39:81',
+      apiBase:                   'https://api.mediasmonitoring.com',
       apiPath:                    'api/v1',
       
       signInPath:                 'auth/sign_in',
