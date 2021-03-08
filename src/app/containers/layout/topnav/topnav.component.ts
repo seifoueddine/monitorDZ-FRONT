@@ -196,4 +196,7 @@ export class TopnavComponent implements OnInit, OnDestroy {
       });
   
   }
+  goToMyProfile() {
+    this.router.navigateByUrl('/app/my-profile');
+  }
 }

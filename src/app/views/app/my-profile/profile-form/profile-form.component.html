@@ -1,0 +1,92 @@
+<ng-template #template>
+    <form [formGroup]="userForm" #form="ngForm" (ngSubmit)="createUser($event)" novalidate class="tooltip-label-right">
+
+        <div class="modal-header">
+            <h4 *ngIf="!data" class="modal-title pull-left">{{'pages.add-new-user' | translate}}</h4>
+            <h4 *ngIf="data" class="modal-title pull-left">{{'pages.update-user' | translate}}</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="hideModel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>{{ 'user-forms.name' | translate }}</label>
+                <input type="name" class="form-control" formControlName="name">
+                <div *ngIf="userForm.get('name').errors?.required && form.submitted" class="invalid-tooltip">Nom et Prénom est
+                    requis</div>
+                <div *ngIf="userForm.get('name').errors?.minlength && form.submitted" class="invalid-tooltip">Nom et Prénom doit contenir au moins 2 caractères!</div>
+            </div>
+
+            <!-- <div class="form-group">
+                <label>{{ 'user-forms.last_name' | translate }}</label>
+                <input type="name" class="form-control" formControlName="last_name">
+                <div *ngIf="userForm.get('last_name').errors?.required && form.submitted" class="invalid-tooltip">Nom est
+                    requis</div>
+                <div *ngIf="userForm.get('last_name').errors?.minlength && form.submitted" class="invalid-tooltip">Nom doit contenir au moins 2 caractères!</div>
+            </div> -->
+
+            <div class="form-group">
+                <label>{{ 'user-forms.email' | translate }}</label>
+                <input type="email" class="form-control" formControlName="email">
+                <div *ngIf="userForm.get('email').errors?.email && form.submitted" class="invalid-tooltip">Email must be
+                    a valid address</div>
+            </div>
+
+            <!-- <div class="form-group">
+                <label>{{ 'user-forms.phone' | translate }}</label>
+                <input type="name" class="form-control" formControlName="phone">
+                <div *ngIf="userForm.get('phone').errors?.required && form.submitted" class="invalid-tooltip">Téléphone est requis</div>
+                <div *ngIf="userForm.get('phone').errors?.minlength && form.submitted" class="invalid-tooltip">Téléphone doit contenir au moins 10 chiffres!</div>
+            </div>
+             -->
+
+            <div class="form-group">
+            
+                <input type="file" class="custom-file-input" id='avatar' formControlName="avatar"
+                    (change)="onSelectFile($event)">
+                <label class="custom-file-label"
+                    for="avatar">{{ AvatarToDisplay ? (avatarName.length > 35 ? (avatarName| slice:0:30 ) + '...': avatarName)  : ('input-groups.choose-file' | translate)}}</label>
+
+            </div>
+
+
+
+
+        </div>
+
+      
+
+            <div class="row">
+                <div class="col-2"></div>
+                <div *ngIf="newPic" class="col-8">
+                    <div *ngIf="AvatarToDisplay" class="card">
+                        <div class="position-relative">
+                            <a><img class="card-img-top" [src]="AvatarToDisplay" alt="Card image cap" height="200"></a>
+                            <span (click)="removeSelectedFile()"
+                                class="badge badge-pill badge-theme-1 position-absolute badge-top-right">X</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="data && !newPic && !removeCurrentAvatarStatus" class="col-8">
+                    <div *ngIf="data.avatar?.url" class="card">
+                        <div class="position-relative">
+                            <a><img class="card-img-top" [src]="urlForImage + data.avatar?.url" alt="Card image cap" height="200"></a>
+                            <span (click)="removeCurrentAvatar()"
+                                class="badge badge-pill badge-theme-1 position-absolute badge-top-right">X</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-2"></div>
+            </div>
+       
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary"
+                (click)="hideModel()">{{'pages.cancel' | translate }}</button>
+            <button type="submit" class="btn btn-primary float-right">{{ 'pages.submit' | translate}}</button>
+        </div>
+    </form>
+</ng-template>
+<simple-notifications [options]="options"></simple-notifications>

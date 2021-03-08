@@ -162,7 +162,7 @@ body.show {
 }
 
 .fixed-background {
-  background: url("../../../img/balloon.jpg") no-repeat center center fixed;
+  background: url("../../../img/newspaper.jpg") no-repeat center center fixed;
   background-size: cover;
   width: 100%;
   height: 100%;
@@ -252,12 +252,12 @@ perfect-scrollbar > .ps {
 }
 
 .logo-single {
-  width: 110px;
-  height: 35px;
+  width: 120px;
+  height: 80px;
   background: url($logoPath) no-repeat;
   background-position: center center;
   display: inline-block;
-  margin-bottom: 60px;
+  margin-bottom: 35px;
   background-size: contain;
 }
 
@@ -2086,7 +2086,7 @@ a.btn-secondary:not([href]):not([tabindex]) {
 
 .logo {
   width: 110px;
-  height: 40px;
+  height: 55px;
   background: url($logoPath) no-repeat;
   background-position: center center;
   margin: 0 auto;
@@ -2097,8 +2097,8 @@ a.btn-secondary:not([href]):not([tabindex]) {
 }
 
 .logo-mobile {
-  width: 20px;
-  height: 35px;
+  width: 35px;
+  height: 50px;
   background: url($logoPathMobile) no-repeat;
   background-position: center center;
   background-size: contain;
@@ -6510,7 +6510,7 @@ rating span {
 
   .image-side {
     width: 40%;
-    background: url("../../../img/login-balloon.jpg") no-repeat center top;
+    background: url("../../../img/men.jpg") no-repeat center top;
     background-size: cover;
     padding: 80px 40px;
 

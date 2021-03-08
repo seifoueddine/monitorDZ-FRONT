@@ -36,11 +36,11 @@ $shadowOffsetsBottom : 1 3 6 10 15;
 $shadowBlursBottom: 3 6 6 5 6;
 $shadowOpacitiesBottom: 0.1 0.3 0.6 0.7 0.8;
 
-$logoPath: "../../../img/logo-white.svg";
-$logoPathMobile: "../../../img/logo-mobile.svg";
+$logoPath: "../../../img/logo-mm.png";
+$logoPathMobile: "../../../img/logo-mm-black.png";
 
-$lpLogoPath: "../../../img/logo-white.svg";
-$lpLogoPathPinned: "../../../img/logo-white.svg";
+$lpLogoPath: "../../../img/logo-mm.png";
+$lpLogoPathPinned: "../../../img/logo-mm.png";
 
 @import "../_mixins.scss";
 @import "../_vien.style.scss";

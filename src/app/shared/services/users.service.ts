@@ -49,7 +49,7 @@ export class UsersService {
     const req = this.serviceUrl + `/${userId}`;
     console.log(req);
     console.log(user);
-    return this.http.put<Users>(req, user);
+    return this.http.put<any>(req, user);
   }
 
   /**

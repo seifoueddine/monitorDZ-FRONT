@@ -31,6 +31,8 @@ export class OurNotificationsService {
     private reloadLists = new Subject<any>();
     reloadListNotifier$ = this.reloadLists.asObservable();
   
+    private reloadProfileInfos = new Subject<any>();
+    reloadProfileInfoNotifier$ = this.reloadProfileInfos.asObservable();
   
   constructor() { }
 
@@ -64,6 +66,11 @@ export class OurNotificationsService {
 
    notficateReloadLists() {
     this.reloadLists.next();
+  }
+
+
+  notficateProfileInfos() {
+    this.reloadProfileInfos.next();
   }
   
 }

@@ -1,6 +1,7 @@
 <div class="card auth-card">
   <div class="position-relative image-side ">
-    <p class=" text-white h2">Monitor DZ</p>
+    <p class=" text-white h2">Medias Monitoring</p>
+    <br>
     <p class="white mb-0">
       Veuillez utiliser vos identifiants pour vous connecter.
       <!-- <br>If you are not a member, please
@@ -17,16 +18,16 @@
       <label class="form-group has-float-label">
         <input class="form-control" required email ngModel #email="ngModel" name="email" [(ngModel)]="emailModel" />
         <span>{{ 'user.email' | translate }}</span>
-        <div *ngIf="!email.valid && loginForm.submitted" class="invalid-tooltip">Email is required!</div>
+        <div *ngIf="!email.valid && loginForm.submitted" class="invalid-tooltip">Email est requis!</div>
       </label>
       <label class="form-group has-float-label">
         <input class="form-control" type="password" placeholder="" required ngModel #password="ngModel" name="password"
           [(ngModel)]="passwordModel" />
         <span>{{ 'user.password' | translate }}</span>
-        <div *ngIf="!password.valid && loginForm.submitted" class="invalid-tooltip">Password is required!</div>
+        <div *ngIf="!password.valid && loginForm.submitted" class="invalid-tooltip">Mot de passe est requis!</div>
       </label>
       <div class="d-flex justify-content-between align-items-center">
-        <a routerLink="/user/forgot-password">{{ 'user.forgot-password' | translate }}?</a>
+        <!-- <a routerLink="/user/forgot-password">{{ 'user.forgot-password' | translate }}?</a> -->
         <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState"
           [isDisabled]="buttonDisabled" click="onLoginClick()">
           {{ 'user.login-button' | translate | uppercase }}

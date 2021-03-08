@@ -7,11 +7,11 @@
     "register": "Register",
     "forgot-password": "Forgot Password",
     "email": "E-mail",
-    "password": "Password",
+    "password": "Mot de passe",
     "password-again": "Password Again",
     "forgot-password-question": "Forget password?",
     "fullname": "Full Name",
-    "login-button": "Login",
+    "login-button": "Connexion",
     "register-button": "Register",
     "reset-password-button": "Reset",
     "buy": "BUY",
@@ -19,6 +19,7 @@
     "code": "Reset Code"
   },
   "menu": {
+    "my-profile":"Mon profile",
     "app": "Home",
     "vien": "Vien",
     "start": "Start",
@@ -183,6 +184,8 @@
     "top-rated-items": "Top Rated Items"
   },
   "pages": {
+    "update-user": "Mettre à jour l'utilisateur",
+    "change-password": "Changer le mot de passe",
     "add-new": "AJOUTER NOUVEAU",
     "add-new-modal-title": "Add New Item",
     "display-options": "Display Options",
@@ -750,5 +753,22 @@
   ,
   "spinner": {
     "loading":"Chargement"
+  },
+  "user-account": {
+    "change-password":"Changer mon mot de passe",
+    "edit-information": "Mettre à jour mes informations",
+    "Flat": "Flat",
+    "Rounded": "Rounded",
+    "Border-Radius": "Border Radius",
+    "Dark-Theme": "Thème sombre",
+    "Light-Theme": "Thème lumière",
+    "email":"E-mail",
+    "invalidPasswords": "Les mots de passe ne correspondent pas",
+    "PasswordRequired" :"Mot de passe requis",
+    "PasswordLength":"Le mot de passe doit contenir au moins 6 caractères!"
+  },
+  "password-form": {
+    "password":"Mot de passe",
+    "password_confirmation":"Confirmation mot de passe"
   }
 }

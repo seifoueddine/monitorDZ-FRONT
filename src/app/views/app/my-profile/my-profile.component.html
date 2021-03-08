@@ -1,0 +1,159 @@
+ <app-profile-form #editModalRef></app-profile-form>   
+<div class="row">
+    <div class="col-12">
+ <div>
+    <h1>{{user?.first_name}} {{" "}} {{user?.last_name}}</h1>
+    <div class="text-zero top-right-button-container">
+      <div dropdown>
+        <button id="button-basic" dropdownToggle type="button" placement="bottom right"
+          class="btn btn-outline-primary dropdown-toggle btn-lg" aria-controls="dropdown-basic">{{ 'pages.actions' | translate }} <span
+            class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+          aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" href="javascript:;" (click)="openChangePasswordModal(template)"> {{ 'user-account.change-password' | translate }}</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="openEditAccountModal()"
+              href="javascript:;">{{ 'user-account.edit-information' | translate }}</a></li>
+        </ul>
+      </div>
+    </div>
+    <app-breadcrumb></app-breadcrumb>
+  </div>
+
+
+
+
+
+  <div class="row">
+    <div class="col-12 mb-5">
+      <img class="social-header card-img" src="/assets/img/social-header.jpg" />
+    </div>
+  <div class="col-12 col-lg-5 col-xl-4 col-left">
+  
+    <img alt="Profile" [src]="avatarUrl ? (urlForImage + avatarUrl) : (staticPic)" (click)="openLightbox(avatarUrl ? (urlForImage + avatarUrl) : (staticPic))"
+    class="img-thumbnail card-img social-profile-img c-pointer">
+<div class="card mb-4">
+    <div class="card-body">
+      <div class="text-center pt-4">
+        <p class="list-item-heading pt-2">{{user?.first_name}} {{" "}} {{user?.last_name}}  </p>
+      </div>  
+      <p class="text-muted text-small mb-2">{{ 'user-account.email' | translate }}</p>
+      <p class="mb-3">{{user?.email}}</p>
+
+      <!-- <p class="text-muted text-small mb-2">{{ 'user-account.phone' | translate }}</p>
+      <p class="mb-3">{{user?.phone}}</p> -->
+
+
+     
+
+
+
+
+
+
+
+
+
+
+<!--   
+      <p class="text-muted text-small mb-2">Role</p>
+      <p class="mb-3">
+        <a >
+         
+        </a>
+      </p> -->
+
+      <!-- <p class="text-muted text-small mb-2">Agency</p>
+      <p class="mb-3">
+        <a >
+          <span class="badge badge-pill badge-outline-theme-2 mb-1">{{slug.attributes.Name}}</span>
+        </a>
+      </p> -->
+<!--   
+      <p class="text-muted text-small mb-2">{{'pages.contact' | translate}}</p>
+      <div class="social-icons">
+        <ul class="list-unstyled list-inline">
+          <li class="list-inline-item">
+            <a href="javascript:;"><i class="simple-icon-social-facebook"></i></a>
+          </li>
+          <li class="list-inline-item">
+            <a href="javascript:;"><i class="simple-icon-social-twitter"></i></a>
+          </li>
+          <li class="list-inline-item">
+            <a href="javascript:;"><i class="simple-icon-social-instagram"></i></a>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+  </div>
+  </div>
+  <div class="col-12 col-lg-7 col-xl-8 col-right">
+    <div class="card mb-4">
+      <div class="card-body">
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+ <!-- modal to change password  -->
+
+ <ng-template #template>
+    <form [formGroup]="changePasswordForm" #form="ngForm" (ngSubmit)="changePassword($event)" novalidate class="tooltip-label-right">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">{{'pages.change-password' | translate}} </h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalChangePasswordRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      
+  
+      <alert *ngIf="changePasswordForm.errors?.notSame && form.submitted" type="primary rounded">
+        {{ 'user-account.invalidPasswords' | translate }}</alert>
+      
+  
+                <div class="form-group">
+                    <label>{{ 'password-form.password' | translate }}</label>
+                    <input type="password" class="form-control" formControlName="password">
+                    <div *ngIf="changePasswordForm.get('password').errors?.required && form.submitted" class="invalid-tooltip"> {{ 'user-account.PasswordRequired' | translate }}</div>
+                    <div *ngIf="changePasswordForm.get('password').errors?.minlength && form.submitted" class="invalid-tooltip">{{ 'user-account.PasswordLength' | translate }} </div>
+                </div>
+    
+                <div class="form-group">
+                    <label>{{ 'password-form.password_confirmation' | translate }}</label>
+                    <input type="password" class="form-control" formControlName="password_confirmation">
+                    <div *ngIf="changePasswordForm.get('password_confirmation').errors?.required && form.submitted" class="invalid-tooltip">{{ 'user-account.PasswordRequired' | translate }}</div>
+                    <div *ngIf="changePasswordForm.get('password_confirmation').errors?.minlength && form.submitted" class="invalid-tooltip">{{ 'user-account.PasswordLength' | translate }}</div>
+                </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary"
+          (click)="modalChangePasswordRef.hide()">{{'pages.cancel' | translate }}</button>
+      <button type="submit" class="btn btn-primary float-right">{{ 'pages.submit' | translate}}</button>
+  </div>
+  </form>
+  
+  </ng-template>
+  
+  <!-- modal to change password  -->
+

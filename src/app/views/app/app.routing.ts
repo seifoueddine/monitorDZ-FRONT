@@ -53,7 +53,11 @@ const routes: Routes = [
               { path: 'lists', loadChildren: () => import('./lists/lists.module').then(m => m.ListsModule), canActivate: [LoginGuard],
               data: {
                 roles: ['ClientAdmin']
-              } }
+              } },
+              { path: 'my-profile', loadChildren: () => import('./my-profile/my-profile.module').then(m => m.MyProfileModule), canActivate: [LoginGuard],
+             data: {
+               roles: ['GodLike','SuperOP','ClientAdmin']
+             } }
             // { path: 'second-menu', loadChildren: () => import('./second-menu/second-menu.module').then(m => m.SecondMenuModule) },
         ]
     }
