@@ -72,7 +72,7 @@
           <div class="float-md-left mr-1 mb-1" dropdown>
             <button id="button-basic" dropdownToggle type="button" class="btn btn-outline-dark btn-xs dropdown-toggle"
               aria-controls="dropdown-basic">
-              Trier par : {{itemOrder.label}} <span class="caret"></span>
+              {{ 'header.sortBy' | translate }} : {{itemOrder.label}} <span class="caret"></span>
             </button>
             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
               <li role="menuitem" *ngFor="let item of itemOptionsOrders"><a
@@ -84,12 +84,12 @@
 
         <div class="d-inline-block" *ngIf="showSearch">
           <div *ngIf="currentPage != 'sort-articles'" class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
-            <input class="form-control" placeholder="Search" (keyup)="onSearchKeyUp($event)">
+            <input class="form-control" [placeholder]=" 'header.search' | translate " (keyup)="onSearchKeyUp($event)">
           </div>
 
           <div *ngIf="currentPage === 'sort-articles'" class="d-block d-md-inline-block">
             <div class="float-md-left mr-1 mb-1 ">
-              <ng-select class="custom" [searchFn]="customSearch" [items]="media" placeholder="Filtrer par média " bindLabel="attributes.name" bindValue="id" [multiple]="true"
+              <ng-select class="custom" [searchFn]="customSearch" [items]="media" [placeholder]="  'header.filterByMedia' | translate  " bindLabel="attributes.name" bindValue="id" [multiple]="true"
                 (change)="selectMedia($event)"> 
               </ng-select>
 
@@ -98,7 +98,7 @@
 
         </div>
         <div class="float-right" *ngIf="showItemsPerPage">
-          <span class="text-muted text-small">Total {{totalElements}} / Par Page </span>
+          <span class="text-muted text-small"> {{ 'header.total' | translate }} {{totalElements}} / {{ 'header.perPage' | translate }} </span>
           <span dropdown class="d-inline-block position-relative">
             <button class="btn btn-outline-dark btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false" dropdownToggle>

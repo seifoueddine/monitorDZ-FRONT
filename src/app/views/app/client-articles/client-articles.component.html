@@ -62,12 +62,12 @@
                     <div class="mb-1 btn-group float-right float-none-xs mt-2" dropdown style="padding-bottom: 6px;">
                       <button id="button-basic" dropdownToggle type="button"
                           class="btn btn-outline-primary btn-xs dropdown-toggle" aria-controls="dropdown-basic">
-                          Actions <span class="caret"></span>
+                          {{ 'general.actions' | translate }} <span class="caret"></span>
                       </button>
                       <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-                          <li role="menuitem"><a class="dropdown-item c-pointer" (click)="exportPDF(+item.id)" >  <i class="simple-icon-cloud-download mb-4"></i> Export PDF</a>
+                          <li role="menuitem"><a class="dropdown-item c-pointer" (click)="exportPDF(+item.id)" >   {{ 'articleDetails.exportPDF' | translate }}  <i class="simple-icon-cloud-download mb-4"></i> </a>
                           </li>
-                          <li role="menuitem"><a class="dropdown-item c-pointer" (click)="openModalEmail(templateEmail, +item.id)">  <i class="iconsminds-mail-send mb-4"></i>  Envoie par email</a>
+                          <li role="menuitem"><a class="dropdown-item c-pointer" (click)="openModalEmail(templateEmail, +item.id)">    {{ 'articleDetails.sendEmail' | translate }} <i class="iconsminds-mail-send mb-4"></i></a>
                           </li>
                       </ul>
                   </div>
@@ -210,7 +210,7 @@
     <app-application-menu>
         <div class="p-4 h-100">
             <div class="scroll">
-                <p class="text-muted text-small">Date</p>
+                <p class="text-muted text-small"> {{ 'clientArticle.date' | translate }} </p>
           
     
 
@@ -219,12 +219,12 @@
                     <li class="active">
                        
                         <span *ngIf="duration" class="badge badge-pill badge-outline-danger mb-1 mr-1">{{duration}}</span>
-                          <span *ngIf="!duration" class="badge badge-pill badge-outline-danger mb-1 mr-1">Aujourd'hui</span>
+                          <span *ngIf="!duration" class="badge badge-pill badge-outline-danger mb-1 mr-1"> {{ 'clientArticle.today' | translate }} </span>
 
                   
 
                         <div class="input-group mb-3">
-                          <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date"  placement='left'  bsDaterangepicker placeholder="Date de publication" [maxDate]="today"  [container]="'html'"  (ngModelChange)="changeDate($event)"
+                          <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date"  placement='left'  bsDaterangepicker [placeholder]=" 'clientArticle.publicationDate' | translate" [maxDate]="today"  [container]="'html'"  (ngModelChange)="changeDate($event)"
                           [bsConfig]="{ adaptivePosition: true, rangeInputFormat: 'DD/MM/YYYY' }"> 
                           <div class="input-group-append">
                             <span style="padding-top: 5px; padding-left: 7px;padding-right: 0px;padding-bottom: 0px;" class="input-group-text" id="basic-addon2">
@@ -245,23 +245,23 @@
                         </a>
                     </li> -->
                 </ul>
-                <p class="text-muted text-small">Auteurs</p>
+                <p class="text-muted text-small"> {{ 'clientArticle.authors' | translate }}</p>
 
-                <ng-select class="custom" [searchFn]="customSearch" [hideSelected]="true" [items]="authors" placeholder="Auteur" bindLabel="attributes.name" bindValue="id" [multiple]="true"
+                <ng-select class="custom" [searchFn]="customSearch" [hideSelected]="true" [items]="authors" [placeholder]="'clientArticle.authors' | translate" bindLabel="attributes.name" bindValue="id" [multiple]="true"
                 (change)="selectAuthor($event)">  
-              </ng-select>
+              </ng-select>  
 
 
               <br>
 
-              <p class="text-muted text-small">Langue</p>
-              <ng-select *ngIf="languages" [hideSelected]="true" [items]="languages" placeholder="Langue" bindLabel="viewValue" bindValue="value"
+              <p class="text-muted text-small"> {{ 'clientArticle.language' | translate }}</p>
+              <ng-select *ngIf="languages" [hideSelected]="true" [items]="languages" [placeholder]="'clientArticle.language' | translate" bindLabel="viewValue" bindValue="value"
               (change)="selectLang($event)" [multiple]="true" >
           </ng-select>
           <br>
-          <p class="text-muted text-small">Tags</p>
+          <p class="text-muted text-small"> {{ 'clientArticle.tags' | translate }}</p>
             
-          <ng-select *ngIf="tags" [hideSelected]="true" [items]="tags" placeholder="Tags" bindLabel="name" bindValue="id"
+          <ng-select *ngIf="tags" [hideSelected]="true" [items]="tags" [placeholder]="'clientArticle.tags' | translate " bindLabel="name" bindValue="id"
           (change)="selectTag($event)" [multiple]="true" >
         </ng-select>
           
@@ -300,13 +300,13 @@
     <li>
         <div class="custom-control custom-checkbox mb-2">
             <input type="checkbox" class="custom-control-input" id="type1" (change)="changeStatusNum($event)">
-            <label class="custom-control-label" for="type1">Numérique</label>
+            <label class="custom-control-label" for="type1"> {{ 'clientArticle.numeric' | translate }} </label>
         </div>
     </li>
     <li>
         <div class="custom-control custom-checkbox mb-2">
             <input type="checkbox" class="custom-control-input" id="type2" (change)="changeStatusPaper($event)">
-            <label class="custom-control-label" for="type2">papier</label>
+            <label class="custom-control-label" for="type2"> {{ 'clientArticle.paper' | translate }} </label>
         </div>
     </li>
 
@@ -317,13 +317,13 @@
     <li>
         <div class="custom-control custom-checkbox mb-2">
             <input type="checkbox" class="custom-control-input" id="zone1" (change)="changeStatusNatio($event)">
-            <label class="custom-control-label" for="zone1">National</label>
+            <label class="custom-control-label" for="zone1"> {{ 'clientArticle.national' | translate }} </label>
         </div>
     </li>
     <li>
         <div class="custom-control custom-checkbox mb-2">
             <input type="checkbox" class="custom-control-input" id="zone2" (change)="changeStatusInernatio($event)">
-            <label class="custom-control-label" for="zone2">International</label>
+            <label class="custom-control-label" for="zone2"> {{ 'clientArticle.international' | translate }} </label>
         </div>
     </li>
 
@@ -333,7 +333,7 @@
 </div>
 
   <button [disabled]="idItem == ''" type="button" style="width: 100%;"  (click)="openModalLists(templateLists)"
-  class=" btn btn-primary btn-lg mr-1">Ajouter a ma list</button>
+  class=" btn btn-primary btn-lg mr-1"> {{ 'clientArticle.addToMyList' | translate }} </button>
 
 
 
@@ -450,28 +450,28 @@
 
   <ng-template #templateLists>
     <div class="modal-body text-center">
-      <h6 class="modal-title mb-4">Merci de choisir la list </h6>
+      <h6 class="modal-title mb-4"> {{ 'clientArticle.chooseTheList' | translate }}  </h6>
       <div class="form-group">
-        <label>Listes</label>
+        <label> {{ 'clientArticle.lists' | translate }}</label>
         <ng-select *ngIf="lists" mul [items]="lists" bindLabel='attributes.name' bindValue="id" 
         [searchFn]="customSearch" [multiple]="false" (change)="selectList($event)">
       </ng-select>
      
     </div>
-      <button type="button" class="btn btn-outline-primary" (click)="AddArticles()">Confirmer</button> {{" "}}
-      <button type="button" class="btn btn-primary" (click)="declineList()">Annuler</button>
+      <button type="button" class="btn btn-outline-primary" (click)="AddArticles()"> {{ 'clientArticle.confirme' | translate }} </button> {{" "}}
+      <button type="button" class="btn btn-primary" (click)="declineList()"> {{ 'clientArticle.cancel' | translate }}</button>
     </div>
   </ng-template>
 
   <ng-template #templateEmail>
     <div class="modal-body text-center">
-      <h6 class="modal-title mb-4">Merci de Mettre email du destinataire  </h6>
+      <h6 class="modal-title mb-4"> {{ 'clientArticle.chooseTheRecipient' | translate }}   </h6>
       <div class="form-group">
         <label>E-mail</label>
-        <input type="text" class="form-control" [(ngModel)]="email" placeholder="E-mail">
+        <input type="text" class="form-control" [(ngModel)]="email" [placeholder]="'user-account.email' | translate">
      
     </div>
-      <button type="button" class="btn btn-outline-primary" (click)="SendMail()">Confirmer</button> {{" "}}
-      <button type="button" class="btn btn-primary" (click)="declineEmail()">Annuler</button>
+      <button type="button" class="btn btn-outline-primary" (click)="SendMail()"> {{ 'clientArticle.confirme' | translate }}</button> {{" "}}
+      <button type="button" class="btn btn-primary" (click)="declineEmail()"> {{ 'clientArticle.cancel' | translate }}</button>
     </div>
   </ng-template>

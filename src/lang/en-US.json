@@ -1,6 +1,7 @@
 {
   "general": {
-    "copyright": "Vien Angular © 2020 All Rights Reserved."
+    "copyright": "Vien Angular © 2020 All Rights Reserved.",
+    "actions":"Actions"
   },
   "user": {
     "login-title": "Login",
@@ -752,7 +753,7 @@
   }
   ,
   "spinner": {
-    "loading":"Chargement"
+    "loading":"Chargement ..."
   },
   "user-account": {
     "change-password":"Changer mon mot de passe",
@@ -770,5 +771,40 @@
   "password-form": {
     "password":"Mot de passe",
     "password_confirmation":"Confirmation mot de passe"
+  },
+  "header":{
+    "perPage": "Par page",
+    "total": "Total",
+    "search": "Chercher...",
+    "filterByMedia": "Filtrer par média",
+    "sortBy": "Trier par ",
+    "title":"Titre",
+    "status":"Statut",
+    "author":"Auteur"
+  },
+  "articleDetails":{
+    "editArticle":"Modification de l'article",
+    "informations":"Informations",
+    "exportPDF":"Export en PDF",
+    "sendEmail":"Envoie par e-mail",
+    "similarArticle":"Articles similaire"
+  },
+  "clientArticle":{
+    "confirme":"Confirmer",
+    "cancel":"Annuler",
+    "chooseTheRecipient":"Merci de Mettre email du destinataire",
+    "lists":"Listes",
+    "chooseTheList":"Merci de choisir la liste",
+    "addToMyList":" Ajouter a ma liste",
+    "international":"International",
+    "national":"National",
+    "paper":"Papier",
+    "numeric":"Numérique",
+    "tags":"Tags",
+    "language":"Langue",
+    "authors":"Auteurs",
+    "today":"Aujourd'hui",
+    "date":"Date",
+    "publicationDate":"Date de publication"
   }
 }

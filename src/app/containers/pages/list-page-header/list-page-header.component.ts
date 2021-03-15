@@ -29,7 +29,7 @@ export class ListPageHeaderComponent implements OnInit {
   @Input() itemsPerPage = 10;
   @Input() itemOptionsPerPage = [5, 10, 20];
   @Input() itemOrder = { label: 'Product Name', value: 'title' };
-  @Input()  itemOptionsOrders = [{ label: 'Product Name', value: 'title' }, { label: 'Category', value: 'category' }, { label: 'Status', value: 'status' }];
+  @Input()  itemOptionsOrders = [{ label: 'Product Name', value: 'title' }, { label: 'Category', value: 'category' }, { label: 'Statut', value: 'status' }];
   @Input() media
   @Output() changeDisplayMode: EventEmitter<string> = new EventEmitter<string>();
   @Output() addNewItem: EventEmitter<any> = new EventEmitter();

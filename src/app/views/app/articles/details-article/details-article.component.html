@@ -24,7 +24,7 @@
  
         <div class="card mb-4">
             <div class="card-body">
-              <h5 class="card-title">Informations</h5>
+              <h5 class="card-title">{{ 'articleDetails.informations' | translate }} </h5>
 
       
             
@@ -83,15 +83,15 @@
 
           <div class="card mb-4">
             <div class="card-body">
-              <h5 class="card-title">Actions</h5>
+              <h5 class="card-title">{{ 'general.actions' | translate }}</h5>
             <!-- <button class="top-right-button btn btn-primary " (click)="exportPDF()">Export en PDF</button>  -->
 
              <div style="width: 100%;" class="btn-group btn-group  mr-2  mb-1" role="group">
               <!-- <button type="button" class="btn  btn-primary" (click)="exportPDF()" style="background-color: brown; border-color: brown; ">  <i class="simple-icon-cloud-download mb-4"></i> Export en PDF</button> -->
               <app-state-button class="btn  btn-primary"  [currentState]="buttonState" (click)="exportPDF()" style="background-color: brown; border-color: brown; padding: 0px; ">
-              <i class="simple-icon-cloud-download mb-4"></i> Export en PDF
+              <i class="simple-icon-cloud-download mb-4"></i> {{ 'articleDetails.exportPDF' | translate }} 
            </app-state-button>
-              <button type="button" style=" padding-top: 0px;padding-bottom: 0px; color: white  " class="btn  btn-primary" (click)="openModalEmail(templateEmail)">  <i class="iconsminds-mail-send mb-4"></i> Envoie par e-mail</button>
+              <button type="button" style=" padding-top: 0px;padding-bottom: 0px; color: white  " class="btn  btn-primary" (click)="openModalEmail(templateEmail)">  <i class="iconsminds-mail-send mb-4"></i>  {{ 'articleDetails.sendEmail' | translate }}</button>
               
             </div> 
           </div> 
@@ -106,7 +106,7 @@
                 </button> -->
             </div>
             <div class="card-body">
-                <h5 class="card-title">Articles similaire</h5>
+                <h5 class="card-title"> {{ 'articleDetails.similarArticle' | translate }} </h5>
                 <div class="scroll dashboard-list-with-thumbs">
                     <perfect-scrollbar class="scroll" [config]="{suppressScrollX: true, wheelPropagation: false}">
                         <div class="d-flex flex-row mb-3" *ngFor="let article of similar">
@@ -139,7 +139,7 @@
 
   <ng-template #template>
     <div class="modal-body text-center">
-      <h6 class="modal-title mb-4">Modification de l'article  </h6>
+      <h6 class="modal-title mb-4"> {{ 'articleDetails.editArticle' | translate }}  </h6>
 
 
       <div class="row">

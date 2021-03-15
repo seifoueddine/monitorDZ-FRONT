@@ -22,7 +22,7 @@
     </a>
 
     <div class="search" (click)="searchAreaClick($event)">
-      <input placeholder="Chercher..." [(ngModel)]="searchKey" (keyup)="searchKeyUp($event)">
+      <input [placeholder]="'header.search' | translate " [(ngModel)]="searchKey" (keyup)="searchKeyUp($event)">
       <span class="search-icon" (click)="searchClick($event)">
         <i class="simple-icon-magnifier"></i>
       </span>

@@ -15,6 +15,7 @@ import { ListsService } from 'src/app/shared/services/lists.service';
 import { Lists } from 'src/app/shared/models/lists.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import saveAs from 'file-saver';
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: "app-client-articles",
   templateUrl: "./client-articles.component.html",
@@ -63,11 +64,11 @@ export class ClientArticlesComponent implements OnInit {
   articlesPending: any;
   lists: any;
   email = "";
-  itemOrder = { label: "Titre", value: "title" };
+  itemOrder = { label: this.translateService.instant('header.title' ), value: "title" };
   itemOptionsOrders = [
-    { label: "Titre", value: "title" },
-    { label: "Status", value: "status" },
-    { label: "Auteur", value: "author_id" },
+    { label: this.translateService.instant('header.title' ), value: "title" }, 
+    { label: this.translateService.instant('header.status' ), value: "status" },
+    { label: this.translateService.instant('header.author' ), value: "author_id" },
   ];
   displayOptionsCollapsed = false;
   maxDate = new Date();
@@ -102,6 +103,7 @@ export class ClientArticlesComponent implements OnInit {
     private datePipe: DatePipe,
     private listsService: ListsService,
     private sanitizer: DomSanitizer,
+    private translateService: TranslateService,
   ) {
     // this.end_date = new Date(this.maxDate.setMonth(this.maxDate.getMonth() + 1));
   }

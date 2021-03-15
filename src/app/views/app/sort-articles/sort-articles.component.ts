@@ -50,8 +50,10 @@ export class SortArticlesComponent implements OnInit {
   totalElements: any;
   mediaIds: any;
   articlesPending: any
-  itemOrder = { label: 'Titre', value: 'title' };
-  itemOptionsOrders = [{ label: 'Titre', value: 'title' }, { label: 'Status', value: 'status' }, { label: 'Auteur', value: 'author_id' }];
+  itemOrder = { label: this.translateService.instant('header.title' ), value: 'title' };
+  itemOptionsOrders = [  { label: this.translateService.instant('header.title' ), value: "title" }, 
+  { label: this.translateService.instant('header.status' ), value: "status" },
+  { label: this.translateService.instant('header.author' ), value: "author_id" },];
   displayOptionsCollapsed = false;
   modalRefDel: any;
   surveyItems: any[] = [];
