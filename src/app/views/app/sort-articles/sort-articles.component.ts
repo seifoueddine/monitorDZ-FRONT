@@ -10,6 +10,7 @@ import { Articles } from 'src/app/shared/models/articles.model';
 import { environment } from 'src/environments/environment';
 import * as moment from "moment";
 import { DatePipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-sort-articles',
   templateUrl: './sort-articles.component.html',
@@ -50,10 +51,8 @@ export class SortArticlesComponent implements OnInit {
   totalElements: any;
   mediaIds: any;
   articlesPending: any
-  itemOrder = { label: this.translateService.instant('header.title' ), value: 'title' };
-  itemOptionsOrders = [  { label: this.translateService.instant('header.title' ), value: "title" }, 
-  { label: this.translateService.instant('header.status' ), value: "status" },
-  { label: this.translateService.instant('header.author' ), value: "author_id" },];
+  itemOrder: any;
+  itemOptionsOrders: any;
   displayOptionsCollapsed = false;
   modalRefDel: any;
   surveyItems: any[] = [];
@@ -75,7 +74,13 @@ export class SortArticlesComponent implements OnInit {
 
   constructor(private renderer: Renderer2, private articleService: ArticlesService, private notifications: NotificationsService,
     private ourNotificationService: OurNotificationsService, private mediaService: MediaService, private router: Router,
-    private modalService: BsModalService, private datePipe: DatePipe) { }
+    private modalService: BsModalService, private datePipe: DatePipe, private translateService: TranslateService) {
+
+      this.itemOrder = { label: this.translateService.instant('header.title' ), value: 'title' };
+      this.itemOptionsOrders = [  { label: this.translateService.instant('header.title' ), value: "title" }, 
+      { label: this.translateService.instant('header.status' ), value: "status" },
+      { label: this.translateService.instant('header.author' ), value: "author_id" },];
+     }
 
 
     
