@@ -1,0 +1,29 @@
+<div class="row">
+    <!-- <div class="col-sm-12 col-md-6 mb-4">
+      
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{'dashboards.articles_by_medium' | translate}}</h5>
+                <div >
+                    <app-polar-chart  *ngIf="polarAreaChartData" [shadow]="true" [class]="chartClass" [options]="chartDataConfig.polarAreaChartOptions"
+                        [data]="polarAreaChartData"></app-polar-chart>
+                </div>
+            </div>
+        </div>
+        
+          
+
+    </div> -->
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Nombre d'articles par média</h5>
+                <div class="dashboard-donut-chart">
+                    <app-doughnut-chart *ngIf="polarAreaChartData" [shadow]="true" [options]="chartDataConfig.doughnutChartOptions"
+                        [data]="polarAreaChartData"></app-doughnut-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

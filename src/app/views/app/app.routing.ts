@@ -10,6 +10,10 @@ const routes: Routes = [
         children: [
             { path: '', pathMatch: 'full', redirectTo: 'articles-for-sort' },
             // { path: 'vien', loadChildren: () => import('./vien/vien.module').then(m => m.VienModule) },
+            { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) , canActivate: [LoginGuard],
+            data: {
+              roles: ['GodLike']
+            } },
             { path: 'slugs', loadChildren: () => import('./slugs/slugs.module').then(m => m.SlugsModule) , canActivate: [LoginGuard],
             data: {
               roles: ['GodLike']

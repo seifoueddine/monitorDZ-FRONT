@@ -33,7 +33,9 @@ export const environment = {
     AUTHORS_PATH: apiVersion + '/authors_client',
     LISTS_PATH: apiVersion + '/list_users',
     EXPORT_PDF_PATH: apiVersion + '/pdf_export',
-    SEND_EMAIL_PATH: apiVersion + '/send_email'
+    SEND_EMAIL_PATH: apiVersion + '/send_email',
+    ARTICLE_BY_MEDIUM_PATH: apiVersion + '/articles_by_medium',
+    ARTICLE_BY_AUTHOR_PATH: apiVersion + '/articles_by_author',
 
   },
 

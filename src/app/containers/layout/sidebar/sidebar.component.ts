@@ -68,6 +68,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
         case 'GodLike':
           this.menuItems = [
             {
+              id: 'dashboard',
+              icon: 'iconsminds-monitor-analytics',
+              label: 'menu.dashboard',
+              to: '/app/dashboard'
+            },
+            {
               id: 'slugs',
               icon: 'iconsminds-building',
               label: 'menu.slugs',
