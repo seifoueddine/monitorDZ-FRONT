@@ -228,8 +228,6 @@ export class DashboardComponent implements OnInit {
           this.articleByDate = resp;
           const keys = Object.keys(this.articleByDate);
           const values = Object.values(this.articleByDate);
-          keys.shift();
-          values.shift();
           let new_keys = [];
           keys.map((x)=>{
             new_keys.push( x.replace('00:00:00 UTC',' '))
