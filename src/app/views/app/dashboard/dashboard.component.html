@@ -1,23 +1,9 @@
 <div class="row">
-    <!-- <div class="col-sm-12 col-md-6 mb-4">
-      
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{'dashboards.articles_by_medium' | translate}}</h5>
-                <div >
-                    <app-polar-chart  *ngIf="polarAreaChartData" [shadow]="true" [class]="chartClass" [options]="chartDataConfig.polarAreaChartOptions"
-                        [data]="polarAreaChartData"></app-polar-chart>
-                </div>
-            </div>
-        </div>
-        
-          
 
-    </div> -->
-    <div class="col-sm-12">
+    <div class="col-12 mb-4">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Nombre d'articles par média</h5>
+                <h5 class="card-title">Nombre d'articles par média (Aujourd'hui)</h5>
                 <div class="dashboard-donut-chart">
                     <app-doughnut-chart *ngIf="polarAreaChartData" [shadow]="true" [options]="chartDataConfig.doughnutChartOptions"
                         [data]="polarAreaChartData"></app-doughnut-chart>
@@ -25,5 +11,87 @@
             </div>
         </div>
     </div>
+
+    
+    
 </div>
 
+<div class="row">
+       <div class="col-sm-12 col-md-6 mb-4">
+      
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Top 5 auteurs (Aujourd'hui) </h5>
+                <div >
+                    <app-polar-chart *ngIf="polarAreaChartDataAuthor" [shadow]="true" [class]="chartClass" [options]="chartDataConfig.polarAreaChartOptions"
+                        [data]="polarAreaChartDataAuthor"></app-polar-chart>
+                </div>
+            </div>
+        </div>
+        
+        
+          
+
+    </div> 
+
+     <div class="col-sm-12 col-md-6 mb-4">
+      
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Nombre d'articles par tags</h5>
+                <div >
+                    <app-polar-chart [shadow]="true"  *ngIf="polarAreaChartDataTag"  [class]="chartClass" [options]="chartDataConfig.polarAreaChartOptions"
+                        [data]="polarAreaChartDataTag"></app-polar-chart>
+                </div>
+            </div>
+        </div>
+        
+        
+          
+
+    </div> 
+</div>
+
+<div class="row">
+
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="float-left float-none-xs">
+                    <div class="d-inline-block">
+                        <h5 class="d-inline">Nombre d'articles</h5>
+                        <span class="text-muted text-small d-block">les derniers 7 jours</span>
+                    </div>
+                </div>
+                <div class="btn-group float-right float-none-xs mt-2" dropdown>
+                    <button id="button-basi" dropdownToggle type="button"
+                        class="btn btn-outline-primary btn-xs dropdown-toggle" aria-controls="dropdown-basi">
+                        7 JOURS <span class="caret"></span>
+                    </button>
+                    <ul id="dropdown-basi" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basi">
+                        <li role="menuitem"><a class="dropdown-item" href="javascript:;">15 JOURS</a>
+                        </li>
+                        <li role="menuitem"><a class="dropdown-item" href="javascript:;">21 JOURS</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <app-line-chart *ngIf="lineChartData" [shadow]="true" [options]="chartDataConfig.lineChartOptions" [data]="lineChartData">
+                </app-line-chart>
+            </div>
+            
+
+
+
+
+
+
+
+          </div>
+    </div>
+
+
+
+    
+</div>

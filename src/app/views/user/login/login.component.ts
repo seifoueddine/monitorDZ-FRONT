@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         const role = user.body.data.role
         switch (role) {
           case 'GodLike':
-            this.router.navigate(['/app/slugs']); 
+            this.router.navigate(['/app/dashboard']); 
             break;
             case 'SuperOP':
               this.router.navigate(['/app/articles-for-sort']); 

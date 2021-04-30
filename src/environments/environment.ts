@@ -37,6 +37,8 @@ export const environment = {
     SEND_EMAIL_PATH: apiVersion + '/send_email',
     ARTICLE_BY_MEDIUM_PATH: apiVersion + '/articles_by_medium',
     ARTICLE_BY_AUTHOR_PATH: apiVersion + '/articles_by_author',
+    ARTICLE_BY_TAG_PATH: apiVersion + '/articles_by_tag',
+    ARTICLE_BY_DATE_PATH: apiVersion + '/articles_by_date',
   },
 
 

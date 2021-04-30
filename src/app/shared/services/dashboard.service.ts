@@ -10,6 +10,8 @@ export class DashboardService {
 
   private serviceUrl = environment.ENDPOINTS.ARTICLE_BY_MEDIUM_PATH;
   private serviceAuthorUrl = environment.ENDPOINTS.ARTICLE_BY_AUTHOR_PATH;
+  private serviceTagUrl = environment.ENDPOINTS.ARTICLE_BY_TAG_PATH;
+    private serviceDateUrl = environment.ENDPOINTS.ARTICLE_BY_DATE_PATH;
   constructor(private http: HttpClient) {}
 
 
@@ -26,4 +28,19 @@ export class DashboardService {
     const req = this.serviceAuthorUrl;
     return this.http.get(req, { observe: 'response' });
   }
+
+  getArticleByTag(): Observable<any> {
+    // const searchValue = date === '' ? '' : `&search=${date}`; 
+ 
+     const req = this.serviceTagUrl;
+     return this.http.get(req, { observe: 'response' });
+   }
+
+   getArticleByDate(): Observable<any> {
+    // const searchValue = date === '' ? '' : `&search=${date}`; 
+ 
+     const req = this.serviceDateUrl;
+     return this.http.get(req, { observe: 'response' });
+   }
+   
 }
