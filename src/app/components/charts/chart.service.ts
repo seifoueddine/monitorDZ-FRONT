@@ -140,8 +140,8 @@ export class ChartService {
           ticks: {
             beginAtZero: true,
             stepSize: 10,
-            min: 0,
-            max: 500,
+            min: 50,
+            max: 700,
             padding: 20
           }
         }

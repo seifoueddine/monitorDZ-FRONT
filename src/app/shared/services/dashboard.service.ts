@@ -36,10 +36,10 @@ export class DashboardService {
      return this.http.get(req, { observe: 'response' });
    }
 
-   getArticleByDate(): Observable<any> {
-    // const searchValue = date === '' ? '' : `&search=${date}`; 
+   getArticleByDate(days): Observable<any> {
+     const daysValue =  days === undefined ? '' :  `?number_days=${days}`; 
  
-     const req = this.serviceDateUrl;
+     const req = this.serviceDateUrl + daysValue;
      return this.http.get(req, { observe: 'response' });
    }
    
