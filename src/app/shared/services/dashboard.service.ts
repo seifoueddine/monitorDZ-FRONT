@@ -15,10 +15,11 @@ export class DashboardService {
   constructor(private http: HttpClient) {}
 
 
-  getArticleByMedium(): Observable<any> {
-   // const searchValue = date === '' ? '' : `&search=${date}`; 
+  getArticleByMedium(startDate: any, endDate: any): Observable<any> {
+    const start_date = `?start_date=${startDate}`; 
+    const end_date = `&end_date=${endDate}`; 
 
-    const req = this.serviceUrl;
+    const req = this.serviceUrl +start_date + end_date;
     return this.http.get(req, { observe: 'response' });
   }
 

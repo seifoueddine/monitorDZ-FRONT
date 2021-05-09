@@ -42,14 +42,15 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getArticleByMedium();
+    this.getArticleByMedium(this.start_date, this.end_date);
     this.getArticleByAuthor();
     this.getArticleByTag();
     this.getArticleByDate(7);
   }
 
-  getArticleByMedium() {
-    this.dashboardService.getArticleByMedium().subscribe(
+  getArticleByMedium(startDate: any, endDate: any) {
+    this.polarAreaChartData = null;
+    this.dashboardService.getArticleByMedium(startDate,endDate).subscribe(
       (data) => {
         if (data.status) {
           const resp = data.body;
@@ -302,6 +303,7 @@ export class DashboardComponent implements OnInit {
 
     let d2 = Date.parse(rangeDate[0]);
     let d1 = Date.parse(rangeDate[1]);
+    this.getArticleByMedium(this.start_date, this.end_date);
     // this.loadData(
     //   this.itemsPerPage,
     //   1,
@@ -337,6 +339,7 @@ export class DashboardComponent implements OnInit {
     this.end_date = new Date();
     this.duration = null;
     this.rage_date = [new Date(),new Date()];
+    this.getArticleByMedium(this.start_date, this.end_date);
     // this.loadData(
     //   this.itemsPerPage,
     //   1,
