@@ -14,6 +14,12 @@ const routes: Routes = [
             data: {
               roles: ['GodLike']
             } },
+
+             { path: 'client-dashboard', loadChildren: () => import('./client-dashboard/client-dashboard.module').then(m => m.ClientDashboardModule) , canActivate: [LoginGuard],
+            data: {
+              roles: ['ClientAdmin']
+            } },
+
             { path: 'slugs', loadChildren: () => import('./slugs/slugs.module').then(m => m.SlugsModule) , canActivate: [LoginGuard],
             data: {
               roles: ['GodLike']

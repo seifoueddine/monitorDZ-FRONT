@@ -9,7 +9,7 @@
 
             <div class="card-body">
               <div class="mb-5">
-                <h3 class="card-title color-theme-1"><b>{{article?.attributes.title}} <a target="_blank" [href]="article?.attributes.url_article"><i  class='simple-icon-link initial-height'></i></a></b></h3>
+                <h3 class="card-title color-theme-1"><b>{{article?.attributes.title}} <a tooltip="Lien direct" placement="left" target="_blank" [href]="article?.attributes.url_article"><i  class='simple-icon-link initial-height'></i></a></b></h3>
                 <div [innerHTML]="article?.attributes.body | sanitizeHtml"></div>
             </div>
 

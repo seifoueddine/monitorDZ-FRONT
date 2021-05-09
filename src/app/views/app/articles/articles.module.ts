@@ -24,6 +24,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { QuillModule } from 'ngx-quill';
 import { sanitizeHtmlPipe } from 'src/app/shared/sanitize-html.pipe';
 import { ComponentsStateButtonModule } from 'src/app/components/state-button/components.state-button.module';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 @NgModule({
   declarations: [ArticlesComponent, DetailsArticleComponent],
   imports: [
@@ -49,7 +50,8 @@ import { ComponentsStateButtonModule } from 'src/app/components/state-button/com
     ArchwizardModule,
     NgSelectModule,
     QuillModule.forRoot(),
-    ComponentsStateButtonModule 
+    ComponentsStateButtonModule,
+    TooltipModule.forRoot(),
   ],
   providers: [DatePipe]
 })

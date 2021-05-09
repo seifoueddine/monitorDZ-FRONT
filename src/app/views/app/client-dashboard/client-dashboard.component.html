@@ -30,8 +30,8 @@
                 </div>
                 <div class="card-body pt-0">
 
-                    <div class="dashboard-donut-chart">
-                        <app-doughnut-chart *ngIf="polarAreaChartData" [shadow]="true" [options]="chartDataConfig.doughnutChartOptions"
+                    <div *ngIf="polarAreaChartData" class="dashboard-donut-chart">
+                        <app-doughnut-chart  [shadow]="true" [options]="chartDataConfig.doughnutChartOptions"
                             [data]="polarAreaChartData"></app-doughnut-chart>
                     </div>
                 </div>
@@ -42,11 +42,19 @@
         </div>
     </div>
    <div  class="col-md-4 col-sm-12 mb-4">
-        <div style="height: 415px;" class="card">
+        <div  class="card">
             <div class="card-body">
-                <h5 class="card-title">Nbr d'articles par média ( {{duration}} )</h5>
-               
+              
+                <div class="float-left float-none-xs">
+                    <div class="d-inline-block">
+                        <h5 class="d-inline">Nbr d'articles par média</h5>
+                        <span class="text-muted text-small d-block">  {{duration}} </span>
+                    </div>
+                </div>
 
+          
+            </div>
+            <div class="card-body pt-0">
                 <perfect-scrollbar class="scroll" [config]="{suppressScrollX: true, wheelPropagation: false}">
                     <table class="table table-sm table-borderless">
                         <tbody>
@@ -60,10 +68,6 @@
                         </tbody>
                     </table>
                 </perfect-scrollbar>
-
-
-
-
             </div>
         </div>
     </div>
@@ -106,7 +110,7 @@
 
     </div> 
 </div>
-
+<!-- 
 <div class="row">
 
     <div class="col-12 mb-4">
@@ -151,4 +155,4 @@
 
 
     
-</div>
+</div> -->

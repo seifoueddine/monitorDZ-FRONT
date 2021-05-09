@@ -142,6 +142,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
         ];
         case 'ClientAdmin':
           this.menuItems = [
+            {
+              id: 'dashboard',
+              icon: 'iconsminds-monitor-analytics',
+              label: 'menu.dashboard',
+              to: '/app/client-dashboard'
+            },
           
             {
               id: 'client-articles',
