@@ -41,10 +41,10 @@
        
         </div>
     </div>
-   <div  class="col-md-4 col-sm-12 mb-4">
-        <div  class="card">
+    <div  class="col-md-4 col-sm-12 mb-4">
+        <div style="height: 415px;" class="card">
             <div class="card-body">
-              
+           
                 <div class="float-left float-none-xs">
                     <div class="d-inline-block">
                         <h5 class="d-inline">Nbr d'articles par média</h5>
@@ -52,10 +52,14 @@
                     </div>
                 </div>
 
-          
+                <div class=" float-right float-none-xs mt-2 mb-3">
+                   Total : {{total}}
+                </div>
             </div>
+
             <div class="card-body pt-0">
-                <perfect-scrollbar class="scroll" [config]="{suppressScrollX: true, wheelPropagation: false}">
+
+                <perfect-scrollbar style="height: 300px;" class="scroll" [config]="{suppressScrollX: true, wheelPropagation: false}">
                     <table class="table table-sm table-borderless">
                         <tbody>
                             <tr *ngFor="let medium of articlesWithCount">
@@ -68,6 +72,10 @@
                         </tbody>
                     </table>
                 </perfect-scrollbar>
+
+
+
+
             </div>
         </div>
     </div>

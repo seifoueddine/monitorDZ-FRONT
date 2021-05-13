@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
   rage_date: any = [new Date(), new Date()];
   duration: any;
   today: Date = new Date();
+  total = 0;
   constructor(
     private chartService: ChartService,
     private dashboardService: DashboardService,
@@ -50,18 +51,20 @@ export class DashboardComponent implements OnInit {
 
   getArticleByMedium(startDate: any, endDate: any) {
     this.polarAreaChartData = null;
+    this.articlesWithCount = [];
     this.dashboardService.getArticleByMedium(startDate,endDate).subscribe(
       (data) => {
         if (data.status) {
+          this.total = 0;
           const resp = data.body;
           this.articleByMedium = resp;
           const keys = Object.keys(this.articleByMedium);
-          const values = Object.values(this.articleByMedium);
-          
+          const values:number[] = Object.values(this.articleByMedium);
           keys.map((key,index)=> {
             let object: any = {}
             object.name = key;
-            object.count = values[index] + ( values[index] == '1' ? ' article' : ' articles');
+            object.count = values[index] + ( values[index] == 1 ? ' article' : ' articles');
+            this.total = this.total + values[index]
             this.articlesWithCount.push(object)
           });
 
