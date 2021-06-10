@@ -168,10 +168,10 @@
                 <div class="row">
                     <div class="col-12 text-center">
                    
-                    <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState"
-                     (click)="goToAutoTag()">
-                    Lance tag auto
-                  </app-state-button>
+                  
+                      <button type="button" class="btn btn-primary btn-lg btn-shadow" (click)="openModalTag(templateTag)">Lance tag auto</button>
+
+
                 </div>
                 </div>
                 <div class="row">
@@ -383,5 +383,45 @@
 
 
    
+    </div>
+  </ng-template>
+
+
+
+  <ng-template #templateTag>
+    <div class="modal-body text-center">
+      <h6 class="modal-title mb-4">Merci de Mettre l'entreprise </h6>
+      <div class="form-group">
+        <label>Entreprise</label>
+        <!-- <input type="text" class="form-control" [(ngModel)]="entreprise" placeholder="Entreprise"> -->
+        <ng-select *ngIf="slugs" [items]="slugs" bindLabel='attributes.name' bindValue="id" 
+        (change)="getValueSlug($event)" [searchFn]="customSearchSlug" [multiple]="false" >
+      </ng-select>
+      </div>
+
+
+       <div class="form-group">
+  
+
+        <div class="input-group mb-3">
+          <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rageDateTag"  placement='left'  bsDaterangepicker [placeholder]=" 'clientArticle.publicationDate' | translate" [maxDate]="today"  [container]="'html'"  (ngModelChange)="changeDateTag($event)"
+          [bsConfig]="{ adaptivePosition: true, rangeInputFormat: 'DD/MM/YYYY' }"> 
+          <div class="input-group-append">
+            <span style="padding-top: 5px; padding-left: 7px;padding-right: 0px;padding-bottom: 0px;" class="input-group-text" id="basic-addon2">
+              <a (click)="removeDatesTag()">
+                <i class="simple-icon-refresh c-pointer"></i>  
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState"
+      (click)="goToAutoTag()">
+     Lance tag auto
+   </app-state-button>
+       {{" "}}
+      <button type="button" class="btn btn-primary" (click)="declineTag()">Annuler</button>
     </div>
   </ng-template>

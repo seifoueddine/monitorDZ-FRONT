@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import * as moment from "moment";
 import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { SlugsService } from 'src/app/shared/services/slugs.service';
 @Component({
   selector: 'app-sort-articles',
   templateUrl: './sort-articles.component.html',
@@ -62,9 +63,14 @@ export class SortArticlesComponent implements OnInit {
   articleDetails: any;
   start_date: any = new Date();
   end_date: any = new Date();
+  startDate: any = new Date();
+  endDate: any = new Date();
   rage_date: any = [new Date(), new Date()];
+  rageDateTag: any = [new Date(), new Date()];
   duration: any;
   today: Date = new Date();
+  slugs: any;
+  slugId: any;
   languages = [
     { value: "fr", viewValue: "Fr" },
     { value: "ar", viewValue: "Ar" },
@@ -74,7 +80,7 @@ export class SortArticlesComponent implements OnInit {
 
   constructor(private renderer: Renderer2, private articleService: ArticlesService, private notifications: NotificationsService,
     private ourNotificationService: OurNotificationsService, private mediaService: MediaService, private router: Router,
-    private modalService: BsModalService, private datePipe: DatePipe, private translateService: TranslateService) {
+    private modalService: BsModalService, private datePipe: DatePipe, private translateService: TranslateService, private slugsService: SlugsService) {
 
       this.itemOrder = { label: this.translateService.instant('header.title' ), value: 'title' };
       this.itemOptionsOrders = [  { label: this.translateService.instant('header.title' ), value: "title" }, 
@@ -118,6 +124,22 @@ export class SortArticlesComponent implements OnInit {
     // this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date,this.end_date);
      this.listenToNotifier();
      this.getMedia();
+     this.getSlugs();
+  }
+
+  getSlugs(){
+    this.slugsService.getSlugs(1, 'created_at' , 'desc', 9999, '').subscribe(
+      data => {
+        if (data.status) {
+ 
+          const resp = data.body;
+          this.slugs = resp.data
+        }
+      },
+      error => {
+        this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      }
+    );
   }
 
 
@@ -425,10 +447,15 @@ setPage(pageInfo) {
   //   this.modalRef.hide();
   // }
 
+  openModalTag(templateTag: TemplateRef<any>) {
+    this.modalRefTag = this.modalService.show(templateTag, { class: 'modal-lg' });
+  }
+
+
   goToAutoTag(){
     this.buttonState = 'show-spinner';
 
-    this.articleService.autoTag().subscribe(
+    this.articleService.autoTag(this.slugId, this.startDate, this.endDate).subscribe( 
       data => {
         if (data.status) {
           this.itemsPerPage = 12;
@@ -439,6 +466,7 @@ setPage(pageInfo) {
           this.media_ids= null;
           this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.order_by, this.search,this.media_ids, this.start_date,this.end_date, this.langJoin);
           this.buttonState = '';
+          this.modalRefTag.hide();
         }
       },
       error => {
@@ -539,7 +567,13 @@ if (index !== -1) {
   }
 
 
-  
+  removeDatesTag() {
+    this.startDate = new Date();
+    this.endDate = new Date();
+
+    this.rageDate = [new Date(),new Date()];
+
+  }
   removeDates() {
     this.spinner = true;
     this.start_date = new Date();
@@ -602,6 +636,22 @@ if (index !== -1) {
   }
 
 
+  changeDateTag(rangeDate: any) {
+    this.spinner = true;
+    this.startDate = this.datePipe.transform(
+      new Date(rangeDate[0]),
+      "dd/MM/yyyy"
+    );
+    this.endDate = this.datePipe.transform(
+      new Date(rangeDate[1]),
+      "dd/MM/yyyy"
+    );
+
+ 
+  }
+
+
+
   selectLang(lan) {
     this.spinner = true;
     this.lanIds = [];
@@ -638,6 +688,18 @@ if (index !== -1) {
    
       );
     }
+  }
+
+  declineTag(): void {
+
+  
+    this.modalRefTag.hide();
+  }
+
+
+  getValueSlug(event){
+    console.log(event);
+    this.slugId = event.id;
   }
 
 

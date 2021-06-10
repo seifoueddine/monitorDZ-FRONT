@@ -69,7 +69,7 @@ export class DetailsArticleComponent implements OnInit {
             console.log(res);
             this.article = res.article.data;
             this.article.attributes.body = '<div dir="auto" >' + this.article.attributes.body + '</div>';
-            this.tags = this.article.attributes.tags.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i);
+            this.tags = res.tags;
             this.mediaName = res.article.included[0].attributes.name;
             this.authorName = res.article.data.attributes.author.name;
             this.similar = res.similar.data;

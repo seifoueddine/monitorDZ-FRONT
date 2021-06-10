@@ -143,8 +143,8 @@ export class ArticlesService {
   }
 
 
-  autoTag(): Observable<any> {
-    const req = this.serviceAutoTagUrl;
+  autoTag(slug_id?, startDate?, endDate?): Observable<any> {
+    const req = this.serviceAutoTagUrl+ `?slug_id=${slug_id}&start_date=${startDate}&end_date=${endDate}`;
     return this.http.get(req, { observe: 'response' });
   }
 
