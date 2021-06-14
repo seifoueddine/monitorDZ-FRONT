@@ -18,8 +18,6 @@ import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 
 
-
-
 @Component({
   selector: 'app-details-article',
   templateUrl: './details-article.component.html',
@@ -161,7 +159,17 @@ export class DetailsArticleComponent implements OnInit {
    
     this.tags.map(t => {
       let tag = t.name.trim();
+      let Tag = tag.replace(tag[0],tag[0].toUpperCase());
+      let TAG = tag.replace(tag,tag.toUpperCase());
       let re = new RegExp(tag, 'g');
+      let TagRe = new RegExp(Tag, 'g');
+      let TAGRe = new RegExp(TAG, 'g');
+
+   
+      this.article.attributes.body = this.article.attributes.body.replace(TAGRe, '<span style="padding-right: 2px; padding-left: 2px; border-radius: 5px; border: 1px solid #73b0ff; background-color:#95bff5;";font-weight:bold">' + TAG + '</span>');
+
+      this.article.attributes.body = this.article.attributes.body.replace(TagRe, '<span style="padding-right: 2px; padding-left: 2px; border-radius: 5px; border: 1px solid #73b0ff; background-color:#95bff5;";font-weight:bold">' + Tag + '</span>');
+
       this.article.attributes.body = this.article.attributes.body.replace(re, '<span style="padding-right: 2px; padding-left: 2px; border-radius: 5px; border: 1px solid #73b0ff; background-color:#95bff5;";font-weight:bold">' + tag + '</span>');
     }) 
 
@@ -234,6 +242,7 @@ export class DetailsArticleComponent implements OnInit {
     }
    
   }
+
 
 
 }
