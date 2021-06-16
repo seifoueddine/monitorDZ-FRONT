@@ -39,7 +39,7 @@
         </div>
       </div> -->
 <div class="col-12" *ngIf="!spinner">
-      <div dir="rtl" class="col-12" *ngFor="let item of rows; let i=index">
+      <div class="col-12" *ngFor="let item of rows; let i=index">
         <div  [ngClass]="{'card d-flex mb-3 card': true, 'active':isSelected(item)}">
             <div class="d-flex flex-grow-1 min-width-zero">
                 <div

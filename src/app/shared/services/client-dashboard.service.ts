@@ -8,9 +8,9 @@ import { environment } from 'src/environments/environment';
 })
 export class ClientDashboardService {
 
-  private serviceUrl = environment.ENDPOINTS.ARTICLE_BY_MEDIUM_PATH;
-  private serviceAuthorUrl = environment.ENDPOINTS.ARTICLE_BY_AUTHOR_PATH;
-  private serviceTagUrl = environment.ENDPOINTS.ARTICLE_BY_TAG_PATH;
+  private serviceUrl = environment.ENDPOINTS.ARTICLE_CLIENT_BY_MEDIUM_PATH;
+  private serviceAuthorUrl = environment.ENDPOINTS.ARTICLE_CLIENT_BY_AUTHOR_PATH;
+  private serviceTagUrl = environment.ENDPOINTS.ARTICLE_CLIENT_BY_TAG_PATH;
   private serviceDateUrl = environment.ENDPOINTS.ARTICLE_BY_DATE_PATH;
   constructor(private http: HttpClient) {}
 

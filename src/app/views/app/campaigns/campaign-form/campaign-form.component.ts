@@ -165,7 +165,7 @@ export class CampaignFormComponent implements OnInit {
         slug_id: new FormControl(null, [Validators.required]),
         sector_id: new FormControl(null),
         media_id: new FormControl(null, [Validators.required]),
-        tag_id: new FormControl(null, [Validators.required]),
+        tag_id: new FormControl(null),
       });
 
     } else {
@@ -176,7 +176,7 @@ export class CampaignFormComponent implements OnInit {
         slug_id: new FormControl(String(this.data.attributes.slug_id), [Validators.required]),
         sector_id: new FormControl(this.data.sectorNameArray),
         media_id: new FormControl(this.data.mediaNameArray, [Validators.required]),
-        tag_id: new FormControl(this.data.tagNameArray, [Validators.required]),
+        tag_id: new FormControl(this.data.tagNameArray),
       });
     }
   }

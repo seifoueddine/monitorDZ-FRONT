@@ -54,6 +54,7 @@ export class ClientDashboardComponent implements OnInit {
     this.dashboardService.getArticleByMedium(startDate,endDate).subscribe(
       (data) => {
         if (data.status) {
+          this.total = 0;
           const resp = data.body;
           this.articleByMedium = resp;
           const keys = Object.keys(this.articleByMedium);
