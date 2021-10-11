@@ -164,3 +164,52 @@
 
     
 </div>
+
+
+
+
+<div class="row">
+
+    <div class="col-md-12 col-sm-12 mb-4">
+        <div class="card">
+      
+
+
+                <div class="card-body">
+                    <div class="float-left float-none-xs">
+                        <div class="d-inline-block">
+                            <h5 class="d-inline">Nombre d'apparitions tag par date</h5>
+                            <span class="text-muted text-small d-block">  {{durationTag}} </span>
+                        </div>
+                    </div>
+ 
+
+                    <div class=" float-right float-none-xs mt-2 mb-3">
+                        <div class="input-group ">
+                        <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date_tag"  placement='left'  bsDaterangepicker placeholder="Date de publication" [maxDate]="today"  [container]="'html'"  (ngModelChange)="changeDateTag($event)"
+                        [bsConfig]="{ adaptivePosition: true, rangeInputFormat: 'DD/MM/YYYY' }"> 
+                        <div class="input-group-append">
+                          <span  class="input-group-text" id="basic-addon3">
+                            <a (click)="removeDatesTag()">
+                              <i class="simple-icon-refresh c-pointer"></i>  
+                            </a>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="card-body pt-0">
+
+                    <app-line-chart *ngIf="lineChartData_tag" [shadow]="true" [options]="chartDataConfig.lineChartOptionsForTag" [data]="lineChartData_tag">
+                    </app-line-chart>
+                </div>
+
+
+
+       
+        </div>
+    </div>
+
+    
+    
+</div>

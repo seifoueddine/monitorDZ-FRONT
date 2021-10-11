@@ -156,8 +156,54 @@ export class ChartService {
     }
   };
 
+
+private _lineChartOptionsForTag = {
+    legend: {
+      display: false
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    tooltips: this.chartTooltip,
+    plugins: {
+      datalabels: {
+        display: false
+      }
+    },
+    scales: {
+      yAxes: [
+        {
+          gridLines: {
+            display: true,
+            lineWidth: 1,
+            color: 'rgba(0,0,0,0.1)',
+            drawBorder: false
+          },
+          ticks: {
+            beginAtZero: true,
+            stepSize: 10,
+            min: 1,
+            max: 200,
+            padding: 20
+          }
+        }
+      ],
+      xAxes: [
+        {
+          gridLines: {
+            display: false
+          }
+        }
+      ]
+    }
+  };
+  
+
   public get lineChartOptions() {
     return this._lineChartOptions;
+  }
+
+  public get lineChartOptionsForTag() {
+    return this._lineChartOptionsForTag;
   }
 
   private _areaChartOptions = {

@@ -12,6 +12,7 @@ export class ClientDashboardService {
   private serviceAuthorUrl = environment.ENDPOINTS.ARTICLE_CLIENT_BY_AUTHOR_PATH;
   private serviceTagUrl = environment.ENDPOINTS.ARTICLE_CLIENT_BY_TAG_PATH;
   private serviceDateUrl = environment.ENDPOINTS.ARTICLE_BY_DATE_PATH;
+  private serviceUrlTag = environment.ENDPOINTS.TAG_CLIENT_BY_DATE_PATH;
   constructor(private http: HttpClient) {}
 
 
@@ -19,6 +20,14 @@ export class ClientDashboardService {
     const start_date = `?start_date=${startDate}`; 
     const end_date = `&end_date=${endDate}`; 
     const req = this.serviceUrl +start_date + end_date;
+    return this.http.get(req, { observe: 'response' });
+  }
+
+  getTagByDate(startDate: any, endDate: any): Observable<any> {
+    const start_date = `?start_d=${startDate}`; 
+    const end_date = `&end_d=${endDate}`; 
+
+    const req = this.serviceUrlTag +start_date + end_date;
     return this.http.get(req, { observe: 'response' });
   }
 

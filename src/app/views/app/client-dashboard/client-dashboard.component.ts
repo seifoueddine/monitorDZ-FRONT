@@ -18,6 +18,7 @@ export class ClientDashboardComponent implements OnInit {
   polarAreaChartData: any;
   polarAreaChartDataAuthor: any;
   lineChartData: any;
+  lineChartData_tag: any;
   spinner: boolean;
   articleByMedium: any;
   articleByAuthor: any;
@@ -32,6 +33,12 @@ export class ClientDashboardComponent implements OnInit {
   duration: any;
   today: Date = new Date();
   total = 0;
+  start_date_tag: any = new Date();
+  end_date_tag: any = new Date();
+
+  rage_date_tag: any = [new Date(), new Date()];
+
+  durationTag: any;
   constructor(
     private chartService: ChartService,
     private dashboardService: ClientDashboardService,
@@ -45,6 +52,7 @@ export class ClientDashboardComponent implements OnInit {
     this.getArticleByMedium(this.start_date, this.end_date);
     this.getArticleByAuthor();
     this.getArticleByTag();
+    this.getTagByDate(this.start_date_tag, this.end_date_tag);
    // this.getArticleByDate(7);
   }
 
@@ -355,6 +363,98 @@ export class ClientDashboardComponent implements OnInit {
     //   this.langJoin
     // );
   }
+
+  removeDatesTag() {
+    this.spinner = true;
+    this.start_date_tag = new Date();
+    this.end_date_tag = new Date();
+    this.durationTag = null;
+    this.rage_date_tag = [new Date(),new Date()];
+    this.getTagByDate(this.start_date, this.end_date);
+
+  }
+
+  getTagByDate(startDate: any, endDate: any) {
+    this.lineChartData_tag = null
+   // this.days = days;
+    this.dashboardService.getTagByDate(startDate,endDate).subscribe(
+      (data) => {
+        if (data.status) {
+          const resp = data.body;
+          this.articleByDate = resp;
+          const keys = Object.keys(this.articleByDate);
+          const values = Object.values(this.articleByDate);
+          let new_keys = [];
+          // keys.map((x)=>{
+          //   new_keys.push( x.replace('00:00:00 UTC',' '))
+
+          // });
+            this.lineChartData_tag = {
+              labels: keys,
+              datasets: [
+                {
+                  label: '',
+                  data: values,
+                  borderColor: Colors.getColors().themeColor1,
+                  pointBackgroundColor: Colors.getColors().foregroundColor,
+                  pointBorderColor: Colors.getColors().themeColor1,
+                  pointHoverBackgroundColor: Colors.getColors().themeColor1,
+                  pointHoverBorderColor: Colors.getColors().foregroundColor,
+                  pointRadius: 4,
+                  pointBorderWidth: 2,
+                  pointHoverRadius: 6,
+                  borderWidth: 2,
+                  fill: false
+                }
+              ]
+            };
+        
+          
+        }
+      },
+      (error) => {
+        this.spinner = false;
+        this.notifications.create("Error", "error", NotificationType.Error, {
+          theClass: "primary",
+          timeOut: 6000,
+          showProgressBar: false,
+        });
+      }
+    );
+  }
+
+
+  changeDateTag(rangeDate: any) {
+    // this.spinner = true;
+     this.start_date_tag = this.datePipe.transform(
+       new Date(rangeDate[0]),
+       "dd/MM/yyyy"
+     );
+     this.end_date_tag = this.datePipe.transform(
+       new Date(rangeDate[1]),
+       "dd/MM/yyyy"
+     );
+ 
+     let d2 = Date.parse(rangeDate[0]);
+     let d1 = Date.parse(rangeDate[1]);
+     this.getTagByDate(this.start_date_tag, this.end_date_tag);
+ 
+     let m = moment(d1);
+     let years = m.diff(d2, "years");
+     m.add(-years, "years");
+     let months = m.diff(d2, "months");
+     m.add(-months, "months");
+     let days = m.diff(d2, "days");
+ 
+     this.durationTag =
+       +years > 0
+         ? years + " Years " + months + " Mois " + days + " Jours "
+         : +months > 0
+         ? months + " Mois " + (+days > 0 ? days + " jours " : "")
+         : days > 0
+         ? days + " Jours "
+         : "Même Jour";
+   }
 
 
 }
