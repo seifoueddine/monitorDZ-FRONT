@@ -313,9 +313,9 @@ private _lineChartOptionsForTag = {
           },
           ticks: {
             beginAtZero: true,
-            stepSize: 100,
-            min: 300,
-            max: 800,
+            stepSize: 1,
+            min: 1,
+            max: 50,
             padding: 20
           }
         }
