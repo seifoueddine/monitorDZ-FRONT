@@ -315,7 +315,7 @@ private _lineChartOptionsForTag = {
             beginAtZero: true,
             stepSize: 1,
             min: 1,
-            max: 50,
+            max: 500,
             padding: 20
           }
         }
