@@ -200,7 +200,7 @@
                 </div>
                 <div class="card-body pt-0">
 
-                    <app-bar-chart *ngIf="lineChartData_tag" [shadow]="true" [options]="chartDataConfig.barChartOptions" [data]="lineChartData_tag">
+                    <app-bar-chart *ngIf="lineChartData_tag && _barChartOptions" [shadow]="true" [options]="_barChartOptions" [data]="lineChartData_tag">
                     </app-bar-chart>
                 </div>
 

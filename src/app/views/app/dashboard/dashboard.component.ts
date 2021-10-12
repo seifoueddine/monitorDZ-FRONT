@@ -38,6 +38,8 @@ export class DashboardComponent implements OnInit {
   durationTag: any;
   today: Date = new Date();
   total = 0;
+  _barChartOptions: any
+
   constructor(
     private chartService: ChartService,
     private dashboardService: DashboardService,
@@ -404,6 +406,53 @@ export class DashboardComponent implements OnInit {
           this.articleByDate = resp;
           const keys = Object.keys(this.articleByDate);
           const values = Object.values(this.articleByDate);
+          console.log(values);
+          const max = Math.max.apply(null, values);
+
+
+          this._barChartOptions =   {
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 30,
+                usePointStyle: true,
+                fontSize: 12
+              }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [
+                {
+                  gridLines: {
+                    display: true,
+                    lineWidth: 1,
+                    color: 'rgba(0,0,0,0.1)',
+                    drawBorder: false
+                  },
+                  ticks: {
+                    beginAtZero: true,
+                    stepSize: 1,
+                    min: 1,
+                    max: max,
+                    padding: 20
+                  }
+                }
+              ],
+              xAxes: [
+                {
+                  gridLines: {
+                    display: false
+                  }
+                }
+              ]
+            },
+            tooltips: this.chartService.chartTooltip
+          };
+
+
+
+
           let new_keys = [];
           // keys.map((x)=>{
           //   new_keys.push( x.replace('00:00:00 UTC',' '))

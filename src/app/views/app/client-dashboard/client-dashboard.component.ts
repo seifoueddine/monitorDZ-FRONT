@@ -39,6 +39,7 @@ export class ClientDashboardComponent implements OnInit {
   rage_date_tag: any = [new Date(), new Date()];
 
   durationTag: any;
+  _barChartOptions: any;
   constructor(
     private chartService: ChartService,
     private dashboardService: ClientDashboardService,
@@ -385,6 +386,49 @@ export class ClientDashboardComponent implements OnInit {
           const keys = Object.keys(this.articleByDate);
           const values = Object.values(this.articleByDate);
           let new_keys = [];
+          const max = Math.max.apply(null, values);
+
+
+          this._barChartOptions =   {
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 30,
+                usePointStyle: true,
+                fontSize: 12
+              }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [
+                {
+                  gridLines: {
+                    display: true,
+                    lineWidth: 1,
+                    color: 'rgba(0,0,0,0.1)',
+                    drawBorder: false
+                  },
+                  ticks: {
+                    beginAtZero: true,
+                    stepSize: 1,
+                    min: 1,
+                    max: max,
+                    padding: 20
+                  }
+                }
+              ],
+              xAxes: [
+                {
+                  gridLines: {
+                    display: false
+                  }
+                }
+              ]
+            },
+            tooltips: this.chartService.chartTooltip
+          };
+
           // keys.map((x)=>{
           //   new_keys.push( x.replace('00:00:00 UTC',' '))
 
