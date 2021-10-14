@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   chartDataConfig: ChartService;
   polarAreaChartData: any;
   polarAreaChartDataAuthor: any;
+  polarAreaChartDataTAgMedia: any;
   lineChartData: any;
   lineChartData_tag: any;
   spinner: boolean;
@@ -55,6 +56,7 @@ export class DashboardComponent implements OnInit {
     this.getArticleByTag();
     this.getArticleByDate(7);
     this.getTagByDate(this.start_date_tag, this.end_date_tag);
+    this.staticValues();
   }
 
   getArticleByMedium(startDate: any, endDate: any) {
@@ -433,7 +435,7 @@ export class DashboardComponent implements OnInit {
                   ticks: {
                     beginAtZero: true,
                     stepSize: 1,
-                    min: 1,
+                    min: 0,
                     max: max,
                     padding: 20
                   }
@@ -490,6 +492,40 @@ export class DashboardComponent implements OnInit {
         });
       }
     );
+  }
+
+
+  staticValues(){
+    this.polarAreaChartDataTAgMedia = {
+      labels: ['ALGERIE360','ENNAHAR','TSA','CHIFFREAFFAIRE','LIBERTE'],
+      datasets: [
+        {
+          data:  [15,12,7,10,19],
+          borderWidth: 2,
+          borderColor: [
+             '#6b1f64',
+             '#012740',
+             '#0f3d63',
+             '#0072a3',
+             '#3f4d2c',
+             '#54871e',
+             '#bd5911',
+
+          ],
+          backgroundColor: [
+            '#922c8833',
+            '#00365a33',
+            '#14538833',
+            '#008ecc33',
+            '#576a3d33',
+            '#6fb32733',
+            '#ed711733',
+
+            
+          ],
+        },
+      ],
+    };
   }
 
 
