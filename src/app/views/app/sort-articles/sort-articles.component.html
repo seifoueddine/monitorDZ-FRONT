@@ -58,7 +58,7 @@
         </div>
       </div>
     </div>
-  
+    <!-- <a  target="_blank" [href]="'app/articles/edit?id='+a.id">  -->
     <div class="col-12 list" *ngIf="displayMode==='image'">
       <div class="row">
         <div class="col-xl-4 col-lg-4 col-12 col-sm-6 mb-4" *ngFor="let a of rows; let i=index"  >
@@ -66,7 +66,7 @@
             <div class="position-relative">
               <a href="javascript:;">
                 <div class="position-absolute card-top-buttons">
-                    <button class="btn btn-outline-white icon-button c-pointer" (click)="openModal(template, a)"><i class="simple-icon-pencil"></i></button>
+                    <button class="btn btn-outline-white icon-button c-pointer"  (click)="openModal(template, a)"><i class="simple-icon-pencil"></i></button>
                 </div>
               </a>
                 <a href="javascript:;" (click)="openDetailsModal(templateDetails, a)">

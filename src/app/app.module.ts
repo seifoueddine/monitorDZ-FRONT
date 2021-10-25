@@ -20,6 +20,7 @@ import { XhrInterceptor } from './http.interceptor';
 
 
 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -60,7 +61,7 @@ import { XhrInterceptor } from './http.interceptor';
     }),
   ],
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   providers: [ AngularTokenModule,
     {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},

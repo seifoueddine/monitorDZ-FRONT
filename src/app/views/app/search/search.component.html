@@ -27,6 +27,7 @@
 
   <div *ngIf="result?.length > 0" class="row app-row">
     <div class="col-12">
+      <p class="text-muted">Pour votre recherche ' <strong>{{ searchKey }} </strong> '</p> 
       <p class="text-muted">{{totalElements}} résultats ({{time/1000}} secondes)</p> 
 </div>
 </div>

@@ -91,9 +91,15 @@ export class SortArticlesComponent implements OnInit {
 
     
   openModal(template: TemplateRef<any>, data: any) {
-    this.valueBind = data.attributes.body;
-    this.articleId = data.id;
-    this.modalRef = this.modalService.show(template, { class: 'modal-xl' });
+    // this.valueBind = data.attributes.body;
+     this.articleId = data.id;
+    // this.modalRef = this.modalService.show(template, { class: 'modal-xl' });
+
+
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['app/articles/edit'], { queryParams: { id: this.articleId } })
+    );
+    window.open(url, "_blank");
   }
 
   openDetailsModal(template: TemplateRef<any>, data: any) {

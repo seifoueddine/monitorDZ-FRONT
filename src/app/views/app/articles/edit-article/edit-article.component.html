@@ -1,0 +1,45 @@
+<div class="card mb-12">
+    <div class="card-body">
+  
+      <h2 class="mb-4">Modification de l'article | Source ( <a target="_blank" [href]="article?.attributes.url_article"><i class='simple-icon-link initial-height'></i></a> ) </h2>
+
+
+      <form *ngIf="articleForm" [formGroup]="articleForm" #form="ngForm" (ngSubmit)="editArticle($event)" novalidate class="tooltip-label-right">
+
+
+        <label class="form-group has-float-label">
+            <span>Titre</span>
+            <input type="name" class="form-control" formControlName="title">
+            <div *ngIf="articleForm.get('title').errors?.required && form.submitted" class="invalid-tooltip">Titre est requis</div>
+            <div *ngIf="articleForm.get('title').errors?.minlength && form.submitted" class="invalid-tooltip">Le titre doit contenir au moins 2 caractères!</div>
+          </label>
+          <label class="form-group has-float-label">
+            <ng-select *ngIf="authors"  mul [items]="authors"  bindLabel='attributes.name' bindValue="id" 
+            formControlName="author_id" [searchFn]="customSearchAuthor" [multiple]="false" >
+          </ng-select>
+            <span>Auteur</span>
+          </label>
+           <label class="form-group has-float-label">
+            <input class="form-control" bsDatepicker  formControlName="date_published" [container]="'html'" required name="date2">
+            <span>Date</span>
+          </label>
+          <label class="form-group has-float-label">
+           <quill-editor formControlName="valueBind" [placeholder]="''"></quill-editor>
+           <span>Body</span>
+          </label>
+
+
+          <button class="btn btn-primary" type="submit">Modifier</button>
+
+        <h3 class="mb-4 text-center">Aperçu du body</h3>  
+        <div style="border: dashed; border-color: dimgray; border-radius: 10px; padding: 15px;" [innerHTML]="articleForm.get('valueBind').value | sanitizeHtml"></div>  
+    </form>
+
+
+
+   
+  
+    </div>
+</div>
+  
+  
