@@ -9,6 +9,9 @@ export class OurNotificationsService {
   private reloadSlugs = new Subject<any>();
   reloadSlugsNotifier$ = this.reloadSlugs.asObservable();
 
+  private reloadAuthor = new Subject<any>();
+  reloadAuthorsNotifier$ = this.reloadAuthor.asObservable();
+
   private reloadTags = new Subject<any>();
   reloadTagsNotifier$ = this.reloadTags.asObservable();
 
@@ -38,6 +41,10 @@ export class OurNotificationsService {
 
   notficateReloadSlugs() {
     this.reloadSlugs.next();
+  }
+
+  notficateReloadAuthors() {
+    this.reloadAuthor.next();
   }
   
    notficateReloadTags() {

@@ -19,6 +19,7 @@ export class EditArticleComponent implements OnInit {
   valueBind: any;
   articleForm: FormGroup;
   authors: any;
+  mediumId: any;
   constructor( private authorsService: AuthorsService, private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,private notifications: NotificationsService, private datePipe: DatePipe, private sanitizer: DomSanitizer) {
 
     this.route
@@ -30,8 +31,10 @@ export class EditArticleComponent implements OnInit {
         .subscribe((res: any) => {
           console.log(res);
            this.article = res.article.data;
+           this.mediumId = res.article.data.attributes.medium.id;
            this.valueBind = this.article.attributes.body;
            this.createArticleForm();
+            this.getAuthors();
           // this.media = res.article.included[0].attributes.name;
           // this.author = res.article.data.attributes.author.name;
         }, error => {
@@ -43,12 +46,12 @@ export class EditArticleComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.createArticleForm();
-    this.getAuthors();
+   // this.createArticleForm();
+   
   }
 
   getAuthors() {
-    this.authorsService.getAuthors().subscribe(
+    this.authorsService.getAuthors(1, 'created_at' , 'desc', 9999, '', this.mediumId).subscribe(
       (data) => {
         if (data.status) {
           const resp = data.body;

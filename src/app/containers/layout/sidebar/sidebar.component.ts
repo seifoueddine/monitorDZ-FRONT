@@ -92,6 +92,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
               to: '/app/media'
             },
             {
+              id: 'authors',
+              icon: 'iconsminds-mens',
+              label: 'menu.authors',
+              to: '/app/authors'
+            },
+            {
               id: 'campaigns',
               icon: 'simple-icon-flag',
               label: 'menu.campaigns',

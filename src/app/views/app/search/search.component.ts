@@ -99,7 +99,7 @@ spinner = false
   }
 
   getAuthors() {
-    this.authorsService.getAuthors().subscribe(
+    this.authorsService.getAuthorsClients().subscribe(
       (data) => {
         if (data.status) {
           const resp = data.body;

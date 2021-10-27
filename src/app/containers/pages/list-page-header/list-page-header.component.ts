@@ -10,6 +10,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { TagsService } from 'src/app/shared/services/tags.service';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { ListsService } from 'src/app/shared/services/lists.service';
+import { AuthorsService } from 'src/app/shared/services/authors.service';
 
 @Component({
   selector: 'app-list-page-header',
@@ -48,10 +49,11 @@ export class ListPageHeaderComponent implements OnInit {
     private campaignService: CampaignsService,
     private ourNotificationService: OurNotificationsService,
     private notifications: NotificationsService,
-    private  translateService: TranslateService,
+    private translateService: TranslateService,
     private tagsService: TagsService,
     private usersService: UsersService,
-    private listsService: ListsService) { }
+    private listsService: ListsService,
+    private authorService: AuthorsService) { }
 
 
   openModal(template: TemplateRef<any>) {
@@ -105,6 +107,8 @@ export class ListPageHeaderComponent implements OnInit {
         break;
         case "slugs":
         this.deleteSlug(id);
+        case "authors":
+          this.deleteAuthor(id);
         break;
         case "media":
         this.deleteMedia(id);
@@ -175,6 +179,31 @@ export class ListPageHeaderComponent implements OnInit {
       }
     );
   }
+
+  deleteAuthor(id) {
+    this.authorService.deleteAuthor(id).subscribe(
+      (res) => {
+        this.notifications.create(
+          "Succès",
+          "Supprimer l'auteur avec succès",
+          NotificationType.Success,
+          { theClass: "primary", timeOut: 6000, showProgressBar: false }
+        );
+        this.ourNotificationService.notficateReloadAuthors();
+        this.id = "";
+        // this.selectAllState = '';
+      },
+      (err) => {
+        this.notifications.create(
+          "Warn",
+          err.error.message,
+          NotificationType.Warn,
+          { theClass: "primary", timeOut: 6000, showProgressBar: false }
+        );
+      }
+    );
+  }
+  
 
    deleteMedia(id) {
     this.mediaService.deleteMedia(id).subscribe(

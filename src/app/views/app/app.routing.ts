@@ -24,6 +24,13 @@ const routes: Routes = [
             data: {
               roles: ['GodLike']
             } },
+
+
+            { path: 'authors', loadChildren: () => import('./authors/authors.module').then(m => m.AuthorsModule) , canActivate: [LoginGuard],
+            data: {
+              roles: ['GodLike']
+            } },
+
             { path: 'sectors', loadChildren: () => import('./sectors/sectors.module').then(m => m.SectorsModule), canActivate: [LoginGuard],
             data: {
               roles: ['GodLike']
