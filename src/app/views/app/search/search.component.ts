@@ -62,6 +62,7 @@ export class SearchComponent implements OnInit {
 };
 urlForImage = environment.URL_PATH;
 defaultIcon = "assets/img/logo.jpg";
+spinner = false
   constructor(private modalService: BsModalService,private route: ActivatedRoute, private searchService: SearchService, private listsService: ListsService,
      private notifications: NotificationsService, private router: Router, private datePipe: DatePipe, private authorsService: AuthorsService) {
 
@@ -71,11 +72,13 @@ defaultIcon = "assets/img/logo.jpg";
     .queryParams
     .subscribe(params => {
       this.searchKey = params['key'];
-
+  this.spinner = true;
+  this.result = [];
       this.searchService.search(this.currentPage, this.orderBy, this.direction, this.itemsPerPage, this.searchKey, this.authorsIdJoin, this.start_date, this.end_date,this.langJoin,this.tagsNameJoin,this.mediaTypesJoin, this.zoneJoin,this.mediaIdJoin)
         .subscribe((res: any) => {
           this.totalElements = +res.headers.get('X-Total-Count');
           this.result = res.body.result_articles.data;
+          this.spinner = false;
           this.suggestions = res.body.suggestions;
           this.tags = res.body.tags;
           this.media = res.body.media.data;
@@ -317,7 +320,7 @@ defaultIcon = "assets/img/logo.jpg";
 
 
   changeDate(rangeDate: any) {
-   // this.spinner = true;
+    this.spinner = true;
     this.start_date = this.datePipe.transform(
       new Date(rangeDate[0]),
       "dd/MM/yyyy"
@@ -360,7 +363,7 @@ defaultIcon = "assets/img/logo.jpg";
   }
 
   removeDates() {
-  //  this.spinner = true;
+  this.spinner = true;
     this.start_date = null;
     this.end_date = null;
     this.duration = null;
@@ -380,7 +383,7 @@ defaultIcon = "assets/img/logo.jpg";
   }
 
   selectAuthor(event) {
-   // this.spinner = true;
+    this.spinner = true;
 
     this.authorIds = [];
     const authorsArray = event;
@@ -418,7 +421,7 @@ defaultIcon = "assets/img/logo.jpg";
 
 
   selectMedia(event) {
-    // this.spinner = true;
+     this.spinner = true;
  
      this.mediaIds = [];
      const mediaArray = event;
@@ -502,7 +505,7 @@ defaultIcon = "assets/img/logo.jpg";
 
  }
  changeStatusPaper(event) {
- //  this.spinner = true;
+ this.spinner = true;
    if (event.target.checked) {
      this.mediaTypesSelected.push("paper");
   
@@ -576,7 +579,7 @@ defaultIcon = "assets/img/logo.jpg";
        this.result = res.body.result_articles.data;
        this.suggestions = res.body.suggestions;
        this.tags = res.body.tags;
-       this.media = res.body.media;
+       this.media = res.body.media
        this.time = res.body.time;
      }, error => {
        // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
@@ -590,7 +593,7 @@ defaultIcon = "assets/img/logo.jpg";
 
  }
  changeStatusInernatio(event) {
- //  this.spinner = true;
+ this.spinner = true;
    if (event.target.checked) {
      this.zoneSelected.push("international");
    } else {
@@ -632,7 +635,7 @@ defaultIcon = "assets/img/logo.jpg";
  }
 
  selectLang(lan) {
- // this.spinner = true;
+  this.spinner = true;
   this.lanIds = [];
   const langArray = lan;
   langArray.map((s) => this.lanIds.push(s.value));
@@ -668,7 +671,7 @@ defaultIcon = "assets/img/logo.jpg";
 
 
 selectTag(tag) {
- // this.spinner = true;
+  this.spinner = true;
   this.tagsName = [];
   const langArray = tag;
   langArray.map((s) => this.tagsName.push(s.name));
