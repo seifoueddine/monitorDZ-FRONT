@@ -34,7 +34,7 @@ export class AuthorsService {
    */
   getAuthors(page, active, direction, size, search, medium_id?): Observable<any> {
     const searchValue = search === '' ? '' : `&search=${search}`; 
-    const mediumId = medium_id === '' ? '' : `&medium_id=${medium_id}`; 
+    const mediumId = medium_id == undefined ? '' : `&medium_id=${medium_id}`; 
     const req = this.serviceUrl + `?page=${page}&per_page=${size}&order=${active}&direction=${direction}`+ mediumId + searchValue;
     return this.http.get(req, { observe: 'response' });
   }
