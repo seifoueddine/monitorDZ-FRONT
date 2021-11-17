@@ -231,7 +231,7 @@
                 </div>
             </div>
             <div class="card-body pt-0">
-                <app-line-chart *ngIf="lineChartData" [shadow]="true" [options]="chartDataConfig.lineChartOptions" [data]="lineChartData">
+                <app-line-chart *ngIf="lineChartData && lineChartOptions" [shadow]="true" [options]="lineChartOptions" [data]="lineChartData">
                 </app-line-chart>
             </div>
             

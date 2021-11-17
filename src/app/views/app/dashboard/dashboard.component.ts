@@ -47,6 +47,7 @@ export class DashboardComponent implements OnInit {
   today: Date = new Date();
   total = 0;
   _barChartOptions: any
+   lineChartOptions: { legend: { display: boolean; }; responsive: boolean; maintainAspectRatio: boolean; tooltips: any; plugins: { datalabels: { display: boolean; }; }; scales: { yAxes: { gridLines: { display: boolean; lineWidth: number; color: string; drawBorder: boolean; }; ticks: { beginAtZero: boolean; stepSize: number; min: number; max: number; padding: number; }; }[]; xAxes: { gridLines: { display: boolean; }; }[]; }; };
 
   constructor(
     private chartService: ChartService,
@@ -273,6 +274,52 @@ export class DashboardComponent implements OnInit {
             new_keys.push( x.replace('00:00:00 UTC',' '))
 
           });
+
+     
+          console.log(values);
+          const max = Math.max.apply(null, values);
+
+          this.lineChartOptions = {
+            legend: {
+              display: false
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            tooltips: this.chartService.chartTooltip,
+            plugins: {
+              datalabels: {
+                display: false
+              }
+            },
+            scales: {
+              yAxes: [
+                {
+                  gridLines: {
+                    display: true,
+                    lineWidth: 1,
+                    color: 'rgba(0,0,0,0.1)',
+                    drawBorder: false
+                  },
+                  ticks: {
+                    beginAtZero: true,
+                    stepSize: 10,
+                    min: 50,
+                    max: max + 50,
+                    padding: 20
+                  }
+                }
+              ],
+              xAxes: [
+                {
+                  gridLines: {
+                    display: false
+                  }
+                }
+              ]
+            }
+          };
+
+
             this.lineChartData = {
               labels: new_keys,
               datasets: [
@@ -457,9 +504,9 @@ export class DashboardComponent implements OnInit {
       (data) => {
         if (data.status) {
           const resp = data.body;
-          this.articleByDate = resp;
-          const keys = Object.keys(this.articleByDate);
-          const values = Object.values(this.articleByDate);
+         // this.articleByDate = resp;
+          const keys = Object.keys(resp);
+          const values = Object.values(resp);
           console.log(values);
           const max = Math.max.apply(null, values);
 
