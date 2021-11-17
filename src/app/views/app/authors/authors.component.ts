@@ -109,6 +109,12 @@ export class AuthorsComponent implements OnInit {
   }
 
 
+  
+
+  goToArticleSearch(row){
+     
+  }
+
 
   
   updateFilter(event) {

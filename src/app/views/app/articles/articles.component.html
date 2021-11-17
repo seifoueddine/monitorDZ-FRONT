@@ -51,7 +51,7 @@
                     <img class="card-img" [src]="a.attributes.image.url ? urlForImage + a.attributes.image.url : defaultImage" alt="Card image">
 
                     <div class="card-img-overlay">
-                        <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'"> {{a.attributes.category_article}}</span> 
+                        <span *ngIf="a.attributes.category_article != ''" style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'"> {{a.attributes.category_article}}</span> 
                         <span style="background-color: green; color: white;" *ngIf="a.attributes.is_tagged" [class]="'position-absolute badge-top-right badge badge-pill'"> Tag auto</span> 
 
                       <p class="list-item-heading mb-5">{{a.attributes.title}}</p>

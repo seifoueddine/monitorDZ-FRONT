@@ -83,6 +83,7 @@ spinner = false
           this.tags = res.body.tags;
           this.media = res.body.media.data;
           this.time = res.body.time;
+          this.spinner = false;
         }, error => {
           // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
         });
@@ -141,6 +142,7 @@ spinner = false
       this.totalElements = +res.headers.get('X-Total-Count');
       this.result = res.body.result_articles.data;
       this.time = res.body.time;
+      this.spinner = false;
  
     }, error => {
       // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
@@ -340,6 +342,7 @@ spinner = false
       this.tags = res.body.tags;
       this.media = res.body.media;
       this.time = res.body.time;
+      this.spinner = false;
     }, error => {
       // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
     });
@@ -377,6 +380,7 @@ spinner = false
       this.tags = res.body.tags;
       this.media = res.body.media;
       this.time = res.body.time;
+      this.spinner = false;
     }, error => {
       // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
     });
@@ -396,9 +400,11 @@ spinner = false
         this.totalElements = +res.headers.get('X-Total-Count');
         this.result = res.body.result_articles.data;
         this.suggestions = res.body.suggestions;
+        this.spinner = false;
         this.tags = res.body.tags;
         this.media = res.body.media;
         this.time = res.body.time;
+        this.spinner = false;
       }, error => {
         // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
       });
@@ -412,6 +418,7 @@ spinner = false
         this.tags = res.body.tags;
         this.media = res.body.media;
         this.time = res.body.time;
+        this.spinner = false;
       }, error => {
         // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
       });
@@ -437,6 +444,7 @@ spinner = false
          this.tags = res.body.tags;
          this.media = res.body.media;
          this.time = res.body.time;
+         this.spinner = false;
        }, error => {
          // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
        });
@@ -450,6 +458,7 @@ spinner = false
          this.tags = res.body.tags;
          this.media = res.body.media;
          this.time = res.body.time;
+         this.spinner = false;
        }, error => {
          // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
        });
@@ -483,6 +492,7 @@ spinner = false
         this.tags = res.body.tags;
         this.media = res.body.media;
         this.time = res.body.time;
+        this.spinner = false;
       }, error => {
         // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
       });
@@ -496,6 +506,7 @@ spinner = false
        this.tags = res.body.tags;
        this.media = res.body.media;
        this.time = res.body.time;
+       this.spinner = false;
      }, error => {
        // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
      });
@@ -527,6 +538,7 @@ spinner = false
        this.tags = res.body.tags;
        this.media = res.body.media;
        this.time = res.body.time;
+       this.spinner = false;
      }, error => {
        // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
      });
@@ -540,6 +552,7 @@ spinner = false
        this.tags = res.body.tags;
        this.media = res.body.media;
        this.time = res.body.time;
+       this.spinner = false;
      }, error => {
        // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
      });
@@ -568,6 +581,7 @@ spinner = false
        this.tags = res.body.tags;
        this.media = res.body.media;
        this.time = res.body.time;
+       this.spinner = false;
      }, error => {
        // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
      });
@@ -581,6 +595,7 @@ spinner = false
        this.tags = res.body.tags;
        this.media = res.body.media
        this.time = res.body.time;
+       this.spinner = false;
      }, error => {
        // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
      });
@@ -614,6 +629,7 @@ spinner = false
        this.tags = res.body.tags;
        this.media = res.body.media;
        this.time = res.body.time;
+       this.spinner = false;
      }, error => {
        // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
      });
@@ -627,6 +643,7 @@ spinner = false
        this.tags = res.body.tags;
        this.media = res.body.media;
        this.time = res.body.time;
+       this.spinner = false;
      }, error => {
        // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
      });
@@ -650,6 +667,7 @@ spinner = false
       this.tags = res.body.tags;
       this.media = res.body.media;
       this.time = res.body.time;
+      this.spinner = false;
     }, error => {
       // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
     });
@@ -686,11 +704,13 @@ selectTag(tag) {
       this.tags = res.body.tags;
       this.media = res.body.media;
       this.time = res.body.time;
+      this.spinner = false;
     }, error => {
       // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
     });
   } else {
     this.tagsNameJoin = null;
+
     this.searchService.search(this.currentPage, this.orderBy, this.direction, this.itemsPerPage, this.searchKey, this.authorsIdJoin, this.start_date, this.end_date,this.langJoin,this.tagsNameJoin,this.mediaTypesJoin, this.zoneJoin,this.mediaIdJoin)
     .subscribe((res: any) => {
       this.totalElements = +res.headers.get('X-Total-Count');
@@ -699,6 +719,7 @@ selectTag(tag) {
       this.tags = res.body.tags;
       this.media = res.body.media;
       this.time = res.body.time;
+      this.spinner = false;
     }, error => {
       // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
     });

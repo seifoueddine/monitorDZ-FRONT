@@ -10,7 +10,7 @@
         [src]="article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage"
         (click)="openLightbox(article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage)"
         class="responsive border-0 card-img-top mb-3 c-pointer" />
-      <span style="background-color: brown; color: white;"
+      <span *ngIf="article?.attributes.category_article != ''" style="background-color: brown; color: white;"
         [class]="'position-absolute badge-top-left badge badge-pill'"> {{article?.attributes.category_article}}</span>
 
       <div class="card-body">

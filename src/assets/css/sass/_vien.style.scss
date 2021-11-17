@@ -162,7 +162,8 @@ body.show {
 }
 
 .fixed-background {
-  background: url("../../../img/newspaper.jpg") no-repeat center center fixed;
+ // background: url("../../../img/newspaper.jpg") no-repeat center center fixed;
+  background-color: #F9F9F9;
   background-size: cover;
   width: 100%;
   height: 100%;

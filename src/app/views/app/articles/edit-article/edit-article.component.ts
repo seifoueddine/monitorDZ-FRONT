@@ -94,7 +94,7 @@ export class EditArticleComponent implements OnInit {
     if (this.articleForm.valid) {
 
       if (this.article) {
-          const date = this.articleForm.value.date_published.setHours( 0,0,0,0 );
+          const date = this.articleForm.value.date_published
           const object = new Articles;
           object.id = this.article.id;
           object.title = this.articleForm.value.title;

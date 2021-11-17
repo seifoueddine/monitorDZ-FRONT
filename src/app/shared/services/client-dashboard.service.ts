@@ -31,10 +31,11 @@ export class ClientDashboardService {
     return this.http.get(req, { observe: 'response' });
   }
 
-  getArticleByAuthor(): Observable<any> {
+  getArticleByAuthor(startDate: any, endDate: any): Observable<any> {
    // const searchValue = date === '' ? '' : `&search=${date}`; 
-
-    const req = this.serviceAuthorUrl;
+   const start_date = `?start_dat=${startDate}`; 
+   const end_date = `&end_dat=${endDate}`; 
+    const req = this.serviceAuthorUrl +start_date + end_date;
     return this.http.get(req, { observe: 'response' });
   }
 

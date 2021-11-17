@@ -86,7 +86,7 @@
 <div class="row">
        <div class="col-sm-12 col-md-6 mb-4">
       
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Top 5 auteurs (Aujourd'hui) </h5>
                 <div >
@@ -95,15 +95,58 @@
                 </div>
             </div>
         </div>
-        
+         -->
         
           
+    <div class="card">
+      
+
+
+        <div class="card-body">
+            <div class="float-left float-none-xs">
+                <div class="d-inline-block">
+                    <h5 class="d-inline">Top 5 auteurs (Aujourd'hui)</h5>
+                    <span class="text-muted text-small d-block">  {{durationAuthor}} </span>
+                </div>
+            </div>
+
+
+            <div class=" float-right float-none-xs mt-2 mb-3">
+                <div class="input-group ">
+                <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date_author"  placement='left'  bsDaterangepicker placeholder="Date de publication" [maxDate]="today"  [container]="'html'"  (ngModelChange)="changeDateAuthor($event)"
+                [bsConfig]="{ adaptivePosition: true, rangeInputFormat: 'DD/MM/YYYY' }"> 
+                <div class="input-group-append">
+                  <span  class="input-group-text" id="basic-addon3">
+                    <a (click)="removeDatesAuthor()">
+                      <i class="simple-icon-refresh c-pointer"></i>  
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="card-body pt-0">
+
+            <app-polar-chart *ngIf="polarAreaChartDataAuthor" [shadow]="true" [class]="chartClass" [options]="chartDataConfig.polarAreaChartOptions"
+            [data]="polarAreaChartDataAuthor"></app-polar-chart>
+        </div>
+
+
+
+
+</div>
 
     </div> 
 
+
+
+
+
+
+
      <div class="col-sm-12 col-md-6 mb-4">
       
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Nombre d'articles par tags</h5>
                 <div >
@@ -111,7 +154,49 @@
                         [data]="polarAreaChartDataTag"></app-polar-chart>
                 </div>
             </div>
+        </div> -->
+
+
+
+
+                
+    <div class="card">
+      
+
+
+        <div class="card-body">
+            <div class="float-left float-none-xs">
+                <div class="d-inline-block">
+                    <h5 class="card-title">Nombre d'articles par tags</h5>
+                    <!-- <span class="text-muted text-small d-block">  {{durationAuthor}} </span> -->
+                </div>
+            </div>
+
+
+            <div class=" float-right float-none-xs mt-2 mb-3">
+                <div class="input-group ">
+                <!-- <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date_author"  placement='left'  bsDaterangepicker placeholder="Date de publication" [maxDate]="today"  [container]="'html'"  (ngModelChange)="changeDateAuthor($event)"
+                [bsConfig]="{ adaptivePosition: true, rangeInputFormat: 'DD/MM/YYYY' }"> 
+                <div class="input-group-append">
+                  <span  class="input-group-text" id="basic-addon3">
+                    <a (click)="removeDatesAuthor()">
+                      <i class="simple-icon-refresh c-pointer"></i>  
+                    </a>
+                  </span>
+                </div> -->
+              </div>
+            </div>
         </div>
+        <div class="card-body pt-0">
+
+            <app-polar-chart [shadow]="true"  *ngIf="polarAreaChartDataTag"  [class]="chartClass" [options]="chartDataConfig.polarAreaChartOptions"
+            [data]="polarAreaChartDataTag"></app-polar-chart>
+        </div>
+
+
+
+
+</div>
         
         
           

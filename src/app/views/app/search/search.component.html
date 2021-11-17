@@ -46,7 +46,9 @@
               </div> -->
 
                 <div class="col-11">
-                  <p class="list-item-heading mb-1 color-theme-1">   <span   [class]="'badge badge-pill badge-secondary'"> {{item.attributes.medium.name}}</span>  / <span style="background-color: brown; color: white;"  [class]="'badge badge-pill'"> {{item.attributes.category_article}}</span> 
+                  <p *ngIf="item.attributes.category_article != ''" class="list-item-heading mb-1 color-theme-1">   <span   [class]="'badge badge-pill badge-secondary'"> {{item.attributes.medium.name}}</span>   / <span style="background-color: brown; color: white;"  [class]="'badge badge-pill'"> {{item.attributes.category_article}}</span> 
+                  </p>
+                  <p *ngIf="item.attributes.category_article == ''" class="list-item-heading mb-1 color-theme-1">   <span   [class]="'badge badge-pill badge-secondary'"> {{item.attributes.medium.name}}</span>  
                   </p>
                   <a  target="_blank" [href]="'app/articles/details?id='+item.id" class="w-40 w-sm-100">
                       <p class="list-item-heading mb-1 color-theme-1"><b>{{item.attributes.title}}</b></p>

@@ -36,11 +36,13 @@ export class ClientDashboardComponent implements OnInit {
   total = 0;
   start_date_tag: any = new Date();
   end_date_tag: any = new Date();
-
+  rage_date_author: any = [new Date(), new Date()];
   rage_date_tag: any = [new Date(), new Date()];
-
+  durationAuthor: any;
   durationTag: any;
   _barChartOptions: any;
+  start_date_author: any = new Date();
+  end_date_author: any = new Date();
   constructor(
     private chartService: ChartService,
     private dashboardService: ClientDashboardService,
@@ -52,7 +54,7 @@ export class ClientDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getArticleByMedium(this.start_date, this.end_date);
-    this.getArticleByAuthor();
+    this.getArticleByAuthor(this.start_date_author, this.end_date_author);
     this.getArticleByTag();
     this.getTagByDate(this.start_date_tag, this.end_date_tag);
    // this.getArticleByDate(7);
@@ -131,8 +133,9 @@ export class ClientDashboardComponent implements OnInit {
     );
   }
 
-  getArticleByAuthor() {
-    this.dashboardService.getArticleByAuthor().subscribe(
+  getArticleByAuthor(startDate,endDate) {
+    this.polarAreaChartDataAuthor = null
+    this.dashboardService.getArticleByAuthor(startDate,endDate).subscribe(
       (data) => {
         if (data.status) {
           const resp = data.body;
@@ -537,6 +540,48 @@ export class ClientDashboardComponent implements OnInit {
     };
   }
 
+  changeDateAuthor(rangeDate: any) {
+    // this.spinner = true;
+     this.start_date_author = this.datePipe.transform(
+       new Date(rangeDate[0]),
+       "dd/MM/yyyy"
+     );
+     this.end_date_author = this.datePipe.transform(
+       new Date(rangeDate[1]),
+       "dd/MM/yyyy"
+     );
+ 
+     let d2 = Date.parse(rangeDate[0]);
+     let d1 = Date.parse(rangeDate[1]);
+     this.getArticleByAuthor(this.start_date_author, this.end_date_author);
+ 
+     let m = moment(d1);
+     let years = m.diff(d2, "years");
+     m.add(-years, "years");
+     let months = m.diff(d2, "months");
+     m.add(-months, "months");
+     let days = m.diff(d2, "days");
+ 
+     this.durationTag =
+       +years > 0
+         ? years + " Years " + months + " Mois " + days + " Jours "
+         : +months > 0
+         ? months + " Mois " + (+days > 0 ? days + " jours " : "")
+         : days > 0
+         ? days + " Jours "
+         : "Même Jour";
+   }
 
+
+
+ removeDatesAuthor() {
+  this.spinner = true;
+  this.start_date_author = new Date();
+  this.end_date_author = new Date();
+  this.durationAuthor = null;
+  this.rage_date_author = [new Date(),new Date()];
+  this.getArticleByAuthor(this.start_date, this.end_date);
+
+}
 
 }
