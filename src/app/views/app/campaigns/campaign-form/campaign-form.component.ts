@@ -45,7 +45,7 @@ export class CampaignFormComponent implements OnInit {
                }
 
   ngOnInit() {
-    this.getSectors();
+    // this.getSectors();
     this.getSlugs();
     this.getMedia();
     this.getTags();
@@ -163,18 +163,18 @@ export class CampaignFormComponent implements OnInit {
       this.campaignForm = new FormGroup({
         name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
         slug_id: new FormControl(null, [Validators.required]),
-        sector_id: new FormControl(null),
+        // sector_id: new FormControl(null),
         media_id: new FormControl(null, [Validators.required]),
         tag_id: new FormControl(null),
       });
 
     } else {
       this.mediaIds = this.data.mediaNameArray ;
-     this.sectorsIds= this.data.sectorNameArray;
+    //  this.sectorsIds= this.data.sectorNameArray;
       this.campaignForm = new FormGroup({
         name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
         slug_id: new FormControl(String(this.data.attributes.slug_id), [Validators.required]),
-        sector_id: new FormControl(this.data.sectorNameArray),
+        // sector_id: new FormControl(this.data.sectorNameArray),
         media_id: new FormControl(this.data.mediaNameArray, [Validators.required]),
         tag_id: new FormControl(this.data.tagNameArray),
       });
@@ -192,7 +192,7 @@ export class CampaignFormComponent implements OnInit {
           object.id = this.data.id
           object.name = this.campaignForm.value.name;
           object.slug_id = this.campaignForm.value.slug_id;
-          object.sector_id = this.sectorsIds.join(',');
+          // object.sector_id = this.sectorsIds.join(',');
           object.media_id = this.mediaIds.join(',');
           object.tag_id = this.tagsIds.join(',');
           this.campaignsService.updateCampaign(object).subscribe(resCreate => {
@@ -213,7 +213,7 @@ export class CampaignFormComponent implements OnInit {
         event.preventDefault();
         campaign.name = this.campaignForm.value.name;
         campaign.slug_id = this.campaignForm.value.slug_id;
-        campaign.sector_id = this.sectorsIds.join(',');
+        // campaign.sector_id = this.sectorsIds.join(',');
         campaign.media_id = this.mediaIds.join(',');
         campaign.tag_id = this.tagsIds.join(',');
         this.campaignsService.addCampaign(campaign).subscribe(resCreate => {
@@ -221,7 +221,7 @@ export class CampaignFormComponent implements OnInit {
           this.notifications.create('Success', 'Campaigne créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
           this.modalRef.hide();
           this.ourNotificationService.notficateReloadCampaigns();
-          this.sectorsIds = [];
+          // this.sectorsIds = [];
           this.mediaIds = [];
         }, error => {
           this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });

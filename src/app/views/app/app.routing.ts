@@ -31,10 +31,10 @@ const routes: Routes = [
               roles: ['GodLike']
             } },
 
-            { path: 'sectors', loadChildren: () => import('./sectors/sectors.module').then(m => m.SectorsModule), canActivate: [LoginGuard],
-            data: {
-              roles: ['GodLike']
-            } },
+            // { path: 'sectors', loadChildren: () => import('./sectors/sectors.module').then(m => m.SectorsModule), canActivate: [LoginGuard],
+            // data: {
+            //   roles: ['GodLike']
+            // } },
             { path: 'media', loadChildren: () => import('./media/media.module').then(m => m.MediaModule), canActivate: [LoginGuard],
             data: {
               roles: ['GodLike']

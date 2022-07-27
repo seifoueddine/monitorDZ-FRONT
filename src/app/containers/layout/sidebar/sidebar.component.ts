@@ -79,12 +79,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
               label: 'menu.slugs',
               to: '/app/slugs'
             },
-            {
-              id: 'sectors',
-              icon: 'iconsminds-gear',
-              label: 'menu.sectors',
-              to: '/app/sectors'
-            },
+            // {
+            //   id: 'sectors',
+            //   icon: 'iconsminds-gear',
+            //   label: 'menu.sectors',
+            //   to: '/app/sectors'
+            // },
             {
               id: 'media',
               icon: 'iconsminds-newspaper',

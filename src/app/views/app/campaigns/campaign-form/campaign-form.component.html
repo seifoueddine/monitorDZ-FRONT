@@ -32,13 +32,13 @@
                 <div *ngIf="campaignForm.get('media_id').errors?.required && form.submitted" class="invalid-tooltip">Média est requise</div>
             </div>
 
-           <div class="form-group">
+           <!-- <div class="form-group">
                 <label>Secteurs</label>
                 <ng-select *ngIf="sectors" mul [items]="sectors" bindLabel='attributes.name' bindValue="id" 
                 formControlName="sector_id" [searchFn]="customSearch" [multiple]="true" (change)="selectSector($event)">
               </ng-select>
                 <div *ngIf="campaignForm.get('sector_id').errors?.required && form.submitted" class="invalid-tooltip">Secteur est requis</div>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label>Tags</label>
