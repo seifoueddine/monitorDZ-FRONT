@@ -3299,7 +3299,7 @@ body.default-transition main {
 }
 .dashboard-search {
   height: 650px;
-  background: url("../../../img/plane.jpg");
+  background: url("../../../assets/img/plane.jpg");
   background-size: contain;
   background-repeat: no-repeat;
   background-color: $foreground-color;
@@ -6511,7 +6511,7 @@ rating span {
 
   .image-side {
     width: 40%;
-    background: url("../../../img/men.jpg") no-repeat center top;
+    background: url("../../../assets/img/men.jpg") no-repeat center top;
     background-size: cover;
     padding: 80px 40px;
 
