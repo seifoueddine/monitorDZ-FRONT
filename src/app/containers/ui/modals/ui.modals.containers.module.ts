@@ -39,7 +39,6 @@ import { ModalModule } from 'ngx-bootstrap';
   ],
   imports: [SharedModule, ModalModule.forRoot()],
   providers: [],
-  entryComponents: [ModalInnerComponent],
   exports: [
     ModalTemplateComponent,
     ModalComponentComponent,
