@@ -49,7 +49,7 @@ Table of Contents
 */
 
 /* 00.Variables and Imports */
-
+@use 'sass:math';
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700");
 
 $main-menu-item-height: 110px;
@@ -1924,7 +1924,7 @@ a.btn-secondary:not([href]):not([tabindex]) {
     }
 
     @include respond-below(md) {
-      width: $sub-menu-width/2;
+      width: math.div($sub-menu-width, 2);
 
       input {
         width: 85%;
