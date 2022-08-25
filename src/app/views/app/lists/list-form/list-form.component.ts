@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -23,7 +23,7 @@ export class ListFormComponent implements OnInit {
 
   images = images.IMAGES
   @ViewChild('template', { static: true }) template: TemplateRef<any>;
-  listForm: FormGroup;
+  listForm: UntypedFormGroup;
   data: any
   types: { id: string; name: string; }[];
   constructor(private modalService: BsModalService,
@@ -44,15 +44,15 @@ export class ListFormComponent implements OnInit {
 
   createListForm() {
     if (!this.data) {
-      this.listForm = new FormGroup({
-        name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
-        image: new FormControl(null),
+      this.listForm = new UntypedFormGroup({
+        name: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
+        image: new UntypedFormControl(null),
       });
 
     } else {
-      this.listForm = new FormGroup({
-        name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
-        image: new FormControl(this.data.attributes.image),
+      this.listForm = new UntypedFormGroup({
+        name: new UntypedFormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
+        image: new UntypedFormControl(this.data.attributes.image),
       });
     }
   }

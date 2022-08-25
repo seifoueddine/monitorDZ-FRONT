@@ -4,7 +4,7 @@ import { SectorsService } from 'src/app/shared/services/sectors.service';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
 import { CampaignsService } from 'src/app/shared/services/campaigns.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Campaigns } from 'src/app/shared/models/campaigns.model';
 import { SlugsService } from 'src/app/shared/services/slugs.service';
 import { MediaService } from 'src/app/shared/services/media.service';
@@ -27,7 +27,7 @@ export class CampaignFormComponent implements OnInit {
 
 
   @ViewChild('template', { static: true }) template: TemplateRef<any>;
-  campaignForm: FormGroup;
+  campaignForm: UntypedFormGroup;
   data: any
   types: { id: string; name: string; }[];
   sectors: any;
@@ -160,23 +160,23 @@ export class CampaignFormComponent implements OnInit {
 
   createCampaignForm() {
     if (!this.data) {
-      this.campaignForm = new FormGroup({
-        name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
-        slug_id: new FormControl(null, [Validators.required]),
+      this.campaignForm = new UntypedFormGroup({
+        name: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
+        slug_id: new UntypedFormControl(null, [Validators.required]),
         // sector_id: new FormControl(null),
-        media_id: new FormControl(null, [Validators.required]),
-        tag_id: new FormControl(null),
+        media_id: new UntypedFormControl(null, [Validators.required]),
+        tag_id: new UntypedFormControl(null),
       });
 
     } else {
       this.mediaIds = this.data.mediaNameArray ;
     //  this.sectorsIds= this.data.sectorNameArray;
-      this.campaignForm = new FormGroup({
-        name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
-        slug_id: new FormControl(String(this.data.attributes.slug_id), [Validators.required]),
+      this.campaignForm = new UntypedFormGroup({
+        name: new UntypedFormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
+        slug_id: new UntypedFormControl(String(this.data.attributes.slug_id), [Validators.required]),
         // sector_id: new FormControl(this.data.sectorNameArray),
-        media_id: new FormControl(this.data.mediaNameArray, [Validators.required]),
-        tag_id: new FormControl(this.data.tagNameArray),
+        media_id: new UntypedFormControl(this.data.mediaNameArray, [Validators.required]),
+        tag_id: new UntypedFormControl(this.data.tagNameArray),
       });
     }
   }

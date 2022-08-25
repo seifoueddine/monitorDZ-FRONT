@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { TagsService } from 'src/app/shared/services/tags.service';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -22,7 +22,7 @@ export class TagFormComponent implements OnInit {
 
 
   @ViewChild('template', { static: true }) template: TemplateRef<any>;
-  tagForm: FormGroup;
+  tagForm: UntypedFormGroup;
   data: any
   types: { id: string; name: string; }[];
   constructor(private modalService: BsModalService,
@@ -43,13 +43,13 @@ export class TagFormComponent implements OnInit {
 
   createTagForm() {
     if (!this.data) {
-      this.tagForm = new FormGroup({
-        name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      this.tagForm = new UntypedFormGroup({
+        name: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
       });
 
     } else {
-      this.tagForm = new FormGroup({
-        name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
+      this.tagForm = new UntypedFormGroup({
+        name: new UntypedFormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
       });
     }
   }

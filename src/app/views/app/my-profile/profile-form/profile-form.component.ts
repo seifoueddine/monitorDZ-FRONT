@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 // import { MyProfileService } from 'src/app/shared/services/my-profile.service';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
@@ -24,7 +24,7 @@ export class ProfileFormComponent implements OnInit {
   avatarName: string;
   newPic = false;
   @ViewChild('template', { static: true }) template: TemplateRef<any>;
-  userForm: FormGroup;
+  userForm: UntypedFormGroup;
   data: any
   direction: string;
   // roles = [
@@ -59,12 +59,12 @@ export class ProfileFormComponent implements OnInit {
     if (!this.data) {
      
     } else {
-      this.userForm = new FormGroup({
-        name: new FormControl(this.data.name, [Validators.required, Validators.minLength(2)]),
+      this.userForm = new UntypedFormGroup({
+        name: new UntypedFormControl(this.data.name, [Validators.required, Validators.minLength(2)]),
         // last_name: new FormControl(this.data.last_name, [Validators.required, Validators.minLength(2)]),
-        email: new FormControl(this.data.email, [Validators.email]),
+        email: new UntypedFormControl(this.data.email, [Validators.email]),
         // phone: new FormControl(this.data.phone, [Validators.required, Validators.minLength(9)]),
-        avatar: new FormControl(null),
+        avatar: new UntypedFormControl(null),
       });
     }
   }

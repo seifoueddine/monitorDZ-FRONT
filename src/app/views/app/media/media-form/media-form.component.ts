@@ -3,7 +3,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MediaService } from 'src/app/shared/services/media.service';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 import { Media } from 'src/app/shared/models/media.model';
 import { SectorsService } from 'src/app/shared/services/sectors.service';
 import { environment } from 'src/environments/environment';
@@ -29,7 +29,7 @@ export class MediaFormComponent implements OnInit {
 
 
   @ViewChild('template', { static: true }) template: TemplateRef<any>;
-  mediaForm: FormGroup;
+  mediaForm: UntypedFormGroup;
   data: any
   types: { id: string; name: string; }[];
   sectors: any;
@@ -98,31 +98,31 @@ export class MediaFormComponent implements OnInit {
 
   createMediaForm() {
     if (!this.data) {
-      this.mediaForm = new FormGroup({
-        name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
-        media_type: new FormControl(null, [Validators.required]),
-        orientation: new FormControl(null, [Validators.required]),
+      this.mediaForm = new UntypedFormGroup({
+        name: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
+        media_type: new UntypedFormControl(null, [Validators.required]),
+        orientation: new UntypedFormControl(null, [Validators.required]),
       //  sector_id: new FormControl(null, [Validators.required]),
-        url_crawling: new FormControl(null),
-        avatar: new FormControl(null),
-        zone: new FormControl(null),
-        language: new FormControl(null),
-        tag_status: new FormControl(true)
+        url_crawling: new UntypedFormControl(null),
+        avatar: new UntypedFormControl(null),
+        zone: new UntypedFormControl(null),
+        language: new UntypedFormControl(null),
+        tag_status: new UntypedFormControl(true)
       });
 
     } else {
       this.data.attributes.media_type === 'digital' ? this.digital = true : this.digital = false
       this.sectorsIds = this.data.sectorNameArray;
-      this.mediaForm = new FormGroup({
-        name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
-        media_type: new FormControl(this.data.attributes.media_type, [Validators.required]),
-        orientation: new FormControl(this.data.attributes.orientation, [Validators.required]),
+      this.mediaForm = new UntypedFormGroup({
+        name: new UntypedFormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
+        media_type: new UntypedFormControl(this.data.attributes.media_type, [Validators.required]),
+        orientation: new UntypedFormControl(this.data.attributes.orientation, [Validators.required]),
      //   sector_id: new FormControl(this.data.sectorNameArray, [Validators.required]),
-        url_crawling: new FormControl(this.data.attributes.url_crawling),
-        avatar: new FormControl(null),
-        zone: new FormControl(this.data.attributes.zone),
-        language: new FormControl(this.data.attributes.language),
-        tag_status: new FormControl(this.data.attributes.tag_status)
+        url_crawling: new UntypedFormControl(this.data.attributes.url_crawling),
+        avatar: new UntypedFormControl(null),
+        zone: new UntypedFormControl(this.data.attributes.zone),
+        language: new UntypedFormControl(this.data.attributes.language),
+        tag_status: new UntypedFormControl(this.data.attributes.tag_status)
       });
     }
   }

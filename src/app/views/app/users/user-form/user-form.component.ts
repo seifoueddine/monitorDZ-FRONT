@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { UntypedFormGroup, UntypedFormControl, Validators } from "@angular/forms";
 import { UsersService } from "src/app/shared/services/users.service";
 import { NotificationsService, NotificationType } from "angular2-notifications";
 import { OurNotificationsService } from "src/app/shared/our-notifications.service";
@@ -28,7 +28,7 @@ export class UserFormComponent implements OnInit {
   avatarName: string;
   newPic = false;
   @ViewChild("template", { static: true }) template: TemplateRef<any>;
-  userForm: FormGroup;
+  userForm: UntypedFormGroup;
   data: any;
   direction: string;
   roles = [
@@ -72,41 +72,41 @@ export class UserFormComponent implements OnInit {
 
   createUserForm() {
     if (!this.data) {
-      this.userForm = new FormGroup({
-        name: new FormControl(null, [
+      this.userForm = new UntypedFormGroup({
+        name: new UntypedFormControl(null, [
           Validators.required,
           Validators.minLength(2),
         ]),
-        email: new FormControl(null, [Validators.required, Validators.email]),
+        email: new UntypedFormControl(null, [Validators.required, Validators.email]),
         // last_name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
-        password: new FormControl(null, [
+        password: new UntypedFormControl(null, [
           Validators.required,
           Validators.minLength(6),
         ]),
-        role: new FormControl("ClientAdmin", Validators.required),
-        avatar: new FormControl(null),
+        role: new UntypedFormControl("ClientAdmin", Validators.required),
+        avatar: new UntypedFormControl(null),
         //  registration_number: new FormControl(null, [Validators.required, Validators.minLength(2)]),
         // function: new FormControl(null, [Validators.required]),
         //  status: new FormControl(true),
-        slug_id: new FormControl(null, Validators.required),
+        slug_id: new UntypedFormControl(null, Validators.required),
       });
     } else {
-      this.userForm = new FormGroup({
-        name: new FormControl(this.data.attributes.name, [
+      this.userForm = new UntypedFormGroup({
+        name: new UntypedFormControl(this.data.attributes.name, [
           Validators.required,
           Validators.minLength(2),
         ]),
-        email: new FormControl(this.data.attributes.email, [
+        email: new UntypedFormControl(this.data.attributes.email, [
           Validators.required,
           Validators.email,
         ]),
         // last_name: new FormControl(this.data.attributes.LastName, [Validators.required, Validators.minLength(2)]),
-        role: new FormControl(this.data.attributes.role, Validators.required),
-        avatar: new FormControl(null),
+        role: new UntypedFormControl(this.data.attributes.role, Validators.required),
+        avatar: new UntypedFormControl(null),
         //  registration_number: new FormControl(this.data.attributes.RegistrationNumber, [Validators.required, Validators.minLength(2)]),
         // function: new FormControl(this.data.attributes.Function, [Validators.required,]),
         //  status: new FormControl(this.data.attributes.Status),
-        slug_id: new FormControl(
+        slug_id: new UntypedFormControl(
           String(this.data.attributes.slug_id),
           Validators.required
         ),

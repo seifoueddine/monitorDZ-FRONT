@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef, Inject } from '@angular/core';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { Validators, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 
 import { NotificationType, NotificationsService } from 'angular2-notifications';
 import { Slugs } from 'src/app/shared/models/slugs.model';
@@ -24,7 +24,7 @@ export class SlugFormComponent implements OnInit {
 
 
   @ViewChild('template', { static: true }) template: TemplateRef<any>;
-  slugForm: FormGroup;
+  slugForm: UntypedFormGroup;
   data: any
   types: { id: string; name: string; }[];
   constructor(private modalService: BsModalService,
@@ -45,13 +45,13 @@ export class SlugFormComponent implements OnInit {
 
   createSlugForm() {
     if (!this.data) {
-      this.slugForm = new FormGroup({
-        name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      this.slugForm = new UntypedFormGroup({
+        name: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
       });
 
     } else {
-      this.slugForm = new FormGroup({
-        name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
+      this.slugForm = new UntypedFormGroup({
+        name: new UntypedFormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
       });
     }
   }

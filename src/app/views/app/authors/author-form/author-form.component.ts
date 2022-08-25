@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef, Inject } from '@angular/core';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { Validators, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 
 import { NotificationType, NotificationsService } from 'angular2-notifications';
 
@@ -25,7 +25,7 @@ export class AuthorFormComponent implements OnInit {
 
 
   @ViewChild('template', { static: true }) template: TemplateRef<any>;
-  authorForm: FormGroup;
+  authorForm: UntypedFormGroup;
   data: any
   types: { id: string; name: string; }[];
   constructor(private modalService: BsModalService,
@@ -46,13 +46,13 @@ export class AuthorFormComponent implements OnInit {
 
   createAuthorForm() {
     if (!this.data) {
-      this.authorForm = new FormGroup({
-        name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      this.authorForm = new UntypedFormGroup({
+        name: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
       });
 
     } else {
-      this.authorForm = new FormGroup({
-        name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
+      this.authorForm = new UntypedFormGroup({
+        name: new UntypedFormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
       });
     }
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { OurNotificationsService } from 'src/app/shared/our-notifications.service';
@@ -22,7 +22,7 @@ export class SectorFormComponent implements OnInit {
 
 
   @ViewChild('template', { static: true }) template: TemplateRef<any>;
-  sectorForm: FormGroup;
+  sectorForm: UntypedFormGroup;
   data: any
   types: { id: string; name: string; }[];
   constructor(private modalService: BsModalService,
@@ -43,13 +43,13 @@ export class SectorFormComponent implements OnInit {
 
   createSectorForm() {
     if (!this.data) {
-      this.sectorForm = new FormGroup({
-        name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      this.sectorForm = new UntypedFormGroup({
+        name: new UntypedFormControl(null, [Validators.required, Validators.minLength(2)]),
       });
 
     } else {
-      this.sectorForm = new FormGroup({
-        name: new FormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
+      this.sectorForm = new UntypedFormGroup({
+        name: new UntypedFormControl(this.data.attributes.name, [Validators.required, Validators.minLength(2)]),
       });
     }
   }

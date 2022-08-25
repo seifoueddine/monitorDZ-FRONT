@@ -4,11 +4,11 @@ import { OurNotificationsService } from 'src/app/shared/our-notifications.servic
 import { UsersService } from 'src/app/shared/services/users.service';
 import { Users } from 'src/app/shared/models/users.model';
 import { UserFormComponent } from './user-form/user-form.component';
-import { FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormControl, ValidatorFn } from '@angular/forms';
 import { NotificationType, NotificationsService } from 'angular2-notifications';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
-const checkPasswords: ValidatorFn = (fg: FormGroup) => {
+const checkPasswords: ValidatorFn = (fg: UntypedFormGroup) => {
   const pass = fg.get('password').value;
   const confirmPass = fg.get('password_confirmation').value;
 
@@ -46,7 +46,7 @@ export class UsersComponent implements OnInit {
   config = {
     animated: true
   };
-  changePasswordForm: FormGroup;
+  changePasswordForm: UntypedFormGroup;
   UserToChangePassword: any;
   public options = {
     position: ["bottom", "center"],
@@ -227,9 +227,9 @@ openChangePasswordModal(template: TemplateRef<any>, user: any) {
 
 
 createChangePasswordForm() {
-    this.changePasswordForm = new FormGroup({
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
-      password_confirmation: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+    this.changePasswordForm = new UntypedFormGroup({
+      password: new UntypedFormControl(null, [Validators.required, Validators.minLength(6)]),
+      password_confirmation: new UntypedFormControl(null, [Validators.required, Validators.minLength(6)]),
     },checkPasswords);
 
 }

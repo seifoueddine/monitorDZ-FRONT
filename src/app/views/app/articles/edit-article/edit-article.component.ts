@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
@@ -17,7 +17,7 @@ export class EditArticleComponent implements OnInit {
   articleId: any;
   article: any;
   valueBind: any;
-  articleForm: FormGroup;
+  articleForm: UntypedFormGroup;
   authors: any;
   mediumId: any;
   constructor( private authorsService: AuthorsService, private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,private notifications: NotificationsService, private datePipe: DatePipe, private sanitizer: DomSanitizer) {
@@ -70,11 +70,11 @@ export class EditArticleComponent implements OnInit {
 
   createArticleForm() {
     if (this.article) {
-      this.articleForm = new FormGroup({
-        title: new FormControl(this.article.attributes.title, [Validators.required, Validators.minLength(2)]),
-        author_id: new FormControl(String(this.article.attributes.author.id), [Validators.required]),
-        valueBind: new FormControl(this.valueBind, [Validators.required]),
-        date_published: new FormControl(new Date(this.article.attributes.date_published), [Validators.required]),
+      this.articleForm = new UntypedFormGroup({
+        title: new UntypedFormControl(this.article.attributes.title, [Validators.required, Validators.minLength(2)]),
+        author_id: new UntypedFormControl(String(this.article.attributes.author.id), [Validators.required]),
+        valueBind: new UntypedFormControl(this.valueBind, [Validators.required]),
+        date_published: new UntypedFormControl(new Date(this.article.attributes.date_published), [Validators.required]),
       });
   }}
 

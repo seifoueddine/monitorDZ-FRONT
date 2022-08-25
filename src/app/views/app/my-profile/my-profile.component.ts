@@ -1,5 +1,5 @@
 
-import { FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, ValidatorFn } from '@angular/forms';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import { OurNotificationsService } from 'src/app/shared/our-notifications.servic
 import { environment } from 'src/environments/environment';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
 import { UsersService } from 'src/app/shared/services/users.service';
-const checkPasswords: ValidatorFn = (fg: FormGroup) => {
+const checkPasswords: ValidatorFn = (fg: UntypedFormGroup) => {
   const pass = fg.get('password').value;
   const confirmPass = fg.get('password_confirmation').value;
 
@@ -32,7 +32,7 @@ export class MyProfileComponent implements OnInit {
   config = {
     animated: true
   };
-  changePasswordForm: FormGroup;
+  changePasswordForm: UntypedFormGroup;
   UserToChangePassword: any;
    @ViewChild('editModalRef', { static: true }) editModalRef: ProfileFormComponent;
   constructor(private modalService: BsModalService, private route: ActivatedRoute,
@@ -90,9 +90,9 @@ export class MyProfileComponent implements OnInit {
   
   
   createChangePasswordForm() {
-      this.changePasswordForm = new FormGroup({
-        password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
-        password_confirmation: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      this.changePasswordForm = new UntypedFormGroup({
+        password: new UntypedFormControl(null, [Validators.required, Validators.minLength(6)]),
+        password_confirmation: new UntypedFormControl(null, [Validators.required, Validators.minLength(6)]),
       },checkPasswords);
   
   }
