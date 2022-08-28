@@ -4,9 +4,9 @@ import { SidebarService, ISidebar } from 'src/app/containers/layout/sidebar/side
 
 @Component({
   selector: 'app-app',
-  templateUrl: './app.component.html'
+  templateUrl: './admin.component.html'
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AdminComponent implements OnInit, OnDestroy {
   sidebar: ISidebar;
   subscription: Subscription;
   constructor(private sidebarService: SidebarService) {

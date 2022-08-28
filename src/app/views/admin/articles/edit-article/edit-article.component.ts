@@ -103,7 +103,7 @@ export class EditArticleComponent implements OnInit {
           this.articlesService.updateArticle(object).subscribe(resCreate => {
 
          
-            this.router.navigate(['/app/articles-for-sort']); 
+            this.router.navigate(['/admin/articles-for-sort']); 
             this.notifications.create('Success', "Mettre à jour l'article avec succès", NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
 
           }, err => {

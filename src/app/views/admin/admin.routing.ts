@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
+import { AdminComponent } from './admin.component';
 import { BlankPageComponent } from './blank-page/blank-page.component';
 import { LoginGuard } from 'src/app/core/login.guard';
 
 const routes: Routes = [
     {
-        path: '', component: AppComponent,
+        path: '', component: AdminComponent,
         children: [
             { path: '', pathMatch: 'full', redirectTo: 'articles-for-sort' },
             // { path: 'vien', loadChildren: () => import('./vien/vien.module').then(m => m.VienModule) },
@@ -84,4 +84,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AdminRoutingModule { }

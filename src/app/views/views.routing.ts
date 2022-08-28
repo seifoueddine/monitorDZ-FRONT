@@ -11,7 +11,7 @@ let routes: Routes = [
     component: ViewsComponent,
     pathMatch: 'full',
   },
-  { path: 'app', loadChildren: () => import('./app/app.module').then(m => m.AppModule), canActivate: [AuthGuard] },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard] },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.UserModule) },
   { path: 'error', component: ErrorComponent },
   { path: '**', redirectTo: '/error' }
@@ -24,7 +24,7 @@ if (!environment.isAuthGuardActive) {
       component: ViewsComponent,
       pathMatch: 'full',
     },
-    { path: 'app', loadChildren: () => import('./app/app.module').then(m => m.AppModule) },
+    { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
     { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.UserModule) },
     { path: 'error', component: ErrorComponent },
     { path: '**', redirectTo: '/error' }

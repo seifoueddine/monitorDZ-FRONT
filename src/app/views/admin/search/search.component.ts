@@ -316,7 +316,7 @@ spinner = false
 
 
   makeSearch(key){
-    this.router.navigate(['/app/search'], { queryParams: { key: key.toLowerCase().trim() } });
+    this.router.navigate(['/admin/search'], { queryParams: { key: key.toLowerCase().trim() } });
     this.searchKey = '';
   }
 

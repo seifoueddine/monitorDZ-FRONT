@@ -9,7 +9,7 @@ export class ViewsComponent implements OnInit {
 
   constructor(private router: Router) {
     // If you have landing page, remove below line and implement it here.
-    this.router.navigateByUrl('/app');
+    this.router.navigateByUrl('/admin');
   }
 
   ngOnInit() {

@@ -12,12 +12,12 @@ const data: IMenuItem[] = [
   //   id: 'vien',
   //   icon: 'iconsminds-air-balloon-1',
   //   label: 'menu.vien',
-  //   to: '/app/vien',
+  //   to: '/admin/vien',
   //   subs: [
   //     {
   //       icon: 'simple-icon-paper-plane',
   //       label: 'menu.start',
-  //       to: '/app/vien/start'
+  //       to: '/admin/vien/start'
   //     }
   //   ]
   // },
@@ -25,43 +25,43 @@ const data: IMenuItem[] = [
     id: 'slugs',
     icon: 'iconsminds-building',
     label: 'menu.slugs',
-    to: '/app/slugs'
+    to: '/admin/slugs'
   },
   {
     id: 'sectors',
     icon: 'iconsminds-gear',
     label: 'menu.sectors',
-    to: '/app/sectors'
+    to: '/admin/sectors'
   },
   {
     id: 'media',
     icon: 'iconsminds-newspaper',
     label: 'menu.media',
-    to: '/app/media'
+    to: '/admin/media'
   },
   {
     id: 'campaigns',
     icon: 'simple-icon-flag',
     label: 'menu.campaigns',
-    to: '/app/campaigns'
+    to: '/admin/campaigns'
   },
   {
     id: 'articles',
     icon: 'iconsminds-testimonal',
     label: 'menu.articles',
-    to: '/app/articles'
+    to: '/admin/articles'
   },
   {
     id: 'tags',
     icon: 'simple-icon-tag',
     label: 'menu.tags',
-    to: '/app/tags'
+    to: '/admin/tags'
   },
   {
     id: 'users',
     icon: 'simple-icon-people',
     label: 'menu.users',
-    to: '/app/users'
+    to: '/admin/users'
   }
 ];
 export default data;

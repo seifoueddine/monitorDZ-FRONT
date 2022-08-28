@@ -71,61 +71,61 @@ export class SidebarComponent implements OnInit, OnDestroy {
               id: 'dashboard',
               icon: 'iconsminds-monitor-analytics',
               label: 'menu.dashboard',
-              to: '/app/dashboard'
+              to: '/admin/dashboard'
             },
             {
               id: 'slugs',
               icon: 'iconsminds-building',
               label: 'menu.slugs',
-              to: '/app/slugs'
+              to: '/admin/slugs'
             },
             // {
             //   id: 'sectors',
             //   icon: 'iconsminds-gear',
             //   label: 'menu.sectors',
-            //   to: '/app/sectors'
+            //   to: '/admin/sectors'
             // },
             {
               id: 'media',
               icon: 'iconsminds-newspaper',
               label: 'menu.media',
-              to: '/app/media'
+              to: '/admin/media'
             },
             {
               id: 'authors',
               icon: 'iconsminds-mens',
               label: 'menu.authors',
-              to: '/app/authors'
+              to: '/admin/authors'
             },
             {
               id: 'campaigns',
               icon: 'simple-icon-flag',
               label: 'menu.campaigns',
-              to: '/app/campaigns'
+              to: '/admin/campaigns'
             },
             {
               id: 'articles',
               icon: 'iconsminds-testimonal',
               label: 'menu.articles',
-              to: '/app/articles'
+              to: '/admin/articles'
             },
             {
               id: 'sort-articles',
               icon: 'iconsminds-check',
               label: 'menu.articles-sort',
-              to: '/app/articles-for-sort'
+              to: '/admin/articles-for-sort'
             },
             {
               id: 'tags',
               icon: 'simple-icon-tag',
               label: 'menu.tags',
-              to: '/app/tags'
+              to: '/admin/tags'
             },
             {
               id: 'users',
               icon: 'simple-icon-people',
               label: 'menu.users',
-              to: '/app/users'
+              to: '/admin/users'
             }
         ];
           break;
@@ -136,13 +136,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
               id: 'sort-articles',
               icon: 'iconsminds-check',
               label: 'menu.articles',
-              to: '/app/articles-for-sort'
+              to: '/admin/articles-for-sort'
             },
             {
               id: 'tags',
               icon: 'simple-icon-tag',
               label: 'menu.tags',
-              to: '/app/tags'
+              to: '/admin/tags'
             }
            
         ];
@@ -152,20 +152,20 @@ export class SidebarComponent implements OnInit, OnDestroy {
               id: 'dashboard',
               icon: 'iconsminds-monitor-analytics',
               label: 'menu.dashboard',
-              to: '/app/client-dashboard'
+              to: '/admin/client-dashboard'
             },
           
             {
               id: 'client-articles',
               icon: 'iconsminds-key-lock',
               label: 'menu.articles',
-              to: '/app/client-articles'
+              to: '/admin/client-articles'
             },
             {
               id: 'lists',
               icon: 'simple-icon-list',
               label: 'menu.lists',
-              to: '/app/lists'
+              to: '/admin/lists'
             }
            
         ];

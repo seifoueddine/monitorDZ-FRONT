@@ -161,7 +161,7 @@ export class TopnavComponent implements OnInit, OnDestroy {
 
   search() {
     if (this.searchKey && this.searchKey.length > 1) {
-      this.router.navigate(['/app/search'], { queryParams: { key: this.searchKey.toLowerCase().trim() } });
+      this.router.navigate(['/admin/search'], { queryParams: { key: this.searchKey.toLowerCase().trim() } });
       this.searchKey = '';
     }
   }
@@ -197,6 +197,6 @@ export class TopnavComponent implements OnInit, OnDestroy {
   
   }
   goToMyProfile() {
-    this.router.navigateByUrl('/app/my-profile');
+    this.router.navigateByUrl('/admin/my-profile');
   }
 }
