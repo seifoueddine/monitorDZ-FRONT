@@ -146,7 +146,28 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "allowedCommonJsDependencies": [
+              "firebase",
+              "@firebase/app",
+              "@firebase/database",
+              "@firebase/firestore",
+              "@firebase/functions",
+              "@firebase/performance",
+              "@firebase/remote-config",
+              "@firebase/component",
+              "@videojs/xhr",
+              "global/document",
+              "global/window",
+              "keycode",
+              "mux.js/lib/tools/parse-sidx",
+              "mux.js/lib/utils/clock",
+              "safe-json-parse/tuple",
+              "videojs-vtt.js",
+              "ngx-quill",
+              "ngx-lightbox",
+              "chart.js"
+           ]
           },
           "configurations": {
             "production": {
