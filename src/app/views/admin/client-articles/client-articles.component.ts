@@ -555,7 +555,7 @@ export class ClientArticlesComponent implements OnInit {
 
   goToDetailsNewPage(article_id) {
     const url = this.router.serializeUrl(
-      this.router.createUrlTree(["app/articles/details"], {
+      this.router.createUrlTree(["admin/articles/details"], {
         queryParams: { id: article_id },
       })
     );

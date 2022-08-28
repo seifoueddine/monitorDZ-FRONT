@@ -50,7 +50,7 @@
                   </p>
                   <p *ngIf="item.attributes.category_article == ''" class="list-item-heading mb-1 color-theme-1">   <span   [class]="'badge badge-pill badge-secondary'"> {{item.attributes.medium.name}}</span>  
                   </p>
-                  <a  target="_blank" [href]="'app/articles/details?id='+item.id" class="w-40 w-sm-100">
+                  <a  target="_blank" [href]="'admin/articles/details?id='+item.id" class="w-40 w-sm-100">
                       <p class="list-item-heading mb-1 color-theme-1"><b>{{item.attributes.title}}</b></p>
                   </a>
                   <p class="mb-1 text-muted text-small"> <b><a *ngIf="getAuthorWithSearch(item.attributes.author.name)" style="color: #FB6400;">{{ item.attributes.author.name }}</a></b> <a *ngIf="!getAuthorWithSearch(item.attributes.author.name)" >{{ item.attributes.author.name }}</a> | {{item.attributes.date_published | date:'dd/MM/yyyy'}}</p>

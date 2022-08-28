@@ -292,7 +292,7 @@ setPage(pageInfo) {
 
   goToDetailsNewPage(article_id) {
     const url = this.router.serializeUrl(
-      this.router.createUrlTree(['app/articles/details'], { queryParams: { id: article_id } })
+      this.router.createUrlTree(['admin/articles/details'], { queryParams: { id: article_id } })
     );
     window.open(url, "_blank");
   }
