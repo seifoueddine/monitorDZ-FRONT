@@ -166,7 +166,11 @@
               "videojs-vtt.js",
               "ngx-quill",
               "ngx-lightbox",
-              "chart.js"
+              "chart.js",
+              "pdfmake/build/pdfmake",
+              "pdfmake/build/vfs_fonts",
+              "file-saver",
+              "moment"
            ]
           },
           "configurations": {
@@ -187,8 +191,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "6mb"
                 },
                 {
                   "type": "anyComponentStyle",
