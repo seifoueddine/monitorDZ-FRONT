@@ -55,41 +55,6 @@
                 "inject": true
               },
               {
-                "input": "src/assets/css/sass/themes/vien.light.greenmoss.scss",
-                "bundleName": "light.green.moss",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.light.greenlime.scss",
-                "bundleName": "light.green.lime",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.light.yellowgranola.scss",
-                "bundleName": "light.yellow.granola",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.light.greysteel.scss",
-                "bundleName": "light.grey.steel",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.light.orangecarrot.scss",
-                "bundleName": "light.orange.carrot",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.light.purplemonster.scss",
-                "bundleName": "light.purple.monster",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.light.redruby.scss",
-                "bundleName": "light.red.ruby",
-                "inject": true
-              },
-              {
                 "input": "src/assets/css/sass/themes/vien.dark.blueyale.scss",
                 "bundleName": "dark.blue.yale",
                 "inject": true
@@ -102,41 +67,6 @@
               {
                 "input": "src/assets/css/sass/themes/vien.dark.blueolympic.scss",
                 "bundleName": "dark.blue.olympic",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.dark.greenmoss.scss",
-                "bundleName": "dark.green.moss",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.dark.greenlime.scss",
-                "bundleName": "dark.green.lime",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.dark.yellowgranola.scss",
-                "bundleName": "dark.yellow.granola",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.dark.greysteel.scss",
-                "bundleName": "dark.grey.steel",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.dark.orangecarrot.scss",
-                "bundleName": "dark.orange.carrot",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.dark.purplemonster.scss",
-                "bundleName": "dark.purple.monster",
-                "inject": true
-              },
-              {
-                "input": "src/assets/css/sass/themes/vien.dark.redruby.scss",
-                "bundleName": "dark.red.ruby",
                 "inject": true
               }
             ],
@@ -191,8 +121,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "6mb"
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
