@@ -87,7 +87,6 @@ export class TagFormComponent implements OnInit {
         event.preventDefault();
         tag.name = this.tagForm.value.name;
         this.tagService.addTag(tag).subscribe(resCreate => {
-          console.log(resCreate);
           this.notifications.create('Success', 'Tag créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
           this.modalRef.hide();
           this.ourNotificationService.notficateReloadTags();

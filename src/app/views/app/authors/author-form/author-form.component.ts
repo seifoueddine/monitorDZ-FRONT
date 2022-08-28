@@ -85,7 +85,6 @@ export class AuthorFormComponent implements OnInit {
         event.preventDefault();
         author.name = this.authorForm.value.name;
         this.authorService.addAuthor(author).subscribe(resCreate => {
-          console.log(resCreate);
           this.notifications.create('Success', 'Author créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
           this.modalRef.hide();
           this.ourNotificationService.notficateReloadAuthors();

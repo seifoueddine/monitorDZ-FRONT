@@ -36,7 +36,7 @@ export class TagsService {
     */
   getTagById(tagId: number): Observable<Tags> {
     const req = this.serviceUrl + `/${tagId}`;
-    console.log(req);
+     
     return this.http.get<Tags>(req);
   }
 
@@ -46,7 +46,7 @@ export class TagsService {
    */
   updateTag(tag: Tags): Observable<Tags> {
     const req = this.serviceUrl + `/${tag.id}`;
-    console.log(req);
+     
     return this.http.put<Tags>(req, tag);
   }
 

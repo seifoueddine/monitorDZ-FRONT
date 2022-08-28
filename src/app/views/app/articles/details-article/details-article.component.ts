@@ -64,7 +64,6 @@ export class DetailsArticleComponent implements OnInit {
 
         this.articlesService.getArticleById(this.articleId)
           .subscribe((res: any) => {
-            console.log(res);
             this.article = res.article.data;
             this.article.attributes.body = '<div dir="auto" >' + this.article.attributes.body + '</div>';
             this.tags = res.tags;

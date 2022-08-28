@@ -276,7 +276,6 @@ export class DashboardComponent implements OnInit {
           });
 
      
-          console.log(values);
           const max = Math.max.apply(null, values);
 
           this.lineChartOptions = {
@@ -507,7 +506,6 @@ export class DashboardComponent implements OnInit {
          // this.articleByDate = resp;
           const keys = Object.keys(resp);
           const values = Object.values(resp);
-          console.log(values);
           const max = Math.max.apply(null, values);
 
 

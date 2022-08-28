@@ -140,14 +140,13 @@ export class CampaignFormComponent implements OnInit {
     this.sectorsIds = [];
     const sectorsArray = event;
     sectorsArray.map(s=> this.sectorsIds.push(s.id));
-    console.log(this.sectorsIds);
+     
   }
 
   selectMedia(event){
     this.mediaIds = [];
     const mediaArray = event;
     mediaArray.map(s=> this.mediaIds.push(s.id));
-    console.log(this.mediaIds);
   }
   
 
@@ -217,7 +216,6 @@ export class CampaignFormComponent implements OnInit {
         campaign.media_id = this.mediaIds.join(',');
         campaign.tag_id = this.tagsIds.join(',');
         this.campaignsService.addCampaign(campaign).subscribe(resCreate => {
-          console.log(resCreate);
           this.notifications.create('Success', 'Campaigne créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
           this.modalRef.hide();
           this.ourNotificationService.notficateReloadCampaigns();

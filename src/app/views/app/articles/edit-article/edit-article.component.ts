@@ -29,7 +29,6 @@ export class EditArticleComponent implements OnInit {
 
       this.articlesService.getArticleById(this.articleId)
         .subscribe((res: any) => {
-          console.log(res);
            this.article = res.article.data;
            this.mediumId = res.article.data.attributes.medium.id;
            this.valueBind = this.article.attributes.body;

@@ -92,7 +92,6 @@ export class ListFormComponent implements OnInit {
         list.name = this.listForm.value.name;
         list.image = this.listForm.value.image;
         this.listService.addList(list).subscribe(resCreate => {
-          console.log(resCreate);
           this.notifications.create('Success', 'List créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
           this.modalRef.hide();
           this.ourNotificationService.notficateReloadLists();

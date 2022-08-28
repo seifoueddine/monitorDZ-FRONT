@@ -20,7 +20,6 @@ export class ReactiveExternalComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formExternalComponents);
   }
 
 }

@@ -36,7 +36,7 @@ export class CampaignsService {
     */
   getCampaignById(sectorId: number): Observable<Campaigns> {
     const req = this.serviceUrl + `/${sectorId}`;
-    console.log(req);
+     
     return this.http.get<Campaigns>(req);
   }
 
@@ -46,7 +46,7 @@ export class CampaignsService {
    */
   updateCampaign(sector: Campaigns): Observable<Campaigns> {
     const req = this.serviceUrl + `/${sector.id}`;
-    console.log(req);
+     
     return this.http.put<Campaigns>(req, sector);
   }
 

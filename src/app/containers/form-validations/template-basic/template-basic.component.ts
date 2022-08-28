@@ -14,7 +14,6 @@ export class TemplateBasicComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form);
   }
 
 }

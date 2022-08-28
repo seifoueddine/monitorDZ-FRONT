@@ -107,7 +107,6 @@ export class MyProfileComponent implements OnInit {
         object.password = this.changePasswordForm.value.password;
         object.password_confirmation = this.changePasswordForm.value.password_confirmation;
         this.userService.changePassword(object).subscribe(resCreate => {
-          console.log(resCreate);
           this.notifications.create('Success', 'Changement du mot de passe avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
           this.modalChangePasswordRef.hide();
         }, error => {

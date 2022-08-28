@@ -84,7 +84,6 @@ export class SlugFormComponent implements OnInit {
         event.preventDefault();
         slug.name = this.slugForm.value.name;
         this.slugService.addSlug(slug).subscribe(resCreate => {
-          console.log(resCreate);
           this.notifications.create('Success', 'Slug créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
           this.modalRef.hide();
           this.ourNotificationService.notficateReloadSlugs();

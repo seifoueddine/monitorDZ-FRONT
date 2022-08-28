@@ -82,7 +82,6 @@ export class SectorFormComponent implements OnInit {
         event.preventDefault();
         sector.name = this.sectorForm.value.name;
         this.sectorService.addSector(sector).subscribe(resCreate => {
-          console.log(resCreate);
           this.notifications.create('Success', 'Secteur créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
           this.modalRef.hide();
           this.ourNotificationService.notficateReloadSectors();

@@ -21,7 +21,6 @@ export class ReactiveCommonComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.commonForm);
   }
 }
 

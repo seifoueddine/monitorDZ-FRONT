@@ -94,7 +94,6 @@ export class ArticlesService {
     */
   getArticleById(articleId: number): Observable<Articles> {
     const req = this.serviceUrl + `/${articleId}`;
-    console.log(req);
     return this.http.get<Articles>(req);
   }
 
@@ -104,7 +103,6 @@ export class ArticlesService {
    */
   updateArticle(article: Articles): Observable<any> {
     const req = this.serviceUrl + `/${article.id}`;
-    console.log(req);
     return this.http.put<Articles>(req, article);
   }
 

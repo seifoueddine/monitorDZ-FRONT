@@ -136,7 +136,7 @@ setting3 = {
   
   updateFilter(event) {
     const val = event.target.value.toLowerCase().trim();
-   console.log(val);
+     
    this.search = val
    if (this.searchReq) {
      clearTimeout(this.searchReq);
@@ -148,13 +148,13 @@ setting3 = {
  }
 
 //  onSelect({ selected }) {
-//    console.log(selected);
+//     
    
 //    this.idItem = ''
 //    const array = [];
 //    selected.map(x=> { array.push( x.id) });
 //    this.idItem =  array.join(',');
-//    console.log(this.idItem);
+//     
    
 //    this.selected.splice(0, this.selected.length);
 //    this.selected.push(...selected);
@@ -181,12 +181,11 @@ setting3 = {
    const array = [];
    this.selected.map(x => { array.push(x.id) });
    this.idItem = array.join(',');
-   console.log(this.idItem);
+    
    this.setSelectAllState();
  }
 
  onItemsPerPageChange(itemCount) {
-   console.log(itemCount);
    this.itemsPerPage = itemCount;
    this.currentPage = 1
    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
@@ -197,7 +196,7 @@ setting3 = {
 
  onSort(event) {
    // event was triggered, start sort sequence
-   console.log('Sort Event', event);
+    
    this.loading = true;
    const sortValue = event.sorts[0].prop
    const dirValue = event.sorts[0].dir
@@ -219,8 +218,8 @@ setting3 = {
  setPage(pageInfo) {
    this.currentPage = pageInfo.offset + 1;
    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
-   console.log(pageInfo);
-   console.log(this.currentPage);
+     
+     
  }
 
 
@@ -238,13 +237,11 @@ onSelect(item: any) {
   const array = [];
   this.selected.map(x=> { array.push( x.id) });
   this.idItem =  array.join(',');
-  console.log(this.idItem);
+   
   this.setSelectAllState();
 }
 
 deleteArticle(article_id, list_id){
-  console.log(article_id);
-  console.log(list_id);
 
   if (article_id) {
     const object = new Lists;
@@ -280,7 +277,7 @@ goToDetailsNewPage(list_id) {
 
 
 pageChanged(event: any): void {
-  console.log(event);
+    
   this.currentPage = event.page
   this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
 }

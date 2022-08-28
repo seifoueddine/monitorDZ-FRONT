@@ -44,7 +44,6 @@ export class AuthorsService {
     */
   getAuthorById(slugId: number): Observable<Authors> {
     const req = this.serviceUrl + `/${slugId}`;
-    console.log(req);
     return this.http.get<Authors>(req);
   }
 
@@ -54,7 +53,7 @@ export class AuthorsService {
    */
   updateAuthor(slug: Authors): Observable<Authors> {
     const req = this.serviceUrl + `/${slug.id}`;
-    console.log(req);
+     
     return this.http.put<Authors>(req, slug);
   }
 

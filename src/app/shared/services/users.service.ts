@@ -36,7 +36,7 @@ export class UsersService {
     */
   getUserById(userId: number): Observable<Users> {
     const req = this.serviceUrl + `/${userId}`;
-    console.log(req);
+     
     return this.http.get<Users>(req);
   }
 
@@ -47,8 +47,6 @@ export class UsersService {
    */
   updateUser(user: FormData, userId: any): Observable<Users> {
     const req = this.serviceUrl + `/${userId}`;
-    console.log(req);
-    console.log(user);
     return this.http.put<any>(req, user);
   }
 
@@ -58,8 +56,6 @@ export class UsersService {
    */
   changePassword(user: any): Observable<Users> {
     const req = this.changePasswordUrl + `${user.id}`;
-    console.log(req);
-    console.log(user);
     return this.http.put<Users>(req, user);
   }
 

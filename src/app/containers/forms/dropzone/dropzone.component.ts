@@ -18,11 +18,9 @@ export class DropzoneComponent implements OnInit {
   }
 
   onUploadError(event) {
-    console.log(event);
   }
 
   onUploadSuccess(event) {
-    console.log(event);
   }
 
 }

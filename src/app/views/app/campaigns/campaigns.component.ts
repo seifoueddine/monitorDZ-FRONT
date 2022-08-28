@@ -132,7 +132,7 @@ export class CampaignsComponent implements OnInit {
   
   updateFilter(event) {
     const val = event.target.value.toLowerCase().trim();
-   console.log(val);
+     
    this.search = val
    if (this.searchReq) {
      clearTimeout(this.searchReq);
@@ -144,13 +144,13 @@ export class CampaignsComponent implements OnInit {
  }
 
  onSelect({ selected }) {
-   console.log(selected);
+    
    
    this.idItem = ''
    const array = [];
    selected.map(x=> { array.push( x.id) });
    this.idItem =  array.join(',');
-   console.log(this.idItem);
+    
    
    this.selected.splice(0, this.selected.length);
    this.selected.push(...selected);
@@ -177,12 +177,11 @@ export class CampaignsComponent implements OnInit {
    const array = [];
    this.selected.map(x => { array.push(x.id) });
    this.idItem = array.join(',');
-   console.log(this.idItem);
+    
    this.setSelectAllState();
  }
 
  onItemsPerPageChange(itemCount) {
-   console.log(itemCount);
    this.itemsPerPage = itemCount;
    this.currentPage = 1
    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
@@ -193,7 +192,7 @@ export class CampaignsComponent implements OnInit {
 
  onSort(event) {
    // event was triggered, start sort sequence
-   console.log('Sort Event', event);
+    
    this.loading = true;
    const sortValue = event.sorts[0].prop
    const dirValue = event.sorts[0].dir
@@ -215,8 +214,8 @@ export class CampaignsComponent implements OnInit {
  setPage(pageInfo) {
    this.currentPage = pageInfo.offset + 1;
    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
-   console.log(pageInfo);
-   console.log(this.currentPage);
+     
+     
  }
 
 

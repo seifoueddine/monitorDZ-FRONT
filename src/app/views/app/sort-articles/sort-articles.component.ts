@@ -185,7 +185,7 @@ export class SortArticlesComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    console.log(event);
+      
     this.currentPage = event.page
     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date,this.end_date, this.langJoin);
   }
@@ -245,7 +245,7 @@ export class SortArticlesComponent implements OnInit {
  
  updateFilter(event) {
    const val = event.target.value.toLowerCase().trim();
-  console.log(val);
+    
   this.search = val
   if (this.searchReq) {
     clearTimeout(this.searchReq);
@@ -257,24 +257,23 @@ export class SortArticlesComponent implements OnInit {
 }
 
 onSelect( item: any ) {
-  console.log(item);
   this.idItem = ''
   const array = [];
   if (this.isSelected(item)) {
     this.selected = this.selected.filter(x => x.id !== item.id);
     this.selected.map(x=> { array.push( x.id) });
       this.idItem =  array.join(',');
-  console.log(this.idItem);
+   
   } else {
     this.selected.push(item);
     this.selected.map(x=> { array.push( x.id) });
       this.idItem =  array.join(',');
-  console.log(this.idItem);
+   
   }
   
   // selected.map(x=> { array.push( x.id) });
   // this.idItem =  array.join(',');
-  // console.log(this.idItem);
+  //  
   
   // this.selected.splice(0, this.selected.length);
   // this.selected.push(...selected);
@@ -301,12 +300,11 @@ selectAllChange($event) {
   const array = [];
   this.selected.map(x => { array.push(x.id) });
   this.idItem = array.join(',');
-  console.log(this.idItem);
+   
   this.setSelectAllState();
 }
 
 onItemsPerPageChange(itemCount) {
-  console.log(itemCount);
   this.itemsPerPage = itemCount;
   this.currentPage = 1
   this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date,this.end_date, this.langJoin);
@@ -317,7 +315,7 @@ onItemsPerPageChange(itemCount) {
 
 onSort(event) {
   // event was triggered, start sort sequence
-  console.log('Sort Event', event);
+   
   this.loading = true;
   const sortValue = event.sorts[0].prop
   const dirValue = event.sorts[0].dir
@@ -339,8 +337,8 @@ onSort(event) {
 setPage(pageInfo) {
   this.currentPage = pageInfo.offset + 1;
   this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date,this.end_date, this.langJoin);
-  console.log(pageInfo);
-  console.log(this.currentPage);
+    
+    
 }
 
   isSelected(p: any) {
@@ -400,7 +398,7 @@ setPage(pageInfo) {
 
 
   selectMedia(event) {
-    console.log(event);
+      
     
 
     let media = event;
@@ -409,7 +407,6 @@ setPage(pageInfo) {
     this.mediaIds = [];
     const mediasArray = event;
     mediasArray.map(s=> this.mediaIds.push(s.id));
-    console.log(this.mediaIds);
 
 
     if (this.mediaIds.length > 0) {
@@ -492,7 +489,6 @@ setPage(pageInfo) {
 
   changeStatus(status){
     this.articleService.changeStatus(status,this.idItem).subscribe(resCreate => {
-      console.log(resCreate);
       this.notifications.create('Success', 'Changement de statut avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
       this.selected = [];
       this.idItem = '';
@@ -704,7 +700,7 @@ if (index !== -1) {
 
 
   getValueSlug(event){
-    console.log(event);
+      
     this.slugId = event.id;
   }
 

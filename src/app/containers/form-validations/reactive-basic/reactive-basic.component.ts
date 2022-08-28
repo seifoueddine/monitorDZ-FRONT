@@ -26,7 +26,6 @@ export class ReactiveBasicComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.basicForm);
   }
 
 }

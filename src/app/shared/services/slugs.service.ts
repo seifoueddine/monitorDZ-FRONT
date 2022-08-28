@@ -37,7 +37,7 @@ export class SlugsService {
     */
   getSlugById(slugId: number): Observable<Slugs> {
     const req = this.serviceUrl + `/${slugId}`;
-    console.log(req);
+     
     return this.http.get<Slugs>(req);
   }
 
@@ -47,7 +47,7 @@ export class SlugsService {
    */
   updateSlug(slug: Slugs): Observable<Slugs> {
     const req = this.serviceUrl + `/${slug.id}`;
-    console.log(req);
+     
     return this.http.put<Slugs>(req, slug);
   }
 

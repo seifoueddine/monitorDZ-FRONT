@@ -115,7 +115,7 @@ previousText = "<i class='simple-icon-arrow-left'></i>";
 
   updateFilter(event) {
     const val = event.target.value.toLowerCase().trim();
-   console.log(val);
+     
    this.search = val
    if (this.searchReq) {
      clearTimeout(this.searchReq);
@@ -141,7 +141,7 @@ onSelect(item: Users) {
     const array = [];
     this.selected.map(x=> { array.push( x.id) });
     this.idItem =  array.join(',');
-    console.log(this.idItem);
+     
   this.setSelectAllState();
 }
 
@@ -165,30 +165,27 @@ selectAllChange($event) {
     const array = [];
     this.selected.map(x => { array.push(x.id) });
     this.idItem = array.join(',');
-    console.log(this.idItem);
+     
   this.setSelectAllState();
 }
 
 pageChanged(event: any): void {
-  console.log(event);
+    
   this.currentPage = event.page;
   this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
 }
 
 itemsPerPageChange(perPage: number) {
-  console.log(perPage);
   this.itemsPerPage = perPage;
   this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
 }
 
 changeOrderBy(item: any) {
-  console.log(item);
   this.orderBy = item.value;
   this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
 }
 
 changeDirection(item: any) {
-  console.log(item);
   this.direction = item.value;
   this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
 }
@@ -209,7 +206,6 @@ searchKeyUp(event) {
 
 
 onItemsPerPageChange(itemCount) {
-  console.log(itemCount);
   this.itemsPerPage = itemCount;
   setTimeout(() => {
     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);
@@ -244,7 +240,6 @@ changePassword(event) {
       object.password = this.changePasswordForm.value.password;
       object.password_confirmation = this.changePasswordForm.value.password_confirmation;
       this.usersService.changePassword(object).subscribe(resCreate => {
-        console.log(resCreate);
         this.notifications.create('Succès', 'Changer de mot de passe avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
         this.modalChangePasswordRef.hide();
         this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search);

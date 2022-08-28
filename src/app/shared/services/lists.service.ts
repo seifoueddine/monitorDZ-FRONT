@@ -38,7 +38,7 @@ export class ListsService {
     */
   getListById(listId: number): Observable<Lists> {
     const req = this.serviceUrl + `/${listId}`;
-    console.log(req);
+     
     return this.http.get<Lists>(req);
   }
 
@@ -48,7 +48,7 @@ export class ListsService {
    */
   updateList(list: Lists): Observable<Lists> {
     const req = this.serviceUrl + `/${list.id}`;
-    console.log(req);
+     
     return this.http.put<Lists>(req, list);
   }
 

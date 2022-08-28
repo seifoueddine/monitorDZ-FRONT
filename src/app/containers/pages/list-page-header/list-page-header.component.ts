@@ -99,8 +99,6 @@ export class ListPageHeaderComponent implements OnInit {
   }
 
   deleteItem(currentPage, id) {
-    console.log("page: " + currentPage);
-    console.log("id: " + id);
     switch (currentPage) {
       case "sectors":
         this.deleteSector(id);

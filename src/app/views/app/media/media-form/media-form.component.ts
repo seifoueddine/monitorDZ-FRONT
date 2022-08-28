@@ -80,7 +80,7 @@ export class MediaFormComponent implements OnInit {
     this.sectorsIds = [];
     const sectorsArray = event;
     sectorsArray.map(s=> this.sectorsIds.push(s.id));
-    console.log(this.sectorsIds);
+     
   }
 
   selectType(event){
@@ -191,7 +191,6 @@ export class MediaFormComponent implements OnInit {
         formData.append('language', this.mediaForm.value.language);
         formData.append('tag_status', this.mediaForm.value.tag_status);
         this.mediaService.addMedia(formData).subscribe(resCreate => {
-          console.log(resCreate);
           this.notifications.create('Success', 'Média créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
           this.hideModal();
           this.ourNotificationService.notficateReloadMedia();

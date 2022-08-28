@@ -36,7 +36,7 @@ export class SectorsService {
     */
   getSectorById(sectorId: number): Observable<Sectors> {
     const req = this.serviceUrl + `/${sectorId}`;
-    console.log(req);
+     
     return this.http.get<Sectors>(req);
   }
 
@@ -46,7 +46,7 @@ export class SectorsService {
    */
   updateSector(sector: Sectors): Observable<Sectors> {
     const req = this.serviceUrl + `/${sector.id}`;
-    console.log(req);
+     
     return this.http.put<Sectors>(req, sector);
   }
 

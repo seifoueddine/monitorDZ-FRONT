@@ -221,7 +221,7 @@ export class ClientArticlesComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    console.log(event);
+      
     this.currentPage = event.page;
     this.loadData(
       this.itemsPerPage,
@@ -356,7 +356,7 @@ export class ClientArticlesComponent implements OnInit {
 
   updateFilter(event) {
     const val = event.target.value.toLowerCase().trim();
-    console.log(val);
+      
     this.search = val;
     if (this.searchReq) {
       clearTimeout(this.searchReq);
@@ -382,7 +382,6 @@ export class ClientArticlesComponent implements OnInit {
   }
 
   onSelect(item: any) {
-    console.log(item);
     this.idItem = "";
     const array = [];
     if (this.isSelected(item)) {
@@ -391,19 +390,19 @@ export class ClientArticlesComponent implements OnInit {
         array.push(x.id);
       });
       this.idItem = array.join(",");
-      console.log(this.idItem);
+       
     } else {
       this.selected.push(item);
       this.selected.map((x) => {
         array.push(x.id);
       });
       this.idItem = array.join(",");
-      console.log(this.idItem);
+       
     }
 
     // selected.map(x=> { array.push( x.id) });
     // this.idItem =  array.join(',');
-    // console.log(this.idItem);
+    //  
 
     // this.selected.splice(0, this.selected.length);
     // this.selected.push(...selected);
@@ -432,12 +431,11 @@ export class ClientArticlesComponent implements OnInit {
       array.push(x.id);
     });
     this.idItem = array.join(",");
-    console.log(this.idItem);
+     
     this.setSelectAllState();
   }
 
   onItemsPerPageChange(itemCount) {
-    console.log(itemCount);
     this.itemsPerPage = itemCount;
     this.currentPage = 1;
     this.loadData(
@@ -460,7 +458,6 @@ export class ClientArticlesComponent implements OnInit {
 
   onSort(event) {
     // event was triggered, start sort sequence
-    console.log("Sort Event", event);
     this.loading = true;
     const sortValue = event.sorts[0].prop;
     const dirValue = event.sorts[0].dir;
@@ -508,8 +505,8 @@ export class ClientArticlesComponent implements OnInit {
       this.mediaTypesJoin,
       this.zoneJoin
     );
-    console.log(pageInfo);
-    console.log(this.currentPage);
+      
+      
   }
 
   isSelected(p: any) {
@@ -566,7 +563,7 @@ export class ClientArticlesComponent implements OnInit {
   }
 
   selectMedia(event) {
-    console.log(event);
+      
 
     this.spinner = true;
     let media = event;
@@ -574,7 +571,6 @@ export class ClientArticlesComponent implements OnInit {
     this.mediaIds = [];
     const mediasArray = event;
     mediasArray.map((s) => this.mediaIds.push(s.id));
-    console.log(this.mediaIds);
 
     if (this.mediaIds.length > 0) {
       this.mediaIdJoin = this.mediaIds.join(",");

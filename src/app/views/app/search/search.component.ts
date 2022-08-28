@@ -135,7 +135,7 @@ spinner = false
 
   
   pageChanged(event: any): void {
-    console.log(event);
+      
     this.currentPage = event.page
     this.searchService.search(this.currentPage, this.orderBy, this.direction, this.itemsPerPage, this.searchKey, this.authorsIdJoin, this.start_date, this.end_date,this.langJoin,this.tagsNameJoin,this.mediaTypesJoin, this.zoneJoin,this.mediaIdJoin)
     .subscribe((res: any) => {
@@ -250,7 +250,7 @@ spinner = false
     const array = [];
     this.selected.map(x=> { array.push( x.id) });
     this.idItem =  array.join(',');
-    console.log(this.idItem);
+     
     this.setSelectAllState();
   }
 

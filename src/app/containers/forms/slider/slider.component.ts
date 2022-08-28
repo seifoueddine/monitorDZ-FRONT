@@ -13,7 +13,6 @@ export class SliderComponent implements OnInit {
     this.sliderRangeFormGroup = new FormGroup({
       range: new FormControl([800, 1200]),
     });
-    console.log(this.sliderRangeFormGroup.controls.range);
   }
 
 }

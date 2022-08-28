@@ -36,7 +36,7 @@ export class MediaService {
     */
   getMediaById(sectorId: number): Observable<Media> {
     const req = this.serviceUrl + `/${sectorId}`;
-    console.log(req);
+     
     return this.http.get<Media>(req);
   }
 
@@ -46,7 +46,7 @@ export class MediaService {
    */
   updateMedia(media: FormData, mediaId: any): Observable<Media> {
     const req = this.serviceUrl + `/${mediaId}`;
-    console.log(req);
+     
     return this.http.put<Media>(req, media);
   }
 

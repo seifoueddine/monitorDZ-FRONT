@@ -36,7 +36,6 @@ export class ListDetailsComponent implements OnInit {
 
         this.listsService.getListById(this.listId)
           .subscribe((res: any) => {
-            console.log(res);
             this.list = res.lists.data;
             this.articles = res.articles.data;
    
@@ -56,7 +55,6 @@ export class ListDetailsComponent implements OnInit {
 
   
 deleteArticle(article_id){
-  console.log(article_id); 
   if (article_id) {
     const object = new Lists;
     object.id = this.listId
@@ -66,7 +64,6 @@ deleteArticle(article_id){
       this.notifications.create('Success', "Supprimer l'articles avec succès", NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
       this.listsService.getListById(this.listId)
           .subscribe((res: any) => {
-            console.log(res);
             this.list = res.lists.data;
             this.articles = res.articles.data;
           }, error => {
