@@ -1,25 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app.routing';
-import { AppComponent } from './app.component';
-import { ViewsModule } from './views/views.module';
-import { TranslateModule } from '@ngx-translate/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularTokenModule } from 'angular-token';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { environment } from '../environments/environment';
-import { LayoutContainersModule } from './containers/layout/layout.containers.module';
-import { AngularFireModule } from '@angular/fire';
-import { XhrInterceptor } from './http.interceptor';
-
-
-
-
-
-
-
-
-
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { AppRoutingModule } from "./app.routing";
+import { AppComponent } from "./app.component";
+import { ViewsModule } from "./views/views.module";
+import { TranslateModule } from "@ngx-translate/core";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AngularTokenModule } from "angular-token";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { environment } from "../environments/environment";
+import { LayoutContainersModule } from "./containers/layout/layout.containers.module";
+import { AngularFireModule } from "@angular/fire";
+import { XhrInterceptor } from "./http.interceptor";
 
 @NgModule({
   imports: [
@@ -32,40 +23,39 @@ import { XhrInterceptor } from './http.interceptor';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularTokenModule.forRoot({
-      apiBase:                   'https://api.mediasmonitoring.com',
-      apiPath:                    'api/v1',
-      
-      signInPath:                 'auth/sign_in',
-      signInRedirect:             null,
-      signInStoredUrlStorageKey:  null,
+      apiBase: "https://api.mediasmonitoring.com",
+      apiPath: "api/v1",
 
-      signOutPath:                'auth/sign_out',
-      validateTokenPath:          'auth/validate_token',
-      signOutFailedValidate:      false,
+      signInPath: "auth/sign_in",
+      signInRedirect: null,
+      signInStoredUrlStorageKey: null,
 
-      registerAccountPath:        'auth',
-      deleteAccountPath:          'auth',
-      registerAccountCallback:    window.location.href,
+      signOutPath: "auth/sign_out",
+      validateTokenPath: "auth/validate_token",
+      signOutFailedValidate: false,
 
-      updatePasswordPath:         'auth',
-      resetPasswordPath:          'auth/password',
-      resetPasswordCallback:      window.location.href,
-      loginField:                 'email',
-      oAuthBase:                  window.location.origin,
+      registerAccountPath: "auth",
+      deleteAccountPath: "auth",
+      registerAccountCallback: window.location.href,
+
+      updatePasswordPath: "auth",
+      resetPasswordPath: "auth/password",
+      resetPasswordCallback: window.location.href,
+      loginField: "email",
+      oAuthBase: window.location.origin,
       oAuthPaths: {
-          github:                 'auth/github'
+        github: "auth/github",
       },
-      oAuthCallbackPath:          'oauth_callback',
-      oAuthWindowType:            'newWindow',
-      oAuthWindowOptions:         null,
+      oAuthCallbackPath: "oauth_callback",
+      oAuthWindowType: "newWindow",
+      oAuthWindowOptions: null,
     }),
   ],
-  declarations: [
-    AppComponent,
+  declarations: [AppComponent],
+  providers: [
+    AngularTokenModule,
+    { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
   ],
-  providers: [ AngularTokenModule,
-    {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
-  ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,0 +1,199 @@
+<div class="row">
+  <div class="col-12 col-md-12 col-xl-8 col-left">
+    <div class="card mb-4">
+      <div *ngIf="role != 'ClientAdmin'" class="position-absolute card-top-buttons">
+        <button class="btn btn-outline-white icon-button c-pointer" (click)="openModal(template, article)"><i
+            class="simple-icon-pencil"></i></button>
+      </div>
+      <img alt="detail"
+        style="height: 300px; padding: 15px; border-top-left-radius: 25px; border-top-right-radius: 25px; "
+        [src]="article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage"
+        (click)="openLightbox(article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage)"
+        class="responsive border-0 card-img-top mb-3 c-pointer" />
+      <span *ngIf="article?.attributes.category_article != ''" style="background-color: brown; color: white;"
+        [class]="'position-absolute badge-top-left badge badge-pill'"> {{article?.attributes.category_article}}</span>
+
+      <div class="card-body">
+        <div class="mb-5">
+          <h3 class="card-title color-theme-1 text-center"><b>{{article?.attributes.title}}
+              <a tooltip="Lien direct" placement="left" target="_blank" [href]="article?.attributes.url_article">
+                <i class='simple-icon-link initial-height'></i>
+              </a>
+            </b> 
+          </h3>
+          <div [innerHTML]="article?.attributes.body | sanitizeHtml"></div>
+        </div>
+
+        <!-- <button class="top-right-button btn btn-primary " (click)="downloadAsPDF()">Export en PDF FRONT</button> -->
+
+      </div>
+
+
+    </div>
+  </div>
+  <div class="col-12 col-md-12 col-xl-4 col-right">
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">{{ 'articleDetails.informations' | translate }} </h5>
+
+
+
+        <div class="d-flex flex-row align-items-center mb-3">
+          <a class="d-block position-relative" href="#">
+            <i class='simple-icon-globe initial-height'></i>
+          </a>
+          <div class="pl-3 pt-2 pr-2 pb-2">
+            <a href="javascript:;">
+              <p class="mb-0">{{mediaName}} </p>
+            </a>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row align-items-center mb-3">
+          <a class="d-block position-relative" href="#">
+            <i class='simple-icon-user initial-height'></i>
+          </a>
+          <div class="pl-3 pt-2 pr-2 pb-2">
+            <a href="javascript:;">
+              <p class="mb-0">{{ this.authorName}}</p>
+            </a>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row align-items-center mb-3">
+          <a class="d-block position-relative" href="#">
+            <i class='simple-icon-calendar initial-height'></i>
+          </a>
+          <div class="pl-3 pt-2 pr-2 pb-2">
+            <a href="javascript:;">
+              <p class="mb-0">{{article?.attributes.date_published | date:'dd/MM/yyyy'}}</p>
+            </a>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row align-items-center mb-3">
+          <a class="d-block position-relative" href="#">
+            <i class='simple-icon-tag initial-height'></i>
+          </a>
+          <div class="pl-3 pt-2 pr-2 pb-2">
+
+            <p class="d-sm-inline-block mb-1" *ngFor="let item of tags">
+              <a href="javascript:;">
+                <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">{{item.name}}</span>
+              </a>
+            </p>
+
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">{{ 'general.actions' | translate }}</h5>
+        <!-- <button class="top-right-button btn btn-primary " (click)="exportPDF()">Export en PDF</button>  -->
+
+        <div style="width: 100%;" class="btn-group btn-group  mr-2  mb-1" role="group">
+          <!-- <button type="button" class="btn  btn-primary" (click)="exportPDF()" style="background-color: brown; border-color: brown; ">  <i class="simple-icon-cloud-download mb-4"></i> Export en PDF</button> -->
+          <app-state-button class="btn  btn-primary" [currentState]="buttonState" (click)="exportPDF()"
+            style="background-color: brown; border-color: brown; padding: 0px; ">
+            <i class="simple-icon-cloud-download mb-4"></i> {{ 'articleDetails.exportPDF' | translate }}
+          </app-state-button>
+          <button type="button" style=" padding-top: 0px;padding-bottom: 0px; color: white  " class="btn  btn-primary"
+            (click)="openModalEmail(templateEmail)"> <i class="iconsminds-mail-send mb-4"></i> {{
+            'articleDetails.sendEmail' | translate }}</button>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="card">
+      <div class="position-absolute card-top-buttons">
+        <!-- <button class="btn btn-header-light icon-button">
+                    <i class="simple-icon-refresh"></i>
+                </button> -->
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"> {{ 'articleDetails.similarArticle' | translate }} </h5>
+        <div class="scroll dashboard-list-with-thumbs">
+          <perfect-scrollbar class="scroll" [config]="{suppressScrollX: true, wheelPropagation: false}">
+            <div [dir]="article.attributes.medium.language === 'ar' ? 'rtl' : 'ltr'" class="d-flex flex-row mb-3" *ngFor="let article of similar">
+              <a class="d-block position-relative">
+                <img style="width: 100px;"
+                  [src]="article.attributes.image.url ? urlForImage + article.attributes.image.url : defaultImage"
+                  class="list-thumbnail border-0" />
+                <span style="background-color: brown; color: white;"
+                  [class]="'position-absolute badge-top-right badge badge-pill '">{{article.attributes.medium.name}}</span>
+              </a>
+              <div class="pl-3 pt-2 pr-2 pb-2">
+                <a target="_blank" [href]="'client/articles/details?id='+article.id">
+                  <p class="list-item-heading color-theme-1"><b>{{ article.attributes.title }}</b></p>
+                  <div class="pr-4">
+                    <!-- <p class="text-muted mb-1 text-small"> -->
+                    <div [innerHTML]="getBodyWithSearch(article.attributes.body)"></div>
+                    <!-- </p> -->
+                  </div>
+                  <div class="text-primary text-small font-weight-medium d-none d-sm-block">
+                    {{ article.attributes.author.name }}
+                  </div>
+                </a>
+              </div>
+            </div>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <h6 class="modal-title mb-4"> {{ 'articleDetails.editArticle' | translate }} </h6>
+
+
+    <div class="row">
+      <div class="col-12">
+
+        <div class="card mb-4">
+          <div class="card-body">
+
+            <quill-editor [(ngModel)]="valueBind" [placeholder]="''"></quill-editor>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+
+
+
+    <button type="button" class="btn btn-outline-primary" (click)="submit()">Confirmer</button> {{" "}}
+    <button type="button" class="btn btn-primary" (click)="decline()">Annuler</button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #templateEmail>
+  <div class="modal-body text-center">
+    <h6 class="modal-title mb-4">Merci de Mettre email du destinataire </h6>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="text" class="form-control" [(ngModel)]="email" placeholder="E-mail">
+
+    </div>
+    <button type="button" class="btn btn-outline-primary" (click)="SendMail()">Confirmer</button> {{" "}}
+    <button type="button" class="btn btn-primary" (click)="declineEmail()">Annuler</button>
+  </div>
+</ng-template>
+<simple-notifications [options]="options"></simple-notifications>

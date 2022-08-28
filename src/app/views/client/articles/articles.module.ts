@@ -25,14 +25,9 @@ import { QuillModule } from "ngx-quill";
 import { sanitizeHtmlPipe } from "src/app/shared/sanitize-html.pipe";
 import { ComponentsStateButtonModule } from "src/app/components/state-button/components.state-button.module";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
-import { EditArticleComponent } from "./edit-article/edit-article.component";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 @NgModule({
-  declarations: [
-    ArticlesComponent,
-    DetailsArticleComponent,
-    EditArticleComponent,
-  ],
+  declarations: [ArticlesComponent, DetailsArticleComponent],
   imports: [
     SharedModule,
     LayoutContainersModule,

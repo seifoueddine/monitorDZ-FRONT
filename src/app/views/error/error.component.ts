@@ -1,19 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-error',
-  templateUrl: './error.component.html'
+  selector: "app-error",
+  templateUrl: "./error.component.html",
 })
 export class ErrorComponent implements OnInit, OnDestroy {
-
-  constructor() { }
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    document.body.classList.add('background');
+    document.body.classList.add("background");
   }
 
   ngOnDestroy() {
-    document.body.classList.remove('background');
+    document.body.classList.remove("background");
   }
 
+  goToHome() {
+    this.router.navigate(["/"]);
+  }
 }

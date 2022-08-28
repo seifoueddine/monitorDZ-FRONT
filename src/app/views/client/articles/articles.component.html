@@ -1,0 +1,146 @@
+<div class="row app-row">
+    <div class="col-12">
+        <app-heading></app-heading>
+        <div class="top-right-button-container text-zero">
+            <button type="button" (click)="showAddNewModal()"
+                class="top-right-button btn btn-primary btn-lg mr-1">{{ 'pages.add-new' | translate}}</button>
+        </div>
+        <app-breadcrumb></app-breadcrumb>
+        <div class="display-options-container">
+            <a class="btn pt-0 pl-0 d-inline-block d-md-none c-pointer" data-toggle="collapse"
+                (click)="displayOptionsCollapsed = !displayOptionsCollapsed" role="button" aria-expanded="true"
+                aria-controls="displayOptions">
+                {{ 'pages.display-options' | translate}} {{' '}}
+                <i class="simple-icon-arrow-down align-middle"></i>
+            </a>
+            <div id="displayOptions" [collapse]="displayOptionsCollapsed" class="collapse dont-collapse-sm">
+                <div class="d-block d-md-inline-block">
+                    <div class="float-md-left mr-1 mb-1 ">
+                      <ng-select class="custom" [searchFn]="customSearch" [items]="media" placeholder="Média" bindLabel="attributes.name" bindValue="id" [multiple]="true"
+                        (change)="selectMedia($event)"> 
+                      </ng-select>
+        
+                    </div>
+                  </div>
+                <div class="float-right" id="pageCountDatatable">
+                    <span class="text-muted text-small">Total {{totalElements}} / par page </span>
+                    <span dropdown class="d-inline-block position-relative">
+                        <button class="btn btn-outline-dark btn-xs dropdown-toggle" type="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" dropdownToggle>
+                            {{itemsPerPage}}
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm text-right" *dropdownMenu>
+                            <li role="menuitem" *ngFor="let item of itemOptionsPerPage"><a
+                                    [ngClass]="item === itemsPerPage ? 'dropdown-item active' : 'dropdown-item'"
+                                    (click)="getArticlePerPage(item)">{{item}}</a></li>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <div class="separator mb-4"></div>
+        </div>
+    </div>
+    <ng-container *ngIf="rows; else loading">
+      
+
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-12 col-sm-6 mb-4" *ngFor="let a of rows; let i=index" >
+    
+                  <div class="card bg-dark text-white">
+                   
+                    <img class="card-img" [src]="a.attributes.image.url ? urlForImage + a.attributes.image.url : defaultImage" alt="Card image">
+
+                    <div class="card-img-overlay">
+                        <span *ngIf="a.attributes.category_article != ''" style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'"> {{a.attributes.category_article}}</span> 
+                        <span style="background-color: green; color: white;" *ngIf="a.attributes.is_tagged" [class]="'position-absolute badge-top-right badge badge-pill'"> Tag auto</span> 
+
+                      <p class="list-item-heading mb-5">{{a.attributes.title}}</p>
+                     
+                        <a style="color: white;" target="_blank" [href]="'client/articles/details?id='+a.id"><i  class='simple-icon-share-alt initial-height'> Voir l'article</i></a>
+                        <!-- <p class="card-text"> Voir l'article</p> -->
+                      <p class="card-text">  {{a.attributes.date_published | date:'dd/MM/yyyy'}}</p>
+                    </div>
+                  </div>
+                
+              
+            </div>
+            <div class="col-12">
+                <pagination [boundaryLinks]="true"  [totalItems]="totalElements" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"
+                  [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center" [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
+                  [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate">
+                </pagination>
+              </div>
+          </div>
+
+          <div class="col-12">
+
+
+            <ng-template #nextTemplate let-disabled="disabled" let-currentPage="currentPage">
+            <i class='simple-icon-arrow-right'></i>
+            </ng-template>
+            
+            <ng-template #prevTemplate let-disabled="disabled" let-currentPage="currentPage">
+            <i class='simple-icon-arrow-left'></i>
+            </ng-template>
+            
+            <ng-template #lastTemplate let-disabled="disabled" let-currentPage="currentPage">
+            <i class='simple-icon-control-end'></i>
+            </ng-template>
+            
+            <ng-template #firstTemplate let-disabled="disabled" let-currentPage="currentPage">
+            <i class='simple-icon-control-start'></i>
+            </ng-template>
+            
+            </div>
+
+    </ng-container>
+    <ng-template #loading>
+        <div class="loading"></div>
+    </ng-template>
+
+
+
+
+
+</div>
+
+<app-application-menu>
+    <perfect-scrollbar class="scroll" [config]="{suppressScrollX: true, wheelPropagation: false}">
+        <div class="p-4 h-100">
+            <div class="scroll">
+                <!-- <p class="text-muted text-small">Média</p>
+                <div *ngIf="!spinnerCrawling">
+                <ul   class="list-unstyled mb-4" *ngFor="let m of media;">
+                    <li class="nav-item c-pointer">
+                        <a (click)="getNewArticles(m.id, m.attributes.name)">
+                            <i class="simple-icon-refresh"></i>
+                            {{ m.attributes.name}}
+                           
+                        </a>
+                    </li>
+                   
+                </ul>
+            </div>
+                <div *ngIf="spinnerCrawling" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                    </div>
+                    <div class="mt-3">Chercher nouveaux articles dans {{mediaNameSelected}}</div>
+                </div> -->
+                <p class="text-muted text-small mb-4">
+                Tags
+                </p>
+                <div class="text-zero">
+
+                    <app-state-button [btnClass]="'btn btn-primary btn-lg btn-shadow'" [currentState]="buttonState"
+                     (click)="goToAutoTag()">
+                    Lance tag auto
+                  </app-state-button>
+
+                </div>
+        
+        
+            </div>
+        </div>
+    </perfect-scrollbar>
+</app-application-menu>
+<simple-notifications [options]="options"></simple-notifications>

@@ -1,0 +1,307 @@
+
+
+<div class="row app-row">
+    <div class="col-12">
+      <app-heading></app-heading>
+      <app-breadcrumb></app-breadcrumb>
+      <div class="separator mb-5"></div>
+
+ 
+      <!-- <div class="top-right-button-container text-zero">
+        <button  type="button"  [disabled]="idItem == ''"  (click)="openModal(template)"
+          class="top-right-button btn btn-primary btn-lg mr-1">Ajouter a ma list</button>
+       
+      </div> -->
+
+
+
+
+
+
+
+
+     <h5 *ngIf="suggestions?.length > 0 && !spinner">Essayez avec cette orthographe : <a class="c-pointer" *ngFor="let item of suggestions; let i = index" (click)="makeSearch(item)" style="color: #00365a; text-decoration:none;"> <b>{{item}}</b> <b *ngIf="i +1 < suggestions?.length">{{" , "}} </b> </a> </h5> 
+
+    </div>
+  </div>
+ 
+  <div *ngIf="result?.length > 0 && !spinner" class="row app-row">
+    <div class="col-12">
+      <p class="text-muted">Pour votre recherche ' <strong style="color: #FB6400;">{{ searchKey }} </strong> '</p> 
+      <p class="text-muted">{{totalElements}} résultats ({{time/1000}} secondes)</p> 
+</div>
+</div>
+  <div *ngIf="result?.length > 0 && !spinner" class="row app-row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-body">
+          <div *ngFor="let item of result; let i = index;" [ngClass]="{'mb-3':result.length!==(i+1)}">
+
+        
+
+              <div class="row">
+
+                <!-- <div class="col-1">
+                <img  class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center small " [src]="item.attributes.medium?.avatar.url ? urlForImage + item.attributes.medium?.avatar.url : defaultIcon" [alt]="item.attributes.medium.name">
+              </div> -->
+
+                <div class="col-11">
+                  <p *ngIf="item.attributes.category_article != ''" class="list-item-heading mb-1 color-theme-1">   <span   [class]="'badge badge-pill badge-secondary'"> {{item.attributes.medium.name}}</span>   / <span style="background-color: brown; color: white;"  [class]="'badge badge-pill'"> {{item.attributes.category_article}}</span> 
+                  </p>
+                  <p *ngIf="item.attributes.category_article == ''" class="list-item-heading mb-1 color-theme-1">   <span   [class]="'badge badge-pill badge-secondary'"> {{item.attributes.medium.name}}</span>  
+                  </p>
+                  <a  target="_blank" [href]="'client/articles/details?id='+item.id" class="w-40 w-sm-100">
+                      <p class="list-item-heading mb-1 color-theme-1"><b>{{item.attributes.title}}</b></p>
+                  </a>
+                  <p class="mb-1 text-muted text-small"> <b><a *ngIf="getAuthorWithSearch(item.attributes.author.name)" style="color: #FB6400;">{{ item.attributes.author.name }}</a></b> <a *ngIf="!getAuthorWithSearch(item.attributes.author.name)" >{{ item.attributes.author.name }}</a> | {{item.attributes.date_published | date:'dd/MM/yyyy'}}</p>
+                  <!-- <p class="mb-4 text-small">{{ item.description }}</p> -->
+                  <!-- <div [innerHTML]="(item.body | slice:0:150 ) + '...' "></div> -->
+                  <div [innerHTML]="getBodyWithSearch(item.attributes.body)"></div>
+                
+                </div>
+                <div class="col-1">
+                  <label style="margin: 5px;" class="custom-control custom-checkbox mb-1 align-self-center pr-4">
+           
+                    <input type="checkbox" class="custom-control-input" [id]="'customCheck'+i" [checked]="isSelected(item)"
+                      (change)="onSelect(item)"> 
+                    <label class="custom-control-label" [for]="'customCheck'+i"></label> 
+                  </label>
+                </div>
+              </div>
+              <div class="separator mb-5" *ngIf="result.length!==(i+1)"></div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+        <pagination [boundaryLinks]="true"  [totalItems]="totalElements" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"
+          [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center" [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
+          [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate">
+        </pagination>
+      </div>
+
+
+
+        <ng-template #nextTemplate let-disabled="disabled" let-currentPage="currentPage">
+        <i class='simple-icon-arrow-right'></i>
+        </ng-template>
+        
+        <ng-template #prevTemplate let-disabled="disabled" let-currentPage="currentPage">
+        <i class='simple-icon-arrow-left'></i>
+        </ng-template>
+        
+        <ng-template #lastTemplate let-disabled="disabled" let-currentPage="currentPage">
+        <i class='simple-icon-control-end'></i>
+        </ng-template>
+        
+        <ng-template #firstTemplate let-disabled="disabled" let-currentPage="currentPage">
+        <i class='simple-icon-control-start'></i>
+        </ng-template>
+        
+     
+
+
+  </div>
+  
+
+
+    <div *ngIf="result?.length == 0 && !spinner" class="row app-row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="jumbotron">
+              <h1 class="display-4">Oups!!</h1>
+              <p class="lead">Aucun article ne correspond aux termes de recherche spécifiés</p>
+              <p class="lead" > ( <strong>{{ searchKey }} </strong> )  </p>
+              <hr class="my-4">
+              <p>
+                Suggestions :
+              </p>
+              <p >
+               - Vérifiez l’orthographe des termes de recherche.
+              </p>
+               <p >
+               - Essayez d'autres mots.
+              </p>
+              <p >
+               - Utilisez des mots clés plus généraux.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-12" *ngIf="result?.length == 0 && spinner" >
+      <div *ngIf="spinner" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+        <div class="mt-3">{{ 'spinner.loading' | translate }}</div>
+      </div>
+    </div>
+
+
+    <ng-template #template>
+      <div class="modal-body text-center">
+        <h6 class="modal-title mb-4">Merci de choisir la list </h6>
+        <div class="form-group">
+          <label>Listes</label>
+          <ng-select *ngIf="lists" mul [items]="lists" bindLabel='attributes.name' bindValue="id" 
+          [searchFn]="customSearch" [multiple]="false" (change)="selectList($event)">
+        </ng-select>
+       
+      </div>
+        <button type="button" class="btn btn-outline-primary" (click)="AddArticles()">Confirmer</button> {{" "}}
+        <button type="button" class="btn btn-primary" (click)="decline()">Annuler</button>
+      </div>
+    </ng-template>
+    <simple-notifications [options]="options"></simple-notifications>
+
+    <app-application-menu>
+      <div class="p-4 h-100">
+          <div class="scroll">
+              <p class="text-muted text-small">Date</p>
+        
+  
+
+
+              <ul class="list-unstyled mb-5">
+                  <li class="active">
+                     
+                      <span *ngIf="duration" class="badge badge-pill badge-outline-danger mb-1 mr-1">{{duration}}</span>
+                        <!-- <span *ngIf="!duration" class="badge badge-pill badge-outline-danger mb-1 mr-1">Aujourd'hui</span> -->
+
+                
+
+                      <div class="input-group mb-3">
+                        <input class="form-control" #drp="bsDaterangepicker" [(ngModel)]="rage_date"  placement='left'  bsDaterangepicker placeholder="Date de publication" [maxDate]="today"  [container]="'html'"  (ngModelChange)="changeDate($event)"
+                        [bsConfig]="{ adaptivePosition: true, rangeInputFormat: 'DD/MM/YYYY' }"> 
+                        <div class="input-group-append">
+                          <span style="padding-top: 5px; padding-left: 7px;padding-right: 0px;padding-bottom: 0px;" class="input-group-text" id="basic-addon2">
+                            <a (click)="removeDates()">
+                              <i class="simple-icon-trash c-pointer"></i>  
+                            </a>
+                          </span>
+                        </div>
+                      </div>
+
+
+                  </li>
+                  <!-- <li>
+                      <a href="javascript:;">
+                          <i class="simple-icon-check"></i>
+                          Completed Tasks
+                          <span class="float-right">24</span>
+                      </a>
+                  </li> -->
+              </ul>
+
+
+              <p class="text-muted text-small">Media</p>
+
+              <ng-select *ngIf="tags" class="custom" [searchFn]="customSearchMedia" [hideSelected]="true" [items]="media" placeholder="Media" bindLabel="attributes.name" bindValue="id" [multiple]="true"
+              (change)="selectMedia($event)">  
+            </ng-select>
+
+
+            <br>
+
+
+              <p class="text-muted text-small">Auteurs</p>
+
+              <ng-select class="custom" [searchFn]="customSearch" [hideSelected]="true" [items]="authors" placeholder="Auteur" bindLabel="attributes.name" bindValue="id" [multiple]="true"
+              (change)="selectAuthor($event)">  
+            </ng-select>
+
+
+            <br>
+
+            <p class="text-muted text-small">Langue</p>
+            <ng-select *ngIf="languages" [hideSelected]="true" [items]="languages" placeholder="Langue" bindLabel="viewValue" bindValue="value"
+            (change)="selectLang($event)" [multiple]="true" >
+        </ng-select> 
+        <br>
+        <p class="text-muted text-small">Tags</p>
+          
+        <ng-select *ngIf="tags" [hideSelected]="true" [items]="tags" placeholder="Tags" bindLabel="name" bindValue="id"
+        (change)="selectTag($event)" [multiple]="true" >
+      </ng-select> 
+        
+              <!-- <ul class="list-unstyled mb-5">
+                  <li>
+                      <div class="custom-control custom-checkbox mb-2">
+                          <input type="checkbox" class="custom-control-input" id="category1">
+                          <label class="custom-control-label" for="category1">Flexbox</label>
+                      </div>
+                  </li>
+                  <li>
+                      <div class="custom-control custom-checkbox mb-2">
+                          <input type="checkbox" class="custom-control-input" id="category2">
+                          <label class="custom-control-label" for="category2">Sass</label>
+                      </div>
+                  </li>
+                  <li>
+                      <div class="custom-control custom-checkbox ">
+                          <input type="checkbox" class="custom-control-input" id="category3">
+                          <label class="custom-control-label" for="category3">React</label>
+                      </div>
+                  </li>
+              </ul> -->
+              <!-- <br>
+              <p class="d-sm-inline-block mb-1">
+                <a href="javascript:;">
+                    <span class="badge badge-pill badge-outline-danger mb-1 mr-1">Comming soon</span>
+                </a>
+            </p>
+          -->
+
+<br>
+<div class="row">
+<div class="col-6">
+<ul class="list-unstyled mb-5">
+  <li>
+      <div class="custom-control custom-checkbox mb-2">
+          <input type="checkbox" class="custom-control-input" id="type1" (change)="changeStatusNum($event)">
+          <label class="custom-control-label" for="type1">Numérique</label>
+      </div>
+  </li>
+  <li>
+      <div class="custom-control custom-checkbox mb-2">
+          <input type="checkbox" class="custom-control-input" id="type2" (change)="changeStatusPaper($event)">
+          <label class="custom-control-label" for="type2">papier</label>
+      </div>
+  </li>
+
+</ul>
+</div>
+<div class="col-6">
+<ul class="list-unstyled mb-5">
+  <li>
+      <div class="custom-control custom-checkbox mb-2">
+          <input type="checkbox" class="custom-control-input" id="zone1" (change)="changeStatusNatio($event)">
+          <label class="custom-control-label" for="zone1">National</label>
+      </div>
+  </li>
+  <li>
+      <div class="custom-control custom-checkbox mb-2">
+          <input type="checkbox" class="custom-control-input" id="zone2" (change)="changeStatusInernatio($event)">
+          <label class="custom-control-label" for="zone2">International</label>
+      </div>
+  </li>
+
+</ul>
+</div>
+
+</div>
+
+<button [disabled]="idItem == ''" type="button" style="width: 100%;"  (click)="openModal(template)"
+class=" btn btn-primary btn-lg mr-1">Ajouter a ma list</button>
+
+
+
+
+          </div>
+      </div>
+  </app-application-menu>

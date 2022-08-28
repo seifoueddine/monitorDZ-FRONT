@@ -354,7 +354,7 @@ export class SearchComponent implements OnInit {
   }
 
   makeSearch(key) {
-    this.router.navigate(["/admin/search"], {
+    this.router.navigate(["/client/search"], {
       queryParams: { key: key.toLowerCase().trim() },
     });
     this.searchKey = "";

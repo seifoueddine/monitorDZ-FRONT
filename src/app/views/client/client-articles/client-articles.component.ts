@@ -11,10 +11,10 @@ import { environment } from "src/environments/environment";
 import * as moment from "moment";
 import { DatePipe } from "@angular/common";
 import { AuthorsService } from "src/app/shared/services/authors.service";
-import { ListsService } from 'src/app/shared/services/lists.service';
-import { Lists } from 'src/app/shared/models/lists.model';
-import { DomSanitizer } from '@angular/platform-browser';
-import saveAs from 'file-saver';
+import { ListsService } from "src/app/shared/services/lists.service";
+import { Lists } from "src/app/shared/models/lists.model";
+import { DomSanitizer } from "@angular/platform-browser";
+import saveAs from "file-saver";
 import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: "app-client-articles",
@@ -64,17 +64,23 @@ export class ClientArticlesComponent implements OnInit {
   articlesPending: any;
   lists: any;
   email = "";
-  itemOrder = { label: this.translateService.instant('header.title' ), value: "title" };
+  itemOrder = {
+    label: this.translateService.instant("header.title"),
+    value: "title",
+  };
   itemOptionsOrders = [
-    { label: this.translateService.instant('header.title' ), value: "title" }, 
-    { label: this.translateService.instant('header.status' ), value: "status" },
-    { label: this.translateService.instant('header.author' ), value: "author_id" },
+    { label: this.translateService.instant("header.title"), value: "title" },
+    { label: this.translateService.instant("header.status"), value: "status" },
+    {
+      label: this.translateService.instant("header.author"),
+      value: "author_id",
+    },
   ];
   displayOptionsCollapsed = false;
   maxDate = new Date();
   authors: any;
   rage_date: any = [new Date(), new Date()];
- // rage_date: any = [];
+  // rage_date: any = [];
   surveyItems: any[] = [];
   description = "";
   mediaNameSelected: any;
@@ -103,7 +109,7 @@ export class ClientArticlesComponent implements OnInit {
     private datePipe: DatePipe,
     private listsService: ListsService,
     private sanitizer: DomSanitizer,
-    private translateService: TranslateService,
+    private translateService: TranslateService
   ) {
     // this.end_date = new Date(this.maxDate.setMonth(this.maxDate.getMonth() + 1));
   }
@@ -129,12 +135,13 @@ export class ClientArticlesComponent implements OnInit {
     tags.map((t) => {
       let tag = t.name.trim();
       let re = new RegExp(tag, "g");
-      this.articleDetails.attributes.body = this.articleDetails.attributes.body.replace(
-        re,
-        '<span style="padding-right: 2px; padding-left: 2px; border-radius: 5px; border: 1px solid #73b0ff; background-color:#95bff5;";font-weight:bold">' +
-          tag +
-          "</span>"
-      );
+      this.articleDetails.attributes.body =
+        this.articleDetails.attributes.body.replace(
+          re,
+          '<span style="padding-right: 2px; padding-left: 2px; border-radius: 5px; border: 1px solid #73b0ff; background-color:#95bff5;";font-weight:bold">' +
+            tag +
+            "</span>"
+        );
     });
   }
 
@@ -161,18 +168,20 @@ export class ClientArticlesComponent implements OnInit {
     this.getLists();
   }
 
-  
-  getLists(){
-    this.listsService.getLists(1, 'created_at' , 'desc', 9999, '').subscribe(
-      data => {
+  getLists() {
+    this.listsService.getLists(1, "created_at", "desc", 9999, "").subscribe(
+      (data) => {
         if (data.status) {
- 
           const resp = data.body;
           this.lists = resp.data;
         }
       },
-      error => {
-        this.notifications.create('Error', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      (error) => {
+        this.notifications.create("Error", "error", NotificationType.Error, {
+          theClass: "primary",
+          timeOut: 6000,
+          showProgressBar: false,
+        });
       }
     );
   }
@@ -221,7 +230,6 @@ export class ClientArticlesComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-      
     this.currentPage = event.page;
     this.loadData(
       this.itemsPerPage,
@@ -356,7 +364,7 @@ export class ClientArticlesComponent implements OnInit {
 
   updateFilter(event) {
     const val = event.target.value.toLowerCase().trim();
-      
+
     this.search = val;
     if (this.searchReq) {
       clearTimeout(this.searchReq);
@@ -390,19 +398,17 @@ export class ClientArticlesComponent implements OnInit {
         array.push(x.id);
       });
       this.idItem = array.join(",");
-       
     } else {
       this.selected.push(item);
       this.selected.map((x) => {
         array.push(x.id);
       });
       this.idItem = array.join(",");
-       
     }
 
     // selected.map(x=> { array.push( x.id) });
     // this.idItem =  array.join(',');
-    //  
+    //
 
     // this.selected.splice(0, this.selected.length);
     // this.selected.push(...selected);
@@ -431,7 +437,7 @@ export class ClientArticlesComponent implements OnInit {
       array.push(x.id);
     });
     this.idItem = array.join(",");
-     
+
     this.setSelectAllState();
   }
 
@@ -505,8 +511,6 @@ export class ClientArticlesComponent implements OnInit {
       this.mediaTypesJoin,
       this.zoneJoin
     );
-      
-      
   }
 
   isSelected(p: any) {
@@ -555,7 +559,7 @@ export class ClientArticlesComponent implements OnInit {
 
   goToDetailsNewPage(article_id) {
     const url = this.router.serializeUrl(
-      this.router.createUrlTree(["admin/articles/details"], {
+      this.router.createUrlTree(["client/articles/details"], {
         queryParams: { id: article_id },
       })
     );
@@ -563,8 +567,6 @@ export class ClientArticlesComponent implements OnInit {
   }
 
   selectMedia(event) {
-      
-
     this.spinner = true;
     let media = event;
 
@@ -706,36 +708,35 @@ export class ClientArticlesComponent implements OnInit {
 
   getBodyWithSearch(body) {
     const firstBody = body;
-   
-    body = body.replace('<strong>', "<p>"); 
-    body = body.replace('</strong>', "</p>"); 
 
-    body = body.replace('<h1', "<p"); 
-    body = body.replace('</h1>', "</p>"); 
+    body = body.replace("<strong>", "<p>");
+    body = body.replace("</strong>", "</p>");
 
-    body = body.replace('</h2>', "</p>"); 
-    body = body.replace('<h2', "<p"); 
+    body = body.replace("<h1", "<p");
+    body = body.replace("</h1>", "</p>");
 
-    body = body.replace('<h3', "<p"); 
-    body = body.replace('</h3>', "</p>"); 
+    body = body.replace("</h2>", "</p>");
+    body = body.replace("<h2", "<p");
 
+    body = body.replace("<h3", "<p");
+    body = body.replace("</h3>", "</p>");
 
-    body = body.replace('<h4', "<p"); 
-    body = body.replace('</h4>', "</p>"); 
+    body = body.replace("<h4", "<p");
+    body = body.replace("</h4>", "</p>");
 
-    body = body.replace('<h5', "<p"); 
-    body = body.replace('</h5>', "</p>"); 
+    body = body.replace("<h5", "<p");
+    body = body.replace("</h5>", "</p>");
 
+    body = body.replace("<h6", "<p");
+    body = body.replace("</h6>", "</p>");
 
-    body = body.replace('<h6', "<p"); 
-    body = body.replace('</h6>', "</p>"); 
-
-    body = body.replace('<b>', ""); 
-    body = body.replace('</b>', ""); 
-
+    body = body.replace("<b>", "");
+    body = body.replace("</b>", "");
 
     body = body.slice(0, 150);
-    return this.sanitizer.bypassSecurityTrustHtml('<div style="font-size: 15px !important;">'+ body +'</div>'); 
+    return this.sanitizer.bypassSecurityTrustHtml(
+      '<div style="font-size: 15px !important;">' + body + "</div>"
+    );
   }
 
   removeDates() {
@@ -743,7 +744,7 @@ export class ClientArticlesComponent implements OnInit {
     this.start_date = new Date();
     this.end_date = new Date();
     this.duration = null;
-    this.rage_date = [new Date(),new Date()];
+    this.rage_date = [new Date(), new Date()];
     this.loadData(
       this.itemsPerPage,
       1,
@@ -894,8 +895,7 @@ export class ClientArticlesComponent implements OnInit {
   }
 
   changeStatusNum(event) {
-
-     this.spinner = true;
+    this.spinner = true;
     if (event.target.checked) {
       this.mediaTypesSelected.push("digital");
     } else {
@@ -904,7 +904,6 @@ export class ClientArticlesComponent implements OnInit {
         this.mediaTypesSelected.splice(index, 1);
       }
     }
-
 
     if (this.mediaTypesSelected.length > 0) {
       this.mediaTypesJoin = this.mediaTypesSelected.join(",");
@@ -941,21 +940,16 @@ export class ClientArticlesComponent implements OnInit {
         this.zoneJoin
       );
     }
-
-
-
   }
   changeStatusPaper(event) {
     this.spinner = true;
     if (event.target.checked) {
       this.mediaTypesSelected.push("paper");
-   
     } else {
       const index = this.mediaTypesSelected.indexOf("paper", 0);
       if (index > -1) {
         this.mediaTypesSelected.splice(index, 1);
       }
-  
     }
 
     if (this.mediaTypesSelected.length > 0) {
@@ -1005,7 +999,6 @@ export class ClientArticlesComponent implements OnInit {
         this.zoneSelected.splice(index, 1);
       }
     }
-    
 
     if (this.zoneSelected.length > 0) {
       this.zoneJoin = this.zoneSelected.join(",");
@@ -1042,12 +1035,6 @@ export class ClientArticlesComponent implements OnInit {
         this.zoneJoin
       );
     }
-
-
-
-
-
-
   }
   changeStatusInernatio(event) {
     this.spinner = true;
@@ -1059,7 +1046,6 @@ export class ClientArticlesComponent implements OnInit {
         this.zoneSelected.splice(index, 1);
       }
     }
-    
 
     if (this.zoneSelected.length > 0) {
       this.zoneJoin = this.zoneSelected.join(",");
@@ -1096,85 +1082,101 @@ export class ClientArticlesComponent implements OnInit {
         this.zoneJoin
       );
     }
-
   }
   openModalLists(templateLists: TemplateRef<any>) {
-    this.modalRefLists = this.modalService.show(templateLists, { class: 'modal-sm' });
+    this.modalRefLists = this.modalService.show(templateLists, {
+      class: "modal-sm",
+    });
   }
-  selectList(event){
+  selectList(event) {
     this.list = event.id;
-   }
+  }
 
-   declineList(): void {
-  
+  declineList(): void {
     this.modalRefLists.hide();
   }
 
-  AddArticles(){
-
-
+  AddArticles() {
     if (this.idItem) {
-      const object = new Lists;
-      object.id = this.list
+      const object = new Lists();
+      object.id = this.list;
       object.article_id = this.idItem;
-      this.listsService.updateList(object).subscribe(resCreate => {
+      this.listsService.updateList(object).subscribe(
+        (resCreate) => {
+          this.notifications.create(
+            "Success",
+            "Ajouter les articles avec succès",
+            NotificationType.Success,
+            { theClass: "primary", timeOut: 6000, showProgressBar: false }
+          );
+          this.modalRefLists.hide();
+          this.idItem = "";
 
-        this.notifications.create('Success', 'Ajouter les articles avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
-        this.modalRefLists.hide();
-        this.idItem = '';
-        
-        this.selected = []
-      //  this.ourNotificationService.notficateReloadTags();
-  
-      }, err => {
- 
-          this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
-
-      });
+          this.selected = [];
+          //  this.ourNotificationService.notficateReloadTags();
+        },
+        (err) => {
+          this.notifications.create("Erreur", "error", NotificationType.Error, {
+            theClass: "outline primary",
+            timeOut: 6000,
+            showProgressBar: false,
+          });
+        }
+      );
     }
-
   }
-
 
   openModalEmail(templateEmail: TemplateRef<any>, articleId: any) {
     this.articleId = articleId;
-    this.modalRefEmail = this.modalService.show(templateEmail, { class: 'modal-sm' });
-  }
-  
-
-  exportPDF(articleId) { 
-    this.buttonState = 'show-spinner';
-    this.articleService.exportPDF(articleId).subscribe(res => {
-      const blob = new Blob([res.body], { type: 'application/pdf' });
-      saveAs.saveAs(blob);
-   
-    }, err => {
-    
-      // this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+    this.modalRefEmail = this.modalService.show(templateEmail, {
+      class: "modal-sm",
     });
   }
 
+  exportPDF(articleId) {
+    this.buttonState = "show-spinner";
+    this.articleService.exportPDF(articleId).subscribe(
+      (res) => {
+        const blob = new Blob([res.body], { type: "application/pdf" });
+        saveAs.saveAs(blob);
+      },
+      (err) => {
+        // this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      }
+    );
+  }
 
-  SendMail() { 
-    if (this.email != '') {
-      this.articleService.sendEmail(this.articleId, this.email).subscribe(res => {
-        this.modalRefEmail.hide();
-        this.notifications.create('Success', 'Envoie email avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
-
-      }, err => {
-        this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
-      });
+  SendMail() {
+    if (this.email != "") {
+      this.articleService.sendEmail(this.articleId, this.email).subscribe(
+        (res) => {
+          this.modalRefEmail.hide();
+          this.notifications.create(
+            "Success",
+            "Envoie email avec succès",
+            NotificationType.Success,
+            { theClass: "primary", timeOut: 6000, showProgressBar: false }
+          );
+        },
+        (err) => {
+          this.notifications.create("Erreur", "error", NotificationType.Error, {
+            theClass: "primary",
+            timeOut: 6000,
+            showProgressBar: false,
+          });
+        }
+      );
     } else {
-      this.notifications.create('', 'Merci de Mettre email du destinataire', NotificationType.Warn, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      this.notifications.create(
+        "",
+        "Merci de Mettre email du destinataire",
+        NotificationType.Warn,
+        { theClass: "primary", timeOut: 6000, showProgressBar: false }
+      );
     }
-   
   }
 
   declineEmail(): void {
-
-  
     this.modalRefEmail.hide();
   }
-
-
 }
