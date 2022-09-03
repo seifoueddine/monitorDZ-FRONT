@@ -197,17 +197,17 @@ export class TopnavComponent implements OnInit, OnDestroy {
   onSignOut() {
     this.authService.signOut().subscribe(
       (user) => {
-        localStorage.removeItem("isLoggedin");
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        localStorage.removeItem("user_creds");
-        localStorage.removeItem("client");
-        localStorage.removeItem("accessToken");
+        // localStorage.removeItem("isLoggedin");
+        // localStorage.removeItem("user");
+        // localStorage.removeItem("token");
+        // localStorage.removeItem("user_creds");
+        // localStorage.removeItem("client");
+        // localStorage.removeItem("accessToken");
 
-        localStorage.removeItem("expiry");
-        localStorage.removeItem("uid");
-        localStorage.removeItem("tokenType");
-
+        // localStorage.removeItem("expiry");
+        // localStorage.removeItem("uid");
+        // localStorage.removeItem("tokenType");
+        localStorage.clear();
         this.router.navigate(["/"]);
       },
       (error) => {
