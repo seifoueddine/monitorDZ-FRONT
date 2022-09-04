@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { Observable, from } from 'rxjs';
 import { AngularTokenService } from 'angular-token';
@@ -23,7 +22,7 @@ export interface IPasswordReset {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  constructor(private afAuth: AngularFireAuth,private tokenService: AngularTokenService) { }
+  constructor(private tokenService: AngularTokenService) { }
 
   signIn(credentials: ISignInCredentials): Observable<any> {
     const body = {
@@ -40,27 +39,27 @@ signOut() {
   return from(this.tokenService.signOut());
 }
 
-  register(credentials: ICreateCredentials) {
-    return from(
-      this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password).then(
-        () => {
-          this.afAuth.auth.currentUser.updateProfile({ displayName: credentials.displayName });
-          this.afAuth.auth.updateCurrentUser(this.afAuth.auth.currentUser);
-        }
-      )
-    );
-  }
+  // register(credentials: ICreateCredentials) {
+  //   return from(
+  //     this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password).then(
+  //       () => {
+  //         this.afAuth.auth.currentUser.updateProfile({ displayName: credentials.displayName });
+  //         this.afAuth.auth.updateCurrentUser(this.afAuth.auth.currentUser);
+  //       }
+  //     )
+  //   );
+  // }
 
-  sendPasswordEmail(email) {
-    return from(this.afAuth.auth.sendPasswordResetEmail(email));
-  }
+  // sendPasswordEmail(email) {
+  //   return from(this.afAuth.auth.sendPasswordResetEmail(email));
+  // }
 
-  resetPassword(credentials: IPasswordReset) {
-    return from(this.afAuth.auth.confirmPasswordReset(credentials.code, credentials.newPassword));
-  }
+  // resetPassword(credentials: IPasswordReset) {
+  //   return from(this.afAuth.auth.confirmPasswordReset(credentials.code, credentials.newPassword));
+  // }
 
-  get user(): firebase.User {
-    return this.afAuth.auth.currentUser;
-  }
+  // get user(): firebase.User {
+  //   return this.afAuth.auth.currentUser;
+  // }
 
 }

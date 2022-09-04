@@ -3,8 +3,6 @@ import { CommonModule } from "@angular/common";
 import { ViewsComponent } from "./views.component";
 import { ViewRoutingModule } from "./views.routing";
 import { SharedModule } from "../shared/shared.module";
-import { AngularFireAuthModule } from "@angular/fire/auth";
-import { AngularFireAuthGuardModule } from "@angular/fire/auth-guard";
 import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
@@ -13,8 +11,6 @@ import { TranslateModule } from "@ngx-translate/core";
     CommonModule,
     ViewRoutingModule,
     SharedModule,
-    AngularFireAuthModule,
-    AngularFireAuthGuardModule,
     TranslateModule,
   ],
 })

@@ -34,6 +34,12 @@
                         <app-doughnut-chart  [shadow]="true" [options]="chartDataConfig.doughnutChartOptions"
                             [data]="polarAreaChartData"></app-doughnut-chart>
                     </div>
+                    <div *ngIf="!polarAreaChartData" class="text-center col-12">
+                        <div class="spinner-border text-primary" role="status">
+                        </div>
+                        <div class="mt-3">{{ 'spinner.loading' | translate }}</div>
+                      </div>
+                  
                 </div>
 
 
@@ -60,7 +66,7 @@
             <div class="card-body pt-0">
 
                 <perfect-scrollbar style="height: 300px;" class="scroll" [config]="{suppressScrollX: true, wheelPropagation: false}">
-                    <table class="table table-sm table-borderless">
+                    <table *ngIf="articlesWithCount.length > 0" class="table table-sm table-borderless">
                         <tbody>
                             <tr *ngFor="let medium of articlesWithCount">
                                 <td>
@@ -71,6 +77,11 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div *ngIf="!(articlesWithCount.length > 0)" class="text-center col-12">
+                        <div class="spinner-border text-primary" role="status">
+                        </div>
+                        <div class="mt-3">{{ 'spinner.loading' | translate }}</div>
+                    </div>
                 </perfect-scrollbar>
 
 

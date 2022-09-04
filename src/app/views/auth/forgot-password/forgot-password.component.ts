@@ -25,19 +25,19 @@ export class ForgotPasswordComponent implements OnInit {
     this.buttonDisabled = true;
     this.buttonState = 'show-spinner';
 
-    this.authService.sendPasswordEmail(this.passwordForm.value.email).subscribe((answer) => {
-    }, (error) => {
-      this.notifications.create('Error', error.message, NotificationType.Bare, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
-      this.buttonDisabled = false;
-      this.buttonState = '';
-    }, () => {
-      this.notifications.create('Done', 'Password reset email is sent, you will be redirected to Reset Password page!', NotificationType.Bare, { theClass: 'outline primary', timeOut: 6000, showProgressBar: true });
-      this.buttonDisabled = false;
-      this.buttonState = '';
-      setTimeout(() => {
-        this.router.navigate(['user/reset-password']);
-      }, 6000);
-    });
+    // this.authService.sendPasswordEmail(this.passwordForm.value.email).subscribe((answer) => {
+    // }, (error) => {
+    //   this.notifications.create('Error', error.message, NotificationType.Bare, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
+    //   this.buttonDisabled = false;
+    //   this.buttonState = '';
+    // }, () => {
+    //   this.notifications.create('Done', 'Password reset email is sent, you will be redirected to Reset Password page!', NotificationType.Bare, { theClass: 'outline primary', timeOut: 6000, showProgressBar: true });
+    //   this.buttonDisabled = false;
+    //   this.buttonState = '';
+    //   setTimeout(() => {
+    //     this.router.navigate(['user/reset-password']);
+    //   }, 6000);
+    // });
   }
 
 }

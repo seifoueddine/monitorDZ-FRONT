@@ -21,7 +21,7 @@
   },
   "menu": {
     "my-profile":"Mon profile",
-    "app": "Home",
+    "admin": "Home",
     "vien": "Vien",
     "start": "Start",
     "slugs":"Entreprises",

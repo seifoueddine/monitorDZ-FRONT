@@ -218,7 +218,7 @@ export class DetailsArticleComponent implements OnInit {
     this.buttonState = 'show-spinner';
     this.articlesService.exportPDF(this.articleId).subscribe(res => {
       const blob = new Blob([res.body], { type: 'application/pdf' });
-      saveAs.saveAs(blob);
+      saveAs.saveAs(blob,"Article by " + this.mediaName);
       this.buttonState = '';
     }, err => {
       this.buttonState = '';

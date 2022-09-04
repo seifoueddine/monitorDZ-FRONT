@@ -115,6 +115,12 @@
    
     </div>
   </div>
+  <div *ngIf="!(rows.length > 0)" class="text-center col-12">
+    <div class="spinner-border text-primary" role="status">
+    </div>
+    <div class="mt-3">{{ 'spinner.loading' | translate }}</div>
+  </div>
+
 </div>
 <div class="col-12">
   <pagination [boundaryLinks]="true"  [totalItems]="totalElements" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"

@@ -7,9 +7,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AngularTokenModule } from "angular-token";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { environment } from "../environments/environment";
 import { LayoutContainersModule } from "./containers/layout/layout.containers.module";
-import { AngularFireModule } from "@angular/fire";
 import { XhrInterceptor } from "./http.interceptor";
 
 @NgModule({
@@ -21,7 +19,6 @@ import { XhrInterceptor } from "./http.interceptor";
     BrowserAnimationsModule,
     TranslateModule.forRoot(),
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebase),
     AngularTokenModule.forRoot({
       apiBase: "https://api.mediasmonitoring.com",
       apiPath: "api/v1",

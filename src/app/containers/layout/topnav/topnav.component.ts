@@ -82,9 +82,9 @@ export class TopnavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.authService.user) {
-      this.displayName = this.authService.user.displayName;
-    }
+    // if (this.authService.user) {
+    //   this.displayName = this.authService.user.displayName;
+    // }
     this.subscription = this.sidebarService.getSidebar().subscribe(
       (res) => {
         this.sidebar = res;
