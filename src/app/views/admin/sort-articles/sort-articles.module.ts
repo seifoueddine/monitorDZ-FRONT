@@ -23,7 +23,7 @@ import { sanitizeHtmlPipe } from 'src/app/shared/sanitize-html.pipe';
 import { ComponentsStateButtonModule } from 'src/app/components/state-button/components.state-button.module';
 import { SortArticlesComponent } from './sort-articles.component';
 import { SortArticlesRoutingModule } from './sort-articles.routing';
-import { ContextMenuModule } from 'ngx-contextmenu';
+import { ContextMenuModule } from '@perfectmemory/ngx-contextmenu';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 @NgModule({
   declarations: [SortArticlesComponent],
@@ -50,9 +50,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     NgSelectModule,
     QuillModule.forRoot(),
     ComponentsStateButtonModule,
-    ContextMenuModule.forRoot({
-      useBootstrap4: true,
-    }),
+    ContextMenuModule,
     BsDatepickerModule.forRoot(),
   ],
   providers:    [  DatePipe, BsDropdownDirective  ],

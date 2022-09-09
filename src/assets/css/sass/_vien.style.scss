@@ -52,6 +52,8 @@ Table of Contents
 @use 'sass:math';
 @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700");
 
+@import '@angular/cdk/overlay-prebuilt.css';
+@import './node_modules/@perfectmemory/ngx-contextmenu/src/assets/stylesheets/base.scss';
 $main-menu-item-height: 110px;
 $main-menu-width: 120px;
 $main-menu-width-lg: 110px;

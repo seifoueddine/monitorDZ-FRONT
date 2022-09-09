@@ -534,7 +534,7 @@ if (index !== -1) {
   }
 
   onContextMenuClick(action: string, item: any, templateDelete: TemplateRef<any>) {
-    this.article = item;
+    this.article = item.value;
     this.modalRefDel = this.modalService.show(templateDelete, { class: 'modal-sm' });
   }
 

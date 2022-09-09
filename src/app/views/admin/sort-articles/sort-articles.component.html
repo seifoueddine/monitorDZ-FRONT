@@ -14,7 +14,7 @@
 
 
 <context-menu #basicMenu>
-  <ng-template contextMenuItem let-item (execute)="onContextMenuClick('delete',$event.item, templateDelete)">
+  <ng-template contextMenuItem let-item (execute)="onContextMenuClick('delete',$event, templateDelete)">
     <i class="simple-icon-trash mr-1"></i> <span>Supprimer</span>
   </ng-template>
 
@@ -34,7 +34,7 @@
         <a class="d-flex" href="javascript:;">
           <img [src]="a.attributes.medium.avatar.url ? urlForImage + a.attributes.medium.avatar.url : defaultIcon" [alt]="a.attributes.medium.name" class="list-thumbnail responsive border-0 card-img-left" />
         </a>
-        <div class="pl-2 d-flex flex-grow-1 min-width-zero" [contextMenu]="basicMenu" [contextMenuSubject]="a">
+        <div class="pl-2 d-flex flex-grow-1 min-width-zero" [contextMenu]="basicMenu" [contextMenuValue]="a">
           <div
             class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
             <a href="javascript:;" class="w-40 w-sm-100" (click)="openDetailsModal(templateDetails, a)">
@@ -62,7 +62,7 @@
     <div class="col-12 list" *ngIf="displayMode==='image'">
       <div class="row">
         <div class="col-xl-4 col-lg-4 col-12 col-sm-6 mb-4" *ngFor="let a of rows; let i=index"  >
-          <div [ngClass]="{'card': true, 'active':isSelected(a)}"  [contextMenu]="basicMenu" [contextMenuSubject]="a" >
+          <div [ngClass]="{'card': true, 'active':isSelected(a)}"  [contextMenu]="basicMenu" [contextMenuValue]="a" >
             <div class="position-relative">
               <a href="javascript:;">
                 <div class="position-absolute card-top-buttons">
