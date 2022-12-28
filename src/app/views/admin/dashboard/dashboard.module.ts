@@ -53,6 +53,6 @@ import { Configuration, OpenAIApi } from 'openai';
     LightboxModule,
     BsDatepickerModule.forRoot(),
   ],
-  providers:    [  DatePipe, BsDropdownDirective,OpenAIApi,Configuration  ],
+  providers:    [  DatePipe, BsDropdownDirective  ],
 })
 export class DashboardModule { }
