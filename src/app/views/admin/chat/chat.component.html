@@ -27,9 +27,9 @@
                 <ng-container *ngFor="let m of selectedConversation.messages">
                     <div
                         [ngClass]="{'float-right': m.sender===currentUserId ,'float-left': m.sender!==currentUserId ,'card d-inline-block mb-3' : true }">
-                        <div class="position-absolute pt-1 pr-2 r-0">
+                         <div class="position-absolute pt-1 pr-2 r-0">
                             <span class="text-extra-small text-muted">{{m.time}}</span>
-                        </div>
+                        </div> 
                         <div class="card-body">
                             <div class="d-flex flex-row pb-2">
                                 <a class="d-flex" href="javascript:;">
@@ -48,6 +48,9 @@
                             <div class="chat-text-left">
                                 <div class="mb-0 text-semi-muted" [innerHTML]="m.text"></div>
                             </div>
+                        </div>
+                        <div style="cursor: pointer;" *ngIf="m.sender===currentUserId && errorResponse" class="position-absolute pt-1 pr-2 r-0" (click)="resend()" >
+                            <span class="text-extra-small text-muted-error">Error (renvoyer)</span>
                         </div>
                     </div>
                     <div class="clearfix"></div>

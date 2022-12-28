@@ -30,6 +30,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   user = JSON.parse(localStorage.getItem("user"));
   avatarUrl = localStorage.getItem("avatar");
   robotWrite = false;
+  errorResponse = false;
   constructor(private openai: OpenAIApi, private chatService: ChatService, private changeDetectorRef: ChangeDetectorRef, private renderer: Renderer2) { }
 
   ngOnInit() {
@@ -100,28 +101,45 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    console.log(    this.openai.listModels({ headers: { 'Authorization': `Bearer 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` } }));
- 
-    if (this.message.length > 0) {
-      this.robotWrite = true;
-      const time = this.getCurrentTime();
-      this.selectedConversation.messages.push({ sender: this.currentUserId, text: this.message, time });
-      this.selectedConversation.lastMessageTime = time;
 
-      this.openai.createCompletion({ model: 'text-davinci-003', prompt: this.message, max_tokens: 3500, }, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
-        let respons = response?.data?.choices[0]?.text.replace(/^\n\n/, '').replace(/\n/g, '<br>');
-        const time_response = this.getCurrentTime();
-        this.robotWrite = false;
-        this.selectedConversation.messages.push({ sender: 2, text: respons, time });
-        if (this.scrollRef) {
-          setTimeout(() => { this.scrollRef.directiveRef.scrollToBottom(); }, 100);
-        }
-      });
+    if (this.message.length > 0) {
+      this.sendToopenai()
+      this.message = '';
+    }
+  }
+
+  sendToopenai(){
+    this.robotWrite = true;
+    const time = this.getCurrentTime();
+    this.selectedConversation.messages.push({ sender: this.currentUserId, text: this.message, time });
+    this.selectedConversation.lastMessageTime = time;
+
+    this.openai.createCompletion({ model: 'text-davinci-003', prompt: this.message, max_tokens: 3500, }, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
+      let respons = response?.data?.choices[0]?.text.replace(/^\n\n/, '').replace(/\n/g, '<br>');
+      const time_response = this.getCurrentTime();
+      this.robotWrite = false;
+      this.selectedConversation.messages.push({ sender: 2, text: respons, time });
       if (this.scrollRef) {
         setTimeout(() => { this.scrollRef.directiveRef.scrollToBottom(); }, 100);
       }
-      this.message = '';
+    }, (error) => {
+      this.robotWrite = false;
+      this.errorResponse = true;
+      if (this.scrollRef) {
+        setTimeout(() => { this.scrollRef.directiveRef.scrollToBottom(); }, 100);
+      }
+    });
+    if (this.scrollRef) {
+      setTimeout(() => { this.scrollRef.directiveRef.scrollToBottom(); }, 100);
     }
+  }
+
+  resend(){
+    this.errorResponse = false;
+    this.message = this.selectedConversation.messages[this.selectedConversation.messages.length - 1].text;
+    this.selectedConversation.messages.pop();
+    this.sendToopenai()
+    this.message = '';
   }
 
   messageInputKeyUp(event: KeyboardEvent) {
