@@ -142,6 +142,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
               label: "menu.users",
               to: "/admin/users",
             },
+            {
+              id: "Funny Chat",
+              icon: "simple-icon-bubbles",
+              label: "menu.chat",
+              to: "/admin/chat",
+            },
           ];
           break;
         case "SuperOP":

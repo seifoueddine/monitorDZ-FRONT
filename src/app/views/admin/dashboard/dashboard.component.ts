@@ -6,7 +6,8 @@ import { lineChartData, polarAreaChartData } from "src/app/data/charts";
 import { DashboardService } from "src/app/shared/services/dashboard.service";
 import * as moment from "moment";
 import { DatePipe } from '@angular/common';
-
+import { environment } from "src/environments/environment";
+import { Configuration, OpenAIApi } from 'openai';
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -14,7 +15,6 @@ import { DatePipe } from '@angular/common';
 })
 export class DashboardComponent implements OnInit {
   @Input() chartClass = "dashboard-donut-chart";
-
   chartDataConfig: ChartService;
   polarAreaChartData: any;
   polarAreaChartDataAuthor: any;
@@ -48,14 +48,18 @@ export class DashboardComponent implements OnInit {
   total = 0;
   _barChartOptions: any
    lineChartOptions: { legend: { display: boolean; }; responsive: boolean; maintainAspectRatio: boolean; tooltips: any; plugins: { datalabels: { display: boolean; }; }; scales: { yAxes: { gridLines: { display: boolean; lineWidth: number; color: string; drawBorder: boolean; }; ticks: { beginAtZero: boolean; stepSize: number; min: number; max: number; padding: number; }; }[]; xAxes: { gridLines: { display: boolean; }; }[]; }; };
+  link: any;
 
   constructor(
     private chartService: ChartService,
     private dashboardService: DashboardService,
     private notifications: NotificationsService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private openai: OpenAIApi,
+    private configuration:Configuration
   ) {
     this.chartDataConfig = this.chartService;
+
   }
 
   ngOnInit(): void {
@@ -624,6 +628,5 @@ export class DashboardComponent implements OnInit {
       ],
     };
   }
-
 
 }

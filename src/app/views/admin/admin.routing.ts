@@ -119,6 +119,15 @@ const routes: Routes = [
           roles: ["GodLike", "SuperOP"],
         },
       },
+      {
+        path: "chat",
+        loadChildren: () =>
+          import("./chat/chat.module").then((m) => m.ChatModule),
+        canActivate: [LoginGuard],
+        data: {
+          roles: ["GodLike"],
+        },
+      },
     ],
   },
 ];

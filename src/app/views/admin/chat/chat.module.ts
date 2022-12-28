@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { DashboardComponent } from './dashboard.component';
-import { DashboardRoutingModule } from './dashboard.routing';
+
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LayoutContainersModule } from 'src/app/containers/layout/layout.containers.module';
 import { TranslateModule } from '@ngx-translate/core';
@@ -23,14 +22,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { Configuration, OpenAIApi } from 'openai';
+import { ChatComponent } from './chat.component';
+import { SortablejsModule } from 'ngx-sortablejs';
+import { ChatRoutingModule } from './chat.routing';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [ChatComponent],
   imports: [
     CommonModule,
-    DashboardRoutingModule,
+    ChatRoutingModule,
     SharedModule,
     LayoutContainersModule,
     TranslateModule,
@@ -52,7 +55,16 @@ import { Configuration, OpenAIApi } from 'openai';
     HttpClientModule,
     LightboxModule,
     BsDatepickerModule.forRoot(),
+
+  
+    FormsModule,
+  
+  
+    SortablejsModule,
+    CollapseModule.forRoot(),
+    TabsModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers:    [  DatePipe, BsDropdownDirective,OpenAIApi,Configuration  ],
 })
-export class DashboardModule { }
+export class ChatModule { }

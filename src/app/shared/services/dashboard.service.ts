@@ -53,5 +53,17 @@ export class DashboardService {
      const req = this.serviceDateUrl + daysValue;
      return this.http.get(req, { observe: 'response' });
    }
+
+   aisearch(key): Observable<any> {
+    const apiKey = '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';
+    let objectSearch = {
+      "model": "text-davinci-003",
+      "prompt": key,
+      "max_tokens": 256
+    }
+    return this.http.post<any>('https://api.openai.com/v1/text/completions', objectSearch, { headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json', 'Referrer-Policy': 'no-referrer-when-downgrade','Access-Control-Allow-Origin': '*' } });
+
+  }
+
    
 }
