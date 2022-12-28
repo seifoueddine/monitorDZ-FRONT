@@ -7,7 +7,6 @@ import { DashboardService } from "src/app/shared/services/dashboard.service";
 import * as moment from "moment";
 import { DatePipe } from '@angular/common';
 import { environment } from "src/environments/environment";
-import { Configuration, OpenAIApi } from 'openai';
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -55,8 +54,6 @@ export class DashboardComponent implements OnInit {
     private dashboardService: DashboardService,
     private notifications: NotificationsService,
     private datePipe: DatePipe,
-    private openai: OpenAIApi,
-    private configuration:Configuration
   ) {
     this.chartDataConfig = this.chartService;
 

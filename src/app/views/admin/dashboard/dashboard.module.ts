@@ -22,7 +22,7 @@ import { LightboxModule } from 'ngx-lightbox';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { Configuration, OpenAIApi } from 'openai';
+
 
 
 
