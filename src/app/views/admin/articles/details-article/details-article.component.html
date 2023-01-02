@@ -30,6 +30,11 @@
 
 
     </div>
+    <accordion *ngIf="groups.length">
+      <accordion-group *ngFor="let group of groups" [heading]="group.title" [panelClass]="'border'">
+     <div [innerHTML]="group.content | sanitizeHtml"></div>
+      </accordion-group>
+    </accordion>
   </div>
   <div class="col-12 col-md-12 col-xl-4 col-right">
 
@@ -108,6 +113,33 @@
             'articleDetails.sendEmail' | translate }}</button>
 
         </div>
+      </div>
+
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Some magic (simple-icon-magic-wand)</h5>
+    
+        <!-- <label class="form-group has-float-label">
+          <ng-select [items]="['Uber', 'Microsoft', 'Flexigen']"  [hideSelected]="true"
+            multiple="false" bindLabel="name" (change)="selectTag($event)">
+          </ng-select>
+       
+        </label> -->
+
+        <select (change)="selectTag($event.target.value)" id="inputState" class="form-control">
+          <option selected>{{ 'input-groups.choose' | translate }}</option>
+          <option>Un résumé de l'article </option>
+          <option>Extraire les personnes existantes dans l'article </option>
+          <option>Extraire les chiffres existants dans l'article </option>
+          <option>Extraire les dates existantes dans l'article </option>
+        </select>
+        <div *ngIf="robotWrite" class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+      </div>
       </div>
 
     </div>

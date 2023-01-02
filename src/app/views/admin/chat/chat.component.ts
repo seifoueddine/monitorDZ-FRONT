@@ -107,14 +107,32 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.message = '';
     }
   }
-
   sendToopenai(){
     this.robotWrite = true;
     const time = this.getCurrentTime();
     this.selectedConversation.messages.push({ sender: this.currentUserId, text: this.message, time });
     this.selectedConversation.lastMessageTime = time;
+    
 
-    this.openai.createCompletion({ model: 'text-davinci-003', prompt: this.message, max_tokens: 3500, }, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
+    if (this.message.includes("image:")) {
+      this.openai.createImage({prompt: this.message.replace('image:', ''),n: 1,size: "1024x1024",}, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
+        console.log(response);
+        let  respons = `<img img-fluid border-radius src=${response.data.data[0].url} alt="image" height="500">` 
+        const time_response = this.getCurrentTime();
+        this.robotWrite = false;
+         this.selectedConversation.messages.push({ sender: 2, text: respons, time });
+        if (this.scrollRef) {
+          setTimeout(() => { this.scrollRef.directiveRef.scrollToBottom(); }, 100);
+        }
+      }, (error) => {
+        this.robotWrite = false;
+        this.errorResponse = true;
+        if (this.scrollRef) {
+          setTimeout(() => { this.scrollRef.directiveRef.scrollToBottom(); }, 100);
+        }
+      });
+    } else {
+      this.openai.createCompletion({ model: 'text-davinci-003', prompt: this.message, max_tokens: 1200, }, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
       let respons = response?.data?.choices[0]?.text.replace(/^\n\n/, '').replace(/\n/g, '<br>');
       const time_response = this.getCurrentTime();
       this.robotWrite = false;
@@ -129,6 +147,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         setTimeout(() => { this.scrollRef.directiveRef.scrollToBottom(); }, 100);
       }
     });
+    }
     if (this.scrollRef) {
       setTimeout(() => { this.scrollRef.directiveRef.scrollToBottom(); }, 100);
     }

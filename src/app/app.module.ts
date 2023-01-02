@@ -9,6 +9,7 @@ import { AngularTokenModule } from "angular-token";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { LayoutContainersModule } from "./containers/layout/layout.containers.module";
 import { XhrInterceptor } from "./http.interceptor";
+import { OpenAIApi } from "openai";
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { XhrInterceptor } from "./http.interceptor";
   providers: [
     AngularTokenModule,
     { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true },
+    OpenAIApi
   ],
   bootstrap: [AppComponent],
 })

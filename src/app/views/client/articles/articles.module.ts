@@ -26,6 +26,7 @@ import { sanitizeHtmlPipe } from "src/app/shared/sanitize-html.pipe";
 import { ComponentsStateButtonModule } from "src/app/components/state-button/components.state-button.module";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
+import { OpenAIApi } from "openai";
 @NgModule({
   declarations: [ArticlesComponent, DetailsArticleComponent],
   imports: [
@@ -55,6 +56,6 @@ import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
     TooltipModule.forRoot(),
     BsDatepickerModule.forRoot(),
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,OpenAIApi],
 })
 export class ArticlesModule {}

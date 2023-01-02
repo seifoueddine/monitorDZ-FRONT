@@ -27,6 +27,8 @@ import { ComponentsStateButtonModule } from "src/app/components/state-button/com
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { EditArticleComponent } from "./edit-article/edit-article.component";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
+import { OpenAIApi } from "openai";
+import { AccordionModule } from "ngx-bootstrap/accordion";
 @NgModule({
   declarations: [
     ArticlesComponent,
@@ -59,7 +61,8 @@ import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
     ComponentsStateButtonModule,
     TooltipModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    AccordionModule.forRoot(),
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,OpenAIApi],
 })
 export class ArticlesModule {}

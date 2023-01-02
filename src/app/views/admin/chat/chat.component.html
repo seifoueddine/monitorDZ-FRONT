@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="chat-text-left">
-                                <div class="mb-0 text-semi-muted" [innerHTML]="m.text"></div>
+                                <div class="mb-0 text-semi-muted" [innerHTML]="m.text | sanitizeHtml"></div>
                             </div>
                         </div>
                         <div style="cursor: pointer;" *ngIf="m.sender===currentUserId && errorResponse" class="position-absolute pt-1 pr-2 r-0" (click)="resend()" >
@@ -71,9 +71,11 @@
     <input class="form-control flex-grow-1" type="text" placeholder="Say something..." [(ngModel)]="message"
         (keyup)="messageInputKeyUp($event)">
     <div>
-        <!-- <button type="button" class="btn btn-outline-primary icon-button large">
+
+        
+        <button type="button" class="btn btn-outline-primary icon-button large">
             <i class="simple-icon-paper-clip"></i>
-        </button>{{' '}} -->
+        </button>{{' '}}
         <button type="button" class="btn btn-primary icon-button large" (click)="sendMessage()">
             <i class="simple-icon-arrow-right"></i>
         </button>
