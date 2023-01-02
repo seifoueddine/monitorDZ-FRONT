@@ -257,20 +257,20 @@ export class DetailsArticleComponent implements OnInit {
     switch (tag) {
       case "Un résumé de l'article":
 
-      // for (let i = 0; i < 3; i++) {
+        // for (let i = 0; i < 3; i++) {
         this.sendMessage('résumé');
-      // }
-      // this.robotWrite = false;
-    
+        // }
+        // this.robotWrite = false;
+
         break;
       case "Extraire les personnes existantes dans l'article":
         // for (let i = 0; i < 3; i++) {
-          this.sendMessage('personnes existantes');
+        this.sendMessage('personnes existantes');
         // }
         break;
       case "Extraire les chiffres existants dans l'article":
         // for (let i = 0; i < 3; i++) {
-          this.sendMessage('chiffres existants');
+        this.sendMessage('chiffres existants');
         // }  
         break;
       case "Extraire les dates existantes dans l'article":
@@ -293,12 +293,14 @@ export class DetailsArticleComponent implements OnInit {
       case "résumé":
         this.message = "donne moi un résumé de cet article: " + this.article.attributes.body
         break;
-        case "personnes existantes":
-          this.message = "extrais moi les personnes existantes avec leur status dans cet text: " + this.article.attributes.body
-        case "chiffres existants":
-          this.message = "extrais moi les chiffres leur clés et leur labels en excluant les dates en colonne de ce texte : " + this.article.attributes.body
-          case "dates existantes":
-            this.message = "extrais moi les dates avec leur événements en colonne de ce texte : " + this.article.attributes.body
+      case "personnes existantes":
+        this.message = "extrais moi les personnes existantes avec leur status dans cet text: " + this.article.attributes.body
+        break;
+      case "chiffres existants":
+        this.message = "extrais moi les chiffres leur clés et leur labels en excluant les dates en colonne de ce texte : " + this.article.attributes.body
+        break;
+      case "dates existantes":
+        this.message = "extrais moi les dates avec leur événements en colonne de ce texte : " + this.article.attributes.body
         break;
     }
 
@@ -315,13 +317,13 @@ export class DetailsArticleComponent implements OnInit {
       this.addGroupItem(respons, choise)
       this.robotWrite = false;
     }, (error) => {
-      
+
       this.robotWrite = false;
     });
 
   }
 
-  addGroupItem(respons,choise): void {
+  addGroupItem(respons, choise): void {
     this.groups.push({
       title: `${choise} - ${this.groups.length + 1}`,
       content: respons
