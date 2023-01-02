@@ -294,10 +294,10 @@ export class DetailsArticleComponent implements OnInit {
         this.message = "donne moi un résumé de cet article: " + this.article.attributes.body
         break;
       case "personnes existantes":
-        this.message = "extrais moi les personnes existantes avec leur status dans cet text: " + this.article.attributes.body
+        this.message = "extrais moi les personnes existantes avec nom prénom et leur status de cet text: " + this.article.attributes.body
         break;
       case "chiffres existants":
-        this.message = "extrais moi les chiffres leur clés et leur labels en excluant les dates en colonne de ce texte : " + this.article.attributes.body
+        this.message = "extrais moi les chiffres clés et avec labels  en colonne en excluant les dates de ce texte: " + this.article.attributes.body
         break;
       case "dates existantes":
         this.message = "extrais moi les dates avec leur événements en colonne de ce texte : " + this.article.attributes.body
