@@ -269,7 +269,7 @@ export class DetailsArticleComponent implements OnInit {
     this.tagsName = [];
     const langArray = tag;
     switch (tag) {
-      case "Un résumé de l'article":
+      case "0":
 
         // for (let i = 0; i < 3; i++) {
         this.sendMessage('résumé');
@@ -277,17 +277,17 @@ export class DetailsArticleComponent implements OnInit {
         // this.robotWrite = false;
 
         break;
-      case "Extraire les personnes existantes dans l'article":
+      case "1":
         // for (let i = 0; i < 3; i++) {
         this.sendMessage('personnes existantes');
         // }
         break;
-      case "Extraire les chiffres existants dans l'article":
+      case "2":
         // for (let i = 0; i < 3; i++) {
         this.sendMessage('chiffres existants');
         // }  
         break;
-      case "Extraire les dates existantes dans l'article":
+      case "3":
         // for (let i = 0; i < 3; i++) {
         this.sendMessage('dates existantes');
         // }   

@@ -116,25 +116,28 @@
       <div class="card-body">
         <h5 class="card-title"> <i ngClass="simple-icon-magic-wand"></i> Automatisation</h5>
 
-        <!-- <label class="form-group has-float-label">
-          <ng-select [items]="['Uber', 'Microsoft', 'Flexigen']"  [hideSelected]="true"
-            multiple="false" bindLabel="name" (change)="selectTag($event)">
-          </ng-select>
-       
-        </label> -->
-
-        <select [disabled]="robotWrite" (change)="selectTag($event.target.value)" id="inputState" class="form-control">
-          <option selected>Faites un choix et regardez la magie se produire</option>
-          <option>Un résumé de l'article </option>
-          <option>Extraire les personnes existantes dans l'article </option>
-          <option>Extraire les chiffres existants dans l'article </option>
-          <option>Extraire les dates existantes dans l'article </option>
-        </select>
-        <div *ngIf="robotWrite" class="spinner">
+        <div style=" width: 100%;" class="btn-group" dropdown>
+                          
+          <div class="btn btn-primary btn-lg">
+            Faites un choix et regardez la magie se produire
+          </div>
+          <button id="button-split2" type="button" dropdownToggle
+            class="btn btn-primary dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
+            <span class="caret"></span>
+          </button>
+          <ul id="dropdown-split2" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+            aria-labelledby="button-split">
+            <li role="menuitem"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectTag('0')"> <i ngClass="simple-icon-menu"></i>  Un résumé de l'article </a></li>
+            <li role="menuitem"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectTag('1')"> <i ngClass="simple-icon-people"></i> Extraire les personnes existantes dans l'article </a></li>
+            <li role="menuitem"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectTag('2')"> <i ngClass="simple-icon-list"></i>  Extraire les chiffres existants dans l'article </a></li>
+            <li role="menuitem"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectTag('3')"> <i ngClass="simple-icon-calendar"></i>  Extraire les dates existantes dans l'article </a></li>
+          </ul>
+      </div>
+         <div  *ngIf="robotWrite" style="margin-top: 40px" class="spinner">
           <div class="bounce1"></div>
           <div class="bounce2"></div>
           <div class="bounce3"></div>
-        </div>
+        </div> 
       </div>
 
     </div>
