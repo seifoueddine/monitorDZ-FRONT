@@ -148,7 +148,7 @@ export class DetailsArticleComponent implements OnInit {
   
   declineModalForMagic(): void {
     this.modalRefForMagic.hide();
-    this.groups
+    this.groups = []
   }
 
 
