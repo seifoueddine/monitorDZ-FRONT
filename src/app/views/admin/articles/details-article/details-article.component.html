@@ -19,7 +19,7 @@
               <a tooltip="Lien direct" placement="left" target="_blank" [href]="article?.attributes.url_article">
                 <i class='simple-icon-link initial-height'></i>
               </a>
-            </b> 
+            </b>
           </h3>
           <div [innerHTML]="article?.attributes.body | sanitizeHtml"></div>
         </div>
@@ -30,11 +30,6 @@
 
 
     </div>
-    <accordion *ngIf="groups.length">
-      <accordion-group *ngFor="let group of groups" [heading]="group.title" [panelClass]="'border'">
-     <div [innerHTML]="group.content | sanitizeHtml"></div>
-      </accordion-group>
-    </accordion>
   </div>
   <div class="col-12 col-md-12 col-xl-4 col-right">
 
@@ -119,8 +114,8 @@
 
     <div class="card mb-4">
       <div class="card-body">
-        <h5 class="card-title">Some magic (simple-icon-magic-wand)</h5>
-    
+        <h5 class="card-title"> <i ngClass="simple-icon-magic-wand"></i> Automatisation</h5>
+
         <!-- <label class="form-group has-float-label">
           <ng-select [items]="['Uber', 'Microsoft', 'Flexigen']"  [hideSelected]="true"
             multiple="false" bindLabel="name" (change)="selectTag($event)">
@@ -128,8 +123,8 @@
        
         </label> -->
 
-        <select (change)="selectTag($event.target.value)" id="inputState" class="form-control">
-          <option selected>{{ 'input-groups.choose' | translate }}</option>
+        <select [disabled]="robotWrite" (change)="selectTag($event.target.value)" id="inputState" class="form-control">
+          <option selected>Faites un choix et regardez la magie se produire</option>
           <option>Un résumé de l'article </option>
           <option>Extraire les personnes existantes dans l'article </option>
           <option>Extraire les chiffres existants dans l'article </option>
@@ -139,7 +134,7 @@
           <div class="bounce1"></div>
           <div class="bounce2"></div>
           <div class="bounce3"></div>
-      </div>
+        </div>
       </div>
 
     </div>
@@ -155,7 +150,8 @@
         <h5 class="card-title"> {{ 'articleDetails.similarArticle' | translate }} </h5>
         <div class="scroll dashboard-list-with-thumbs">
           <perfect-scrollbar class="scroll" [config]="{suppressScrollX: true, wheelPropagation: false}">
-            <div [dir]="article.attributes.medium.language === 'ar' ? 'rtl' : 'ltr'" class="d-flex flex-row mb-3" *ngFor="let article of similar">
+            <div [dir]="article.attributes.medium.language === 'ar' ? 'rtl' : 'ltr'" class="d-flex flex-row mb-3"
+              *ngFor="let article of similar">
               <a class="d-block position-relative">
                 <img style="width: 100px;"
                   [src]="article.attributes.image.url ? urlForImage + article.attributes.image.url : defaultImage"
@@ -228,4 +224,35 @@
     <button type="button" class="btn btn-primary" (click)="declineEmail()">Annuler</button>
   </div>
 </ng-template>
+
+
+
+<ng-template #templateForMagic>
+  <div class="modal-body">
+    <div class="text-center" >
+    <h6 class="modal-title mb-4"> Automatisation </h6>
+  </div>
+    <div class="row">
+      <div class="col-12">
+        <!-- <div class="card mb-4"> -->
+          <!-- <div class="card-body"> -->
+            <accordion *ngIf="groups.length">
+              <accordion-group [isOpen]="true" *ngFor="let group of groups" [heading]="group.title" [panelClass]="'border'">
+                <div [innerHTML]="group.content | sanitizeHtml"></div>
+              </accordion-group>
+            </accordion>
+          <!-- </div> -->
+        <!-- </div> -->
+      </div>
+    </div>
+    <!-- <button type="button" class="btn btn-outline-primary" (click)="submit()">Confirmer</button> {{" "}} -->
+    <div class="text-center " style="padding-top: 15px;">
+      <button type="button" style="padding-top: 10px;" class="btn btn-primary" (click)="declineModalForMagic()">Fermer</button>
+    </div>
+   
+  </div>
+</ng-template>
+
+
+
 <simple-notifications [options]="options"></simple-notifications>

@@ -27,6 +27,7 @@ import { OpenAIApi } from 'openai';
 export class DetailsArticleComponent implements OnInit {
   @ViewChild('content', { static: false }) content: ElementRef;
   @ViewChild('pdfTable') pdfTable: ElementRef;
+  @ViewChild('templateForMagic') templateRefMagic: TemplateRef<any>;
   buttonState = '';
   name = 'Angular';
   valueBind: string;
@@ -48,6 +49,7 @@ export class DetailsArticleComponent implements OnInit {
   authorName: string;
   modalRef: any;
   modalRefEmail: any;
+  modalRefForMagic: any;
   body: any;
   similar: any;
   role: any;
@@ -60,6 +62,7 @@ export class DetailsArticleComponent implements OnInit {
   message: any;
   groups = [
   ];
+  displayChoise: any;
   constructor(private route: ActivatedRoute, private articlesService: ArticlesService, private router: Router, private modalService: BsModalService, private openai: OpenAIApi,
     private modal: BsModalService, private notifications: NotificationsService, private lightbox: Lightbox, private datePipe: DatePipe, private sanitizer: DomSanitizer) {
 
@@ -109,6 +112,11 @@ export class DetailsArticleComponent implements OnInit {
     this.modalRef = this.modalService.show(template, { class: 'modal-xl' });
   }
 
+  openModalForMagic(template: TemplateRef<any>, data?: any) {
+
+    this.modalRefForMagic = this.modalService.show(template, { ignoreBackdropClick: true ,class: 'modal-xl' });
+  }
+
   ngOnInit(): void {
 
   }
@@ -135,6 +143,12 @@ export class DetailsArticleComponent implements OnInit {
 
 
     this.modalRefEmail.hide();
+  }
+
+  
+  declineModalForMagic(): void {
+    this.modalRefForMagic.hide();
+    this.groups
   }
 
 
@@ -279,6 +293,7 @@ export class DetailsArticleComponent implements OnInit {
         // }   
         break;
       default:
+        this.robotWrite = false;
         break;
     }
 
@@ -291,16 +306,37 @@ export class DetailsArticleComponent implements OnInit {
   sendMessage(choise) {
     switch (choise) {
       case "résumé":
-        this.message = "donne moi un résumé de cet article: " + this.article.attributes.body
+        if (this.article.attributes.language == 'fr') {
+          this.message = "donne moi un résumé de cet article: " + this.article.attributes.body
+        } else {
+          this.message = "donne moi un résumé en arabe de cet article: " + this.article.attributes.body
+        }
         break;
       case "personnes existantes":
-        this.message = "extrais moi les personnes existantes avec nom prénom et leur status de cet text: " + this.article.attributes.body
+        if (this.article.attributes.language == 'fr') {
+          this.message = "extrais moi les personnes existantes avec nom prénom et leur status de cet text: " + this.article.attributes.body
+
+        } else {
+          this.message = "extrais moi les personnes existantes avec nom prénom et leur status en arabe de cet text: " + this.article.attributes.body
+
+        }
         break;
       case "chiffres existants":
-        this.message = "extrais moi les chiffres clés et avec labels  en colonne en excluant les dates de ce texte: " + this.article.attributes.body
+        if (this.article.attributes.language == 'fr') {
+          this.message = "extrais moi les chiffres clés et leur labels  en colonne en excluant les dates de ce texte: " + this.article.attributes.body
+        } else {
+          this.message = "extrais moi les chiffres clés et leur labels  en colonne en excluant les dates en arabe de ce texte: " + this.article.attributes.body
+
+        }
         break;
       case "dates existantes":
-        this.message = "extrais moi les dates avec leur événements en colonne de ce texte : " + this.article.attributes.body
+        if (this.article.attributes.language == 'fr') {
+          this.message = "extrais moi les dates avec leur événements en colonne de ce texte : " + this.article.attributes.body
+
+        } else {
+          this.message = "extrais moi les dates avec leur événements en colonne en arabe de ce texte : " + this.article.attributes.body
+
+        }
         break;
     }
 
@@ -317,6 +353,7 @@ export class DetailsArticleComponent implements OnInit {
       this.addGroupItem(respons, choise)
       this.robotWrite = false;
     }, (error) => {
+      this.notifications.create("Erreur d'automatisation", 'Merci de refaire la requete pour avoir une meilleure réponse', NotificationType.Error, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
 
       this.robotWrite = false;
     });
@@ -325,9 +362,11 @@ export class DetailsArticleComponent implements OnInit {
 
   addGroupItem(respons, choise): void {
     this.groups.push({
-      title: `${choise} - ${this.groups.length + 1}`,
+      title: `${this.groups.length + 1} - ${choise} `,
       content: respons
     });
+    this.displayChoise = choise;
+    this.openModalForMagic(this.templateRefMagic)
   }
 
 
