@@ -323,9 +323,9 @@ export class DetailsArticleComponent implements OnInit {
         break;
       case "chiffres existants":
         if (this.article.attributes.language == 'fr') {
-          this.message = "extrais moi les chiffres clés et leur labels  en colonne en excluant les dates de ce texte: " + this.article.attributes.body
+          this.message = "Extrait moi les chiffres avec labels en colonne ( Lebel, Chiffre ) de ce texte : " + this.article.attributes.body
         } else {
-          this.message = "extrais moi les chiffres clés et leur labels  en colonne en excluant les dates en arabe de ce texte: " + this.article.attributes.body
+          this.message = "Extrait moi les chiffres avec labels en colonne ( Lebel, Chiffre ) en arabe de ce texte : " + this.article.attributes.body
 
         }
         break;

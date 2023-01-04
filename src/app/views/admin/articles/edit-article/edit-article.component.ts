@@ -20,6 +20,8 @@ export class EditArticleComponent implements OnInit {
   articleForm: UntypedFormGroup;
   authors: any;
   mediumId: any;
+  sectors = [];
+  evaluations = ['positif','negatif','neutre'];
   constructor( private authorsService: AuthorsService, private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,private notifications: NotificationsService, private datePipe: DatePipe, private sanitizer: DomSanitizer) {
 
     this.route
@@ -32,6 +34,7 @@ export class EditArticleComponent implements OnInit {
            this.article = res.article.data;
            this.mediumId = res.article.data.attributes.medium.id;
            this.valueBind = this.article.attributes.body;
+           this.sectors = ['Personne Politique','Pays', 'Marque', 'Décision', 'Sport', 'Produit local'];
            this.createArticleForm();
             this.getAuthors();
           // this.media = res.article.included[0].attributes.name;
@@ -74,6 +77,7 @@ export class EditArticleComponent implements OnInit {
         author_id: new UntypedFormControl(String(this.article.attributes.author.id), [Validators.required]),
         valueBind: new UntypedFormControl(this.valueBind, [Validators.required]),
         date_published: new UntypedFormControl(new Date(this.article.attributes.date_published), [Validators.required]),
+        sector_id: new UntypedFormControl(null, [Validators.required]),
       });
   }}
 

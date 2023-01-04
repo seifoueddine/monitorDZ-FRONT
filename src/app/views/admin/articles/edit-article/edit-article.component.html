@@ -24,6 +24,23 @@
             <span>Date</span>
           </label>
           <label class="form-group has-float-label">
+            <ng-select *ngIf="sectors"  mul [items]="sectors"   bindValue="id" 
+            formControlName="sector_id" [searchFn]="customSearchAuthor" [multiple]="false" >
+          </ng-select>
+            <span>Secteur</span>
+          </label>
+          <label class="form-group has-float-label">
+            <ng-select *ngIf="evaluations"  mul [items]="evaluations"   bindValue="id" 
+             [searchFn]="customSearchAuthor" [multiple]="false" >
+          </ng-select>
+            <span>Evaluation</span>
+          </label>
+
+            <label class="form-group has-float-label">
+              <textarea class="form-control" rows="3"></textarea>
+            <span>Commentaire</span>
+          </label>
+          <label class="form-group has-float-label">
            <quill-editor formControlName="valueBind" [placeholder]="''"></quill-editor>
            <span>Body</span>
           </label>
