@@ -112,13 +112,13 @@ export class CampaignsComponent implements OnInit {
   let tagIdsArray = [];
   campaign.relationships.sectors.data.map(x=> sectorIdsArray.push(x.id));
   campaign.relationships.media.data.map(x=> mediaIdsArray.push(x.id));
-  const sectorList =  this.sectors.filter(f => sectorIdsArray.includes(f.id));  
+  // const sectorList =  this.sectors.filter(f => sectorIdsArray.includes(f.id));  
   const mediaList =  this.media.filter(f => mediaIdsArray.includes(f.id));
   const tagList =  campaign.attributes.tags;
   let sectorNameArray = [];
   let mediaNameArray = [];
   let tagNameArray = [];
-  sectorList.map(x=> sectorNameArray.push(x.id));
+  // sectorList.map(x=> sectorNameArray.push(x.id));
   mediaList.map(x=> mediaNameArray.push(x.id));
   tagList.map(x=> tagNameArray.push(String(x.id)));
    campaign.sectorNameArray = sectorNameArray;

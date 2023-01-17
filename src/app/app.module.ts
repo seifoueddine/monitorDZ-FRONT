@@ -21,7 +21,8 @@ import { OpenAIApi } from "openai";
     TranslateModule.forRoot(),
     HttpClientModule,
     AngularTokenModule.forRoot({
-      apiBase: "https://api.mediasmonitoring.com",
+      apiBase: "https://api.mediasecho.com",
+    //  apiBase: "http://localhost:3000",
       apiPath: "api/v1",
 
       signInPath: "auth/sign_in",

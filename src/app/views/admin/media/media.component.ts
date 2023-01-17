@@ -108,9 +108,9 @@ export class MediaComponent implements OnInit {
   editMedia(media){
   let sectorIdsArray = [];
   media.relationships.sectors.data.map(x=> sectorIdsArray.push(x.id));
-  const sectorList =  this.sectors.filter(f => sectorIdsArray.includes(f.id));  
+  // const sectorList =  this.sectors.filter(f => sectorIdsArray.includes(f.id));  
   let sectorNameArray = [];
-  sectorList.map(x=> sectorNameArray.push(x.id));
+  // sectorList.map(x=> sectorNameArray.push(x.id));
  
    media.sectorNameArray = sectorNameArray;
    this.addNewModalRef.show(media);
@@ -208,18 +208,18 @@ export class MediaComponent implements OnInit {
  }
 
 
- getSectors(media){ 
+//  getSectors(media){ 
 
 
-  let sectorIdsArray = [];
-  media.relationships.sectors.data.map(x=> sectorIdsArray.push(x.id));
-  const sectorList =  this.sectors.filter(f => sectorIdsArray.includes(f.id));  
-  let sectorNameArray = [];
-  sectorList.map(x=> sectorNameArray.push(x.attributes.name));
-  return  sectorNameArray.join(',') 
+//   let sectorIdsArray = [];
+//   media.relationships.sectors.data.map(x=> sectorIdsArray.push(x.id));
+//   const sectorList =  this.sectors.filter(f => sectorIdsArray.includes(f.id));  
+//   let sectorNameArray = [];
+//   sectorList.map(x=> sectorNameArray.push(x.attributes.name));
+//   return  sectorNameArray.join(',') 
 
 
- }
+//  }
 
 
 }

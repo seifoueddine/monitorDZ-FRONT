@@ -52,7 +52,7 @@ export class MediaFormComponent implements OnInit {
                }
 
   ngOnInit() {
-    this.getSectors();
+    // this.getSectors();
   }
 
 
@@ -190,6 +190,7 @@ export class MediaFormComponent implements OnInit {
         formData.append('zone', this.mediaForm.value.zone);
         formData.append('language', this.mediaForm.value.language);
         formData.append('tag_status', this.mediaForm.value.tag_status);
+        
         this.mediaService.addMedia(formData).subscribe(resCreate => {
           this.notifications.create('Success', 'Média créé avec succès', NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
           this.hideModal();
