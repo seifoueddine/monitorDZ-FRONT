@@ -23,12 +23,12 @@
             <input class="form-control" bsDatepicker  formControlName="date_published" [container]="'html'" required name="date2">
             <span>Date</span>
           </label>
-          <label class="form-group has-float-label">
+          <!-- <label class="form-group has-float-label">
             <ng-select *ngIf="sectors"  mul [items]="sectors"   bindValue="id" 
             formControlName="sector_id" [searchFn]="customSearchAuthor" [multiple]="false" >
           </ng-select>
             <span>Secteur</span>
-          </label>
+          </label> -->
           <label class="form-group has-float-label">
             <ng-select *ngIf="evaluations"  mul [items]="evaluations"   bindValue="id" 
              [searchFn]="customSearchAuthor" [multiple]="false" >

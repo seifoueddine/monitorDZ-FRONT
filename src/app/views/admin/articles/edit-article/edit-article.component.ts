@@ -77,7 +77,7 @@ export class EditArticleComponent implements OnInit {
         author_id: new UntypedFormControl(String(this.article.attributes.author.id), [Validators.required]),
         valueBind: new UntypedFormControl(this.valueBind, [Validators.required]),
         date_published: new UntypedFormControl(new Date(this.article.attributes.date_published), [Validators.required]),
-        sector_id: new UntypedFormControl(null, [Validators.required]),
+        // sector_id: new UntypedFormControl(null, [Validators.required]),
       });
   }}
 
