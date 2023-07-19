@@ -752,10 +752,10 @@
     "vertical": "Vertical"
   },
   "errors": {
-    "E001":"Ce secteur appartient a une ou plusieurs médias",
-    "E002":"Ce secteur appartient a une ou plusieurs campagnes",
-    "E003":"Ce média appartient a une ou plusieurs campagnes"
-  }
+    "E001":"ينتمي هذا القطاع إلى وسائل إعلام واحدة أو أكثر",
+    "E002":"ينتمي هذا القطاع إلى حملات إعلانية واحدة أو أكثر",
+    "E003":"ينتمي هذا الوسيط إلى حملات إعلانية واحدة أو أكثر"
+    }
   ,
   "spinner": {
     "loading":"جار التحميل ..."

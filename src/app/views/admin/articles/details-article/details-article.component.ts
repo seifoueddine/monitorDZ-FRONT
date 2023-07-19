@@ -347,7 +347,7 @@ export class DetailsArticleComponent implements OnInit {
   }
   sendToopenai(choise) {
 
-    this.openai.createCompletion({ model: 'text-davinci-003', prompt: this.message, max_tokens: 1200, }, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
+    this.openai.createCompletion({ model: 'text-davinci-003', prompt: this.message, max_tokens: 1200, }, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
       let respons = response?.data?.choices[0]?.text.replace(/^\n\n/, '').replace(/\n/g, '<br>');
 
       this.addGroupItem(respons, choise)

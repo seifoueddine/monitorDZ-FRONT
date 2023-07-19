@@ -10,8 +10,8 @@ import { AuthService } from "src/app/shared/auth.service";
 })
 export class LoginComponent implements OnInit {
   @ViewChild("loginForm") loginForm: NgForm;
-  emailModel = "admin@gmail.com";
-  passwordModel = "123456";
+  emailModel = "";
+  passwordModel = "";
 
   buttonDisabled = false;
   buttonState = "";

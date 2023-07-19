@@ -65,6 +65,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     TabsModule.forRoot(),
     ModalModule.forRoot()
   ],
-  providers:    [  DatePipe, BsDropdownDirective,OpenAIApi,Configuration  ],
+  providers:    [  DatePipe, BsDropdownDirective,OpenAIApi,Configuration ],
 })
 export class ChatModule { }
