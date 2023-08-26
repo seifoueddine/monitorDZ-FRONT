@@ -199,6 +199,32 @@
                               <li role="menuitem"> <a class="c-pointer" style="padding: 0.5rem 1.25rem;" (click)="changeStatus('confirmed')"> Confirmer </a></li>
                             </ul>
                         </div>
+
+
+                        <div style=" padding-bottom: 15px;" class="btn-group" dropdown [isDisabled]="idItem === ''">
+                          
+                          <div class="btn btn-primary btn-lg pl-4 pr-0 check-button">
+                              AVE
+                            <label style="padding-left: 25px;" class="custom-control custom-checkbox mb-0 d-inline-block">
+                             
+                              <input type="checkbox" class="custom-control-input" [checked]="selectAllState==='checked'"
+                                [indeterminate]="selectAllState === 'indeterminate'" (change)="selectAllChange($event)">
+                              <span class="custom-control-label">&nbsp;</span>
+                            </label>
+                          </div>
+                          <button id="button-split2" type="button" dropdownToggle
+                            class="btn btn-primary dropdown-toggle dropdown-toggle-split" aria-controls="dropdown-split">
+                            <span class="caret"></span>
+                          </button>
+                          <ul id="dropdown-split2" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+                            aria-labelledby="button-split">
+                            <li role="menuitem"> <a class="c-pointer" style="padding: 0.5rem 1.25rem;" (click)="changeAve('NEGATIVE')"> NEGATIVE </a></li>
+                            <li role="menuitem"> <a class="c-pointer" style="padding: 0.5rem 1.25rem;" (click)="changeAve('POSITIVE')"> POSITIVE </a></li>
+                            <li role="menuitem"> <a class="c-pointer" style="padding: 0.5rem 1.25rem;" (click)="changeAve('NEUTRAL')"> NEUTRE </a></li>
+                          </ul>
+                      </div>
+
+
                         <div class="separator mb-4"></div>
                       <p > Il y a {{articlesPending}} articles en attente</p>
 
@@ -297,7 +323,8 @@
              
                 <img alt="detail" style="height: 300px;"  [src]="articleDetails.attributes.image.url ? urlForImage + articleDetails.attributes.image.url : defaultImage"  class="responsive border-0 card-img-top mb-3 c-pointer" />
                 <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'"> {{articleDetails?.attributes.category_article}}</span> 
-    
+                <span style="background-color: rgb(0, 194, 136); color: white;"  [class]="'position-absolute badge-top-left-2 badge badge-pill'"> {{articleDetails?.attributes.ave}}</span> 
+             
                 <div class="card-body">
                   <div class="mb-5">
                     <h3 class="card-title">{{articleDetails?.attributes.title}} <a target="_blank" [href]="articleDetails?.attributes.url_article"><i  class='simple-icon-link initial-height'></i></a></h3>

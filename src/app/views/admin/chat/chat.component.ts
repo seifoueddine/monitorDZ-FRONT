@@ -5,7 +5,6 @@ import { OpenAIApi } from 'openai';
 import { Observable, Subject } from 'rxjs';
 import { ChatService, IChatContact, IChatConversation } from 'src/app/shared/services/chat.service';
 import { environment } from 'src/environments/environment';
-import { RainbowSDK } from 'rainbow-web-sdk';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html'
@@ -115,7 +114,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     
 
     if (this.message.includes("image:")) {
-      this.openai.createImage({prompt: this.message.replace('image:', ''),n: 1,size: "1024x1024",}, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
+      this.openai.createImage({prompt: this.message.replace('image:', ''),n: 1,size: "1024x1024",}, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
         console.log(response);
         let  respons = `<img img-fluid border-radius src=${response.data.data[0].url} alt="image" height="500">` 
         const time_response = this.getCurrentTime();
@@ -132,7 +131,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      this.openai.createCompletion({ model: 'text-davinci-003', prompt: this.message, max_tokens: 1200, }, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
+      this.openai.createCompletion({ model: 'text-davinci-003', prompt: this.message, max_tokens: 1200, }, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
       let respons = response?.data?.choices[0]?.text.replace(/^\n\n/, '').replace(/\n/g, '<br>');
       const time_response = this.getCurrentTime();
       this.robotWrite = false;

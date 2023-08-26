@@ -12,6 +12,8 @@
         class="responsive border-0 card-img-top mb-3 c-pointer" />
       <span *ngIf="article?.attributes.category_article != ''" style="background-color: brown; color: white;"
         [class]="'position-absolute badge-top-left badge badge-pill'"> {{article?.attributes.category_article}}</span>
+        <span style="background-color: rgb(0, 194, 136); color: white;"  [class]="'position-absolute badge-top-left-2 badge badge-pill'"> {{article?.attributes.ave}}</span> 
+
 
       <div class="card-body">
         <div class="mb-5">

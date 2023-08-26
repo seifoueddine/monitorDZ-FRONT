@@ -7,4 +7,5 @@ export class Articles {
    author: string;
    body: string;
    author_id: number;
+   ave: string;
 }

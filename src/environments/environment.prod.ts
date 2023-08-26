@@ -29,6 +29,7 @@ export const environment = {
     USERS_PATH: apiVersion + '/users',
     CHANGE_PASSWORD_PATH: apiVersion + '/users/change_password/',
     CHANGE_STATUS_PATH: apiVersion + '/articles/change_status',
+    CHANGE_AVE_PATH: apiVersion + '/articles/change_ave',
     CLIENT_ARTICLES_PATH: apiVersion + '/articles_client',
     AUTHORS_PATH: apiVersion + '/authors',
     AUTHORS_CLIENT_PATH: apiVersion + '/authors_client',

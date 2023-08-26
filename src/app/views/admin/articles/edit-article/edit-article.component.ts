@@ -20,8 +20,9 @@ export class EditArticleComponent implements OnInit {
   articleForm: UntypedFormGroup;
   authors: any;
   mediumId: any;
+  ave: string;
   sectors = [];
-  evaluations = ['positif','negatif','neutre'];
+  evaluations = [{label:'positif', value:'POSITIVE'},{label:'negatif', value:'NEGATIVE'},{label:'neutre', value:'NEUTRAL'}];
   constructor( private authorsService: AuthorsService, private route: ActivatedRoute, private articlesService: ArticlesService,  private router: Router,private notifications: NotificationsService, private datePipe: DatePipe, private sanitizer: DomSanitizer) {
 
     this.route
@@ -32,6 +33,7 @@ export class EditArticleComponent implements OnInit {
       this.articlesService.getArticleById(this.articleId)
         .subscribe((res: any) => {
            this.article = res.article.data;
+           this.ave = res.article.data.attributes.ave;
            this.mediumId = res.article.data.attributes.medium.id;
            this.valueBind = this.article.attributes.body;
            this.sectors = ['Personne Politique','Pays', 'Marque', 'Décision', 'Sport', 'Produit local'];
@@ -76,6 +78,7 @@ export class EditArticleComponent implements OnInit {
         title: new UntypedFormControl(this.article.attributes.title, [Validators.required, Validators.minLength(2)]),
         author_id: new UntypedFormControl(String(this.article.attributes.author.id), [Validators.required]),
         valueBind: new UntypedFormControl(this.valueBind, [Validators.required]),
+        ave: new UntypedFormControl(this.ave),
         date_published: new UntypedFormControl(new Date(this.article.attributes.date_published), [Validators.required]),
         // sector_id: new UntypedFormControl(null, [Validators.required]),
       });
@@ -102,6 +105,7 @@ export class EditArticleComponent implements OnInit {
           object.id = this.article.id;
           object.title = this.articleForm.value.title;
           object.author_id = this.articleForm.value.author_id;
+          object.ave = this.articleForm.value.ave;
           object.date_published = new Date(date)
           object.body = this.articleForm.value.valueBind;
           this.articlesService.updateArticle(object).subscribe(resCreate => {

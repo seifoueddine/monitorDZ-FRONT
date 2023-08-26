@@ -136,12 +136,6 @@ export class MediaFormComponent implements OnInit {
       if (this.data) {
           const mediaId = this.data.id;
           const object = new Media;
-          // object.id = this.data.id
-          // object.name = this.mediaForm.value.name;
-          // object.media_type = this.mediaForm.value.media_type;
-          // object.orientation = this.mediaForm.value.orientation;
-          // object.url_crawling = this.mediaForm.value.url_crawling;
-          // object.sector_id = this.sectorsIds.join(',');
           const formData = new FormData();
         if(this.newPic) {
           formData.append('avatar', this.avatarToSend);

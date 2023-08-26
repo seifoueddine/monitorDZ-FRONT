@@ -30,8 +30,8 @@
             <span>Secteur</span>
           </label> -->
           <label class="form-group has-float-label">
-            <ng-select *ngIf="evaluations"  mul [items]="evaluations"   bindValue="id" 
-             [searchFn]="customSearchAuthor" [multiple]="false" >
+            <ng-select *ngIf="evaluations"  mul  formControlName="ave" [items]="evaluations"  bindLabel="label" bindValue="value" 
+              [multiple]="false" >
           </ng-select>
             <span>Evaluation</span>
           </label>

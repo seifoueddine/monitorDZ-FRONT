@@ -501,6 +501,20 @@ setPage(pageInfo) {
   }
 
 
+  changeAve(ave: string){
+    this.articleService.changeAve(ave,this.idItem).subscribe(resCreate => {
+      this.notifications.create('Success', "Changement de l'Ave avec succès", NotificationType.Success, { theClass: 'primary', timeOut: 6000, showProgressBar: false });
+      this.selected = [];
+      this.idItem = '';
+      this.selectAllState = '';
+      this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date,this.end_date, this.langJoin);
+    }, error => {
+      this.notifications.create('Erreur', 'error', NotificationType.Error, { theClass: 'outline primary', timeOut: 6000, showProgressBar: false });
+
+    });
+  }
+
+
   decline(): void {
 
   

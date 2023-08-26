@@ -44,7 +44,7 @@ export class MediaService {
    * update the media informations
    * @param media
    */
-  updateMedia(media: FormData, mediaId: any): Observable<Media> {
+  updateMedia(media: any, mediaId: any): Observable<Media> {
     const req = this.serviceUrl + `/${mediaId}`;
      
     return this.http.put<Media>(req, media);

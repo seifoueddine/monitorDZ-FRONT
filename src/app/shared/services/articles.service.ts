@@ -10,10 +10,11 @@ import { Articles } from '../models/articles.model';
 export class ArticlesService {
 
   private serviceUrl = environment.ENDPOINTS.ARTICLES_PATH;
-   private serviceForSortingUrl = environment.ENDPOINTS.ARTICLES_FOR_SORTING_PATH;
+  private serviceForSortingUrl = environment.ENDPOINTS.ARTICLES_FOR_SORTING_PATH;
   private serviceCrawlingUrl = environment.ENDPOINTS.CRAWLING_PATH;
   private serviceAutoTagUrl = environment.ENDPOINTS.AUTO_TAG_PATH;
   private serviceChangeStatusUrl = environment.ENDPOINTS.CHANGE_STATUS_PATH;
+  private serviceChangeAveUrl = environment.ENDPOINTS.CHANGE_AVE_PATH;
   private serviceClientArticlesUrl = environment.ENDPOINTS.CLIENT_ARTICLES_PATH;
   private serviceExport = environment.ENDPOINTS.EXPORT_PDF_PATH;
   private serviceSendEmailUrl = environment.ENDPOINTS.SEND_EMAIL_PATH;
@@ -154,6 +155,13 @@ export class ArticlesService {
     return this.http.post<any>(this.serviceChangeStatusUrl, object);
   }
 
+
+  changeAve(ave: string,ids: string): Observable<any> {
+    const object: any = {}
+    object.ids = ids;
+    object.ave = ave;
+    return this.http.post<any>(this.serviceChangeAveUrl, object);
+  }
 
 
   exportPDF(id: any): Observable<any> {
