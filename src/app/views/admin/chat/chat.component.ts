@@ -114,7 +114,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     
 
     if (this.message.includes("image:")) {
-      this.openai.createImage({prompt: this.message.replace('image:', ''),n: 1,size: "1024x1024",}, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
+      this.openai.createImage({prompt: this.message.replace('image:', ''),n: 1,size: "1024x1024",}, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
         console.log(response);
         let  respons = `<img img-fluid border-radius src=${response.data.data[0].url} alt="image" height="500">` 
         const time_response = this.getCurrentTime();
@@ -131,7 +131,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      this.openai.createCompletion({ model: 'text-davinci-003', prompt: this.message, max_tokens: 1200, }, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
+      this.openai.createCompletion({ model: 'text-davinci-003', prompt: this.message, max_tokens: 1200, }, { headers: { 'Authorization': `Bearer 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` } }).then((response) => {
       let respons = response?.data?.choices[0]?.text.replace(/^\n\n/, '').replace(/\n/g, '<br>');
       const time_response = this.getCurrentTime();
       this.robotWrite = false;

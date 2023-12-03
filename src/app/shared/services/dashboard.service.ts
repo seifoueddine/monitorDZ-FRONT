@@ -13,8 +13,17 @@ export class DashboardService {
   private serviceTagUrl = environment.ENDPOINTS.ARTICLE_BY_TAG_PATH;
   private serviceDateUrl = environment.ENDPOINTS.ARTICLE_BY_DATE_PATH;
   private serviceUrlTag = environment.ENDPOINTS.TAG_BY_DATE_PATH;
+  private serviceArticlesTagDateUrl = environment.ENDPOINTS.ARTICLES_BY_TAGS_DATE_PATH;
   constructor(private http: HttpClient) {}
 
+
+  getArticleByTagAndDates(startDate: any, endDate: any, tagName: string): Observable<any> {
+    const start_date = `?start_date=${startDate}`; 
+    const end_date = `&end_date=${endDate}`; 
+    const tag_name = `&tag_name=${tagName}`; 
+    const req = this.serviceArticlesTagDateUrl +start_date + end_date + tag_name;
+    return this.http.get(req, { observe: 'response' });
+  }
 
   getArticleByMedium(startDate: any, endDate: any): Observable<any> {
     const start_date = `?start_date=${startDate}`; 

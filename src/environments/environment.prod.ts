@@ -47,6 +47,7 @@ export const environment = {
     ARTICLE_CLIENT_BY_TAG_PATH: apiVersion + '/articles_client_by_tag',
     ARTICLE_CLIENT_BY_DATE_PATH: apiVersion + '/articles_by_date',
     TAG_CLIENT_BY_DATE_PATH: apiVersion + '/tags_client_by_date',
+    ARTICLES_BY_TAGS_DATE_PATH: apiVersion + '/articles/by_tag_and_date',
   },
 
 

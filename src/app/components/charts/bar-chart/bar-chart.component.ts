@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, AfterViewInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Chart } from 'chart.js';
 
 @Component({
@@ -12,7 +12,7 @@ export class BarChartComponent implements AfterViewInit, OnDestroy {
   @Input() data;
   @Input() class = 'chart-container';
   @ViewChild('chart', { static: true }) chartRef: ElementRef;
-
+  @Output() barClick = new EventEmitter<any>();
   chart: Chart;
 
   public constructor() { }
@@ -42,7 +42,20 @@ export class BarChartComponent implements AfterViewInit, OnDestroy {
     this.chart = new Chart(ctx, {
       type: this.shadow ? 'barWithShadow' : 'bar',
       data: this.data,
-      options: this.options
+      options: {...this.options,
+        onClick: (event, chartElement) => {
+          if (chartElement.length > 0) {
+            const dataIndex = chartElement[0]._index;
+            const datasetIndex = chartElement[0]._datasetIndex;
+            this.barClick.emit({
+              data: this.data.datasets[datasetIndex].data[dataIndex],
+              index: dataIndex,
+              datasetIndex: datasetIndex,
+              label: this.data.labels[dataIndex]
+            });
+          }
+        }
+      }
     });
   }
 

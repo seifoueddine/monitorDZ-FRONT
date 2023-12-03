@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { NotificationsService, NotificationType } from "angular2-notifications";
 import { ChartService } from "src/app/components/charts/chart.service";
 import { Colors } from "src/app/constants/colors.service";
@@ -7,6 +7,7 @@ import { DashboardService } from "src/app/shared/services/dashboard.service";
 import * as moment from "moment";
 import { DatePipe } from '@angular/common';
 import { environment } from "src/environments/environment";
+import { BsModalService } from "ngx-bootstrap/modal";
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
   articlesWithCount = [];
   polarAreaChartDataTag: { labels: string[]; datasets: { data: unknown[]; borderWidth: number; borderColor: string[]; backgroundColor: string[]; }[]; };
   days: any = 7;
+  tagName: string;
   start_date: any = new Date();
   end_date: any = new Date();
   
@@ -48,12 +50,15 @@ export class DashboardComponent implements OnInit {
   _barChartOptions: any
    lineChartOptions: { legend: { display: boolean; }; responsive: boolean; maintainAspectRatio: boolean; tooltips: any; plugins: { datalabels: { display: boolean; }; }; scales: { yAxes: { gridLines: { display: boolean; lineWidth: number; color: string; drawBorder: boolean; }; ticks: { beginAtZero: boolean; stepSize: number; min: number; max: number; padding: number; }; }[]; xAxes: { gridLines: { display: boolean; }; }[]; }; };
   link: any;
-
+  modalRef: any;
+  result: any;
+  @ViewChild('template') template: TemplateRef<any>;
   constructor(
     private chartService: ChartService,
     private dashboardService: DashboardService,
     private notifications: NotificationsService,
     private datePipe: DatePipe,
+    private modalService: BsModalService
   ) {
     this.chartDataConfig = this.chartService;
 
@@ -66,6 +71,42 @@ export class DashboardComponent implements OnInit {
     this.getArticleByDate(7);
     this.getTagByDate(this.start_date_tag, this.end_date_tag);
     this.staticValues();
+  }
+
+  handleBarClick(event) {
+    console.log('Bar clicked:', event);
+    console.log(event.label);
+    this.tagName = event.label
+    console.log(this.start_date_tag);
+    console.log(this.end_date_tag);
+    this.getArticleByTagAndDates(this.start_date_tag, this.end_date_tag,this.tagName);
+  }
+
+  getArticleByTagAndDates(startDate: any, endDate: any, tagName: string) {
+
+    this.dashboardService.getArticleByTagAndDates(startDate,endDate,tagName).subscribe(
+      (data) => {
+        if (data.status) {
+          this.result = data.body.data;
+          if (this.result) {
+            this.modalRef = this.modalService.show(this.template, { class: 'modal-xl' });
+          }
+        
+        }
+      },
+      (error) => {
+        this.spinner = false;
+        this.notifications.create("Error", "error", NotificationType.Error, {
+          theClass: "primary",
+          timeOut: 6000,
+          showProgressBar: false,
+        });
+      }
+    );
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-xl' });
   }
 
   getArticleByMedium(startDate: any, endDate: any) {
