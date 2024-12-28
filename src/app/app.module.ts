@@ -10,6 +10,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { LayoutContainersModule } from "./containers/layout/layout.containers.module";
 import { XhrInterceptor } from "./http.interceptor";
 import { OpenAIApi } from "openai";
+import { url } from "src/environments/environment";
 
 @NgModule({
   imports: [
@@ -21,8 +22,7 @@ import { OpenAIApi } from "openai";
     TranslateModule.forRoot(),
     HttpClientModule,
     AngularTokenModule.forRoot({
-      apiBase: "https://api.mediasecho.com",
-    //  apiBase: "http://localhost:3000",
+      apiBase: url,
       apiPath: "api/v1",
 
       signInPath: "auth/sign_in",

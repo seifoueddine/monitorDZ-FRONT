@@ -104,7 +104,12 @@ export class SortArticlesComponent implements OnInit {
 
   openDetailsModal(template: TemplateRef<any>, data: any) {
     this.articleDetails = data;
-    this.articleDetails.attributes.tags = this.articleDetails.attributes.tags.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
+    if (this.articleDetails.attributes?.tags) {
+      this.articleDetails.attributes.tags = this.articleDetails.attributes.tags.filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
+    } else {
+      this.articleDetails.attributes.tags = []
+    }
+
     this.getBodyWithTags();
   //  this.articleId = data.id;
     this.modalRef = this.modalService.show(template, { class: 'modal-xl' });

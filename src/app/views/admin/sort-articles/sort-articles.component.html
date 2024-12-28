@@ -70,7 +70,7 @@
                 </div>
               </a>
                 <a href="javascript:;" (click)="openDetailsModal(templateDetails, a)">
-                <img  style="height: 180px;" class="card-img-top" [src]="a.attributes.image.url ? urlForImage + a.attributes.image.url : defaultImage" alt="Article image"></a>
+                <img  style="height: 180px;" class="card-img-top" [src]="a.attributes.image_url ? urlForImage + a.attributes.image_url : defaultImage" alt="Article image"></a>
               <span style="background-color: green; color: white;" *ngIf="a.attributes.status === 'confirmed'" [class]="'badge badge-pill position-absolute badge-top-left'"> Confirmé</span>
               <span style="background-color: rgb(240, 108, 0); color: white;" *ngIf="a.attributes.status === 'archived'" [class]="'badge badge-pill position-absolute badge-top-left'">Archivé</span>
               <span style="background-color: rgb(184, 7, 7); color: white;" *ngIf="a.attributes.status === 'pending'" [class]="'badge badge-pill position-absolute badge-top-left'">En attente</span>
@@ -321,7 +321,7 @@
         <div class="col-12 col-md-12 col-xl-8 col-left">
             <div class="card mb-4">
              
-                <img alt="detail" style="height: 300px;"  [src]="articleDetails.attributes.image.url ? urlForImage + articleDetails.attributes.image.url : defaultImage"  class="responsive border-0 card-img-top mb-3 c-pointer" />
+                <img alt="detail" style="height: 300px;"  [src]="articleDetails.attributes.image_url ? urlForImage + articleDetails.attributes.image_url : defaultImage"  class="responsive border-0 card-img-top mb-3 c-pointer" />
                 <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'"> {{articleDetails?.attributes.category_article}}</span> 
                 <span style="background-color: rgb(0, 194, 136); color: white;"  [class]="'position-absolute badge-top-left-2 badge badge-pill'"> {{articleDetails?.attributes.ave}}</span> 
              

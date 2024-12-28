@@ -7,8 +7,8 @@
       </div>
       <img alt="detail"
         style="height: 300px; padding: 15px; border-top-left-radius: 25px; border-top-right-radius: 25px; "
-        [src]="article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage"
-        (click)="openLightbox(article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage)"
+        [src]="article?.attributes.image_url ? urlForImage + article?.attributes.image_url : defaultImage"
+        (click)="openLightbox(article?.attributes.image_url ? urlForImage + article?.attributes.image_url : defaultImage)"
         class="responsive border-0 card-img-top mb-3 c-pointer" />
       <span *ngIf="article?.attributes.category_article != ''" style="background-color: brown; color: white;"
         [class]="'position-absolute badge-top-left badge badge-pill'"> {{article?.attributes.category_article}}</span>
@@ -159,7 +159,7 @@
               *ngFor="let article of similar">
               <a class="d-block position-relative">
                 <img style="width: 100px;"
-                  [src]="article.attributes.image.url ? urlForImage + article.attributes.image.url : defaultImage"
+                  [src]="article.attributes.image_url ? urlForImage + article.attributes.image_url : defaultImage"
                   class="list-thumbnail border-0" />
                 <span style="background-color: brown; color: white;"
                   [class]="'position-absolute badge-top-right badge badge-pill '">{{article.attributes.medium.name}}</span>
