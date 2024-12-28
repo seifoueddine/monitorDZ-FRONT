@@ -785,7 +785,9 @@
     "sortBy":"الترتيب حسب",
     "title":"عنوان",
     "status":"حالة",
-    "author":"الكاتب"
+    "author":"الكاتب",
+    "date_published" :"تاريخ النشر",
+    "direction": "اتجاه"
   },
   "articleDetails":{
     "editArticle":"تعديل المقال",

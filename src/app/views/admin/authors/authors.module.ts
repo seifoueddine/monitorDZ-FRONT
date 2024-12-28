@@ -22,6 +22,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
 
 import { PagesContainersModule } from 'src/app/containers/pages/pages.containers.module';
 import { AuthorFormComponent } from './author-form/author-form.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [AuthorsComponent, AuthorFormComponent],
   imports: [
@@ -45,6 +46,7 @@ import { AuthorFormComponent } from './author-form/author-form.component';
     NgxDatatableModule,
     ComponentsCarouselModule,
     ArchwizardModule,
+    NgSelectModule,
   ]
 })
 export class AuthorsModule { }

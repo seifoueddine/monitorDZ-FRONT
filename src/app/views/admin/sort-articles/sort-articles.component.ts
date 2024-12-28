@@ -82,10 +82,9 @@ export class SortArticlesComponent implements OnInit {
     private ourNotificationService: OurNotificationsService, private mediaService: MediaService, private router: Router,
     private modalService: BsModalService, private datePipe: DatePipe, private translateService: TranslateService, private slugsService: SlugsService) {
 
-      this.itemOrder = { label: this.translateService.instant('header.title' ), value: 'title' };
-      this.itemOptionsOrders = [  { label: this.translateService.instant('header.title' ), value: "title" }, 
-      { label: this.translateService.instant('header.status' ), value: "status" },
-      { label: this.translateService.instant('header.author' ), value: "author_id" },];
+      this.itemOrder = { label: this.translateService.instant('header.date_published' ), value: 'date_published' };
+      this.itemOptionsOrders = [   { label: this.translateService.instant('header.date_published' ), value: "date_published" }, { label: this.translateService.instant('header.title' ), value: "title" }, 
+      { label: this.translateService.instant('header.status' ), value: "status" }];
      }
 
 
@@ -234,7 +233,13 @@ export class SortArticlesComponent implements OnInit {
     this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date,this.end_date, this.langJoin);;
   }
 
-  
+  changeDirectionBy(item: any) {
+    console.log(item.value);
+    
+    this.direction = item.value;
+    this.loadData(this.itemsPerPage, this.currentPage, this.direction, this.orderBy, this.search,this.media_ids, this.start_date,this.end_date, this.langJoin);;
+  }
+
 
 
   showAddNewModal() {

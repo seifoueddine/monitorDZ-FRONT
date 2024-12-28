@@ -782,7 +782,9 @@
     "sortBy": "Trier par ",
     "title":"Titre",
     "status":"Statut",
-    "author":"Auteur"
+    "author":"Auteur",
+    "date_published" :"Date de Publication",
+    "direction": "Direction"
   },
   "articleDetails":{
     "editArticle":"Modification de l'article",

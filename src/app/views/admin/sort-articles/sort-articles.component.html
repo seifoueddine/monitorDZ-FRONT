@@ -7,7 +7,7 @@
     <app-list-page-header [displayMode]="displayMode" [totalElements]="totalElements" [media]="media" [itemOptionsOrders]="itemOptionsOrders" [itemOrder]="itemOrder" [itemOptionsPerPage]="[6,12,18]" [itemsPerPage]="itemsPerPage"
     [selectAllState]="selectAllState" (changeDisplayMode)="changeDisplayMode($event)" (addNewItem)="showAddNewModal()"
     (selectAllChange)="selectAllChange($event)" (itemsPerPageChange)="itemsPerPageChange($event)" currentPage="sort-articles"
-    (changeOrderBy)="changeOrderBy($event)" (selectMedium)="selectMedia($event)" >
+    (changeOrderBy)="changeOrderBy($event)" (changeDirectionBy)="changeDirectionBy($event)" (selectMedium)="selectMedia($event)" >
     </app-list-page-header>
 
 </div>

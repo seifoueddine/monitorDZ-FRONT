@@ -30,7 +30,9 @@ export class ListPageHeaderComponent implements OnInit {
   @Input() itemsPerPage = 10;
   @Input() itemOptionsPerPage = [5, 10, 20];
   @Input() itemOrder = { label: 'Product Name', value: 'title' };
-  @Input()  itemOptionsOrders = [{ label: 'Product Name', value: 'title' }, { label: 'Category', value: 'category' }, { label: 'Statut', value: 'status' }];
+  @Input() itemDirection = { label: 'Descendant', value: 'desc' };
+  @Input() itemOptionsDirection = [{ label: 'Ascendant', value: 'asc' }, { label: 'Descendant', value: 'desc' }];
+  @Input() itemOptionsOrders = [{ label: 'Product Name', value: 'title' }, { label: 'Category', value: 'category' }, { label: 'Statut', value: 'status' }];
   @Input() media
   @Output() changeDisplayMode: EventEmitter<string> = new EventEmitter<string>();
   @Output() addNewItem: EventEmitter<any> = new EventEmitter();
@@ -38,6 +40,7 @@ export class ListPageHeaderComponent implements OnInit {
   @Output() searchKeyUp: EventEmitter<any> = new EventEmitter();
   @Output() itemsPerPageChange: EventEmitter<any> = new EventEmitter();
   @Output() changeOrderBy: EventEmitter<any> = new EventEmitter();
+  @Output() changeDirectionBy: EventEmitter<any> = new EventEmitter();
   @Output() selectMedium: EventEmitter<any> = new EventEmitter();
   @ViewChild('search') search: any;
   modalRef: any;
@@ -82,6 +85,11 @@ export class ListPageHeaderComponent implements OnInit {
   onChangeOrderBy(item) {
     this.itemOrder = item;
     this.changeOrderBy.emit(item);
+  }
+
+  onChangeDirectionBy(item) {
+    this.itemDirection = item;
+    this.changeDirectionBy.emit(item);
   }
 
   selectMedia(item) {

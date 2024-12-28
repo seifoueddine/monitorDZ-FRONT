@@ -80,8 +80,23 @@
                   (click)="onChangeOrderBy(item)">{{item.label}}</a></li>
             </ul>
           </div>
-        </div>
 
+     
+
+        </div>
+        <div class="d-block d-md-inline-block position-relative" *ngIf="showOrderBy">
+        <div class="float-md-left mr-1 mb-1" dropdown>
+          <button id="button-basic-for-direction" dropdownToggle type="button" class="btn btn-outline-dark btn-xs dropdown-toggle"
+            aria-controls="dropdown-basic-for-direction">
+            {{ 'header.direction' | translate }} : {{itemDirection.label}} <span class="caret"></span>
+          </button>
+          <ul id="dropdown-basic-for-direction" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic-for-direction">
+            <li role="menuitem" *ngFor="let item of itemOptionsDirection"><a
+                [ngClass]="item.value === itemDirection.value ? 'dropdown-item active' : 'dropdown-item'"
+                (click)="onChangeDirectionBy(item)">{{item.label}}</a></li>
+          </ul>
+        </div>
+      </div>
         <div class="d-inline-block" *ngIf="showSearch">
           <div *ngIf="currentPage != 'sort-articles'" class="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
             <input class="form-control" [placeholder]=" 'header.search' | translate " (keyup)="onSearchKeyUp($event)">
