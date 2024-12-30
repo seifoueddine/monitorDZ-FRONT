@@ -97,8 +97,6 @@
               "ngx-quill",
               "ngx-lightbox",
               "chart.js",
-              "pdfmake/build/pdfmake",
-              "pdfmake/build/vfs_fonts",
               "file-saver",
               "moment"
            ]

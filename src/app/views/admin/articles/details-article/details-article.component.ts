@@ -6,14 +6,9 @@ import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { Lightbox } from 'ngx-lightbox';
 import { Articles } from 'src/app/shared/models/articles.model';
 import { environment } from 'src/environments/environment';
-import { jsPDF } from 'jspdf';
-import saveAs from 'file-saver';
+import * as saveAs from 'file-saver';
 
 
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-import htmlToPdfmake from 'html-to-pdfmake';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OpenAIApi } from 'openai';
@@ -77,7 +72,7 @@ export class DetailsArticleComponent implements OnInit {
             this.article = res.article.data;
             this.article.attributes.body = '<div dir="auto" >' + this.article.attributes.body + '</div>';
             this.tags = res.tags;
-            this.mediaName = res.article.included[0].attributes.name;
+            this.mediaName = res.article.data.attributes.medium.name;
             this.authorName = res.article.data.attributes.author.name;
             this.similar = res.similar.data;
             this.similar = this.similar.filter(a => a.id !== this.article.id);

@@ -14,7 +14,7 @@ import { AuthorsService } from "src/app/shared/services/authors.service";
 import { ListsService } from "src/app/shared/services/lists.service";
 import { Lists } from "src/app/shared/models/lists.model";
 import { DomSanitizer } from "@angular/platform-browser";
-import saveAs from "file-saver";
+import * as saveAs from "file-saver";
 import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: "app-client-articles",
