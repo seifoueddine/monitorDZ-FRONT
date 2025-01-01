@@ -189,77 +189,71 @@ export class SearchComponent implements OnInit {
   }
 
   getBodyWithSearch(body) {
-    let firstBody = body;
-
-    body = body.replace("<strong>", "<p>");
-    body = body.replace("</strong>", "</p>");
-
-    body = body.replace("<h1", "<p");
-    body = body.replace("</h1>", "</p>");
-
-    body = body.replace("</h2>", "</p>");
-    body = body.replace("<h2", "<p");
-
-    body = body.replace("<h3", "<p");
-    body = body.replace("</h3>", "</p>");
-
-    body = body.replace("<h4", "<p");
-    body = body.replace("</h4>", "</p>");
-
-    body = body.replace("<h5", "<p");
-    body = body.replace("</h5>", "</p>");
-
-    body = body.replace("<h6", "<p");
-    body = body.replace("</h6>", "</p>");
-
-    body = body.replace("<b>", "");
-    body = body.replace("</b>", "");
-
-    firstBody = firstBody.replace("<strong>", "<p>");
-    firstBody = firstBody.replace("</strong>", "</p>");
-
-    firstBody = firstBody.replace("<h1", "<p");
-    firstBody = firstBody.replace("</h1>", "</p>");
-
-    firstBody = firstBody.replace("</h2>", "</p>");
-    firstBody = firstBody.replace("<h2", "<p");
-
-    firstBody = firstBody.replace("<h3", "<p");
-    firstBody = firstBody.replace("</h3>", "</p>");
-
-    firstBody = firstBody.replace("<h4", "<p");
-    firstBody = firstBody.replace("</h4>", "</p>");
-
-    firstBody = firstBody.replace("<h5", "<p");
-    firstBody = firstBody.replace("</h5>", "</p>");
-
-    firstBody = firstBody.replace("<h6", "<p");
-    firstBody = firstBody.replace("</h6>", "</p>");
-
-    firstBody = firstBody.replace("<b>", "");
-    firstBody = firstBody.replace("</b>", "");
-
-    // this.tags = this.tags.filter(function(e){return e});
-    // this.tags.map(t => {
-    // let tag = t.trim();
-    // let re = new RegExp(tag, 'g');
-    let index = body.toLowerCase().indexOf(this.searchKey);
-    // body = body.slice(index - 75 , index + 75);
-    body = body.slice(
-      index > 75 ? index - 75 : 0,
-      firstBody.length - index > 75 ? index + 75 : index
-    );
-    body = body
-      .toLowerCase()
-      .replace(
-        this.searchKey,
-        '<b><font  color="#FB6400">' + this.searchKey + "</font></b>"
-      );
-    return index === -1 || body === ""
-      ? firstBody.slice(0, 150) + " ..."
-      : "... " + body + " ...";
-    // })
+    if (!body) return "";
+  
+    // Define tag replacements using regex with the global and case-insensitive flags
+    const tagReplacements = [
+      { regex: /<strong>/gi, replacement: "<p>" },
+      { regex: /<\/strong>/gi, replacement: "</p>" },
+      { regex: /<h[1-6][^>]*>/gi, replacement: "<p>" },
+      { regex: /<\/h[1-6]>/gi, replacement: "</p>" },
+      { regex: /<b>/gi, replacement: "" },
+      { regex: /<\/b>/gi, replacement: "" },
+    ];
+  
+    // Apply all tag replacements to the body
+    let processedBody = body;
+    tagReplacements.forEach(({ regex, replacement }) => {
+      processedBody = processedBody.replace(regex, replacement);
+    });
+  
+    // Store a copy of the processed body for fallback
+    const fallbackBody = processedBody;
+  
+    const searchKey = this.searchKey;
+    
+    // If no searchKey is provided, return the first 150 characters with ellipsis
+    if (!searchKey) {
+      return fallbackBody.slice(0, 150) + " ...";
+    }
+  
+    // Function to escape special characters in the searchKey for regex
+    const escapeRegExp = (string) => {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    };
+  
+    const escapedSearchKey = escapeRegExp(searchKey);
+    
+    // Create a case-insensitive regex to find the first occurrence of searchKey
+    const searchRegex = new RegExp(escapedSearchKey, 'i');
+    const match = searchRegex.exec(processedBody);
+  
+    if (match) {
+      const index = match.index;
+      
+      // Define the snippet boundaries ensuring they don't exceed the text length
+      const snippetStart = index > 75 ? index - 75 : 0;
+      const snippetEnd = (index + searchKey.length + 75) < processedBody.length
+        ? index + searchKey.length + 75
+        : processedBody.length;
+      
+      let snippet = processedBody.slice(snippetStart, snippetEnd);
+  
+      // Highlight all case-insensitive occurrences of searchKey in the snippet
+      const highlightRegex = new RegExp(`(${escapedSearchKey})`, 'gi');
+      snippet = snippet.replace(highlightRegex, '<b><font color="#FB6400">$1</font></b>');
+  
+      // Add ellipses where appropriate
+      const prefix = snippetStart > 0 ? "... " : "";
+      const suffix = snippetEnd < processedBody.length ? " ..." : "";
+  
+      return prefix + snippet + suffix;
+    } else {
+      // If searchKey is not found, return the first 150 characters with ellipsis
+      return fallbackBody.slice(0, 150) + " ...";
+    }
   }
+  
 
   getAuthorWithSearch(author) {
     const firstBody = author;

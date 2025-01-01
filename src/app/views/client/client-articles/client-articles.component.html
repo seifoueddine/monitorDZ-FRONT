@@ -13,7 +13,7 @@
       <!-- <div [ngClass]="{'card d-flex flex-row mb-3': true, 'active':isSelected(a)}" *ngFor="let a of rows; let i=index"
         >
         <a class="d-flex" href="javascript:;">
-          <img [src]="a.attributes.medium.avatar.url ? urlForImage + a.attributes.medium.avatar.url : defaultIcon" [alt]="a.attributes.medium.name" class="list-thumbnail responsive border-0 card-img-left" />
+          <img [src]="a.attributes.medium.image_url ? urlForImage + a.attributes.medium.image_url : defaultIcon" [alt]="a.attributes.medium.name" class="list-thumbnail responsive border-0 card-img-left" />
         </a>
         <div class="pl-2 d-flex flex-grow-1 min-width-zero">
           <div
@@ -41,22 +41,22 @@
 <div class="col-12" *ngIf="!spinner">
       <div class="col-12" *ngFor="let item of rows; let i=index">
         <div  [ngClass]="{'card d-flex mb-3 card': true, 'active':isSelected(item)}">
-            <div class="d-flex flex-grow-1 min-width-zero">
-                <div
+            <div class="d-flex flex-grow-1 min-width-zero" [ngClass]="item.attributes.language == 'ar' ? 'rtl' : 'ltr'"  >
+                <div                                       
                     class="align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center card-body">
                     <span style="background-color: brown; color: white;"  [class]="'position-absolute badge-top-left badge badge-pill'">{{item?.attributes.category_article}}</span>
 
-                    <a class="list-item-heading mb-0 truncate w-40 w-xs-100  mb-1 mt-1" id="toggler1"
+                    <a  class="list-item-heading mb-0 truncate w-40 w-xs-100  mb-1 mt-1" id="toggler1"
                     target="_blank" [href]="'client/articles/details?id='+item.id">
                         
                         <!-- <i
                             [ngClass]="{'heading-icon':true, 'simple-icon-refresh' : item.attributes.status === 'COMPLETED', 'simple-icon-check' : item.attributes.status !== 'COMPLETED' }"></i> -->
-                        <span class="mb-1 align-middle d-inline-block color-theme-1"><b>{{ item.attributes.title }}</b></span></a>
+                      <span class="mb-1 align-middle d-inline-block color-theme-1" ><b>{{ item.attributes.title }}</b></span></a>
                     <!-- <p class="mb-1 text-muted text-small w-15 w-xs-100"></p> -->
                     <p class="mb-1 text-muted text-small w-15 w-xs-100">{{ item.attributes.author.name }} </p>
                     <p class="mb-1 text-muted text-small w-15 w-xs-100"> {{ item.attributes.date_published | date:'dd/MM/yyyy'}}</p>
                     <div class="w-10 w-xs-100">
-                      <img  class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center small " [src]="item.attributes.medium?.avatar.url ? urlForImage + item.attributes.medium?.avatar.url : defaultImage" [alt]="item.attributes.medium.name">
+                      <img  class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center small " [src]="item.attributes.medium?.image_url ? urlForImage + item.attributes.medium?.image_url : defaultIcon" [alt]="item.attributes.medium.name">
 
                     </div>
                     <div class="mb-1 btn-group float-right float-none-xs mt-2" dropdown style="padding-bottom: 6px;">
@@ -82,18 +82,15 @@
                 </div> 
             </div>
         
-            <div class="card-body pt-1">
-                <div [innerHTML]="getBodyWithSearch(item.attributes.body) "></div> 
-                <div *ngIf="item.attributes.tags.length > 0 " class="separator mb-4" style="margin-bottom: 0px;" ></div>
+            <div [ngClass]="item.attributes.language == 'ar' ? 'rtl' : 'ltr'" class="card-body pt-1 " >
+                <div  [innerHTML]="getBodyWithSearch(item.attributes.body)"></div>
+                <div *ngIf="item.attributes.tags?.length > 0 " class="separator mb-4" style="margin-bottom: 0px;" ></div>
                 <div class="pl-3 pt-2 pr-2 pb-2">
-              
                   <p class="d-sm-inline-block mb-1" *ngFor="let item of item.attributes.tags">
                       <a href="javascript:;">
                         <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">{{item.name}}</span>
                       </a>
                   </p>
-
-             
               </div>
             </div>
         </div>

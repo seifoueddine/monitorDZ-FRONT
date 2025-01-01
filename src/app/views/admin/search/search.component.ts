@@ -189,77 +189,57 @@ export class SearchComponent implements OnInit {
   }
 
   getBodyWithSearch(body) {
-    let firstBody = body;
-
-    body = body.replace("<strong>", "<p>");
-    body = body.replace("</strong>", "</p>");
-
-    body = body.replace("<h1", "<p");
-    body = body.replace("</h1>", "</p>");
-
-    body = body.replace("</h2>", "</p>");
-    body = body.replace("<h2", "<p");
-
-    body = body.replace("<h3", "<p");
-    body = body.replace("</h3>", "</p>");
-
-    body = body.replace("<h4", "<p");
-    body = body.replace("</h4>", "</p>");
-
-    body = body.replace("<h5", "<p");
-    body = body.replace("</h5>", "</p>");
-
-    body = body.replace("<h6", "<p");
-    body = body.replace("</h6>", "</p>");
-
-    body = body.replace("<b>", "");
-    body = body.replace("</b>", "");
-
-    firstBody = firstBody.replace("<strong>", "<p>");
-    firstBody = firstBody.replace("</strong>", "</p>");
-
-    firstBody = firstBody.replace("<h1", "<p");
-    firstBody = firstBody.replace("</h1>", "</p>");
-
-    firstBody = firstBody.replace("</h2>", "</p>");
-    firstBody = firstBody.replace("<h2", "<p");
-
-    firstBody = firstBody.replace("<h3", "<p");
-    firstBody = firstBody.replace("</h3>", "</p>");
-
-    firstBody = firstBody.replace("<h4", "<p");
-    firstBody = firstBody.replace("</h4>", "</p>");
-
-    firstBody = firstBody.replace("<h5", "<p");
-    firstBody = firstBody.replace("</h5>", "</p>");
-
-    firstBody = firstBody.replace("<h6", "<p");
-    firstBody = firstBody.replace("</h6>", "</p>");
-
-    firstBody = firstBody.replace("<b>", "");
-    firstBody = firstBody.replace("</b>", "");
-
-    // this.tags = this.tags.filter(function(e){return e});
-    // this.tags.map(t => {
-    // let tag = t.trim();
-    // let re = new RegExp(tag, 'g');
-    let index = body.toLowerCase().indexOf(this.searchKey);
-    // body = body.slice(index - 75 , index + 75);
-    body = body.slice(
-      index > 75 ? index - 75 : 0,
-      firstBody.length - index > 75 ? index + 75 : index
-    );
-    body = body
-      .toLowerCase()
-      .replace(
-        this.searchKey,
-        '<b><font  color="#FB6400">' + this.searchKey + "</font></b>"
+    // Helper function to replace tags
+    const replaceTags = (input) => {
+      const tagMap = {
+        '<strong>': '<p>',
+        '</strong>': '</p>',
+        '<h1': '<p',
+        '</h1>': '</p>',
+        '<h2': '<p',
+        '</h2>': '</p>',
+        '<h3': '<p',
+        '</h3>': '</p>',
+        '<h4': '<p',
+        '</h4>': '</p>',
+        '<h5': '<p',
+        '</h5>': '</p>',
+        '<h6': '<p',
+        '</h6>': '</p>',
+        '<b>': '',
+        '</b>': ''
+      };
+  
+      return Object.keys(tagMap).reduce(
+        (acc, tag) => acc.replaceAll(tag, tagMap[tag]),
+        input
       );
-    return index === -1 || body === ""
-      ? firstBody.slice(0, 150) + " ..."
-      : "... " + body + " ...";
-    // })
+    };
+  
+    // Sanitize the body
+    let sanitizedBody = replaceTags(body);
+    let firstBody = replaceTags(body);
+  
+    // Search logic
+    let index = sanitizedBody.toLowerCase().indexOf(this.searchKey.toLowerCase());
+    if (index === -1) {
+      return firstBody.slice(0, 150) + " ...";
+    }
+  
+    // Extract context around the search key
+    const contextStart = Math.max(0, index - 75);
+    const contextEnd = Math.min(sanitizedBody.length, index + 75);
+    let highlightedBody = sanitizedBody.slice(contextStart, contextEnd);
+  
+    // Highlight the search key
+    highlightedBody = highlightedBody.replace(
+      new RegExp(this.searchKey, 'gi'),
+      (match) => `<b><font color="#FB6400">${match}</font></b>`
+    );
+  
+    return `... ${highlightedBody} ...`;
   }
+  
 
   getAuthorWithSearch(author) {
     const firstBody = author;
@@ -291,10 +271,13 @@ export class SearchComponent implements OnInit {
     this.setSelectAllState();
   }
 
-  setSelectAllState() {
-    if (this.selected.length === this.result.length) {
+  private setSelectAllState() {
+    const { length: selectedCount } = this.selected;
+    const { length: resultCount } = this.result;
+  
+    if (selectedCount === resultCount && selectedCount > 0) {
       this.selectAllState = "checked";
-    } else if (this.selected.length !== 0) {
+    } else if (selectedCount > 0) {
       this.selectAllState = "indeterminate";
     } else {
       this.selectAllState = "";
@@ -360,8 +343,20 @@ export class SearchComponent implements OnInit {
     this.searchKey = "";
   }
 
-  changeDate(rangeDate: any) {
+  changeDate(rangeDate: any[]) {
     this.spinner = true;
+  
+    // Update date range
+    this.updateDateRange(rangeDate);
+  
+    // Calculate duration
+    this.calculateDuration(rangeDate);
+  
+    // Perform search
+    this.performSearch();
+  }
+  
+  private updateDateRange(rangeDate: any[]) {
     this.start_date = this.datePipe.transform(
       new Date(rangeDate[0]),
       "dd/MM/yyyy"
@@ -370,55 +365,27 @@ export class SearchComponent implements OnInit {
       new Date(rangeDate[1]),
       "dd/MM/yyyy"
     );
-
-    let d2 = Date.parse(rangeDate[0]);
-    let d1 = Date.parse(rangeDate[1]);
-    this.searchService
-      .search(
-        this.currentPage,
-        this.orderBy,
-        this.direction,
-        this.itemsPerPage,
-        this.searchKey,
-        this.authorsIdJoin,
-        this.start_date,
-        this.end_date,
-        this.langJoin,
-        this.tagsNameJoin,
-        this.mediaTypesJoin,
-        this.zoneJoin,
-        this.mediaIdJoin
-      )
-      .subscribe(
-        (res: any) => {
-          this.totalElements = +res.headers.get("X-Total-Count");
-          this.result = res.body.result_articles.data;
-          this.suggestions = res.body.suggestions;
-          this.tags = res.body.tags;
-          this.media = res.body.media;
-          this.time = res.body.time;
-          this.spinner = false;
-        },
-        (error) => {
-          // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
-        }
-      );
-
-    let m = moment(d1);
-    let years = m.diff(d2, "years");
+  }
+  
+  private calculateDuration(rangeDate: any[]) {
+    const startDate = Date.parse(rangeDate[0]);
+    const endDate = Date.parse(rangeDate[1]);
+  
+    const m = moment(endDate);
+    const years = m.diff(startDate, "years");
     m.add(-years, "years");
-    let months = m.diff(d2, "months");
+    const months = m.diff(startDate, "months");
     m.add(-months, "months");
-    let days = m.diff(d2, "days");
-
+    const days = m.diff(startDate, "days");
+  
     this.duration =
-      +years > 0
-        ? years + " Years " + months + " Mois " + days + " Jours "
-        : +months > 0
-        ? months + " Mois " + (+days > 0 ? days + " jours " : "")
+      years > 0
+        ? `${years} Years ${months} Months ${days} Days`
+        : months > 0
+        ? `${months} Months ${days > 0 ? days + " Days" : ""}`
         : days > 0
-        ? days + " Jours "
-        : "Même Jour";
+        ? `${days} Days`
+        : "Same Day";
   }
 
   removeDates() {
@@ -535,79 +502,21 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  selectMedia(event) {
+  selectMedia(event: any[]) {
     this.spinner = true;
-
-    this.mediaIds = [];
-    const mediaArray = event;
-    mediaArray.map((s) => this.mediaIds.push(s.id));
-
-    if (this.mediaIds.length > 0) {
-      this.mediaIdJoin = this.mediaIds.join(",");
-      this.searchService
-        .search(
-          this.currentPage,
-          this.orderBy,
-          this.direction,
-          this.itemsPerPage,
-          this.searchKey,
-          this.authorsIdJoin,
-          this.start_date,
-          this.end_date,
-          this.langJoin,
-          this.tagsNameJoin,
-          this.mediaTypesJoin,
-          this.zoneJoin,
-          this.mediaIdJoin
-        )
-        .subscribe(
-          (res: any) => {
-            this.totalElements = +res.headers.get("X-Total-Count");
-            this.result = res.body.result_articles.data;
-            this.suggestions = res.body.suggestions;
-            this.tags = res.body.tags;
-            this.media = res.body.media;
-            this.time = res.body.time;
-            this.spinner = false;
-          },
-          (error) => {
-            // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
-          }
-        );
-    } else {
-      this.mediaIdJoin = null;
-      this.searchService
-        .search(
-          this.currentPage,
-          this.orderBy,
-          this.direction,
-          this.itemsPerPage,
-          this.searchKey,
-          this.authorsIdJoin,
-          this.start_date,
-          this.end_date,
-          this.langJoin,
-          this.tagsNameJoin,
-          this.mediaTypesJoin,
-          this.zoneJoin,
-          this.mediaIdJoin
-        )
-        .subscribe(
-          (res: any) => {
-            this.totalElements = +res.headers.get("X-Total-Count");
-            this.result = res.body.result_articles.data;
-            this.suggestions = res.body.suggestions;
-            this.tags = res.body.tags;
-            this.media = res.body.media;
-            this.time = res.body.time;
-            this.spinner = false;
-          },
-          (error) => {
-            // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
-          }
-        );
-    }
+  
+    // Update media selection
+    this.updateMediaSelection(event);
+  
+    // Perform search
+    this.performSearch();
   }
+  
+  private updateMediaSelection(mediaArray: any[]) {
+    this.mediaIds = mediaArray.map((s) => s.id);
+    this.mediaIdJoin = this.mediaIds.length > 0 ? this.mediaIds.join(",") : null;
+  }
+  
 
   changeStatusNum(event) {
     //   this.spinner = true;
@@ -841,155 +750,87 @@ export class SearchComponent implements OnInit {
         );
     }
   }
-  changeStatusInernatio(event) {
+  changeStatusInernatio(event: any) {
     this.spinner = true;
-    if (event.target.checked) {
-      this.zoneSelected.push("international");
+  
+    // Update zone selection
+    this.updateZoneSelection(event.target.checked, "international");
+  
+    // Perform search
+    this.performSearch();
+  }
+  
+  private updateZoneSelection(isChecked: boolean, zone: string) {
+    if (isChecked) {
+      if (!this.zoneSelected.includes(zone)) {
+        this.zoneSelected.push(zone);
+      }
     } else {
-      const index = this.zoneSelected.indexOf("international", 0);
+      const index = this.zoneSelected.indexOf(zone);
       if (index > -1) {
         this.zoneSelected.splice(index, 1);
       }
     }
-
-    if (this.zoneSelected.length > 0) {
-      this.zoneJoin = this.zoneSelected.join(",");
-      this.searchService
-        .search(
-          this.currentPage,
-          this.orderBy,
-          this.direction,
-          this.itemsPerPage,
-          this.searchKey,
-          this.authorsIdJoin,
-          this.start_date,
-          this.end_date,
-          this.langJoin,
-          this.tagsNameJoin,
-          this.mediaTypesJoin,
-          this.zoneJoin,
-          this.mediaIdJoin
-        )
-        .subscribe(
-          (res: any) => {
-            this.totalElements = +res.headers.get("X-Total-Count");
-            this.result = res.body.result_articles.data;
-            this.suggestions = res.body.suggestions;
-            this.tags = res.body.tags;
-            this.media = res.body.media;
-            this.time = res.body.time;
-            this.spinner = false;
-          },
-          (error) => {
-            // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
-          }
-        );
-    } else {
-      this.zoneJoin = null;
-      this.searchService
-        .search(
-          this.currentPage,
-          this.orderBy,
-          this.direction,
-          this.itemsPerPage,
-          this.searchKey,
-          this.authorsIdJoin,
-          this.start_date,
-          this.end_date,
-          this.langJoin,
-          this.tagsNameJoin,
-          this.mediaTypesJoin,
-          this.zoneJoin,
-          this.mediaIdJoin
-        )
-        .subscribe(
-          (res: any) => {
-            this.totalElements = +res.headers.get("X-Total-Count");
-            this.result = res.body.result_articles.data;
-            this.suggestions = res.body.suggestions;
-            this.tags = res.body.tags;
-            this.media = res.body.media;
-            this.time = res.body.time;
-            this.spinner = false;
-          },
-          (error) => {
-            // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
-          }
-        );
-    }
+  
+    this.zoneJoin = this.zoneSelected.length > 0 ? this.zoneSelected.join(",") : null;
   }
+  
 
-  selectLang(lan) {
+
+  selectLang(lan: any[]) {
     this.spinner = true;
-    this.lanIds = [];
-    const langArray = lan;
-    langArray.map((s) => this.lanIds.push(s.value));
-
-    if (this.lanIds.length > 0) {
-      this.langJoin = this.lanIds.join(",");
-      this.searchService
-        .search(
-          this.currentPage,
-          this.orderBy,
-          this.direction,
-          this.itemsPerPage,
-          this.searchKey,
-          this.authorsIdJoin,
-          this.start_date,
-          this.end_date,
-          this.langJoin,
-          this.tagsNameJoin,
-          this.mediaTypesJoin,
-          this.zoneJoin,
-          this.mediaIdJoin
-        )
-        .subscribe(
-          (res: any) => {
-            this.totalElements = +res.headers.get("X-Total-Count");
-            this.result = res.body.result_articles.data;
-            this.suggestions = res.body.suggestions;
-            this.tags = res.body.tags;
-            this.media = res.body.media;
-            this.time = res.body.time;
-            this.spinner = false;
-          },
-          (error) => {
-            // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
-          }
-        );
-    } else {
-      this.langJoin = null;
-      this.searchService
-        .search(
-          this.currentPage,
-          this.orderBy,
-          this.direction,
-          this.itemsPerPage,
-          this.searchKey,
-          this.authorsIdJoin,
-          this.start_date,
-          this.end_date,
-          this.langJoin,
-          this.tagsNameJoin,
-          this.mediaTypesJoin,
-          this.zoneJoin,
-          this.mediaIdJoin
-        )
-        .subscribe(
-          (res: any) => {
-            this.totalElements = +res.headers.get("X-Total-Count");
-            this.result = res.body.result_articles.data;
-            this.suggestions = res.body.suggestions;
-            this.tags = res.body.tags;
-            this.media = res.body.media;
-            this.time = res.body.time;
-          },
-          (error) => {
-            // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
-          }
-        );
-    }
+    // Extract language IDs
+    this.lanIds = lan.map((s) => s.value);
+    this.langJoin = this.lanIds.length > 0 ? this.lanIds.join(",") : null;
+  
+    // Perform search
+    this.performSearch();
   }
+  
+  private performSearch() {
+    this.searchService
+      .search(
+        this.currentPage,
+        this.orderBy,
+        this.direction,
+        this.itemsPerPage,
+        this.searchKey,
+        this.authorsIdJoin,
+        this.start_date,
+        this.end_date,
+        this.langJoin,
+        this.tagsNameJoin,
+        this.mediaTypesJoin,
+        this.zoneJoin,
+        this.mediaIdJoin
+      )
+      .subscribe(
+        (res: any) => {
+          this.handleSearchSuccess(res);
+        },
+        (error) => {
+          this.handleSearchError(error);
+        }
+      );
+  }
+  
+  private handleSearchSuccess(res: any) {
+    this.totalElements = +res.headers.get("X-Total-Count");
+    this.result = res.body.result_articles.data;
+    this.suggestions = res.body.suggestions;
+    this.tags = res.body.tags;
+    this.media = res.body.media;
+    this.time = res.body.time;
+    this.spinner = false;
+  }
+  
+  private handleSearchError(error: any) {
+    console.error("Search error:", error);
+    // Uncomment the line below to display the error in the UI
+    // this.snackBar.open(error.error.message, 'close', { verticalPosition: 'top', panelClass: ['error-snackbar'] });
+    this.spinner = false;
+  }
+  
 
   selectTag(tag) {
     this.spinner = true;

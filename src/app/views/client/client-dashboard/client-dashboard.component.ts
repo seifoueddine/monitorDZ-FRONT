@@ -46,11 +46,14 @@ export class ClientDashboardComponent implements OnInit {
   end_date_tag: any = new Date();
   rage_date_author: any = [new Date(), new Date()];
   rage_date_tag: any = [new Date(), new Date()];
+  rage_date_ArticleTag: any = [new Date(), new Date()];
   durationAuthor: any;
   durationTag: any;
   _barChartOptions: any;
   start_date_author: any = new Date();
   end_date_author: any = new Date();
+  start_date_articleTag: any = new Date();
+  end_date_articleTag: any = new Date();
   constructor(
     private chartService: ChartService,
     private dashboardService: ClientDashboardService,
@@ -63,7 +66,7 @@ export class ClientDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getArticleByMedium(this.start_date, this.end_date);
     this.getArticleByAuthor(this.start_date_author, this.end_date_author);
-    this.getArticleByTag();
+    this.getArticleByTag(this.start_date_articleTag, this.end_date_articleTag);
     this.getTagByDate(this.start_date_tag, this.end_date_tag);
     // this.getArticleByDate(7);
     this.staticValues();
@@ -200,60 +203,83 @@ export class ClientDashboardComponent implements OnInit {
     );
   }
 
-  getArticleByTag() {
-    this.dashboardService.getArticleByTag().subscribe(
+  getArticleByTag(startDate: string, endDate: string) {
+    // Reset the chart data to trigger change detection
+    this.polarAreaChartDataTag = null;
+
+    this.dashboardService.getArticleByTag(startDate, endDate).subscribe(
       (data) => {
+        this.spinner = false;
         if (data.status) {
           const resp = data.body;
           this.articleByTag = resp;
           const keys = Object.keys(this.articleByTag);
           const values = Object.values(this.articleByTag);
+
           this.polarAreaChartDataTag = {
-            labels: keys.length ? keys : ["NO DATA"],
+            labels: keys.length ? keys : ['NO DATA'],
             datasets: [
               {
+
                 data: values.length ? values : [1],
                 borderWidth: 2,
                 borderColor: [
-                  "#6b1f64",
-                  "#012740",
-                  "#0f3d63",
-                  "#0072a3",
-                  "#3f4d2c",
-                  "#54871e",
-                  "#bd5911",
-                  "#730402",
-                  "#9c8236",
-                  "#252526",
-                  "#22a33e",
-                  "#1f939c",
+                  '#6b1f64',
+                  '#012740',
+                  '#0f3d63',
+                  '#0072a3',
+                  '#3f4d2c',
+                  '#54871e',
+                  '#bd5911',
+                  '#730402',
+                  '#9c8236',
+                  '#252526',
+                  '#22a33e',
+                  '#1f939c',
                 ],
                 backgroundColor: [
-                  "#922c8833",
-                  "#00365a33",
-                  "#14538833",
-                  "#008ecc33",
-                  "#576a3d33",
-                  "#6fb32733",
-                  "#ed711733",
-                  "#90060433",
-                  "#c0a14533",
-                  "#48494b33",
-                  "#32e64033",
-                  "#2cd0db33",
+                  '#922c8833',
+                  '#00365a33',
+                  '#14538833',
+                  '#008ecc33',
+                  '#576a3d33',
+                  '#6fb32733',
+                  '#ed711733',
+                  '#90060433',
+                  '#c0a14533',
+                  '#48494b33',
+                  '#32e64033',
+                  '#2cd0db33',
                 ],
               },
             ],
           };
+        } else {
+          // Handle the case where data.status is false
+          this.notifications.create(
+            'Error',
+            'Failed to load data',
+            NotificationType.Error,
+            {
+              theClass: 'primary',
+              timeOut: 6000,
+              showProgressBar: false,
+            }
+          );
         }
       },
       (error) => {
         this.spinner = false;
-        this.notifications.create("Error", "error", NotificationType.Error, {
-          theClass: "primary",
-          timeOut: 6000,
-          showProgressBar: false,
-        });
+        this.notifications.create(
+          'Error',
+          'An error occurred while fetching data',
+          NotificationType.Error,
+          {
+            theClass: 'primary',
+            timeOut: 6000,
+            showProgressBar: false,
+          }
+        );
       }
     );
   }
@@ -378,6 +404,56 @@ export class ClientDashboardComponent implements OnInit {
     this.durationTag = null;
     this.rage_date_tag = [new Date(), new Date()];
     this.getTagByDate(this.start_date, this.end_date);
+  }
+
+  removeDatesArticleTag() {
+    this.spinner = true;
+    this.start_date_articleTag = new Date();
+    this.start_date_articleTag = new Date();
+    this.durationTag = null;
+    this.rage_date_ArticleTag = [new Date(), new Date()];
+    this.getArticleByTag(this.start_date_articleTag, this.end_date_articleTag);
+  }
+
+  changeDateArticleTag(rangeDate: any) {
+    this.spinner = true;
+
+    // Format the start and end dates
+    this.start_date_articleTag = this.datePipe.transform(
+      new Date(rangeDate[0]),
+      'yyyy-MM-dd' // Use ISO format for consistency with backend
+    );
+    this.end_date_articleTag = this.datePipe.transform(
+      new Date(rangeDate[1]),
+      'yyyy-MM-dd'
+    );
+
+    console.log(this.start_date_articleTag);
+    console.log(this.end_date_articleTag);
+
+    // Fetch articles by tag
+    this.getArticleByTag(this.start_date_articleTag, this.end_date_articleTag);
+
+    // // Calculate the duration
+    // const d2 = moment(rangeDate[0]);
+    // const d1 = moment(rangeDate[1]);
+
+    // const years = d1.diff(d2, 'years');
+    // d2.add(years, 'years');
+    // const months = d1.diff(d2, 'months');
+    // d2.add(months, 'months');
+    // const days = d1.diff(d2, 'days');
+
+    // this.durationTag =
+    //   years > 0
+    //     ? `${years} Years ${months} Mois ${days} Jours`
+    //     : months > 0
+    //     ? `${months} Mois ${days > 0 ? days + ' jours' : ''}`
+    //     : days > 0
+    //     ? `${days} Jours`
+    //     : 'Même Jour';
+
+    // this.spinner = false;
   }
 
   getTagByDate(startDate: any, endDate: any) {

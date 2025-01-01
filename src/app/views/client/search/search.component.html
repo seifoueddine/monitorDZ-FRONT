@@ -42,11 +42,11 @@
               <div class="row">
 
                 <!-- <div class="col-1">
-                <img  class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center small " [src]="item.attributes.medium?.avatar.url ? urlForImage + item.attributes.medium?.avatar.url : defaultIcon" [alt]="item.attributes.medium.name">
+                <img  class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center small " [src]="item.attributes.medium?.image_url? urlForImage + item.attributes.medium?.image_url: defaultIcon" [alt]="item.attributes.medium.name">
               </div> -->
 
                 <div class="col-11">
-                  <p *ngIf="item.attributes.category_article != ''" class="list-item-heading mb-1 color-theme-1">   <span   [class]="'badge badge-pill badge-secondary'"> {{item.attributes.medium.name}}</span>   / <span style="background-color: brown; color: white;"  [class]="'badge badge-pill'"> {{item.attributes.category_article}}</span> 
+                  <p *ngIf="item.attributes.category_article != ''" class="list-item-heading mb-1 color-theme-1">   <span   [class]="'badge badge-pill badge-secondary'"> {{item.attributes.medium.name}}</span>   <span *ngIf="item.attributes.category_article" style="background-color: brown; color: white;"  [class]="'badge badge-pill'"> /  {{item.attributes.category_article}}</span> 
                   </p>
                   <p *ngIf="item.attributes.category_article == ''" class="list-item-heading mb-1 color-theme-1">   <span   [class]="'badge badge-pill badge-secondary'"> {{item.attributes.medium.name}}</span>  
                   </p>

@@ -39,10 +39,11 @@ export class ClientDashboardService {
     return this.http.get(req, { observe: 'response' });
   }
 
-  getArticleByTag(): Observable<any> {
+  getArticleByTag(startDate: any, endDate: any): Observable<any> {
     // const searchValue = date === '' ? '' : `&search=${date}`; 
- 
-     const req = this.serviceTagUrl;
+    const start_date = `?start_date=${startDate}`; 
+    const end_date = `&end_date=${endDate}`; 
+     const req = this.serviceTagUrl  +start_date + end_date;
      return this.http.get(req, { observe: 'response' });
    }
 

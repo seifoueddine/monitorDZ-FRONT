@@ -310,11 +310,11 @@ export class ClientArticlesComponent implements OnInit {
             this.totalElements = +data.headers.get("X-Total-Count");
             const resp = data.body;
             this.rows = resp.articles.data;
-            this.rows.map((x) => {
-              x.attributes.tags = x.attributes.tags.filter(
-                (v, i, a) => a.findIndex((t) => t.id === v.id) === i
-              );
-            });
+            // this.rows.map((x) => {
+            //   x.attributes.tags = x.attributes.tags.filter(
+            //     (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+            //   );
+            // });
             //  this.articlesArchived = resp.data.stats.archived;
             //  this.articlesPending = resp.pending;
             this.media = resp.media.data;

@@ -63,7 +63,7 @@
                 <p class="mb-1 text-muted text-small w-15 w-xs-100">{{ item.attributes.author.name }} | {{ item.attributes.date_published | date:'dd/MM/yyyy'}}</p>
                 <div class="w-15 w-xs-100">
                   
-                  <img  class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center " [src]="item.attributes.medium?.avatar.url ? urlForImage + item.attributes.medium?.avatar.url : defaultIcon" [alt]="item.attributes.medium.name">
+                  <img  class="img-thumbnail border-0 rounded-circle list-thumbnail align-self-center " [src]="item.attributes.medium?.image_url? urlForImage + item.attributes.medium?.image_url: defaultIcon" [alt]="item.attributes.medium.name">
 
      
                 

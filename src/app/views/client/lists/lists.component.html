@@ -115,21 +115,21 @@
    
     </div>
   </div>
-  <div *ngIf="!(rows.length > 0)" class="text-center col-12">
+  <div *ngIf="spinner" class="text-center col-12">
     <div class="spinner-border text-primary" role="status">
     </div>
     <div class="mt-3">{{ 'spinner.loading' | translate }}</div>
   </div>
 
 </div>
-<div class="col-12">
+<div *ngIf="rows.length" class="col-12">
   <pagination [boundaryLinks]="true"  [totalItems]="totalElements" [itemsPerPage]="itemsPerPage" [rotate]="true" [maxSize]="5"
     [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" class="justify-content-center" [customFirstTemplate]="firstTemplate" [customLastTemplate]="lastTemplate"
     [customPreviousTemplate]="prevTemplate" [customNextTemplate]="nextTemplate">
   </pagination>
 </div>
 
-<div class="col-12">
+<div  class="col-12">
 
 
   <ng-template #nextTemplate let-disabled="disabled" let-currentPage="currentPage">

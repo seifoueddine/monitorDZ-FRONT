@@ -6,13 +6,13 @@
             class="simple-icon-pencil"></i></button>
       </div>
       <img alt="detail"
-        style="height: 300px; padding: 15px; border-top-left-radius: 25px; border-top-right-radius: 25px; "
+        style="height: 300px;"
         [src]="article?.attributes.image_url ? urlForImage + article?.attributes.image_url : defaultImage"
         (click)="openLightbox(article?.attributes.image_url ? urlForImage + article?.attributes.image_url : defaultImage)"
         class="responsive border-0 card-img-top mb-3 c-pointer" />
-      <span *ngIf="article?.attributes.category_article != ''" style="background-color: brown; color: white;"
+      <span *ngIf="article?.attributes.category_article" style="background-color: brown; color: white;"
         [class]="'position-absolute badge-top-left badge badge-pill'"> {{article?.attributes.category_article}}</span>
-        <span style="background-color: rgb(0, 194, 136); color: white;"  [class]="'position-absolute badge-top-left-2 badge badge-pill'"> {{article?.attributes.ave}}</span> 
+        <span *ngIf="article?.attributes.ave" style="background-color: rgb(0, 194, 136); color: white;"  [class]="'position-absolute badge-top-left-2 badge badge-pill'"> {{article?.attributes.ave}}</span> 
 
 
       <div class="card-body">
@@ -129,10 +129,10 @@
           </button>
           <ul id="dropdown-split2" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
             aria-labelledby="button-split">
-            <li role="menuitem" style="margin-top: 10px; margin-bottom: 10px;"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectTag('0')"> <i ngClass="simple-icon-menu"></i>  Un résumé de l'article </a></li>
-            <li role="menuitem" style="margin-top: 10px; margin-bottom: 10px;"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectTag('1')"> <i ngClass="simple-icon-people"></i> Extraire les personnes existantes dans l'article </a></li>
-            <li role="menuitem" style="margin-top: 10px; margin-bottom: 10px;"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectTag('2')"> <i ngClass="simple-icon-list"></i>  Extraire les chiffres existants dans l'article </a></li>
-            <li role="menuitem" style="margin-top: 10px; margin-bottom: 10px;"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectTag('3')"> <i ngClass="simple-icon-calendar"></i>  Extraire les dates existantes dans l'article </a></li>
+            <li role="menuitem" style="margin-top: 10px; margin-bottom: 10px;"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectOrder('0')"> <i ngClass="simple-icon-menu"></i>  Un résumé de l'article </a></li>
+            <li role="menuitem" style="margin-top: 10px; margin-bottom: 10px;"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectOrder('1')"> <i ngClass="simple-icon-people"></i> Extraire les personnes existantes dans l'article </a></li>
+            <li role="menuitem" style="margin-top: 10px; margin-bottom: 10px;"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectOrder('2')"> <i ngClass="simple-icon-list"></i>  Extraire les chiffres existants dans l'article </a></li>
+            <li role="menuitem" style="margin-top: 10px; margin-bottom: 10px;"> <a class="c-pointer" style="padding: 1rem 1rem 1rem 1rem; font-size: 12px;" (click)="selectOrder('3')"> <i ngClass="simple-icon-calendar"></i>  Extraire les dates existantes dans l'article </a></li>
           </ul>
       </div>
          <div  *ngIf="robotWrite" style="margin-top: 40px" class="spinner">

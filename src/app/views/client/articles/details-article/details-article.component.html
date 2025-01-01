@@ -6,11 +6,11 @@
             class="simple-icon-pencil"></i></button>
       </div>
       <img alt="detail"
-        style="height: 300px; padding: 15px; border-top-left-radius: 25px; border-top-right-radius: 25px; "
-        [src]="article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage"
-        (click)="openLightbox(article?.attributes.image.url ? urlForImage + article?.attributes.image.url : defaultImage)"
+        style="height: 300px;" 
+        [src]="article?.attributes.image_url ? urlForImage + article?.attributes.image_url  : defaultImage"
+        (click)="openLightbox(article?.attributes.image_url  ? urlForImage + article?.attributes.image_url  : defaultImage)"
         class="responsive border-0 card-img-top mb-3 c-pointer" />
-      <span *ngIf="article?.attributes.category_article != ''" style="background-color: brown; color: white;"
+      <span *ngIf="article?.attributes.category_article" style="background-color: brown; color: white;"
         [class]="'position-absolute badge-top-left badge badge-pill'"> {{article?.attributes.category_article}}</span>
 
       <div class="card-body">
@@ -80,7 +80,7 @@
 
             <p class="d-sm-inline-block mb-1" *ngFor="let item of tags">
               <a href="javascript:;">
-                <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">{{item.name}}</span>
+                <span class="badge badge-pill badge-outline-secondary mb-1 mr-1">{{item}}</span>
               </a>
             </p>
 
@@ -126,7 +126,7 @@
             <div [dir]="article.attributes.medium.language === 'ar' ? 'rtl' : 'ltr'" class="d-flex flex-row mb-3" *ngFor="let article of similar">
               <a class="d-block position-relative">
                 <img style="width: 100px;"
-                  [src]="article.attributes.image.url ? urlForImage + article.attributes.image.url : defaultImage"
+                  [src]="article.attributes.image_url  ? urlForImage + article.attributes.image_url  : defaultImage"
                   class="list-thumbnail border-0" />
                 <span style="background-color: brown; color: white;"
                   [class]="'position-absolute badge-top-right badge badge-pill '">{{article.attributes.medium.name}}</span>
